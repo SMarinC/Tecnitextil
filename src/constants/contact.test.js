@@ -1,0 +1,26 @@
+import { describe, it, expect } from 'vitest'
+import { buildWhatsAppUrl, PHONE_NUMBER, WHATSAPP_MESSAGE } from './contact.js'
+
+describe('buildWhatsAppUrl', () => {
+  it('builds a wa.me URL with the phone number and the default message, URL-encoded', () => {
+    const url = buildWhatsAppUrl()
+    expect(url).toBe(
+      `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`,
+    )
+  })
+
+  it('uses the exact copy approved for the landing page', () => {
+    expect(WHATSAPP_MESSAGE).toBe(
+      'Hola, quisiera más información sobre reparación de máquinas de coser.',
+    )
+  })
+
+  it('uses the correct phone number in international wa.me format', () => {
+    expect(PHONE_NUMBER).toBe('34685018086')
+  })
+
+  it('allows overriding the message and still encodes it correctly', () => {
+    const url = buildWhatsAppUrl('Otro mensaje')
+    expect(url).toBe(`https://wa.me/${PHONE_NUMBER}?text=Otro%20mensaje`)
+  })
+})
