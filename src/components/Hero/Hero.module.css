@@ -1,0 +1,51 @@
+.hero {
+  background: radial-gradient(
+    circle at 50% 0%,
+    #1c1a14 0%,
+    var(--color-black) 60%
+  );
+  color: var(--color-text-on-dark);
+  padding: clamp(3rem, 8vw, 6rem) var(--space-md);
+}
+
+.inner {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.icon {
+  width: 56px;
+  height: 56px;
+  color: var(--color-gold);
+}
+
+.title {
+  font-size: clamp(1.75rem, 5vw, 3rem);
+  line-height: 1.15;
+  color: var(--color-white);
+}
+
+.subtitle {
+  font-size: 1.05rem;
+  color: var(--color-text-on-dark-secondary);
+  max-width: 46ch;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-gold);
+  color: var(--color-black);
+  font-weight: 600;
+  font-size: 1.05rem;
+  padding: 0.9rem 2rem;
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  min-height: 48px;
+}
