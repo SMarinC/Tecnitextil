@@ -1,0 +1,47 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--color-black);
+  border-bottom: 1px solid rgba(201, 162, 75, 0.25);
+}
+
+.inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--space-xs) var(--space-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  height: 40px;
+  width: 40px;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+}
+
+.cta {
+  display: none;
+  align-items: center;
+  gap: var(--space-xs);
+  color: var(--color-black);
+  background: var(--color-gold);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.ctaIcon {
+  width: 18px;
+  height: 18px;
+}
+
+@media (min-width: 640px) {
+  .cta {
+    display: inline-flex;
+  }
+}
