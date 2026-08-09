@@ -1,0 +1,33 @@
+.footer {
+  background: var(--color-black-soft);
+  color: var(--color-text-on-dark-secondary);
+  text-align: center;
+  padding: var(--space-lg) var(--space-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.logo {
+  height: 44px;
+  width: 44px;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  margin-bottom: var(--space-xs);
+}
+
+.coverage {
+  font-size: 0.9rem;
+}
+
+.phone {
+  color: var(--color-gold-light);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.copyright {
+  font-size: 0.8rem;
+  margin-top: var(--space-sm);
+}
