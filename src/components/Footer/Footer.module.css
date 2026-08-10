@@ -3,6 +3,10 @@
   color: var(--color-text-on-dark-secondary);
   text-align: center;
   padding: var(--space-lg) var(--space-md);
+  /* Extra clearance so the fixed WhatsApp floating button (56px tall,
+     offset 1rem from the viewport bottom) never overlaps this text
+     when the page is scrolled all the way down. */
+  padding-bottom: calc(var(--space-lg) + 72px);
   display: flex;
   flex-direction: column;
   align-items: center;
