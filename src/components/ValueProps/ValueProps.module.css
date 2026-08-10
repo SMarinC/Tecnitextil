@@ -2,6 +2,13 @@
   background: var(--color-black);
 }
 
+.heading {
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  color: var(--color-white);
+  text-align: center;
+  padding-top: var(--space-lg);
+}
+
 .list {
   list-style: none;
   margin: 0;

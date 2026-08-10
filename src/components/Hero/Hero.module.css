@@ -37,15 +37,5 @@
 }
 
 .cta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--color-gold);
-  color: var(--color-black);
-  font-weight: 600;
-  font-size: 1.05rem;
-  padding: 0.9rem 2rem;
-  border-radius: var(--radius-full);
-  text-decoration: none;
-  min-height: 48px;
+  composes: primaryCta from '../../styles/buttons.module.css';
 }

@@ -23,4 +23,11 @@ describe('buildWhatsAppUrl', () => {
     const url = buildWhatsAppUrl('Otro mensaje')
     expect(url).toBe(`https://wa.me/${PHONE_NUMBER}?text=Otro%20mensaje`)
   })
+
+  it('produces the exact approved wa.me URL for the default message', () => {
+    const url = buildWhatsAppUrl()
+    expect(url).toBe(
+      'https://wa.me/34685018086?text=Hola%2C%20quisiera%20m%C3%A1s%20informaci%C3%B3n%20sobre%20reparaci%C3%B3n%20de%20m%C3%A1quinas%20de%20coser.',
+    )
+  })
 })

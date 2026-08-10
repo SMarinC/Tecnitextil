@@ -12,6 +12,16 @@
   justify-content: center;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
   z-index: 50;
+  transition: filter 0.15s ease;
+}
+
+.button:hover {
+  filter: brightness(1.08);
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--color-black);
+  outline-offset: 2px;
 }
 
 .icon {

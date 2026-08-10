@@ -31,5 +31,11 @@ describe('icon components', () => {
       const markup = renderToStaticMarkup(<Icon className="test-icon" />)
       expect(markup).toContain('class="test-icon"')
     })
+
+    it(`${name} is hidden from assistive tech and uses currentColor stroke`, () => {
+      const markup = renderToStaticMarkup(<Icon />)
+      expect(markup).toContain('aria-hidden="true"')
+      expect(markup).toContain('stroke="currentColor"')
+    })
   })
 })

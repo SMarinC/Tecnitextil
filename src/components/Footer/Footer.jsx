@@ -1,12 +1,16 @@
 import styles from './Footer.module.css'
-
-const PHONE_DISPLAY = '+34 685 01 80 86'
-const PHONE_TEL = 'tel:+34685018086'
+import { PHONE_DISPLAY, PHONE_TEL } from '../../constants/contact.js'
 
 function Footer() {
   return (
     <footer className={styles.footer}>
-      <img src="/logo.jpeg" alt="TECNITEXTIL" className={styles.logo} />
+      <img
+        src="/logo.jpeg"
+        alt="TECNITEXTIL"
+        width="44"
+        height="44"
+        className={styles.logo}
+      />
       <p className={styles.coverage}>Servicio en toda España</p>
       <a href={PHONE_TEL} className={styles.phone}>
         {PHONE_DISPLAY}

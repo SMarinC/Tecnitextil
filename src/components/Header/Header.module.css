@@ -3,7 +3,8 @@
   top: 0;
   z-index: 20;
   background: var(--color-black);
-  border-bottom: 1px solid rgba(201, 162, 75, 0.25);
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--color-gold) 25%, transparent);
 }
 
 .inner {
@@ -33,6 +34,17 @@
   font-weight: 600;
   text-decoration: none;
   font-size: 0.9rem;
+  min-height: 44px;
+  transition: filter 0.15s ease;
+}
+
+.cta:hover {
+  filter: brightness(1.08);
+}
+
+.cta:focus-visible {
+  outline: 2px solid var(--color-white);
+  outline-offset: 2px;
 }
 
 .ctaIcon {

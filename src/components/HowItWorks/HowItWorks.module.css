@@ -18,7 +18,6 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-lg);
-  counter-reset: step;
 }
 
 .step {

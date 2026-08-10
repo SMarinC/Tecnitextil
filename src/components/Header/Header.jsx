@@ -6,7 +6,13 @@ function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.inner}>
-        <img src="/logo.jpeg" alt="TECNITEXTIL" className={styles.logo} />
+        <img
+          src="/logo.jpeg"
+          alt="TECNITEXTIL"
+          width="40"
+          height="40"
+          className={styles.logo}
+        />
         <a
           href={buildWhatsAppUrl()}
           target="_blank"
