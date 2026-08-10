@@ -8,7 +8,7 @@
 
 **Tech Stack:** Vite, React 19, CSS Modules (no Tailwind/UI kit), Vitest (unit tests scoped to pure logic only).
 
-Reference spec: `docs/superpowers/specs/2026-08-09-landing-page-design.md`
+Reference spec: `docs/specs/2026-08-09-landing-page-design.md`
 
 ## Global Constraints
 
