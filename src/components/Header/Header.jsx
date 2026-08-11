@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './Header.module.css'
 import { buildWhatsAppUrl } from '../../constants/contact.js'
 import { WhatsAppIcon, MenuIcon, CloseIcon } from '../icons/Icons.jsx'
@@ -12,11 +12,35 @@ const NAV_ITEMS = [
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [activeHref, setActiveHref] = useState(null)
+
+  useEffect(() => {
+    const sections = NAV_ITEMS
+      .map(({ href }) => document.querySelector(href))
+      .filter(Boolean)
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleEntry = entries.find((entry) => entry.isIntersecting)
+        if (visibleEntry) {
+          setActiveHref(`#${visibleEntry.target.id}`)
+        }
+      },
+      { rootMargin: '-96px 0px -70% 0px', threshold: 0 },
+    )
+
+    sections.forEach((section) => observer.observe(section))
+    return () => observer.disconnect()
+  }, [])
 
   function handleNavClick(event, href) {
     event.preventDefault()
     document.querySelector(href)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
     setIsMenuOpen(false)
+  }
+
+  function linkClassName(href, base) {
+    return href === activeHref ? `${base} ${styles.navLinkActive}` : base
   }
 
   return (
@@ -35,7 +59,7 @@ function Header() {
               key={href}
               href={href}
               onClick={(event) => handleNavClick(event, href)}
-              className={styles.navLink}
+              className={linkClassName(href, styles.navLink)}
             >
               {label}
             </a>
@@ -74,7 +98,7 @@ function Header() {
               key={href}
               href={href}
               onClick={(event) => handleNavClick(event, href)}
-              className={styles.mobileNavLink}
+              className={linkClassName(href, styles.mobileNavLink)}
             >
               {label}
             </a>

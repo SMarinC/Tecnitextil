@@ -46,11 +46,6 @@
   color: var(--color-gold);
 }
 
-.navLinkActive {
-  color: var(--color-gold);
-  border-bottom-color: var(--color-gold);
-}
-
 .cta {
   display: none;
   align-items: center;
@@ -139,6 +134,17 @@
 
 .mobileNavLink:hover {
   color: var(--color-gold);
+}
+
+/*
+ * Declared after .navLink and .mobileNavLink (rather than inline with
+ * .navLink) so it wins the cascade for both: .navLinkActive has the same
+ * specificity (single class selector) as .mobileNavLink, and both set
+ * `color`/`border-bottom`, so source order decides the tie.
+ */
+.navLinkActive {
+  color: var(--color-gold);
+  border-bottom-color: var(--color-gold);
 }
 
 @media (min-width: 640px) {
