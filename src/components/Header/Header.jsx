@@ -19,12 +19,23 @@ function Header() {
       .map(({ href }) => document.querySelector(href))
       .filter(Boolean)
 
+    const visibleHrefs = new Set()
+
     const observer = new IntersectionObserver(
       (entries) => {
-        const visibleEntry = entries.find((entry) => entry.isIntersecting)
-        if (visibleEntry) {
-          setActiveHref(`#${visibleEntry.target.id}`)
-        }
+        entries.forEach((entry) => {
+          const href = `#${entry.target.id}`
+          if (entry.isIntersecting) {
+            visibleHrefs.add(href)
+          } else {
+            visibleHrefs.delete(href)
+          }
+        })
+        // When multiple sections intersect the trigger band at once (common
+        // near the bottom of a short page), prefer the last one in reading
+        // order — the section the user has most recently scrolled into.
+        const current = [...NAV_ITEMS].reverse().find((item) => visibleHrefs.has(item.href))
+        setActiveHref(current ? current.href : null)
       },
       { rootMargin: '-96px 0px -70% 0px', threshold: 0 },
     )
@@ -35,8 +46,10 @@ function Header() {
 
   function handleNavClick(event, href) {
     event.preventDefault()
-    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
     setIsMenuOpen(false)
+    requestAnimationFrame(() => {
+      document.querySelector(href)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    })
   }
 
   function linkClassName(href, base) {
