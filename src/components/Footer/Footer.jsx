@@ -5,7 +5,7 @@ function Footer() {
   return (
     <footer className={styles.footer}>
       <img
-        src="/logo.jpeg"
+        src="/logo.png"
         alt="TECNITEXTIL"
         width="110"
         height="110"
