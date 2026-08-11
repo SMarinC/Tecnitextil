@@ -80,6 +80,67 @@
   height: 18px;
 }
 
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.menuToggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: none;
+  color: var(--color-text-on-dark);
+  cursor: pointer;
+  padding: 0;
+}
+
+.menuToggle:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
+.menuIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.mobileNav {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-black);
+  border-top: 1px solid
+    color-mix(in srgb, var(--color-gold) 25%, transparent);
+  padding: var(--space-xs) var(--space-md) var(--space-sm);
+}
+
+.mobileNavLink {
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.9rem;
+  color: var(--color-text-on-dark);
+  text-decoration: none;
+  padding: var(--space-sm) 0;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--color-gold) 15%, transparent);
+}
+
+.mobileNavLink:last-child {
+  border-bottom: none;
+}
+
+.mobileNavLink:hover {
+  color: var(--color-gold);
+}
+
 @media (min-width: 640px) {
   .cta {
     display: inline-flex;
@@ -89,5 +150,10 @@
 @media (min-width: 768px) {
   .nav {
     display: flex;
+  }
+
+  .menuToggle,
+  .mobileNav {
+    display: none;
   }
 }
