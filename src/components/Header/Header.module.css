@@ -14,6 +14,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: var(--space-md);
 }
 
 .logo {
@@ -21,6 +22,33 @@
   width: 100px;
   border-radius: var(--radius-full);
   object-fit: cover;
+}
+
+.nav {
+  display: none;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.navLink {
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.85rem;
+  color: var(--color-text-on-dark);
+  text-decoration: none;
+  padding-bottom: 4px;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.navLink:hover {
+  color: var(--color-gold);
+}
+
+.navLinkActive {
+  color: var(--color-gold);
+  border-bottom-color: var(--color-gold);
 }
 
 .cta {
@@ -55,5 +83,11 @@
 @media (min-width: 640px) {
   .cta {
     display: inline-flex;
+  }
+}
+
+@media (min-width: 768px) {
+  .nav {
+    display: flex;
   }
 }
