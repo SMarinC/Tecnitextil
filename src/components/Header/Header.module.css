@@ -147,6 +147,22 @@
   border-bottom-color: var(--color-gold);
 }
 
+/*
+ * .mobileNavLink:last-child (specificity 0,2,0: one class + one
+ * pseudo-class) resets border-bottom to `none` for the last mobile item,
+ * which beats .navLinkActive alone (0,1,0) regardless of source order and
+ * also resets border-style, so border-bottom-color has nothing to color.
+ * This selector matches .navLinkActive's own specificity (0,2,0) and is
+ * declared after :last-child, so it wins the tie and restores a full
+ * border-bottom (style + color, not just color) when the last mobile item
+ * is the active one. Width matches the 1px used by the other mobile
+ * divider/underline rules above, for a consistent look across all
+ * mobile items regardless of position.
+ */
+.mobileNavLink.navLinkActive {
+  border-bottom: 1px solid var(--color-gold);
+}
+
 @media (min-width: 640px) {
   .cta {
     display: inline-flex;
