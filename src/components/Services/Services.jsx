@@ -6,7 +6,7 @@ const SERVICES = [
     Icon: SewingMachineIcon,
     title: 'Mantenimiento, venta y reparación',
     description:
-      'Servicio integral de máquinas de coser industriales y domésticas de cualquier marca o modelo: mantenimiento preventivo, venta y reparación.',
+      'Servicio integral de máquinas de coser industriales y domésticas.',
   },
   {
     Icon: FactoryIcon,
@@ -18,7 +18,7 @@ const SERVICES = [
     Icon: TruckIcon,
     title: 'Recogida a domicilio',
     description:
-      'Recogemos tu máquina donde te venga bien y te la devolvemos lista para coser.',
+      'Recogemos tu máquina de coser en la puerta de tu domicilio.',
   },
 ]
 

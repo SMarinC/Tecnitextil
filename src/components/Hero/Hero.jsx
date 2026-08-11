@@ -8,7 +8,7 @@ function Hero() {
         <SewingMachineIcon className={styles.icon} />
         <h1 className={styles.title}>Quiénes somos</h1>
         <p className={styles.subtitle}>
-          En TECNITEXTIL llevamos más de 20 años trabajando con máquinas de
+          TECNITEXTIL es una empresa que lleva más de 20 años trabajando con máquinas de
           coser. Lo que empezó como un taller dedicado a resolver averías se
           convirtió, con el tiempo, en un equipo técnico altamente capacitado
           y con experiencia real en cada tipo de máquina, marca y avería.
