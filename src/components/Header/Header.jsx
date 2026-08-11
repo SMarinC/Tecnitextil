@@ -103,7 +103,7 @@ function Header() {
     <header className={styles.header}>
       <div className={styles.inner}>
         <img
-          src="/logo.jpeg"
+          src="/logo.png"
           alt="TECNITEXTIL"
           width="100"
           height="100"
