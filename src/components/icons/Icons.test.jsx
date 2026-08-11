@@ -8,6 +8,8 @@ import {
   MapPinIcon,
   ClockIcon,
   WhatsAppIcon,
+  MenuIcon,
+  CloseIcon,
 } from './Icons.jsx'
 
 const icons = {
@@ -18,6 +20,8 @@ const icons = {
   MapPinIcon,
   ClockIcon,
   WhatsAppIcon,
+  MenuIcon,
+  CloseIcon,
 }
 
 describe('icon components', () => {
