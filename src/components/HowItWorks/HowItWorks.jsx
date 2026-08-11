@@ -8,8 +8,8 @@ const STEPS = [
   },
   {
     number: '2',
-    title: 'Coordinamos recogida o visita',
-    description: 'Vemos si recogemos tu máquina o la revisamos in situ.',
+    title: 'Recogemos tu máquina',
+    description: 'Recogemos tu máquina de coser en la puerta de tu domicilio.',
   },
   {
     number: '3',

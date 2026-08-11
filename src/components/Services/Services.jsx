@@ -4,9 +4,9 @@ import { SewingMachineIcon, FactoryIcon, TruckIcon } from '../icons/Icons.jsx'
 const SERVICES = [
   {
     Icon: SewingMachineIcon,
-    title: 'Reparación de máquinas de coser',
+    title: 'Mantenimiento, venta y reparación',
     description:
-      'Diagnóstico y reparación de máquinas industriales y domésticas de cualquier marca o modelo.',
+      'Servicio integral de máquinas de coser industriales y domésticas de cualquier marca o modelo: mantenimiento preventivo, venta y reparación.',
   },
   {
     Icon: FactoryIcon,

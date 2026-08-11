@@ -7,8 +7,8 @@ function Footer() {
       <img
         src="/logo.jpeg"
         alt="TECNITEXTIL"
-        width="44"
-        height="44"
+        width="110"
+        height="110"
         className={styles.logo}
       />
       <p className={styles.coverage}>Servicio en toda España</p>

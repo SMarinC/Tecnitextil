@@ -5,10 +5,10 @@ function FinalCta() {
   return (
     <section className={styles.section}>
       <h2 className={styles.heading}>
-        ¿Tu máquina de coser necesita reparación?
+        Todo para tu máquina de coser
       </h2>
       <p className={styles.subheading}>
-        Escríbenos ahora y te respondemos por WhatsApp.
+        Reparación, mantenimiento y venta. Escríbenos y con gusto te ayudamos.
       </p>
       <a
         href={buildWhatsAppUrl()}
@@ -16,7 +16,7 @@ function FinalCta() {
         rel="noopener noreferrer"
         className={styles.cta}
       >
-        Escribir por WhatsApp
+        Contáctanos
       </a>
     </section>
   )

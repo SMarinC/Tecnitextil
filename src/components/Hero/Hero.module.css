@@ -32,10 +32,8 @@
 
 .subtitle {
   font-size: 1.05rem;
+  line-height: 1.6;
   color: var(--color-text-on-dark-secondary);
-  max-width: 46ch;
-}
-
-.cta {
-  composes: primaryCta from '../../styles/buttons.module.css';
+  max-width: 65ch;
+  text-align: left;
 }
