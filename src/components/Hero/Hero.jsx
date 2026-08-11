@@ -3,7 +3,7 @@ import { SewingMachineIcon } from '../icons/Icons.jsx'
 
 function Hero() {
   return (
-    <section className={styles.hero}>
+    <section className={styles.hero} id="quienes-somos">
       <div className={styles.inner}>
         <SewingMachineIcon className={styles.icon} />
         <h1 className={styles.title}>Quiénes somos</h1>

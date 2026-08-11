@@ -3,7 +3,7 @@ import { buildWhatsAppUrl } from '../../constants/contact.js'
 
 function FinalCta() {
   return (
-    <section className={styles.section}>
+    <section className={styles.section} id="contacto">
       <h2 className={styles.heading}>
         Todo para tu máquina de coser
       </h2>

@@ -20,7 +20,7 @@ const STEPS = [
 
 function HowItWorks() {
   return (
-    <section className={styles.section}>
+    <section className={styles.section} id="como-funciona">
       <h2 className={styles.heading}>Cómo funciona</h2>
       <ol className={styles.steps}>
         {STEPS.map(({ number, title, description }) => (

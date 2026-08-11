@@ -24,7 +24,7 @@ const SERVICES = [
 
 function Services() {
   return (
-    <section className={styles.services}>
+    <section className={styles.services} id="que-hacemos">
       <h2 className={styles.heading}>Qué hacemos</h2>
       <div className={styles.grid}>
         {SERVICES.map(({ Icon, title, description }) => (

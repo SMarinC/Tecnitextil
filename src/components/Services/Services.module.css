@@ -2,6 +2,7 @@
   max-width: var(--max-width);
   margin: 0 auto;
   padding: var(--space-xl) var(--space-md);
+  scroll-margin-top: var(--header-offset);
 }
 
 .heading {

@@ -10,7 +10,7 @@ const VALUE_PROPS = [
 
 function ValueProps() {
   return (
-    <section className={styles.section}>
+    <section className={styles.section} id="por-que-elegirnos">
       <h2 className={styles.heading}>Por qué elegirnos</h2>
       <ul className={styles.list}>
         {VALUE_PROPS.map(({ Icon, label }) => (
