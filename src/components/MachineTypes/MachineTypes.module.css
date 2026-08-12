@@ -90,7 +90,7 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .item:nth-child(3) {
+  .item:nth-child(3):last-child {
     grid-column: 1 / -1;
   }
 }

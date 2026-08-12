@@ -73,7 +73,7 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .card:nth-child(3) {
+  .card:nth-child(3):last-child {
     grid-column: 1 / -1;
   }
 }
