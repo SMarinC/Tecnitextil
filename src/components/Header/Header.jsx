@@ -10,9 +10,22 @@ const NAV_ITEMS = [
   { label: 'Contáctanos', href: '#contacto' },
 ]
 
+// Must match the @media (min-width: 768px) breakpoint in Header.module.css
+// where the mobile hamburger panel gives way to the desktop nav.
+const DESKTOP_BREAKPOINT_QUERY = '(min-width: 768px)'
+
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [activeHref, setActiveHref] = useState(null)
+
+  useEffect(() => {
+    const desktopQuery = window.matchMedia(DESKTOP_BREAKPOINT_QUERY)
+    function closeMenuOnDesktop(event) {
+      if (event.matches) setIsMenuOpen(false)
+    }
+    desktopQuery.addEventListener('change', closeMenuOnDesktop)
+    return () => desktopQuery.removeEventListener('change', closeMenuOnDesktop)
+  }, [])
 
   useEffect(() => {
     const sections = NAV_ITEMS
@@ -55,7 +68,11 @@ function Header() {
         })
         updateActiveHref()
       },
-      { rootMargin: '-96px 0px -70% 0px', threshold: 0 },
+      // Top inset matches --header-offset (128px, see tokens.css) — the same
+      // boundary sections scroll to under scroll-margin-top — so a section
+      // only counts as "visible" once it has actually cleared the sticky
+      // header, not ~20px before (the header's real rendered height).
+      { rootMargin: '-128px 0px -70% 0px', threshold: 0 },
     )
 
     sections.forEach((section) => observer.observe(section))
