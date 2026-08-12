@@ -25,21 +25,25 @@ function MachineTypes() {
   return (
     <section className={styles.section} id="tipos-de-maquina">
       <div className={styles.inner}>
-        <h2 className={styles.heading}>Tipos de máquina</h2>
-        <p className={styles.intro}>
-          Trabajamos con equipos de corte, confección, tapicería y acabados —
-          cada uno con un ajuste distinto según el material y el ritmo de
-          trabajo.
-        </p>
-        <ul className={styles.list}>
-          {MACHINE_TYPES.map(({ Icon, title, description }) => (
-            <li className={styles.item} key={title}>
-              <Icon className={styles.icon} />
-              <h3 className={styles.itemTitle}>{title}</h3>
-              <p className={styles.itemDescription}>{description}</p>
-            </li>
-          ))}
-        </ul>
+        <div className={styles.layout}>
+          <div className={styles.titleCol}>
+            <h2 className={styles.heading}>Tipos de máquina</h2>
+            <p className={styles.intro}>
+              Trabajamos con equipos de corte, confección, tapicería y
+              acabados — cada uno con un ajuste distinto según el material y
+              el ritmo de trabajo.
+            </p>
+          </div>
+          <ul className={styles.itemsCol}>
+            {MACHINE_TYPES.map(({ Icon, title, description }) => (
+              <li className={styles.item} key={title}>
+                <Icon className={styles.icon} />
+                <h3 className={styles.itemTitle}>{title}</h3>
+                <p className={styles.itemDescription}>{description}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   )
