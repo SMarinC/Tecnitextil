@@ -90,14 +90,14 @@ posible referencia visual. **Decisión: no usarla.** Razones:
   Husqvarna Viking, Pfaff, Sigma, AstraLux, Elna, Juki, Refrey, Singer) —
   marcas registradas de terceros. Mostrar sus logotipos oficiales implica
   una relación de distribuidor/servicio autorizado que no está confirmada.
-- La lista de marcas en la imagen NO coincide con la lista de 12 marcas que
+- La lista de marcas en la imagen NO coincide con la lista de 13 marcas que
   el usuario escribió en el chat (solo 4 se repiten: Alfa, Pfaff, Juki,
   Singer) — usar ambas fuentes a la vez sería inconsistente.
 - Fondo blanco sólido — repetiría exactamente el problema de contraste
   ("quema los ojos") que se corrigió hace unos commits en `Services`/
   `HowItWorks`.
 
-**En su lugar:** las 12 marcas se muestran como texto (pills/badges), sin
+**En su lugar:** las 13 marcas se muestran como texto (pills/badges), sin
 logos, evitando el riesgo de marca registrada y encajando con el tema
 oscuro del sitio. Si el usuario tiene autorización de esas marcas o quiere
 usar logos reales más adelante, es una decisión de negocio que le
@@ -108,7 +108,7 @@ corresponde a él — se deja documentado para retomar cuando vuelva.
 Encabezado (h2): **Reparamos maquinaria industrial de distintas marcas y
 generaciones**
 
-Párrafo 1 (recortado — el original enumeraba las 12 marcas en prosa,
+Párrafo 1 (recortado — el original enumeraba las 13 marcas en prosa,
 redundante con la lista de pills que va justo debajo; se deja la idea sin
 repetir los nombres):
 
