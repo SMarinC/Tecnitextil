@@ -59,15 +59,19 @@ function Services() {
   return (
     <section className={styles.services} id="que-hacemos">
       <div className={styles.inner}>
-        <h2 className={styles.heading}>Qué hacemos</h2>
-        <div className={styles.grid}>
-          {SERVICES.map(({ Icon, title, description }) => (
-            <article className={styles.card} key={title}>
-              <Icon className={styles.cardIcon} />
-              <h3 className={styles.cardTitle}>{title}</h3>
-              <p className={styles.cardDescription}>{description}</p>
-            </article>
-          ))}
+        <div className={styles.layout}>
+          <div className={styles.titleCol}>
+            <h2 className={styles.heading}>Qué hacemos</h2>
+          </div>
+          <div className={styles.itemsCol}>
+            {SERVICES.map(({ Icon, title, description }) => (
+              <article className={styles.card} key={title}>
+                <Icon className={styles.cardIcon} />
+                <h3 className={styles.cardTitle}>{title}</h3>
+                <p className={styles.cardDescription}>{description}</p>
+              </article>
+            ))}
+          </div>
         </div>
         <h3 className={styles.processHeading}>
           ¿Cómo es el proceso de reparación y mantenimiento?
