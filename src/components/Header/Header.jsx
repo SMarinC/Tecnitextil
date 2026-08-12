@@ -5,14 +5,18 @@ import { WhatsAppIcon, MenuIcon, CloseIcon } from '../icons/Icons.jsx'
 
 const NAV_ITEMS = [
   { label: 'Qué hacemos', href: '#que-hacemos' },
+  { label: 'Tipos de máquina', href: '#tipos-de-maquina' },
   { label: 'Por qué elegirnos', href: '#por-que-elegirnos' },
   { label: 'Cómo funciona', href: '#como-funciona' },
   { label: 'Contáctanos', href: '#contacto' },
 ]
 
-// Must match the @media (min-width: 768px) breakpoint in Header.module.css
-// where the mobile hamburger panel gives way to the desktop nav.
-const DESKTOP_BREAKPOINT_QUERY = '(min-width: 768px)'
+// Must match the @media (min-width: 960px) breakpoint in Header.module.css
+// where the mobile hamburger panel gives way to the desktop nav. Raised from
+// 768px to 960px because 5 nav items + logo + WhatsApp CTA need ~900px of
+// horizontal space — below that the CTA overflows off-screen (verified in
+// browser: 131px overflow at 768px, CTA fully invisible).
+const DESKTOP_BREAKPOINT_QUERY = '(min-width: 960px)'
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
