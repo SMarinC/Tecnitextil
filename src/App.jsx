@@ -2,6 +2,7 @@ import Header from './components/Header/Header.jsx'
 import Hero from './components/Hero/Hero.jsx'
 import Services from './components/Services/Services.jsx'
 import MachineTypes from './components/MachineTypes/MachineTypes.jsx'
+import Marcas from './components/Marcas/Marcas.jsx'
 import ValueProps from './components/ValueProps/ValueProps.jsx'
 import HowItWorks from './components/HowItWorks/HowItWorks.jsx'
 import FinalCta from './components/FinalCta/FinalCta.jsx'
@@ -16,6 +17,7 @@ function App() {
         <Hero />
         <Services />
         <MachineTypes />
+        <Marcas />
         <ValueProps />
         <HowItWorks />
         <FinalCta />

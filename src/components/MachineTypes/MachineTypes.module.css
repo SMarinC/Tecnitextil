@@ -1,6 +1,5 @@
 .section {
   background: var(--color-black);
-  border-bottom: 1px solid color-mix(in srgb, var(--color-gold) 15%, transparent);
   scroll-margin-top: var(--header-offset);
 }
 
