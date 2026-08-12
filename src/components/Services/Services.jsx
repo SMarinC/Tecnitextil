@@ -1,5 +1,5 @@
 import styles from './Services.module.css'
-import { SewingMachineIcon, FactoryIcon, TruckIcon } from '../icons/Icons.jsx'
+import { SewingMachineIcon, FactoryIcon, ClipboardCheckIcon } from '../icons/Icons.jsx'
 
 const SERVICES = [
   {
@@ -15,10 +15,10 @@ const SERVICES = [
       'Mantenimiento y asistencia técnica para reducir paradas y mejorar tus tiempos de producción.',
   },
   {
-    Icon: TruckIcon,
-    title: 'Recogida a domicilio',
+    Icon: ClipboardCheckIcon,
+    title: 'Asesoría técnica',
     description:
-      'Recogemos tu máquina de coser en la puerta de tu domicilio.',
+      'Diagnóstico ante fallas comunes y cómo prevenirlas para que no se repitan.',
   },
 ]
 
