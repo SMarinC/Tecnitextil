@@ -53,3 +53,65 @@
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
+.processHeading {
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  color: var(--color-white);
+  text-align: center;
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-sm);
+}
+
+.processIntro {
+  color: var(--color-text-on-dark-secondary);
+  text-align: center;
+  max-width: 60ch;
+  margin: 0 auto var(--space-lg);
+}
+
+.processSteps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+}
+
+.processStep {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.processNumber {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background: var(--color-gold);
+  color: var(--color-black);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.processStepTitle {
+  font-size: 1.05rem;
+  color: var(--color-white);
+}
+
+.processStepDescription {
+  color: var(--color-text-on-dark-secondary);
+  font-size: 0.95rem;
+  max-width: 32ch;
+}
+
+@media (min-width: 768px) {
+  .processSteps {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
