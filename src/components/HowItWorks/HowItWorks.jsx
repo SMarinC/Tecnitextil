@@ -21,16 +21,18 @@ const STEPS = [
 function HowItWorks() {
   return (
     <section className={styles.section} id="como-funciona">
-      <h2 className={styles.heading}>Cómo funciona</h2>
-      <ol className={styles.steps}>
-        {STEPS.map(({ number, title, description }) => (
-          <li className={styles.step} key={number}>
-            <span className={styles.number}>{number}</span>
-            <h3 className={styles.stepTitle}>{title}</h3>
-            <p className={styles.stepDescription}>{description}</p>
-          </li>
-        ))}
-      </ol>
+      <div className={styles.inner}>
+        <h2 className={styles.heading}>Cómo funciona</h2>
+        <ol className={styles.steps}>
+          {STEPS.map(({ number, title, description }) => (
+            <li className={styles.step} key={number}>
+              <span className={styles.number}>{number}</span>
+              <h3 className={styles.stepTitle}>{title}</h3>
+              <p className={styles.stepDescription}>{description}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
     </section>
   )
 }

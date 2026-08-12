@@ -1,14 +1,18 @@
 .section {
+  background: var(--color-black-soft);
+  scroll-margin-top: var(--header-offset);
+}
+
+.inner {
   max-width: var(--max-width);
   margin: 0 auto;
   padding: var(--space-xl) var(--space-md);
-  scroll-margin-top: var(--header-offset);
 }
 
 .heading {
   font-size: clamp(1.5rem, 4vw, 2.25rem);
   text-align: center;
-  color: var(--color-text-primary);
+  color: var(--color-white);
   margin-bottom: var(--space-lg);
 }
 
@@ -44,11 +48,11 @@
 
 .stepTitle {
   font-size: 1.05rem;
-  color: var(--color-text-primary);
+  color: var(--color-white);
 }
 
 .stepDescription {
-  color: var(--color-text-secondary);
+  color: var(--color-text-on-dark-secondary);
   font-size: 0.95rem;
   max-width: 32ch;
 }
