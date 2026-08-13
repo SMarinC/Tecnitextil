@@ -4,7 +4,7 @@ export const PHONE_DISPLAY = '+34 685 01 80 86'
 export const PHONE_TEL = `tel:+${PHONE_NUMBER}`
 
 export const WHATSAPP_MESSAGE =
-  'Hola, quisiera más información sobre reparación de máquinas de coser.'
+  'Hola, quisiera más información sobre reparación de maquinaria textil.'
 
 export function buildWhatsAppUrl(message = WHATSAPP_MESSAGE) {
   return `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(message)}`

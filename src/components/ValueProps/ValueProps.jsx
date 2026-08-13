@@ -5,7 +5,7 @@ const VALUE_PROPS = [
   { Icon: BadgeIcon, label: '+20 años de experiencia' },
   { Icon: MapPinIcon, label: 'Cobertura en toda España' },
   { Icon: ClockIcon, label: 'Respuesta rápida por WhatsApp' },
-  { Icon: TruckIcon, label: 'Recogida a domicilio incluida' },
+  { Icon: TruckIcon, label: 'Recogida a domicilio disponible' },
 ]
 
 function ValueProps() {
