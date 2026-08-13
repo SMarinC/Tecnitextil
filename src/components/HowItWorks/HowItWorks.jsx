@@ -8,8 +8,9 @@ const STEPS = [
   },
   {
     number: '2',
-    title: 'Recogemos tu máquina',
-    description: 'Recogemos tu máquina de coser en la puerta de tu domicilio.',
+    title: 'Recogemos tu equipo o visitamos tu taller',
+    description:
+      'Recogemos tu máquina en la puerta de tu domicilio, o coordinamos una visita técnica si el equipo es industrial o no se puede trasladar.',
   },
   {
     number: '3',
