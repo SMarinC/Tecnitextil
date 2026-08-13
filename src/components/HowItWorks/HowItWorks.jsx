@@ -4,7 +4,7 @@ const STEPS = [
   {
     number: '1',
     title: 'Escríbenos por WhatsApp',
-    description: 'Cuéntanos qué avería tiene tu máquina de coser.',
+    description: 'Cuéntanos qué avería tiene tu equipo.',
   },
   {
     number: '2',
@@ -14,8 +14,9 @@ const STEPS = [
   },
   {
     number: '3',
-    title: 'Reparamos y te la devolvemos',
-    description: 'Te la entregamos lista para volver a producir.',
+    title: 'Reparamos y lo dejamos listo',
+    description:
+      'Te lo entregamos, o lo dejamos funcionando en tu taller, listo para volver a producir.',
   },
 ]
 
