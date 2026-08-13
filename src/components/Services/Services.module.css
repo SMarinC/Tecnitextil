@@ -4,9 +4,7 @@
 }
 
 .inner {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: var(--space-xl) var(--space-md);
+  composes: container from '../../styles/container.module.css';
 }
 
 .divider {
