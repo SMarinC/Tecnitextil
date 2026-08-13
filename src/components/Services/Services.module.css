@@ -9,6 +9,11 @@
   padding: var(--space-xl) var(--space-md);
 }
 
+.divider {
+  height: 2px;
+  background: color-mix(in srgb, var(--color-gold) 35%, transparent);
+}
+
 .layout {
   display: flex;
   flex-direction: column;
@@ -97,9 +102,6 @@
   font-size: clamp(1.25rem, 3vw, 1.75rem);
   color: var(--color-white);
   text-align: center;
-  margin-top: var(--space-xl);
-  padding-top: var(--space-xl);
-  border-top: 1px solid color-mix(in srgb, var(--color-gold) 20%, transparent);
   margin-bottom: var(--space-sm);
 }
 
