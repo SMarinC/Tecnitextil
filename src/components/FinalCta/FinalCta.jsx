@@ -5,7 +5,7 @@ function FinalCta() {
   return (
     <section className={styles.section} id="contacto">
       <h2 className={styles.heading}>
-        Todo para tu máquina de coser
+        Todo para tu maquinaria textil
       </h2>
       <p className={styles.subheading}>
         Reparación, mantenimiento y venta. Escríbenos y con gusto te ayudamos.
