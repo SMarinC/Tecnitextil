@@ -1,5 +1,6 @@
 import styles from './FinalCta.module.css'
 import { buildWhatsAppUrl } from '../../constants/contact.js'
+import { WhatsAppIcon } from '../icons/Icons.jsx'
 
 function FinalCta() {
   return (
@@ -16,6 +17,7 @@ function FinalCta() {
         rel="noopener noreferrer"
         className={styles.cta}
       >
+        <WhatsAppIcon className={styles.ctaIcon} />
         Contáctanos
       </a>
     </section>

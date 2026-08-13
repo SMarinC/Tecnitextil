@@ -37,9 +37,13 @@ function MachineTypes() {
           <ul className={styles.itemsCol}>
             {MACHINE_TYPES.map(({ Icon, title, description }) => (
               <li className={styles.item} key={title}>
-                <Icon className={styles.icon} />
-                <h3 className={styles.itemTitle}>{title}</h3>
-                <p className={styles.itemDescription}>{description}</p>
+                <span className={styles.iconBadge}>
+                  <Icon className={styles.icon} />
+                </span>
+                <div className={styles.itemText}>
+                  <h3 className={styles.itemTitle}>{title}</h3>
+                  <p className={styles.itemDescription}>{description}</p>
+                </div>
               </li>
             ))}
           </ul>

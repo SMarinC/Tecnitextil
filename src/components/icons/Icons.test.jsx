@@ -11,6 +11,7 @@ import {
   MapPinIcon,
   ClockIcon,
   WhatsAppIcon,
+  PhoneIcon,
   MenuIcon,
   CloseIcon,
 } from './Icons.jsx'
@@ -26,6 +27,7 @@ const icons = {
   MapPinIcon,
   ClockIcon,
   WhatsAppIcon,
+  PhoneIcon,
   MenuIcon,
   CloseIcon,
 }

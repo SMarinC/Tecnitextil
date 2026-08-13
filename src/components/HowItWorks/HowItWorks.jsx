@@ -4,27 +4,28 @@ const STEPS = [
   {
     number: '1',
     title: 'Escríbenos por WhatsApp',
-    description: 'Cuéntanos qué avería tiene tu equipo.',
+    description:
+      'Cuéntanos qué equipo tienes, qué trabajo realiza y qué avería lo está afectando.',
   },
   {
     number: '2',
-    title: 'Recogemos tu equipo o visitamos tu taller',
+    title: 'Recogemos, visitamos o valoramos en taller',
     description:
-      'Recogemos tu máquina en la puerta de tu domicilio, o coordinamos una visita técnica si el equipo es industrial o no se puede trasladar.',
+      'Según el tipo de máquina, la avería y la urgencia, coordinamos lo que mejor funcione: recogida en tu domicilio, visita técnica si el equipo es industrial, o revisión en nuestras instalaciones.',
   },
   {
     number: '3',
-    title: 'Reparamos y lo dejamos listo',
+    title: 'Reparamos, probamos y entregamos',
     description:
-      'Te lo entregamos, o lo dejamos funcionando en tu taller, listo para volver a producir.',
+      'Reparamos el equipo, lo probamos con material real cuando corresponde, y te explicamos el trabajo hecho y el mantenimiento recomendado antes de entregarlo.',
   },
 ]
 
 function HowItWorks() {
   return (
-    <section className={styles.section} id="como-funciona">
+    <section className={styles.section} id="como-es-el-servicio">
       <div className={styles.inner}>
-        <h2 className={styles.heading}>Cómo funciona</h2>
+        <h2 className={styles.heading}>Cómo es el servicio</h2>
         <ol className={styles.steps}>
           {STEPS.map(({ number, title, description }) => (
             <li className={styles.step} key={number}>

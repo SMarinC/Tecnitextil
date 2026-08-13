@@ -1,5 +1,6 @@
 import styles from './Footer.module.css'
 import { PHONE_DISPLAY, PHONE_TEL } from '../../constants/contact.js'
+import { PhoneIcon } from '../icons/Icons.jsx'
 
 function Footer() {
   return (
@@ -13,6 +14,7 @@ function Footer() {
       />
       <p className={styles.coverage}>Servicio en toda España</p>
       <a href={PHONE_TEL} className={styles.phone}>
+        <PhoneIcon className={styles.phoneIcon} />
         {PHONE_DISPLAY}
       </a>
       <p className={styles.copyright}>

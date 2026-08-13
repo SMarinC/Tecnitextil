@@ -5,9 +5,9 @@ import { WhatsAppIcon, MenuIcon, CloseIcon } from '../icons/Icons.jsx'
 
 const NAV_ITEMS = [
   { label: 'Qué hacemos', href: '#que-hacemos' },
-  { label: 'Tipos de máquina', href: '#tipos-de-maquina' },
+  { label: 'Máquinas y marcas', href: '#tipos-de-maquina' },
   { label: 'Por qué elegirnos', href: '#por-que-elegirnos' },
-  { label: 'Cómo funciona', href: '#como-funciona' },
+  { label: 'Cómo es el servicio', href: '#como-es-el-servicio' },
   { label: 'Contáctanos', href: '#contacto' },
 ]
 
