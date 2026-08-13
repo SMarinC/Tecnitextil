@@ -116,30 +116,48 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  max-width: 60ch;
+  margin-left: auto;
+  margin-right: auto;
   display: flex;
   flex-direction: column;
-  gap: var(--space-lg);
+  gap: var(--space-md);
 }
 
 .processStep {
-  text-align: center;
+  text-align: left;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-xs);
+  align-items: flex-start;
+  gap: var(--space-sm);
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-gold) 15%, transparent);
+}
+
+.processStep:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
 }
 
 .processNumber {
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-full);
-  background: var(--color-gold);
-  color: var(--color-black);
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  border: 1.5px solid var(--color-gold);
+  color: var(--color-gold);
   font-family: var(--font-heading);
   font-weight: 700;
+  font-size: 0.9rem;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.processStepText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
 }
 
 .processStepTitle {
@@ -150,17 +168,4 @@
 .processStepDescription {
   color: var(--color-text-on-dark-secondary);
   font-size: 0.95rem;
-  max-width: 32ch;
-}
-
-@media (min-width: 768px) {
-  .processSteps {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .processStep {
-    flex: 0 1 calc((100% - 2 * var(--space-lg)) / 3);
-  }
 }

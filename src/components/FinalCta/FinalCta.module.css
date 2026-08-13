@@ -22,4 +22,10 @@
 
 .cta {
   composes: primaryCta from '../../styles/buttons.module.css';
+  gap: var(--space-xs);
+}
+
+.ctaIcon {
+  width: 22px;
+  height: 22px;
 }

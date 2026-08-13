@@ -37,9 +37,18 @@
 .brand {
   display: inline-flex;
   align-items: center;
-  padding: 0.4rem 1rem;
+  padding: 0.45rem 1.25rem;
   border-radius: var(--radius-full);
-  border: 1px solid color-mix(in srgb, var(--color-gold) 40%, transparent);
-  color: var(--color-gold);
+  background: var(--color-gold);
+  color: var(--color-black);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.otherBrands {
+  color: var(--color-text-on-dark-secondary);
+  text-align: center;
+  max-width: 65ch;
+  margin: var(--space-md) auto 0;
   font-size: 0.9rem;
 }

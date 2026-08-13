@@ -1,20 +1,6 @@
 import styles from './Marcas.module.css'
 
-const BRANDS = [
-  'Juki',
-  'Brother',
-  'Singer',
-  'Alfa',
-  'Pfaff',
-  'Durkopp Adler',
-  'Consew',
-  'Seiko',
-  'Typical',
-  'Siruba',
-  'Rimoldi',
-  'Pegasus',
-  'Jack',
-]
+const FEATURED_BRANDS = ['Juki', 'Brother', 'Singer', 'Pfaff']
 
 function Marcas() {
   return (
@@ -35,12 +21,18 @@ function Marcas() {
           orientar mejor la intervención técnica.
         </p>
         <ul className={styles.brandList}>
-          {BRANDS.map((brand) => (
+          {FEATURED_BRANDS.map((brand) => (
             <li className={styles.brand} key={brand}>
               {brand}
             </li>
           ))}
         </ul>
+        <p className={styles.otherBrands}>
+          También reparamos Alfa, Dürkopp Adler, Consew, Seiko, Typical,
+          Siruba, Rimoldi, Pegasus y Jack, entre otras — y si tu máquina es
+          de una marca que no ves aquí, escríbenos igual: trabajamos con
+          maquinaria industrial de cualquier fabricante.
+        </p>
       </div>
     </section>
   )

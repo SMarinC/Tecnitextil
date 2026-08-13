@@ -26,9 +26,28 @@
 }
 
 .phone {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
   color: var(--color-gold-light);
   text-decoration: none;
   font-weight: 500;
+  border: 1.5px solid color-mix(in srgb, var(--color-gold) 45%, transparent);
+  border-radius: var(--radius-full);
+  padding: 0.5rem 1.1rem;
+  min-height: 44px;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.phone:hover {
+  border-color: var(--color-gold);
+  background: color-mix(in srgb, var(--color-gold) 10%, transparent);
+}
+
+.phoneIcon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
 }
 
 .copyright {

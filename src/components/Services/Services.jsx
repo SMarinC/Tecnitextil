@@ -9,16 +9,16 @@ const SERVICES = [
       'Servicio integral de máquinas de coser industriales y domésticas.',
   },
   {
-    Icon: FactoryIcon,
-    title: 'Soporte a empresas textiles',
-    description:
-      'Mantenimiento y asistencia técnica para reducir paradas y mejorar tus tiempos de producción.',
-  },
-  {
     Icon: ClipboardCheckIcon,
     title: 'Asesoría técnica',
     description:
       'Diagnóstico ante fallas comunes y cómo prevenirlas para que no se repitan.',
+  },
+  {
+    Icon: FactoryIcon,
+    title: 'Soporte a empresas textiles',
+    description:
+      'Mantenimiento y asistencia técnica para reducir paradas y mejorar tus tiempos de producción.',
   },
 ]
 
@@ -93,8 +93,10 @@ function Services() {
           {PROCESS_STEPS.map(({ number, title, description }) => (
             <li className={styles.processStep} key={number}>
               <span className={styles.processNumber}>{number}</span>
-              <h4 className={styles.processStepTitle}>{title}</h4>
-              <p className={styles.processStepDescription}>{description}</p>
+              <div className={styles.processStepText}>
+                <h4 className={styles.processStepTitle}>{title}</h4>
+                <p className={styles.processStepDescription}>{description}</p>
+              </div>
             </li>
           ))}
         </ol>
