@@ -78,6 +78,9 @@ function Services() {
             ))}
           </div>
         </div>
+      </div>
+      <div className={styles.divider} />
+      <div className={styles.inner}>
         <h3 className={styles.processHeading}>
           ¿Cómo es el proceso de reparación y mantenimiento?
         </h3>
