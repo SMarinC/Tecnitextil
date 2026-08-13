@@ -3,6 +3,7 @@ dist
 *.local
 .superpowers
 .claude
+.impeccable/live
 
 # Reference images not cleared for use in the site (see docs/specs/2026-08-12-asymmetric-layout-and-brands-design.md §4.1)
 Marcas.jpeg
