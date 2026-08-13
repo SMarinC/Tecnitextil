@@ -62,6 +62,11 @@ function Services() {
         <div className={styles.layout}>
           <div className={styles.titleCol}>
             <h2 className={styles.heading}>Qué hacemos</h2>
+            <p className={styles.intro}>
+              Cubrimos todo el ciclo de vida de tu máquina: mantenimiento,
+              reparación, venta y asesoría técnica, para particulares y
+              empresas textiles.
+            </p>
           </div>
           <div className={styles.itemsCol}>
             {SERVICES.map(({ Icon, title, description }) => (
