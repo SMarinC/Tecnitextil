@@ -3,5 +3,5 @@ dist
 *.local
 .superpowers
 .claude
-.impeccable/live
+.impeccable
 docs
