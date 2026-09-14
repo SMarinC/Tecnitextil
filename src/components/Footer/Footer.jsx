@@ -3,6 +3,7 @@ import { PHONE_DISPLAY, PHONE_TEL } from '../../content/contact.js'
 import { PhoneIcon } from '../icons/Icons.jsx'
 import { COMPANY } from '../../content/company.js'
 import { FOOTER } from '../../content/home.js'
+import { LEGAL_LINKS } from '../../content/legal.js'
 
 function Footer() {
   return (
@@ -19,9 +20,17 @@ function Footer() {
         <PhoneIcon className={styles.phoneIcon} />
         {PHONE_DISPLAY}
       </a>
+      <nav className={styles.legalNav} aria-label="Información legal">
+        {LEGAL_LINKS.map(({ label, href }) => (
+          <a key={href} href={href} className={styles.legalLink}>
+            {label}
+          </a>
+        ))}
+      </nav>
       <p className={styles.copyright}>
-        © {new Date().getFullYear()} {COMPANY.name}. Todos los derechos
-        reservados.
+        {/* The year is computed at build time; the browser may differ on New Year's Day. */}
+        © <span suppressHydrationWarning>{new Date().getFullYear()}</span> {COMPANY.name}.
+        Todos los derechos reservados.
       </p>
     </footer>
   )

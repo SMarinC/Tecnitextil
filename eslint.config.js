@@ -31,6 +31,11 @@ export default [
     },
   },
   {
+    // Build-time server entry, never hot-reloaded in the browser.
+    files: ['src/entry-server.jsx'],
+    rules: { 'react-refresh/only-export-components': 'off' },
+  },
+  {
     files: ['**/*.test.{js,jsx}'],
     languageOptions: {
       globals: { ...globals.node },
