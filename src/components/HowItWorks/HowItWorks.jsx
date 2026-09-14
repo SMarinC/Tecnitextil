@@ -1,35 +1,16 @@
 import styles from './HowItWorks.module.css'
-
-const STEPS = [
-  {
-    number: '1',
-    title: 'Escríbenos por WhatsApp',
-    description:
-      'Cuéntanos qué equipo tienes, qué trabajo realiza y qué avería lo está afectando.',
-  },
-  {
-    number: '2',
-    title: 'Recogemos, visitamos o valoramos en taller',
-    description:
-      'Según el tipo de máquina, la avería y la urgencia, coordinamos lo que mejor funcione: recogida en tu domicilio, visita técnica si el equipo es industrial, o revisión en nuestras instalaciones.',
-  },
-  {
-    number: '3',
-    title: 'Reparamos, probamos y entregamos',
-    description:
-      'Reparamos el equipo, lo probamos con material real cuando corresponde, y te explicamos el trabajo hecho y el mantenimiento recomendado antes de entregarlo.',
-  },
-]
+import { HOW_IT_WORKS } from '../../content/home.js'
+import { SECTIONS } from '../../content/sections.js'
 
 function HowItWorks() {
   return (
-    <section className={styles.section} id="como-es-el-servicio">
+    <section className={styles.section} id={SECTIONS.howItWorks.id}>
       <div className={styles.inner}>
-        <h2 className={styles.heading}>Cómo es el servicio</h2>
+        <h2 className={styles.heading}>{HOW_IT_WORKS.heading}</h2>
         <ol className={styles.steps}>
-          {STEPS.map(({ number, title, description }) => (
-            <li className={styles.step} key={number}>
-              <span className={styles.number}>{number}</span>
+          {HOW_IT_WORKS.steps.map(({ title, description }, index) => (
+            <li className={styles.step} key={title}>
+              <span className={styles.number}>{index + 1}</span>
               <h3 className={styles.stepTitle}>{title}</h3>
               <p className={styles.stepDescription}>{description}</p>
             </li>
