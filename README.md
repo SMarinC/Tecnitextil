@@ -43,7 +43,7 @@ src/
   lib/            # funciones puras y probadas (head, sitemap, scroll)
   styles/         # tokens de diseño y estilos globales
   routes.js       # lista de páginas del sitio
-  entry-server.jsx# render en servidor usado por el prerender
+  entry-server.jsx  # render en servidor usado por el prerender
 scripts/
   prerender.js    # genera el HTML final de cada página
 e2e/              # pruebas en navegador por caso de uso (UC-xx)

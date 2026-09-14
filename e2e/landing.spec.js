@@ -57,9 +57,7 @@ test('UC-03: choosing a menu item scrolls to its section and moves focus there',
   }
 })
 
-test('the floating WhatsApp button never covers the closing call to action', async ({
-  page,
-}) => {
+test('the floating WhatsApp button never covers the closing call to action', async ({ page }) => {
   const closing = closingCta(page)
   await closing.scrollIntoViewIfNeeded()
 
@@ -109,7 +107,10 @@ test('UC-08: no page has serious or critical accessibility violations', async ({
 test('UC-07: the footer links to the legal notice and privacy policy pages', async ({ page }) => {
   for (const name of ['Aviso legal', 'Política de privacidad']) {
     await page.goto('/')
-    await page.getByRole('navigation', { name: 'Información legal' }).getByRole('link', { name }).click()
+    await page
+      .getByRole('navigation', { name: 'Información legal' })
+      .getByRole('link', { name })
+      .click()
     await expect(page.getByRole('heading', { level: 1, name })).toBeVisible()
     await expect(page).toHaveTitle(`${name} | TECNITEXTIL`)
   }

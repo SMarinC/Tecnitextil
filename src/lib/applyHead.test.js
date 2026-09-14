@@ -35,8 +35,12 @@ describe('applyHead', () => {
 
   it('uses absolute URLs for the share image, canonical and og:url', () => {
     const html = applyHead(TEMPLATE, HEAD)
-    expect(html).toContain('<meta property="og:image" content="https://example.com/og-image.png" />')
-    expect(html).toContain('<meta name="twitter:image" content="https://example.com/og-image.png" />')
+    expect(html).toContain(
+      '<meta property="og:image" content="https://example.com/og-image.png" />',
+    )
+    expect(html).toContain(
+      '<meta name="twitter:image" content="https://example.com/og-image.png" />',
+    )
     expect(html).toContain('<link rel="canonical" href="https://example.com/aviso-legal" />')
     expect(html).toContain('<meta property="og:url" content="https://example.com/aviso-legal" />')
     expect(html.indexOf('rel="canonical"')).toBeLessThan(html.indexOf('</head>'))

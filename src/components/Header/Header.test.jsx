@@ -15,7 +15,10 @@ function mockMatchMedia() {
     addEventListener: (_type, listener) => listeners.add(listener),
     removeEventListener: (_type, listener) => listeners.delete(listener),
   }
-  vi.stubGlobal('matchMedia', vi.fn(() => mediaQueryList))
+  vi.stubGlobal(
+    'matchMedia',
+    vi.fn(() => mediaQueryList),
+  )
   return {
     setMatches(matches) {
       mediaQueryList.matches = matches
