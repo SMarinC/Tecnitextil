@@ -1,0 +1,12 @@
+// Datos del negocio. Única fuente para contacto, SEO y páginas legales:
+// cambiar un dato aquí lo actualiza en toda la web.
+export const COMPANY = {
+  name: 'TECNITEXTIL',
+  yearsOfExperience: 20,
+  coverage: 'toda España',
+  phone: {
+    // Formato internacional sin "+", el que exige wa.me.
+    international: '34685018086',
+    display: '+34 685 01 80 86',
+  },
+}

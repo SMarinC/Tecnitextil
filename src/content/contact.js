@@ -1,6 +1,8 @@
-export const PHONE_NUMBER = '34685018086'
+import { COMPANY } from './company.js'
 
-export const PHONE_DISPLAY = '+34 685 01 80 86'
+export const PHONE_NUMBER = COMPANY.phone.international
+
+export const PHONE_DISPLAY = COMPANY.phone.display
 export const PHONE_TEL = `tel:+${PHONE_NUMBER}`
 
 export const WHATSAPP_MESSAGE =

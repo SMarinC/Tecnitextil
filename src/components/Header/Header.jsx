@@ -1,15 +1,8 @@
 import { useEffect, useState } from 'react'
 import styles from './Header.module.css'
-import { buildWhatsAppUrl } from '../../constants/contact.js'
+import { buildWhatsAppUrl } from '../../content/contact.js'
+import { NAV_ITEMS } from '../../content/sections.js'
 import { WhatsAppIcon, MenuIcon, CloseIcon } from '../icons/Icons.jsx'
-
-const NAV_ITEMS = [
-  { label: 'Qué hacemos', href: '#que-hacemos' },
-  { label: 'Máquinas y marcas', href: '#tipos-de-maquina' },
-  { label: 'Por qué elegirnos', href: '#por-que-elegirnos' },
-  { label: 'Cómo es el servicio', href: '#como-es-el-servicio' },
-  { label: 'Contáctanos', href: '#contacto' },
-]
 
 // Must match the @media (min-width: 960px) breakpoint in Header.module.css
 // where the mobile hamburger panel gives way to the desktop nav. Raised from

@@ -1,27 +1,19 @@
 import styles from './Hero.module.css'
 import { SewingMachineIcon } from '../icons/Icons.jsx'
+import { HERO } from '../../content/home.js'
+import { SECTIONS } from '../../content/sections.js'
 
 function Hero() {
   return (
-    <section className={styles.hero} id="quienes-somos">
+    <section className={styles.hero} id={SECTIONS.about.id}>
       <div className={styles.inner}>
         <SewingMachineIcon className={styles.icon} />
-        <h1 className={styles.title}>Quiénes somos</h1>
-        <p className={styles.subtitle}>
-          TECNITEXTIL es una empresa que lleva más de 20 años trabajando con
-          maquinaria textil e industrial: máquinas de coser, equipos de
-          corte, confección y equipos auxiliares. Lo que empezó como un
-          taller dedicado a resolver averías se convirtió, con el tiempo, en
-          un equipo técnico altamente capacitado y con experiencia real en
-          cada tipo de máquina, marca y avería.
-        </p>
-        <p className={styles.subtitle}>
-          Sabemos que detrás de cada máquina hay alguien que depende de ella
-          para trabajar. Por eso combinamos eficiencia con un trato cercano:
-          no solo reparamos, entendemos lo que significa para ti que tu
-          máquina esté parada, y trabajamos con ese compromiso en cada
-          intervención.
-        </p>
+        <h1 className={styles.title}>{HERO.title}</h1>
+        {HERO.paragraphs.map((paragraph) => (
+          <p className={styles.subtitle} key={paragraph}>
+            {paragraph}
+          </p>
+        ))}
       </div>
     </section>
   )

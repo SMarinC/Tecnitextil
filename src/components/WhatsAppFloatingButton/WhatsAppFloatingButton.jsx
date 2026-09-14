@@ -1,5 +1,5 @@
 import styles from './WhatsAppFloatingButton.module.css'
-import { buildWhatsAppUrl } from '../../constants/contact.js'
+import { buildWhatsAppUrl } from '../../content/contact.js'
 import { WhatsAppIcon } from '../icons/Icons.jsx'
 
 function WhatsAppFloatingButton() {
