@@ -1,0 +1,81 @@
+/* Rules moved verbatim from Header, FinalCta and WhatsAppFloatingButton:
+   same appearance per placement, one component. */
+
+/* Header: small pill, hidden on narrow phones (the floating button covers it). */
+.header {
+  display: none;
+  align-items: center;
+  gap: var(--space-xs);
+  color: var(--color-black);
+  background: var(--color-gold);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.9rem;
+  min-height: 44px;
+  transition: filter 0.15s ease;
+}
+
+.header:hover {
+  filter: brightness(1.08);
+}
+
+.header:focus-visible {
+  outline: 2px solid var(--color-white);
+  outline-offset: 2px;
+}
+
+.header .icon {
+  width: 18px;
+  height: 18px;
+}
+
+@media (min-width: 640px) {
+  .header {
+    display: inline-flex;
+  }
+}
+
+/* Primary: large pill used in the closing call to action. */
+.primary {
+  composes: primaryCta from '../../styles/buttons.module.css';
+  gap: var(--space-xs);
+}
+
+.primary .icon {
+  width: 22px;
+  height: 22px;
+}
+
+/* Floating: fixed icon-only circle, always visible. */
+.floating {
+  position: fixed;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-full);
+  background: var(--color-gold);
+  color: var(--color-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  z-index: 50;
+  transition: filter 0.15s ease;
+}
+
+.floating:hover {
+  filter: brightness(1.08);
+}
+
+.floating:focus-visible {
+  outline: 2px solid var(--color-black);
+  outline-offset: 2px;
+}
+
+.floating .icon {
+  width: 28px;
+  height: 28px;
+}

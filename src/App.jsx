@@ -7,7 +7,8 @@ import ValueProps from './components/ValueProps/ValueProps.jsx'
 import HowItWorks from './components/HowItWorks/HowItWorks.jsx'
 import FinalCta from './components/FinalCta/FinalCta.jsx'
 import Footer from './components/Footer/Footer.jsx'
-import WhatsAppFloatingButton from './components/WhatsAppFloatingButton/WhatsAppFloatingButton.jsx'
+import WhatsAppCta from './components/WhatsAppCta/WhatsAppCta.jsx'
+import { WHATSAPP_CTA } from './content/home.js'
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
         <FinalCta />
       </main>
       <Footer />
-      <WhatsAppFloatingButton />
+      <WhatsAppCta variant="floating" label={WHATSAPP_CTA.floatingLabel} />
     </>
   )
 }

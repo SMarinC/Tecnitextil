@@ -48,35 +48,6 @@
   color: var(--color-gold);
 }
 
-.cta {
-  display: none;
-  align-items: center;
-  gap: var(--space-xs);
-  color: var(--color-black);
-  background: var(--color-gold);
-  padding: 0.5rem 1rem;
-  border-radius: var(--radius-full);
-  font-weight: 600;
-  text-decoration: none;
-  font-size: 0.9rem;
-  min-height: 44px;
-  transition: filter 0.15s ease;
-}
-
-.cta:hover {
-  filter: brightness(1.08);
-}
-
-.cta:focus-visible {
-  outline: 2px solid var(--color-white);
-  outline-offset: 2px;
-}
-
-.ctaIcon {
-  width: 18px;
-  height: 18px;
-}
-
 .actions {
   display: flex;
   align-items: center;
@@ -163,12 +134,6 @@
  */
 .mobileNavLink.navLinkActive {
   border-bottom: 1px solid var(--color-gold);
-}
-
-@media (min-width: 640px) {
-  .cta {
-    display: inline-flex;
-  }
 }
 
 @media (min-width: 960px) {

@@ -1,6 +1,5 @@
 import styles from './FinalCta.module.css'
-import { buildWhatsAppUrl } from '../../content/contact.js'
-import { WhatsAppIcon } from '../icons/Icons.jsx'
+import WhatsAppCta from '../WhatsAppCta/WhatsAppCta.jsx'
 import { FINAL_CTA } from '../../content/home.js'
 import { SECTIONS } from '../../content/sections.js'
 
@@ -9,15 +8,7 @@ function FinalCta() {
     <section className={styles.section} id={SECTIONS.contact.id}>
       <h2 className={styles.heading}>{FINAL_CTA.heading}</h2>
       <p className={styles.subheading}>{FINAL_CTA.subheading}</p>
-      <a
-        href={buildWhatsAppUrl()}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={styles.cta}
-      >
-        <WhatsAppIcon className={styles.ctaIcon} />
-        {FINAL_CTA.ctaLabel}
-      </a>
+      <WhatsAppCta variant="primary" label={FINAL_CTA.ctaLabel} />
     </section>
   )
 }
