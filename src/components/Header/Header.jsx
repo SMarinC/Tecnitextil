@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import styles from './Header.module.css'
-import { buildWhatsAppUrl } from '../../content/contact.js'
 import { NAV_ITEMS } from '../../content/sections.js'
-import { WhatsAppIcon, MenuIcon, CloseIcon } from '../icons/Icons.jsx'
+import { WHATSAPP_CTA } from '../../content/home.js'
+import { MenuIcon, CloseIcon } from '../icons/Icons.jsx'
+import WhatsAppCta from '../WhatsAppCta/WhatsAppCta.jsx'
 import { useActiveSection } from '../../hooks/useActiveSection.js'
 import { useMediaQueryChange } from '../../hooks/useMediaQueryChange.js'
 import { scrollToSection } from '../../lib/scrollToSection.js'
@@ -62,15 +63,7 @@ function Header() {
           ))}
         </nav>
         <div className={styles.actions}>
-          <a
-            href={buildWhatsAppUrl()}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.cta}
-          >
-            <WhatsAppIcon className={styles.ctaIcon} />
-            WhatsApp
-          </a>
+          <WhatsAppCta variant="header" label={WHATSAPP_CTA.headerLabel} />
           <button
             type="button"
             className={styles.menuToggle}

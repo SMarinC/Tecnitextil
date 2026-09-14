@@ -139,6 +139,11 @@ export const FINAL_CTA = {
   ctaLabel: 'Contáctanos',
 }
 
+export const WHATSAPP_CTA = {
+  headerLabel: 'WhatsApp',
+  floatingLabel: 'Escribir por WhatsApp',
+}
+
 export const FOOTER = {
   coverage: `Servicio en ${COMPANY.coverage}`,
 }
