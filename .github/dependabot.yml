@@ -1,0 +1,23 @@
+version: 2
+updates:
+  # npm dependencies: weekly, with minor and patch updates grouped into a
+  # single pull request so they are easy to review. Major versions arrive as
+  # separate pull requests because they can contain breaking changes.
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    groups:
+      minor-and-patch:
+        update-types: [minor, patch]
+
+  # GitHub Actions used by the CI workflow.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      actions:
+        patterns: ['*']
