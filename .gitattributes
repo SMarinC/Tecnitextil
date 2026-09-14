@@ -1,0 +1,10 @@
+# Normalize line endings to LF in the repository and on checkout, so Prettier
+# (endOfLine: lf) and CI see the same files on Windows, macOS and Linux.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.ico binary
+*.woff binary
+*.woff2 binary

@@ -1,0 +1,10 @@
+dist
+dist-ssr
+node_modules
+package-lock.json
+public
+test-results
+playwright-report
+blob-report
+.lighthouseci
+*.local
