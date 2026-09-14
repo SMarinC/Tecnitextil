@@ -83,11 +83,61 @@ test('UC-06: share preview metadata points to absolute URLs', async ({ page }) =
   )
 })
 
-test('UC-08: the page has no serious or critical accessibility violations', async ({ page }) => {
-  const { violations } = await new AxeBuilder({ page }).analyze()
-  const blocking = violations
-    .filter(({ impact }) => impact === 'serious' || impact === 'critical')
-    .map(({ id, impact, nodes }) => `${impact}: ${id} (${nodes.length} nodes)`)
+const PAGES = ['/', '/aviso-legal', '/privacidad']
 
-  expect(blocking).toEqual([])
+test('UC-08: no page has serious or critical accessibility violations', async ({ page }) => {
+  for (const path of PAGES) {
+    await page.goto(path)
+    const { violations } = await new AxeBuilder({ page }).analyze()
+    const blocking = violations
+      .filter(({ impact }) => impact === 'serious' || impact === 'critical')
+      .map(({ id, impact, nodes }) => `${path} ${impact}: ${id} (${nodes.length} nodes)`)
+
+    expect(blocking).toEqual([])
+  }
+})
+
+test('UC-07: the footer links to the legal notice and privacy policy pages', async ({ page }) => {
+  for (const name of ['Aviso legal', 'Política de privacidad']) {
+    await page.goto('/')
+    await page.getByRole('navigation', { name: 'Información legal' }).getByRole('link', { name }).click()
+    await expect(page.getByRole('heading', { level: 1, name })).toBeVisible()
+    await expect(page).toHaveTitle(`${name} | TECNITEXTIL`)
+  }
+})
+
+test('UC-05: every page is served as prerendered HTML, readable without JavaScript', async ({
+  request,
+}) => {
+  const expectedText = {
+    '/': 'Qué hacemos',
+    '/aviso-legal': 'Datos del titular',
+    '/privacidad': 'Tus derechos',
+  }
+  for (const path of PAGES) {
+    const response = await request.get(path)
+    expect(response.ok(), path).toBe(true)
+    const html = await response.text()
+    expect(html, path).toContain(expectedText[path])
+    expect(html, path).not.toContain('<div id="root"></div>')
+  }
+})
+
+test('every page hydrates without console errors', async ({ page }) => {
+  const errors = []
+  // Vercel Web Analytics only exists on Vercel; its script 404s on a local preview.
+  const isAnalyticsNoise = (text, url = '') => url.includes('/_vercel/') || text.includes('Vercel')
+  page.on('console', (message) => {
+    if (message.type() === 'error' && !isAnalyticsNoise(message.text(), message.location().url)) {
+      errors.push(message.text())
+    }
+  })
+  page.on('pageerror', (error) => errors.push(error.message))
+
+  for (const path of PAGES) {
+    await page.goto(path)
+    await page.waitForLoadState('networkidle')
+  }
+
+  expect(errors).toEqual([])
 })

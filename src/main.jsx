@@ -1,5 +1,5 @@
 import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import { createRoot, hydrateRoot } from 'react-dom/client'
 import { Analytics } from '@vercel/analytics/react'
 import App from './App.jsx'
 // Self-hosted fonts: no request to Google servers (GDPR) and no third-party
@@ -11,9 +11,18 @@ import '@fontsource/inter/500.css'
 import '@fontsource/inter/600.css'
 import './styles/global.css'
 
-createRoot(document.getElementById('root')).render(
+const container = document.getElementById('root')
+const app = (
   <StrictMode>
-    <App />
+    <App path={window.location.pathname} />
     <Analytics />
-  </StrictMode>,
+  </StrictMode>
 )
+
+// Production HTML is prerendered (scripts/prerender.js), so hydrate it.
+// The dev server serves an empty root, so render from scratch there.
+if (container.hasChildNodes()) {
+  hydrateRoot(container, app)
+} else {
+  createRoot(container).render(app)
+}
