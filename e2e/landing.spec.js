@@ -79,8 +79,17 @@ test('UC-06: share preview metadata points to absolute URLs', async ({ page }) =
   await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /.{50,}/)
   await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
     'content',
-    /^https:\/\//,
+    /^https:\/\/.+\/og-image\.png$/,
   )
+  await expect(page.locator('meta[property="og:url"]')).toHaveAttribute('content', /^https:\/\//)
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', /^https:\/\/.+\/$/)
+})
+
+test('UC-05: the home page publishes LocalBusiness structured data', async ({ page }) => {
+  const json = await page.locator('script[type="application/ld+json"]').textContent()
+  const data = JSON.parse(json)
+  expect(data['@type']).toBe('LocalBusiness')
+  expect(data.telephone).toBe('+34685018086')
 })
 
 const PAGES = ['/', '/aviso-legal', '/privacidad']

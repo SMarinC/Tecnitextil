@@ -2,6 +2,7 @@ import HomePage from './pages/HomePage.jsx'
 import LegalPage from './components/LegalPage/LegalPage.jsx'
 import { COMPANY } from './content/company.js'
 import { LEGAL_NOTICE, PRIVACY_POLICY } from './content/legal.js'
+import { HOME_SEO, localBusinessJsonLd } from './content/seo.js'
 
 // Every page of the site. scripts/prerender.js writes one static HTML file per
 // route; the browser picks the same route from the URL when hydrating.
@@ -11,11 +12,7 @@ export const ROUTES = [
     file: 'index.html',
     Page: HomePage,
     props: {},
-    head: {
-      title: COMPANY.name,
-      description:
-        'TECNITEXTIL — Reparación de maquinaria textil e industrial: máquinas de coser, corte, confección y equipos auxiliares en toda España. +20 años de experiencia. Recogida a domicilio.',
-    },
+    head: { ...HOME_SEO, jsonLd: localBusinessJsonLd() },
   },
   ...[LEGAL_NOTICE, PRIVACY_POLICY].map((page) => ({
     path: page.path,
