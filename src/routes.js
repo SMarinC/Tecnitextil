@@ -27,6 +27,9 @@ export const ROUTES = [
 // fall back to the home page.
 export function findRoute(pathname) {
   const normalized =
-    pathname.replace(/\/index\.html$/, '/').replace(/\.html$/, '').replace(/(.)\/+$/, '$1') || '/'
+    pathname
+      .replace(/\/index\.html$/, '/')
+      .replace(/\.html$/, '')
+      .replace(/(.)\/+$/, '$1') || '/'
   return ROUTES.find((route) => route.path === normalized) ?? ROUTES[0]
 }

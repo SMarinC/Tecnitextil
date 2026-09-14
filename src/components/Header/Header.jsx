@@ -43,13 +43,7 @@ function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.inner}>
-        <img
-          src="/logo.png"
-          alt="TECNITEXTIL"
-          width="100"
-          height="100"
-          className={styles.logo}
-        />
+        <img src="/logo.png" alt="TECNITEXTIL" width="100" height="100" className={styles.logo} />
         <nav className={styles.nav} aria-label="Navegación principal">
           {NAV_ITEMS.map(({ label, href }) => (
             <a

@@ -36,7 +36,9 @@
   border-radius: var(--radius-full);
   padding: 0.5rem 1.1rem;
   min-height: 44px;
-  transition: border-color 0.15s ease, background 0.15s ease;
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease;
 }
 
 .phone:hover {
