@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { renderToStaticMarkup } from 'react-dom/server'
+import { readFileSync } from 'node:fs'
 import Toldos from './Toldos.jsx'
 
 const markup = renderToStaticMarkup(<Toldos />)
@@ -29,9 +30,8 @@ const IMAGE_NOTE =
   'Imágenes de referencia de los fabricantes. TECNITEXTIL es un servicio técnico independiente y no está vinculado a las marcas mostradas.'
 
 describe('Toldos section', () => {
-  it('renders the anchor the header nav links to', () => {
-    expect(markup).toContain('<section')
-    expect(markup).toContain('id="toldos"')
+  it('renders the anchor the header nav links to on the section element itself', () => {
+    expect(markup).toMatch(/<section[^>]*id="toldos"/)
   })
 
   it('renders the exact section heading as an h2', () => {
@@ -83,6 +83,33 @@ describe('Toldos section', () => {
     expect(lists).toHaveLength(3)
     for (const list of lists) {
       expect(list).toContain('role="list"')
+    }
+  })
+
+  it('lists the machine families in the agreed order', () => {
+    const positions = FAMILY_TITLES.map((title) => markup.indexOf(`>${title}</h3>`))
+    expect(positions.every((position) => position >= 0)).toBe(true)
+    expect([...positions].sort((a, b) => a - b)).toEqual(positions)
+  })
+
+  it('declares each photo with its real pixel size', () => {
+    const readWebpSize = (publicPath) => {
+      const file = readFileSync(new URL(`../../../public${publicPath}`, import.meta.url))
+      expect(file.toString('ascii', 0, 4)).toBe('RIFF')
+      expect(file.toString('ascii', 8, 16)).toBe('WEBPVP8 ')
+      return {
+        width: file.readUInt16LE(26) & 0x3fff,
+        height: file.readUInt16LE(28) & 0x3fff,
+      }
+    }
+
+    const images = markup.match(/<img[^>]*>/g) ?? []
+    expect(images).toHaveLength(3)
+    for (const img of images) {
+      const src = img.match(/src="([^"]+)"/)[1]
+      const { width, height } = readWebpSize(src)
+      expect(img).toContain(`width="${width}"`)
+      expect(img).toContain(`height="${height}"`)
     }
   })
 })

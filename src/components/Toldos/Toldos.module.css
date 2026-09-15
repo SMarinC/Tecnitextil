@@ -37,6 +37,8 @@
   line-height: 1.15;
   color: var(--color-white);
   margin-bottom: var(--space-sm);
+  text-wrap: balance;
+  overflow-wrap: anywhere;
 }
 
 .intro {
@@ -163,8 +165,14 @@
 
   .family {
     display: grid;
-    grid-template-columns: 200px 1fr;
+    grid-template-columns: 160px 1fr;
     align-items: center;
     gap: var(--space-md);
+  }
+}
+
+@media (min-width: 1024px) {
+  .family {
+    grid-template-columns: 200px 1fr;
   }
 }
