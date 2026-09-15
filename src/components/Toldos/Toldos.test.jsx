@@ -79,4 +79,12 @@ describe('Toldos section', () => {
   it('renders the image reference note', () => {
     expect(markup).toContain(IMAGE_NOTE)
   })
+
+  it('keeps list semantics on the three styled lists', () => {
+    const lists = markup.match(/<ul[^>]*>/g) ?? []
+    expect(lists).toHaveLength(3)
+    for (const list of lists) {
+      expect(list).toContain('role="list"')
+    }
+  })
 })
