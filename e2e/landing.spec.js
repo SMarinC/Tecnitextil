@@ -166,6 +166,14 @@ test('the preloaded body font is the one the page uses, downloaded once', async 
   expect(fonts.every((font) => font.includes('-latin-'))).toBe(true)
 })
 
+test('Vercel Web Analytics is still loaded, from a deferred chunk', async ({ page }) => {
+  const analyticsScript = page.waitForRequest((request) =>
+    request.url().includes('/_vercel/insights/script.js'),
+  )
+  await page.reload()
+  await analyticsScript
+})
+
 test('every page hydrates without console errors', async ({ page }) => {
   const errors = []
   // Vercel Web Analytics only exists on Vercel; its script 404s on a local preview.

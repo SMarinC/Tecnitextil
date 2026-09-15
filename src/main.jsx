@@ -1,6 +1,5 @@
 import { StrictMode } from 'react'
 import { createRoot, hydrateRoot } from 'react-dom/client'
-import { Analytics } from '@vercel/analytics/react'
 import App from './App.jsx'
 // Self-hosted fonts: no request to Google servers (GDPR) and no third-party
 // round trip before first paint. Only the Latin subset (covers Spanish) and
@@ -16,7 +15,6 @@ const container = document.getElementById('root')
 const app = (
   <StrictMode>
     <App path={window.location.pathname} />
-    <Analytics />
   </StrictMode>
 )
 
@@ -27,3 +25,7 @@ if (container.hasChildNodes()) {
 } else {
   createRoot(container).render(app)
 }
+
+// Analytics never competes with the page: its code lives in a separate chunk
+// that is only requested once rendering has started.
+import('@vercel/analytics').then(({ inject }) => inject({ framework: 'react' }))
