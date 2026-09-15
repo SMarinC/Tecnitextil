@@ -11,12 +11,12 @@ import { scrollToSection } from '../../lib/scrollToSection.js'
 
 const NAV_HREFS = NAV_ITEMS.map(({ href }) => href)
 
-// Must match the @media (min-width: 960px) breakpoint in Header.module.css
+// Must match the @media (min-width: 1060px) breakpoint in Header.module.css
 // where the mobile hamburger panel gives way to the desktop nav. Raised from
-// 768px to 960px because 5 nav items + logo + WhatsApp CTA need ~900px of
-// horizontal space — below that the CTA overflows off-screen (verified in
-// browser: 131px overflow at 768px, CTA fully invisible).
-const DESKTOP_BREAKPOINT_QUERY = '(min-width: 960px)'
+// 960px when the 6th nav item ("Toldos") was added: logo + 6 items + CTA need
+// ~989px of content plus 24px padding per side, so the CTA only fits inside the
+// container from 1040px; 1060px leaves headroom. Re-measured in Task 4.
+const DESKTOP_BREAKPOINT_QUERY = '(min-width: 1060px)'
 
 // Top inset matches --header-offset (128px, see tokens.css) — the same
 // boundary sections scroll to under scroll-margin-top — so a section only

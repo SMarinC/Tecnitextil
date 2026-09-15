@@ -3,6 +3,7 @@
 // un ancla del menú nunca puede apuntar a una sección inexistente.
 export const SECTIONS = {
   about: { id: 'quienes-somos' },
+  toldos: { id: 'toldos', navLabel: 'Toldos' },
   services: { id: 'que-hacemos', navLabel: 'Qué hacemos' },
   machineTypes: { id: 'tipos-de-maquina', navLabel: 'Máquinas y marcas' },
   brands: { id: 'marcas' },
@@ -12,6 +13,7 @@ export const SECTIONS = {
 }
 
 export const NAV_ITEMS = [
+  SECTIONS.toldos,
   SECTIONS.services,
   SECTIONS.machineTypes,
   SECTIONS.valueProps,

@@ -1,5 +1,6 @@
 import Header from '../components/Header/Header.jsx'
 import Hero from '../components/Hero/Hero.jsx'
+import Toldos from '../components/Toldos/Toldos.jsx'
 import Services from '../components/Services/Services.jsx'
 import MachineTypes from '../components/MachineTypes/MachineTypes.jsx'
 import Marcas from '../components/Marcas/Marcas.jsx'
@@ -16,6 +17,7 @@ function HomePage() {
       <Header />
       <main>
         <Hero />
+        <Toldos />
         <Services />
         <MachineTypes />
         <Marcas />
