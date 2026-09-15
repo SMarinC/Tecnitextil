@@ -3,12 +3,13 @@ import { createRoot, hydrateRoot } from 'react-dom/client'
 import { Analytics } from '@vercel/analytics/react'
 import App from './App.jsx'
 // Self-hosted fonts: no request to Google servers (GDPR) and no third-party
-// round trip before first paint. Only the weights used in tokens.css.
-import '@fontsource/oswald/600.css'
-import '@fontsource/oswald/700.css'
-import '@fontsource/inter/400.css'
-import '@fontsource/inter/500.css'
-import '@fontsource/inter/600.css'
+// round trip before first paint. Only the Latin subset (covers Spanish) and
+// the weights used in tokens.css.
+import '@fontsource/oswald/latin-600.css'
+import '@fontsource/oswald/latin-700.css'
+import '@fontsource/inter/latin-400.css'
+import '@fontsource/inter/latin-500.css'
+import '@fontsource/inter/latin-600.css'
 import './styles/global.css'
 
 const container = document.getElementById('root')

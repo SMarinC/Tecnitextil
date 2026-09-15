@@ -32,6 +32,16 @@ describe('routes', () => {
     expect(html.match(/<h1[\s>]/g)).toHaveLength(1)
   })
 
+  it('every page preloads the body font (Inter 400, Latin) in its HTML', () => {
+    for (const { path } of ROUTES) {
+      const html = renderToString(<App path={path} />)
+      const link = html.match(/<link[^>]*rel="preload"[^>]*as="font"[^>]*>/)?.[0]
+      expect(link, path).toBeDefined()
+      expect(link).toMatch(/href="[^"]*inter-latin-400-normal[^"]*\.woff2"/)
+      expect(link).toContain('crossorigin')
+    }
+  })
+
   it('every page links to the legal notice and privacy policy', () => {
     for (const { path } of ROUTES) {
       const html = renderToString(<App path={path} />)
