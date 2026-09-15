@@ -4,6 +4,7 @@ import { buildWhatsAppUrl } from '../../constants/contact.js'
 import { WhatsAppIcon, MenuIcon, CloseIcon } from '../icons/Icons.jsx'
 
 const NAV_ITEMS = [
+  { label: 'Toldos', href: '#toldos' },
   { label: 'Qué hacemos', href: '#que-hacemos' },
   { label: 'Máquinas y marcas', href: '#tipos-de-maquina' },
   { label: 'Por qué elegirnos', href: '#por-que-elegirnos' },
