@@ -26,6 +26,7 @@ npm run dev          # http://localhost:5173
 | `npm run test:e2e` | Pruebas en navegador (Playwright + axe) sobre el build. La primera vez: `npx playwright install chromium`           |
 | `npm run lint`     | ESLint                                                                                                              |
 | `npm run format`   | Formatea el código con Prettier (`format:check` solo comprueba)                                                     |
+| `npm run images`   | Regenera `public/logo.webp` desde `public/logo.png` (ejecutar al cambiar el logo y commitear el resultado)          |
 
 ## Cómo está organizado
 

@@ -12,7 +12,7 @@ function LegalPage({ page }) {
       <header className={styles.header}>
         <a href="/" className={styles.homeLink}>
           {/* Decorative here: the link text already names the destination. */}
-          <img src="/logo.png" alt="" width="64" height="64" className={styles.logo} />
+          <img src={COMPANY.logo.src} alt="" width="64" height="64" className={styles.logo} />
           <span>Volver al inicio</span>
         </a>
       </header>

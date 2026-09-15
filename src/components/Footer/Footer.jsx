@@ -8,7 +8,13 @@ import { LEGAL_LINKS } from '../../content/legal.js'
 function Footer() {
   return (
     <footer className={styles.footer}>
-      <img src="/logo.png" alt={COMPANY.name} width="110" height="110" className={styles.logo} />
+      <img
+        src={COMPANY.logo.src}
+        alt={COMPANY.name}
+        width="110"
+        height="110"
+        className={styles.logo}
+      />
       <p className={styles.coverage}>{FOOTER.coverage}</p>
       <a href={PHONE_TEL} className={styles.phone}>
         <PhoneIcon className={styles.phoneIcon} />
