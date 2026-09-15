@@ -11,6 +11,64 @@ export const HERO = {
   ],
 }
 
+export const TOLDOS = {
+  eyebrow: 'Servicio especializado',
+  heading: 'Asistencia para máquinas de coser toldos automatizadas',
+  intro:
+    'Máquinas de coser toldos con bandejas, con cabezal móvil y semiautomáticas con mesa de rodillos. Las instalamos, reparamos y mantenemos en tu taller, tanto en la parte mecánica como en la electrónica.',
+  services: {
+    heading: 'Nuestro servicio',
+    items: ['Instalación y puesta en marcha', 'Reparación de averías', 'Mantenimiento preventivo'],
+  },
+  families: [
+    {
+      title: 'Con bandeja móvil',
+      description: 'Una bandeja con pinzas neumáticas desplaza el tejido bajo un cabezal fijo.',
+      image: {
+        src: '/img/toldos/bandeja-movil.webp',
+        width: 800,
+        height: 564,
+        alt: 'Máquina automática de coser toldos con bandeja móvil cosiendo una lona',
+      },
+    },
+    {
+      title: 'Con cabezal móvil',
+      description:
+        'El paño queda fijo y tensado a lo largo de la mesa mientras el cabezal lo recorre sobre un carro.',
+      image: {
+        src: '/img/toldos/cabezal-movil.webp',
+        width: 800,
+        height: 450,
+        alt: 'Estación de costura lineal con cabezal móvil para toldos',
+      },
+    },
+    {
+      title: 'Semiautomáticas con mesa de rodillos',
+      description:
+        'Dos agujas, triple arrastre y puller; la mesa de rodillos guía la lona hasta el cabezal.',
+      image: {
+        src: '/img/toldos/mesa-rodillos.webp',
+        width: 750,
+        height: 465,
+        alt: 'Máquina de coser toldos de dos agujas con mesa de rodillos',
+      },
+    },
+  ],
+  components: {
+    heading: 'Qué intervenimos',
+    items: [
+      'Cabezal Dürkopp Adler 867',
+      'PLC y pantalla táctil',
+      'Sensores y fotocélulas',
+      'Servomotores y drives',
+      'Neumática y pinzas',
+      'Carro, guías y bandeja',
+    ],
+  },
+  imageNote:
+    'Imágenes de referencia de los fabricantes. TECNITEXTIL es un servicio técnico independiente y no está vinculado a las marcas mostradas.',
+}
+
 export const SERVICES = {
   heading: 'Qué hacemos',
   intro:
