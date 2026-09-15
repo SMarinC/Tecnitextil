@@ -71,7 +71,7 @@ function Toldos() {
               electrónica.
             </p>
             <h3 className={styles.subheading}>Nuestro servicio</h3>
-            <ul className={styles.serviceList}>
+            <ul className={styles.serviceList} role="list">
               {SERVICES.map((service) => (
                 <li className={styles.serviceItem} key={service}>
                   {service}
@@ -80,7 +80,7 @@ function Toldos() {
             </ul>
           </div>
           <div className={styles.familiesCol}>
-            <ul className={styles.familyList}>
+            <ul className={styles.familyList} role="list">
               {FAMILIES.map(({ title, description, image }) => (
                 <li className={styles.family} key={title}>
                   <img
@@ -100,7 +100,7 @@ function Toldos() {
               ))}
             </ul>
             <h3 className={styles.subheading}>Qué intervenimos</h3>
-            <ul className={styles.componentList}>
+            <ul className={styles.componentList} role="list">
               {COMPONENTS.map((component) => (
                 <li className={styles.componentItem} key={component}>
                   {component}
