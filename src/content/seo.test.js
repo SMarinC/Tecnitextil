@@ -19,4 +19,9 @@ describe('seo content', () => {
     expect(data.telephone).toBe(`+${COMPANY.phone.international}`)
     expect(data.url).toBe(`${SITE_URL}/`)
   })
+
+  it('home description fits in a search result and mentions the awning machines', () => {
+    expect(HOME_SEO.description.length).toBeLessThanOrEqual(160)
+    expect(HOME_SEO.description).toContain('toldos automatizadas')
+  })
 })
