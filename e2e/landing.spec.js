@@ -57,6 +57,27 @@ test('UC-03: choosing a menu item scrolls to its section and moves focus there',
   }
 })
 
+test('UC-08: menu navigation jumps without animation when reduced motion is preferred', async ({
+  page,
+  isMobile,
+}) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  if (isMobile) {
+    await page.getByRole('button', { name: 'Abrir menú de navegación' }).click()
+  }
+  const navName = isMobile ? 'Navegación móvil' : 'Navegación principal'
+  await page
+    .getByRole('navigation', { name: navName })
+    .getByRole('link', { name: 'Cómo es el servicio' })
+    .click()
+  await expect(page.locator('#como-es-el-servicio')).toBeFocused()
+
+  // An instant jump is already at its final position when focus moves.
+  const scrollAtFocus = await page.evaluate(() => window.scrollY)
+  await page.waitForTimeout(300)
+  expect(await page.evaluate(() => window.scrollY)).toBe(scrollAtFocus)
+})
+
 test('the floating WhatsApp button never covers the closing call to action', async ({ page }) => {
   const closing = closingCta(page)
   await closing.scrollIntoViewIfNeeded()

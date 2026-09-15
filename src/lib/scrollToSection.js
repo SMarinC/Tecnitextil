@@ -1,4 +1,7 @@
-// Smooth-scrolls to an in-page section and moves focus into it.
+// Scrolls to an in-page section and moves focus into it.
+//
+// The scroll animates unless the user asked the OS to reduce motion, in which
+// case it jumps directly (WCAG 2.3.3).
 //
 // Callers intercept the anchor click with preventDefault(), which suppresses
 // the browser's native fragment navigation that normally moves focus to the
@@ -9,7 +12,8 @@
 export function scrollToSection(href) {
   const target = document.querySelector(href)
   if (!target) return
-  target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' })
   target.setAttribute('tabindex', '-1')
   target.focus({ preventScroll: true })
   target.addEventListener('blur', () => target.removeAttribute('tabindex'), { once: true })

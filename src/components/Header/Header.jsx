@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import styles from './Header.module.css'
 import { NAV_ITEMS } from '../../content/sections.js'
+import { COMPANY } from '../../content/company.js'
 import { WHATSAPP_CTA } from '../../content/home.js'
 import { MenuIcon, CloseIcon } from '../icons/Icons.jsx'
 import WhatsAppCta from '../WhatsAppCta/WhatsAppCta.jsx'
@@ -43,7 +44,7 @@ function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.inner}>
-        <img src="/logo.png" alt="TECNITEXTIL" width="100" height="100" className={styles.logo} />
+        <img src="/logo.png" alt={COMPANY.name} width="100" height="100" className={styles.logo} />
         <nav className={styles.nav} aria-label="Navegación principal">
           {NAV_ITEMS.map(({ label, href }) => (
             <a
