@@ -15,6 +15,7 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "images": "node scripts/optimize-images.js",
     "prepare": "husky"
   },
   "lint-staged": {
@@ -47,6 +48,7 @@
     "jsdom": "^30.0.1",
     "lint-staged": "^17.5.1",
     "prettier": "^3.9.6",
+    "sharp": "^0.35.4",
     "vite": "^8.3.0",
     "vitest": "^5.0.0"
   }
