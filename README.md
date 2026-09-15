@@ -63,7 +63,9 @@ e2e/              # pruebas en navegador por caso de uso (UC-xx)
 
 ## Despliegue
 
-Vercel construye con `npm run build` y publica `dist/` (ver `vercel.json`: URLs limpias, cabeceras de seguridad y caché de assets).
+Vercel construye con `npm run build` y publica `dist/` (ver `vercel.json`: URLs limpias, cabeceras de seguridad y caché de assets). Node.js se fija en `24.x` mediante `engines`.
+
+La Content-Security-Policy solo permite recursos del propio dominio, así que el toolbar de Vercel (comentarios en previews, que se carga desde `vercel.live`) está desactivado a propósito con la variable de entorno `VERCEL_PREVIEW_FEEDBACK_ENABLED=0` en el proyecto de Vercel.
 
 ## Pendiente antes de publicar
 
