@@ -125,6 +125,20 @@ test('UC-08: no page has serious or critical accessibility violations', async ({
   }
 })
 
+test('UC-08: pages reflow without horizontal scroll when text is enlarged to 200%', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 320, height: 640 })
+  for (const path of PAGES) {
+    await page.goto(path)
+    const overflow = await page.evaluate(() => {
+      document.documentElement.style.fontSize = '200%'
+      return document.documentElement.scrollWidth - document.documentElement.clientWidth
+    })
+    expect(overflow, path).toBe(0)
+  }
+})
+
 test('UC-07: the footer links to the legal notice and privacy policy pages', async ({ page }) => {
   for (const name of ['Aviso legal', 'Política de privacidad']) {
     await page.goto('/')
