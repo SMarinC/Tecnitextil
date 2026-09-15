@@ -154,6 +154,18 @@ test('UC-05: every page is served as prerendered HTML, readable without JavaScri
   }
 })
 
+test('the preloaded body font is the one the page uses, downloaded once', async ({ page }) => {
+  const fonts = []
+  page.on('response', (response) => {
+    if (response.url().endsWith('.woff2')) fonts.push(new URL(response.url()).pathname)
+  })
+  await page.goto('/', { waitUntil: 'networkidle' })
+
+  const preloaded = await page.locator('link[rel="preload"][as="font"]').getAttribute('href')
+  expect(fonts.filter((font) => font === preloaded)).toHaveLength(1)
+  expect(fonts.every((font) => font.includes('-latin-'))).toBe(true)
+})
+
 test('every page hydrates without console errors', async ({ page }) => {
   const errors = []
   // Vercel Web Analytics only exists on Vercel; its script 404s on a local preview.
