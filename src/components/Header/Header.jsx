@@ -12,12 +12,12 @@ const NAV_ITEMS = [
   { label: 'Contáctanos', href: '#contacto' },
 ]
 
-// Must match the @media (min-width: 960px) breakpoint in Header.module.css
+// Must match the @media (min-width: 1020px) breakpoint in Header.module.css
 // where the mobile hamburger panel gives way to the desktop nav. Raised from
-// 768px to 960px because 5 nav items + logo + WhatsApp CTA need ~900px of
-// horizontal space — below that the CTA overflows off-screen (verified in
-// browser: 131px overflow at 768px, CTA fully invisible).
-const DESKTOP_BREAKPOINT_QUERY = '(min-width: 960px)'
+// 960px to 1020px when the 6th nav item ("Toldos") was added: at 960px the
+// WhatsApp CTA overflowed by 53px (verified in browser); 1020px is the
+// narrowest width where logo + 6 items + CTA fit.
+const DESKTOP_BREAKPOINT_QUERY = '(min-width: 1020px)'
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
