@@ -14,7 +14,7 @@ export const OG_IMAGE_PATH = '/og-image.png'
 export const HOME_SEO = {
   title: `Reparación de máquinas de coser industriales | ${COMPANY.name}`,
   description:
-    'TECNITEXTIL — Reparación de maquinaria textil e industrial: máquinas de coser, corte, confección y equipos auxiliares en toda España. +20 años de experiencia. Recogida a domicilio.',
+    'TECNITEXTIL: reparación de máquinas de coser industriales y de toldos automatizadas, corte y confección en toda España. +20 años. Recogida a domicilio.',
 }
 
 export function absoluteUrl(path) {
