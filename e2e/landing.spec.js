@@ -188,6 +188,57 @@ test('Vercel Web Analytics is still loaded, from a deferred chunk', async ({ pag
   await analyticsScript
 })
 
+test('UC-09: the awning machines section is reachable from the menu and shows its photos', async ({
+  page,
+  isMobile,
+}) => {
+  if (isMobile) {
+    await page.getByRole('button', { name: 'Abrir menú de navegación' }).click()
+  }
+  const navName = isMobile ? 'Navegación móvil' : 'Navegación principal'
+  await page
+    .getByRole('navigation', { name: navName })
+    .getByRole('link', { name: 'Toldos' })
+    .click()
+
+  const section = page.locator('#toldos')
+  await expect(section).toBeFocused()
+  await expect(
+    section.getByRole('heading', {
+      level: 2,
+      name: 'Asistencia para máquinas de coser toldos automatizadas',
+    }),
+  ).toBeInViewport()
+
+  const photos = section.locator('img')
+  await expect(photos).toHaveCount(3)
+  for (let index = 0; index < 3; index += 1) {
+    const photo = photos.nth(index)
+    await photo.scrollIntoViewIfNeeded()
+    await expect
+      .poll(() => photo.evaluate((image) => image.complete && image.naturalWidth > 0))
+      .toBe(true)
+  }
+})
+
+test('the header call to action fits inside the header from the desktop breakpoint', async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(isMobile, 'desktop header only')
+  const DESKTOP_BREAKPOINT = 1140
+
+  for (const width of [DESKTOP_BREAKPOINT, 1280]) {
+    await page.setViewportSize({ width, height: 800 })
+    await expect(page.getByRole('navigation', { name: 'Navegación principal' })).toBeVisible()
+    const cta = await page.locator('header a[href*="wa.me"]').boundingBox()
+    expect(cta.x + cta.width, `width ${width}`).toBeLessThanOrEqual(width - 24)
+  }
+
+  await page.setViewportSize({ width: DESKTOP_BREAKPOINT - 1, height: 800 })
+  await expect(page.getByRole('button', { name: 'Abrir menú de navegación' })).toBeVisible()
+})
+
 test('every page hydrates without console errors', async ({ page }) => {
   const errors = []
   // Vercel Web Analytics only exists on Vercel; its script 404s on a local preview.
