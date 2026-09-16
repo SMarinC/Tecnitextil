@@ -168,15 +168,23 @@ test('UC-05: every page is served as prerendered HTML, readable without JavaScri
   }
 })
 
-test('the preloaded body font is the one the page uses, downloaded once', async ({ page }) => {
+test('the preloaded fonts are the ones the page uses, downloaded once', async ({ page }) => {
   const fonts = []
   page.on('response', (response) => {
     if (response.url().endsWith('.woff2')) fonts.push(new URL(response.url()).pathname)
   })
   await page.goto('/', { waitUntil: 'networkidle' })
 
-  const preloaded = await page.locator('link[rel="preload"][as="font"]').getAttribute('href')
-  expect(fonts.filter((font) => font === preloaded)).toHaveLength(1)
+  const preloaded = await page
+    .locator('link[rel="preload"][as="font"]')
+    .evaluateAll((links) => links.map((link) => new URL(link.href).pathname))
+  expect(preloaded.length).toBeGreaterThan(0)
+  for (const font of preloaded) {
+    expect(
+      fonts.filter((downloaded) => downloaded === font),
+      font,
+    ).toHaveLength(1)
+  }
   expect(fonts.every((font) => font.includes('-latin-'))).toBe(true)
 })
 
@@ -226,14 +234,26 @@ test('the header call to action fits inside the header from the desktop breakpoi
   isMobile,
 }) => {
   test.skip(isMobile, 'desktop header only')
-  const DESKTOP_BREAKPOINT = 1140
+  const DESKTOP_BREAKPOINT = 1040
 
-  for (const width of [DESKTOP_BREAKPOINT, 1280]) {
+  // `justify-content: space-between` keeps the CTA's right edge inside the
+  // padding even when its label is squeezed or wraps onto two lines, so the
+  // right-edge check alone can't catch that failure mode. Compare the CTA's
+  // own size at the breakpoint against its unconstrained size at 1280px,
+  // which does catch it.
+  async function measureCta(width) {
     await page.setViewportSize({ width, height: 800 })
+    await page.evaluate(() => document.fonts.ready)
     await expect(page.getByRole('navigation', { name: 'Navegación principal' })).toBeVisible()
     const cta = await page.locator('header a[href*="wa.me"]').boundingBox()
     expect(cta.x + cta.width, `width ${width}`).toBeLessThanOrEqual(width - 24)
+    return cta
   }
+
+  const reference = await measureCta(1280)
+  const atBreakpoint = await measureCta(DESKTOP_BREAKPOINT)
+  expect(Math.round(atBreakpoint.width)).toBe(Math.round(reference.width))
+  expect(Math.round(atBreakpoint.height)).toBe(Math.round(reference.height))
 
   await page.setViewportSize({ width: DESKTOP_BREAKPOINT - 1, height: 800 })
   await expect(page.getByRole('button', { name: 'Abrir menú de navegación' })).toBeVisible()
