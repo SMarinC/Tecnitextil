@@ -70,5 +70,5 @@ La Content-Security-Policy solo permite recursos del propio dominio, así que el
 
 ## Pendiente antes de publicar
 
-- Completar los datos del titular en `src/content/legal.js`. Mientras falten, las páginas legales muestran un aviso de borrador. Revisar los textos con una asesoría.
+- Revisar los textos legales (`src/content/legal.js`) con una asesoría. Los datos del titular ya están completos; si alguno se vacía, las páginas legales vuelven a mostrar un aviso de borrador.
 - Definir el dominio definitivo (`VITE_SITE_URL`) y registrarlo en Google Search Console.

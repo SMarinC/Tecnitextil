@@ -7,14 +7,14 @@ export const PENDING = '[Pendiente de completar]'
 
 // Datos que debe aportar el titular de la web (LSSI-CE art. 10).
 export const LEGAL_OWNER = {
-  legalName: null, // Razón social, o nombre y apellidos si es autónomo
-  taxId: null, // NIF / CIF
-  address: null, // Domicilio completo
-  email: null, // Email de contacto para asuntos legales y de privacidad
-  registry: null, // Inscripción en el Registro Mercantil (solo sociedades)
+  legalName: 'Jhon Mario Hernández Melo', // Razón social, o nombre y apellidos si es autónomo
+  taxId: '60415860N', // NIF / CIF
+  address: 'Carrer del Perú, 7, 08921 Santa Coloma de Gramenet (Barcelona)', // Domicilio completo
+  email: 'tecnitextil2@gmail.com', // Email de contacto para asuntos legales y de privacidad
+  registry: 'No aplica (trabajador autónomo)', // Inscripción en el Registro Mercantil (solo sociedades)
 }
 
-export const LAST_UPDATED = null // Fecha de la última revisión, p. ej. '14 de septiembre de 2026'
+export const LAST_UPDATED = '15 de septiembre de 2026' // Fecha de la última revisión, p. ej. '14 de septiembre de 2026'
 
 export const hasPendingLegalData = Object.values(LEGAL_OWNER).some((value) => value === null)
 
