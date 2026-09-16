@@ -12,7 +12,7 @@ export const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://tecnitextil.v
 export const OG_IMAGE_PATH = '/og-image.png'
 
 export const HOME_SEO = {
-  title: `${COMPANY.name} | Reparación de máquinas de coser industriales`,
+  title: COMPANY.name,
   description:
     'TECNITEXTIL: reparación de máquinas de coser industriales y de toldos automatizadas, corte y confección en toda España. +20 años. Recogida a domicilio.',
 }
