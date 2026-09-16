@@ -2,8 +2,9 @@
 import { COMPANY } from './company.js'
 
 // Dominio público del sitio, sin barra final. Se define una sola vez con la
-// variable VITE_SITE_URL (ver .env.example) y de aquí salen canonical,
-// Open Graph, datos estructurados, robots.txt y sitemap.xml.
+// variable de entorno pública VITE_SITE_URL (en Vercel o en un .env.local) y
+// de aquí salen canonical, Open Graph, datos estructurados, robots.txt y
+// sitemap.xml.
 export const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://tecnitextil.vercel.app').replace(
   /\/+$/,
   '',
