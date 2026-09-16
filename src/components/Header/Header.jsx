@@ -11,14 +11,18 @@ import { scrollToSection } from '../../lib/scrollToSection.js'
 
 const NAV_HREFS = NAV_ITEMS.map(({ href }) => href)
 
-// Must match the @media (min-width: 1140px) breakpoint in Header.module.css
+// Must match the @media (min-width: 1040px) breakpoint in Header.module.css
 // where the mobile hamburger panel gives way to the desktop nav. With 6 nav
 // items the logo, links and WhatsApp CTA need to fit inside the 24px container
-// padding with the self-hosted Oswald and with its fallback fonts (measured:
-// 1140px leaves ≥8px of slack for Oswald, Arial Narrow and generic sans-serif).
-// The nav gap shrinks with the viewport (see .nav) to keep that width as low
-// as possible.
-const DESKTOP_BREAKPOINT_QUERY = '(min-width: 1140px)'
+// padding with the self-hosted Oswald and with its fallback fonts (measured
+// free space in the header at 1040px: ~61px with Oswald, ~42px with the
+// Arial Narrow fallback — both above the ≥8px the plan requires — with ~20px
+// of that reserved for a Windows scrollbar, which headless measurement
+// doesn't have). A generic sans-serif fallback (no Arial Narrow installed)
+// does not fit at any width, so the CTA label may wrap for a moment before
+// the self-hosted Oswald loads. The nav gap shrinks with the viewport (see
+// .nav) to keep that width as low as possible.
+const DESKTOP_BREAKPOINT_QUERY = '(min-width: 1040px)'
 
 // Top inset matches --header-offset (128px, see tokens.css) — the same
 // boundary sections scroll to under scroll-margin-top — so a section only
