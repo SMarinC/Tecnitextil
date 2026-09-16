@@ -1,6 +1,7 @@
-// Contenido de las páginas legales. BORRADOR: revisar con una asesoría antes
-// de publicar. Los datos del titular que falten se muestran como PENDING y la
-// página avisa de ello, para que nunca se publique un dato inventado.
+// Contenido de las páginas legales. Los textos están pendientes de revisión
+// por una asesoría. Si algún dato del titular se deja en null, se muestra como
+// PENDING y la página avisa de ello, para que nunca se publique un dato
+// inventado.
 import { COMPANY } from './company.js'
 
 export const PENDING = '[Pendiente de completar]'
