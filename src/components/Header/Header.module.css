@@ -3,8 +3,7 @@
   top: 0;
   z-index: 20;
   background: var(--color-black);
-  border-bottom: 1px solid
-    color-mix(in srgb, var(--color-gold) 25%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-gold) 25%, transparent);
 }
 
 .inner {
@@ -28,7 +27,7 @@
 .nav {
   display: none;
   align-items: center;
-  gap: var(--space-md);
+  gap: clamp(0.75rem, 1.2vw, var(--space-md));
 }
 
 .navLink {
@@ -40,41 +39,14 @@
   text-decoration: none;
   padding-bottom: 4px;
   border-bottom: 2px solid transparent;
-  transition: color 0.15s ease, border-color 0.15s ease;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease;
   white-space: nowrap;
 }
 
 .navLink:hover {
   color: var(--color-gold);
-}
-
-.cta {
-  display: none;
-  align-items: center;
-  gap: var(--space-xs);
-  color: var(--color-black);
-  background: var(--color-gold);
-  padding: 0.5rem 1rem;
-  border-radius: var(--radius-full);
-  font-weight: 600;
-  text-decoration: none;
-  font-size: 0.9rem;
-  min-height: 44px;
-  transition: filter 0.15s ease;
-}
-
-.cta:hover {
-  filter: brightness(1.08);
-}
-
-.cta:focus-visible {
-  outline: 2px solid var(--color-white);
-  outline-offset: 2px;
-}
-
-.ctaIcon {
-  width: 18px;
-  height: 18px;
 }
 
 .actions {
@@ -110,8 +82,7 @@
   display: flex;
   flex-direction: column;
   background: var(--color-black);
-  border-top: 1px solid
-    color-mix(in srgb, var(--color-gold) 25%, transparent);
+  border-top: 1px solid color-mix(in srgb, var(--color-gold) 25%, transparent);
   padding: var(--space-xs) var(--space-md) var(--space-sm);
 }
 
@@ -126,8 +97,7 @@
   min-height: 44px;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid
-    color-mix(in srgb, var(--color-gold) 15%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-gold) 15%, transparent);
 }
 
 .mobileNavLink:last-child {
@@ -165,13 +135,7 @@
   border-bottom: 1px solid var(--color-gold);
 }
 
-@media (min-width: 640px) {
-  .cta {
-    display: inline-flex;
-  }
-}
-
-@media (min-width: 960px) {
+@media (min-width: 1040px) {
   .nav {
     display: flex;
   }

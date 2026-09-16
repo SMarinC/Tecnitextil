@@ -1,119 +1,46 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import styles from './Header.module.css'
-import { buildWhatsAppUrl } from '../../constants/contact.js'
-import { WhatsAppIcon, MenuIcon, CloseIcon } from '../icons/Icons.jsx'
+import { NAV_ITEMS } from '../../content/sections.js'
+import { COMPANY } from '../../content/company.js'
+import { WHATSAPP_CTA } from '../../content/home.js'
+import { MenuIcon, CloseIcon } from '../icons/Icons.jsx'
+import WhatsAppCta from '../WhatsAppCta/WhatsAppCta.jsx'
+import { useActiveSection } from '../../hooks/useActiveSection.js'
+import { useMediaQueryChange } from '../../hooks/useMediaQueryChange.js'
+import { scrollToSection } from '../../lib/scrollToSection.js'
 
-const NAV_ITEMS = [
-  { label: 'Qué hacemos', href: '#que-hacemos' },
-  { label: 'Máquinas y marcas', href: '#tipos-de-maquina' },
-  { label: 'Por qué elegirnos', href: '#por-que-elegirnos' },
-  { label: 'Cómo es el servicio', href: '#como-es-el-servicio' },
-  { label: 'Contáctanos', href: '#contacto' },
-]
+const NAV_HREFS = NAV_ITEMS.map(({ href }) => href)
 
-// Must match the @media (min-width: 960px) breakpoint in Header.module.css
-// where the mobile hamburger panel gives way to the desktop nav. Raised from
-// 768px to 960px because 5 nav items + logo + WhatsApp CTA need ~900px of
-// horizontal space — below that the CTA overflows off-screen (verified in
-// browser: 131px overflow at 768px, CTA fully invisible).
-const DESKTOP_BREAKPOINT_QUERY = '(min-width: 960px)'
+// Must match the @media (min-width: 1040px) breakpoint in Header.module.css
+// where the mobile hamburger panel gives way to the desktop nav. With 6 nav
+// items the logo, links and WhatsApp CTA need to fit inside the 24px container
+// padding with the self-hosted Oswald and with its fallback fonts (measured
+// free space in the header at 1040px: ~61px with Oswald, ~42px with the
+// Arial Narrow fallback — both above the ≥8px the plan requires — with ~20px
+// of that reserved for a Windows scrollbar, which headless measurement
+// doesn't have). A generic sans-serif fallback (no Arial Narrow installed)
+// does not fit at any width, so the CTA label may wrap for a moment before
+// the self-hosted Oswald loads. The nav gap shrinks with the viewport (see
+// .nav) to keep that width as low as possible.
+const DESKTOP_BREAKPOINT_QUERY = '(min-width: 1040px)'
+
+// Top inset matches --header-offset (128px, see tokens.css) — the same
+// boundary sections scroll to under scroll-margin-top — so a section only
+// counts as "visible" once it has actually cleared the sticky header.
+const ACTIVE_SECTION_ROOT_MARGIN = '-128px 0px -70% 0px'
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [activeHref, setActiveHref] = useState(null)
+  const activeHref = useActiveSection(NAV_HREFS, { rootMargin: ACTIVE_SECTION_ROOT_MARGIN })
 
-  useEffect(() => {
-    const desktopQuery = window.matchMedia(DESKTOP_BREAKPOINT_QUERY)
-    function closeMenuOnDesktop(event) {
-      if (event.matches) setIsMenuOpen(false)
-    }
-    desktopQuery.addEventListener('change', closeMenuOnDesktop)
-    return () => desktopQuery.removeEventListener('change', closeMenuOnDesktop)
-  }, [])
-
-  useEffect(() => {
-    const sections = NAV_ITEMS
-      .map(({ href }) => document.querySelector(href))
-      .filter(Boolean)
-
-    const visibleHrefs = new Set()
-    const lastHref = NAV_ITEMS[NAV_ITEMS.length - 1].href
-
-    // On tall viewports the trigger band below can't reach the last section
-    // (its content plus the footer don't add up to enough scrollable height
-    // for the band to ever slide into it), so the observer alone can never
-    // mark the last nav item active there. Treat "scrolled to the bottom of
-    // the page" as an explicit override for that case.
-    function isAtPageBottom() {
-      return window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2
-    }
-
-    function updateActiveHref() {
-      if (isAtPageBottom()) {
-        setActiveHref(lastHref)
-        return
-      }
-      // When multiple sections intersect the trigger band at once (common
-      // near the bottom of a short page), prefer the last one in reading
-      // order — the section the user has most recently scrolled into.
-      const current = [...NAV_ITEMS].reverse().find((item) => visibleHrefs.has(item.href))
-      setActiveHref(current ? current.href : null)
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const href = `#${entry.target.id}`
-          if (entry.isIntersecting) {
-            visibleHrefs.add(href)
-          } else {
-            visibleHrefs.delete(href)
-          }
-        })
-        updateActiveHref()
-      },
-      // Top inset matches --header-offset (128px, see tokens.css) — the same
-      // boundary sections scroll to under scroll-margin-top — so a section
-      // only counts as "visible" once it has actually cleared the sticky
-      // header, not ~20px before (the header's real rendered height).
-      { rootMargin: '-128px 0px -70% 0px', threshold: 0 },
-    )
-
-    sections.forEach((section) => observer.observe(section))
-
-    // Secondary, lightweight fallback only — re-checks the bottom-of-page
-    // condition so the last nav item can still activate on tall viewports
-    // where the observer's trigger band never reaches that section. The
-    // IntersectionObserver above remains the primary tracking mechanism for
-    // everything else.
-    window.addEventListener('scroll', updateActiveHref, { passive: true })
-    window.addEventListener('resize', updateActiveHref)
-
-    return () => {
-      observer.disconnect()
-      window.removeEventListener('scroll', updateActiveHref)
-      window.removeEventListener('resize', updateActiveHref)
-    }
-  }, [])
+  useMediaQueryChange(DESKTOP_BREAKPOINT_QUERY, (isDesktop) => {
+    if (isDesktop) setIsMenuOpen(false)
+  })
 
   function handleNavClick(event, href) {
     event.preventDefault()
     setIsMenuOpen(false)
-    requestAnimationFrame(() => {
-      const target = document.querySelector(href)
-      if (!target) return
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' })
-      // preventDefault() above suppressed the browser's native fragment
-      // navigation, which normally moves focus to the target on activation.
-      // Restore that behavior explicitly so keyboard/screen-reader users
-      // land in the section they just navigated to, not stranded in the
-      // header. tabindex="-1" makes the section script-focusable without
-      // adding it to the normal Tab order; preventScroll avoids a second,
-      // competing scroll jump since we already scrolled it into view.
-      target.setAttribute('tabindex', '-1')
-      target.focus({ preventScroll: true })
-      target.addEventListener('blur', () => target.removeAttribute('tabindex'), { once: true })
-    })
+    requestAnimationFrame(() => scrollToSection(href))
   }
 
   function linkClassName(href, base) {
@@ -124,8 +51,8 @@ function Header() {
     <header className={styles.header}>
       <div className={styles.inner}>
         <img
-          src="/logo.png"
-          alt="TECNITEXTIL"
+          src={COMPANY.logo.src}
+          alt={COMPANY.name}
           width="100"
           height="100"
           className={styles.logo}
@@ -143,15 +70,7 @@ function Header() {
           ))}
         </nav>
         <div className={styles.actions}>
-          <a
-            href={buildWhatsAppUrl()}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.cta}
-          >
-            <WhatsAppIcon className={styles.ctaIcon} />
-            WhatsApp
-          </a>
+          <WhatsAppCta variant="header" label={WHATSAPP_CTA.headerLabel} />
           <button
             type="button"
             className={styles.menuToggle}

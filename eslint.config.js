@@ -24,11 +24,13 @@ export default [
       ...js.configs.recommended.rules,
       ...reactHooks.configs.recommended.rules,
       'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
-      'react-refresh/only-export-components': [
-        'warn',
-        { allowConstantExport: true },
-      ],
+      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     },
+  },
+  {
+    // Build-time server entry, never hot-reloaded in the browser.
+    files: ['src/entry-server.jsx'],
+    rules: { 'react-refresh/only-export-components': 'off' },
   },
   {
     files: ['**/*.test.{js,jsx}'],
