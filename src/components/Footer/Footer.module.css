@@ -36,7 +36,9 @@
   border-radius: var(--radius-full);
   padding: 0.5rem 1.1rem;
   min-height: 44px;
-  transition: border-color 0.15s ease, background 0.15s ease;
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease;
 }
 
 .phone:hover {
@@ -48,6 +50,32 @@
   width: 18px;
   height: 18px;
   flex-shrink: 0;
+}
+
+.legalNav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: var(--space-md);
+  margin-top: var(--space-xs);
+}
+
+.legalLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 0.85rem;
+  color: var(--color-text-on-dark-secondary);
+  text-underline-offset: 3px;
+}
+
+.legalLink:hover {
+  color: var(--color-gold-light);
+}
+
+.legalLink:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
 }
 
 .copyright {

@@ -4,9 +4,7 @@ import { buildWhatsAppUrl, PHONE_NUMBER, WHATSAPP_MESSAGE } from './contact.js'
 describe('buildWhatsAppUrl', () => {
   it('builds a wa.me URL with the phone number and the default message, URL-encoded', () => {
     const url = buildWhatsAppUrl()
-    expect(url).toBe(
-      `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`,
-    )
+    expect(url).toBe(`https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`)
   })
 
   it('uses the exact copy approved for the landing page', () => {

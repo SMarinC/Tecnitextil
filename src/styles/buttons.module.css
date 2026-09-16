@@ -10,6 +10,8 @@
   border-radius: var(--radius-full);
   text-decoration: none;
   min-height: 48px;
+  max-width: 100%;
+  text-align: center;
   transition: filter 0.15s ease;
 }
 
