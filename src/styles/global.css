@@ -49,3 +49,10 @@ a {
 a {
   color: inherit;
 }
+
+/* Menu anchors scroll smoothly, except for people who asked their system to reduce motion. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
