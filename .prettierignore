@@ -1,5 +1,5 @@
 dist
-dist-ssr
+.astro
 node_modules
 package-lock.json
 public
@@ -8,3 +8,8 @@ playwright-report
 blob-report
 .lighthouseci
 *.local
+# Local-only tool folders (see .git/info/exclude): never tracked by git, but
+# git-only ignores are invisible to Prettier, so they need listing here too.
+.claude
+.superpowers
+.impeccable
