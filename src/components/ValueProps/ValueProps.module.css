@@ -4,7 +4,7 @@
 }
 
 .heading {
-  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  font-size: var(--font-size-section-title);
   color: var(--color-white);
   text-align: center;
   padding-top: var(--space-lg);

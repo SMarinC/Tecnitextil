@@ -1,0 +1,16 @@
+---
+import { HERO } from '../../data/home'
+import { SECTIONS } from '../../data/sections'
+import Icon from '../Icon/Icon.astro'
+import styles from './Hero.module.css'
+---
+
+<section class={styles.hero} id={SECTIONS.about.id}>
+  <div class={styles.inner}>
+    <Icon name="sewingMachine" class={styles.icon} />
+    <h1 class={styles.title}>{HERO.title}</h1>
+    {HERO.paragraphs.map((paragraph) => (
+      <p class={styles.subtitle}>{paragraph}</p>
+    ))}
+  </div>
+</section>
