@@ -1,0 +1,27 @@
+---
+import { buildWhatsAppUrl } from '../../data/contact'
+import Icon from '../Icon/Icon.astro'
+import styles from './WhatsAppCta.module.css'
+
+// Single component for every "start a WhatsApp chat" link, so the URL, security
+// attributes and icon can never drift apart between placements. `floating` is
+// icon-only: `label` becomes its accessible name.
+interface Props {
+  variant: 'header' | 'primary' | 'floating'
+  label: string
+}
+
+const { variant, label } = Astro.props
+const iconOnly = variant === 'floating'
+---
+
+<a
+  href={buildWhatsAppUrl()}
+  target="_blank"
+  rel="noopener noreferrer"
+  class={styles[variant]}
+  aria-label={iconOnly ? label : undefined}
+>
+  <Icon name="whatsApp" class={styles.icon} />
+  {iconOnly ? null : label}
+</a>

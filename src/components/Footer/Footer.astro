@@ -1,0 +1,40 @@
+---
+import { Image } from 'astro:assets'
+import logo from '../../assets/logo.png'
+import { COMPANY } from '../../data/company'
+import { PHONE_DISPLAY, PHONE_TEL } from '../../data/contact'
+import { FOOTER } from '../../data/home'
+import { LEGAL_LINKS } from '../../data/legal'
+import Icon from '../Icon/Icon.astro'
+import styles from './Footer.module.css'
+
+const year = new Date().getFullYear()
+---
+
+<footer class={styles.footer}>
+  <Image
+    src={logo}
+    alt={COMPANY.name}
+    width={110}
+    height={110}
+    densities={[1, 2]}
+    loading="lazy"
+    decoding="async"
+    class={styles.logo}
+  />
+  <p class={styles.coverage}>{FOOTER.coverage}</p>
+  <a href={PHONE_TEL} class={styles.phone}>
+    <Icon name="phone" class={styles.phoneIcon} />
+    {PHONE_DISPLAY}
+  </a>
+  <nav class={styles.legalNav} aria-label="Información legal">
+    {LEGAL_LINKS.map(({ label, href }) => (
+      <a href={href} class={styles.legalLink}>
+        {label}
+      </a>
+    ))}
+  </nav>
+  <p class={styles.copyright}>
+    © {year} {COMPANY.name}. Todos los derechos reservados.
+  </p>
+</footer>

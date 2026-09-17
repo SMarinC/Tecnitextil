@@ -1,6 +1,3 @@
-/* Rules moved verbatim from Header, FinalCta and WhatsAppFloatingButton:
-   same appearance per placement, one component. */
-
 /* Header: small pill, hidden on narrow phones (the floating button covers it). */
 .header {
   display: none;
