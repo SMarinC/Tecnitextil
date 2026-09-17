@@ -1,9 +1,39 @@
-// Textos de la página de inicio, agrupados por sección y en orden de
-// aparición. Los íconos se indican por clave (ver components/icons/iconRegistry.js)
-// para que este archivo sea solo datos.
-import { COMPANY } from './company.js'
+// Home page copy, grouped by section in reading order. Icons are referenced by name
+// (see components/Icon/icons.ts) so this file stays plain data.
+import type { ImageMetadata } from 'astro'
+import awningCarriageImage from '../assets/awning-machines/cabezal-movil.webp'
+import awningRollerTableImage from '../assets/awning-machines/mesa-rodillos.webp'
+import awningTrayImage from '../assets/awning-machines/bandeja-movil.webp'
+import type { IconName } from '../components/Icon/icons'
+import { COMPANY } from './company'
 
-export const HERO = {
+interface IconItem {
+  icon: IconName
+  title: string
+  description: string
+}
+
+interface Step {
+  title: string
+  description: string
+}
+
+interface Photo {
+  src: ImageMetadata
+  alt: string
+}
+
+interface AwningMachinesContent {
+  eyebrow: string
+  heading: string
+  intro: string
+  services: { heading: string; items: string[] }
+  families: { title: string; description: string; image: Photo }[]
+  components: { heading: string; items: string[] }
+  imageNote: string
+}
+
+export const HERO: { title: string; paragraphs: string[] } = {
   title: 'Quiénes somos',
   paragraphs: [
     `${COMPANY.name} es una empresa que lleva más de ${COMPANY.yearsOfExperience} años trabajando con maquinaria textil e industrial: máquinas de coser, equipos de corte, confección y equipos auxiliares. Lo que empezó como un taller dedicado a resolver averías se convirtió, con el tiempo, en un equipo técnico altamente capacitado y con experiencia real en cada tipo de máquina, marca y avería.`,
@@ -11,7 +41,7 @@ export const HERO = {
   ],
 }
 
-export const TOLDOS = {
+export const AWNING_MACHINES: AwningMachinesContent = {
   eyebrow: 'Servicio especializado',
   heading: 'Asistencia para máquinas de coser toldos automatizadas',
   intro:
@@ -25,9 +55,7 @@ export const TOLDOS = {
       title: 'Con bandeja móvil',
       description: 'Una bandeja con pinzas neumáticas desplaza el tejido bajo un cabezal fijo.',
       image: {
-        src: '/img/toldos/bandeja-movil.webp',
-        width: 800,
-        height: 564,
+        src: awningTrayImage,
         alt: 'Máquina automática de coser toldos con bandeja móvil cosiendo una lona',
       },
     },
@@ -36,9 +64,7 @@ export const TOLDOS = {
       description:
         'El paño queda fijo y tensado a lo largo de la mesa mientras el cabezal lo recorre sobre un carro.',
       image: {
-        src: '/img/toldos/cabezal-movil.webp',
-        width: 800,
-        height: 450,
+        src: awningCarriageImage,
         alt: 'Estación de costura lineal con cabezal móvil para toldos',
       },
     },
@@ -47,9 +73,7 @@ export const TOLDOS = {
       description:
         'Dos agujas, triple arrastre y puller; la mesa de rodillos guía la lona hasta el cabezal.',
       image: {
-        src: '/img/toldos/mesa-rodillos.webp',
-        width: 750,
-        height: 465,
+        src: awningRollerTableImage,
         alt: 'Máquina de coser toldos de dos agujas con mesa de rodillos',
       },
     },
@@ -69,7 +93,7 @@ export const TOLDOS = {
     'Imágenes de referencia de los fabricantes. TECNITEXTIL es un servicio técnico independiente y no está vinculado a las marcas mostradas.',
 }
 
-export const SERVICES = {
+export const SERVICES: { heading: string; intro: string; items: IconItem[] } = {
   heading: 'Qué hacemos',
   intro:
     'Cubrimos todo el ciclo de vida de tu máquina: mantenimiento, reparación, venta y asesoría técnica, para particulares y empresas textiles.',
@@ -93,7 +117,7 @@ export const SERVICES = {
   ],
 }
 
-export const REPAIR_PROCESS = {
+export const REPAIR_PROCESS: { heading: string; intro: string; steps: Step[] } = {
   heading: '¿Cómo es el proceso de reparación y mantenimiento?',
   intro:
     'Un servicio adaptado a las necesidades de cada cliente, en el que revisamos y prevenimos averías en maquinaria de producción, corte, tapicería y confección.',
@@ -124,7 +148,7 @@ export const REPAIR_PROCESS = {
   ],
 }
 
-export const MACHINE_TYPES = {
+export const MACHINE_TYPES: { heading: string; intro: string; items: IconItem[] } = {
   heading: 'Tipos de máquina',
   intro:
     'Trabajamos con equipos de corte, confección, tapicería y acabados — cada uno con un ajuste distinto según el material y el ritmo de trabajo.',
@@ -149,18 +173,22 @@ export const MACHINE_TYPES = {
   ],
 }
 
-export const BRANDS = {
-  heading: 'Reparamos maquinaria industrial de distintas marcas y generaciones',
-  paragraphs: [
-    'Trabajamos con maquinaria industrial habitual en talleres y entornos textiles: máquinas de costura de las marcas más utilizadas del sector, además de cortadoras, mesas de vacío, remachadoras y equipos auxiliares de diferentes fabricantes.',
-    'Si tienes dudas sobre tu equipo, indícanos marca, modelo, tipo de material que trabaja y síntoma principal. Esto nos ayuda a orientar mejor la intervención técnica.',
-  ],
-  featured: ['Juki', 'Brother', 'Singer', 'Pfaff'],
-  others:
-    'También reparamos Alfa, Dürkopp Adler, Consew, Seiko, Typical, Siruba, Rimoldi, Pegasus y Jack, entre otras — y si tu máquina es de una marca que no ves aquí, escríbenos igual: trabajamos con maquinaria industrial de cualquier fabricante.',
-}
+export const BRANDS: { heading: string; paragraphs: string[]; featured: string[]; others: string } =
+  {
+    heading: 'Reparamos maquinaria industrial de distintas marcas y generaciones',
+    paragraphs: [
+      'Trabajamos con maquinaria industrial habitual en talleres y entornos textiles: máquinas de costura de las marcas más utilizadas del sector, además de cortadoras, mesas de vacío, remachadoras y equipos auxiliares de diferentes fabricantes.',
+      'Si tienes dudas sobre tu equipo, indícanos marca, modelo, tipo de material que trabaja y síntoma principal. Esto nos ayuda a orientar mejor la intervención técnica.',
+    ],
+    featured: ['Juki', 'Brother', 'Singer', 'Pfaff'],
+    others:
+      'También reparamos Alfa, Dürkopp Adler, Consew, Seiko, Typical, Siruba, Rimoldi, Pegasus y Jack, entre otras — y si tu máquina es de una marca que no ves aquí, escríbenos igual: trabajamos con maquinaria industrial de cualquier fabricante.',
+  }
 
-export const VALUE_PROPS = {
+export const VALUE_PROPS: {
+  heading: string
+  items: { icon: IconName; stat: string; label: string }[]
+} = {
   heading: 'Por qué elegirnos',
   items: [
     { icon: 'badge', stat: `+${COMPANY.yearsOfExperience}`, label: 'años de experiencia' },
@@ -170,7 +198,7 @@ export const VALUE_PROPS = {
   ],
 }
 
-export const HOW_IT_WORKS = {
+export const HOW_IT_WORKS: { heading: string; steps: Step[] } = {
   heading: 'Cómo es el servicio',
   steps: [
     {

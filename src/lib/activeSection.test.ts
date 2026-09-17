@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest'
-import { isAtPageBottom, pickActiveHref } from './activeSection.js'
+import { describe, expect, it } from 'vitest'
+import { isAtPageBottom, pickActiveHref } from './activeSection'
 
 const HREFS = ['#a', '#b', '#c']
 
@@ -22,7 +22,7 @@ describe('pickActiveHref', () => {
 })
 
 describe('isAtPageBottom', () => {
-  const doc = (scrollHeight) => ({ documentElement: { scrollHeight } })
+  const doc = (scrollHeight: number) => ({ documentElement: { scrollHeight } })
 
   it('is true when the viewport reaches the end of the document', () => {
     expect(isAtPageBottom({ innerHeight: 800, scrollY: 1200 }, doc(2000))).toBe(true)

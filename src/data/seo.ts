@@ -1,14 +1,10 @@
-// Datos para buscadores y vistas previas al compartir enlaces.
-import { COMPANY } from './company.js'
+// Data for search engines and link previews.
+import { COMPANY } from './company'
 
-// Dominio público del sitio, sin barra final. Se define una sola vez con la
-// variable de entorno pública VITE_SITE_URL (en Vercel o en un .env.local) y
-// de aquí salen canonical, Open Graph, datos estructurados, robots.txt y
-// sitemap.xml.
-export const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://tecnitextil.vercel.app').replace(
-  /\/+$/,
-  '',
-)
+// Public site origin without a trailing slash. It comes from `site` in
+// astro.config.mjs (SITE_URL environment variable), the single source for canonical
+// URLs, Open Graph, structured data, robots.txt and sitemap.xml.
+export const SITE_URL = import.meta.env.SITE.replace(/\/+$/, '')
 
 export const OG_IMAGE_PATH = '/og-image.png'
 
@@ -18,12 +14,12 @@ export const HOME_SEO = {
     'TECNITEXTIL: reparación de máquinas de coser industriales y de toldos automatizadas, corte y confección en toda España. +20 años. Recogida a domicilio.',
 }
 
-export function absoluteUrl(path) {
+export function absoluteUrl(path: string): string {
   return `${SITE_URL}${path}`
 }
 
-// schema.org LocalBusiness. Sin "address" a propósito: el titular prefiere no
-// mostrar su domicilio en Google. El domicilio figura en el aviso legal.
+// schema.org LocalBusiness. No "address" on purpose: the owner prefers not to show
+// the home address on Google; it is published in the legal notice.
 export function localBusinessJsonLd() {
   return {
     '@context': 'https://schema.org',

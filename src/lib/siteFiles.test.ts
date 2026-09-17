@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest'
-import { buildRobotsTxt, buildSitemapXml } from './siteFiles.js'
+import { describe, expect, it } from 'vitest'
+import { buildRobotsTxt, buildSitemapXml } from './siteFiles'
 
 describe('buildRobotsTxt', () => {
   it('allows crawling and points to the sitemap on the site domain', () => {

@@ -1,38 +1,60 @@
-// Contenido de las páginas legales. Los textos están pendientes de revisión
-// por una asesoría. Un dato del titular ausente o vacío se muestra como PENDING
-// y activa el aviso de borrador, para que nunca se publique un dato inventado.
-import { COMPANY } from './company.js'
+// Legal pages content. The texts are pending review by a legal adviser. A missing or
+// blank owner detail is shown as PENDING and turns on the draft notice, so an
+// invented value is never published.
+import { COMPANY } from './company'
 
 export const PENDING = '[Pendiente de completar]'
 
-// Identificación exigida por la LSSI-CE (art. 10.1 a y e). No hay datos del
-// Registro Mercantil (art. 10.1 b): el titular es autónomo.
-export const LEGAL_OWNER = {
+export interface LegalDetail {
+  label: string
+  value: string
+  href?: string
+}
+
+export interface LegalSection {
+  heading: string
+  paragraphs: string[]
+}
+
+export interface LegalPageContent {
+  path: string
+  title: string
+  description: string
+  identification: { heading: string; items: LegalDetail[] }
+  sections: LegalSection[]
+}
+
+type OwnerField = 'legalName' | 'taxId' | 'address' | 'email'
+
+// Identification required by LSSI-CE art. 10.1 a and e. There is no Registro Mercantil
+// entry (art. 10.1 b): the owner is a sole trader.
+export const LEGAL_OWNER: Record<OwnerField, string> = {
   legalName: 'Jhon Mario Hernández Melo',
   taxId: '60415860N',
   address: 'Carrer del Perú, 7, 08921 Santa Coloma de Gramenet (Barcelona)',
   email: 'tecnitextil2@gmail.com',
 }
 
-// Fecha de la última revisión de los textos legales.
-export const LAST_UPDATED = '16 de septiembre de 2026'
+// Date of the last review of the legal texts.
+export const LAST_UPDATED: string = '16 de septiembre de 2026'
 
-export function isMissing(value) {
+export function isMissing(value: unknown): boolean {
   return value === null || value === undefined || (typeof value === 'string' && value.trim() === '')
 }
 
-const REQUIRED_OWNER_FIELDS = ['legalName', 'taxId', 'address', 'email']
+const REQUIRED_OWNER_FIELDS: OwnerField[] = ['legalName', 'taxId', 'address', 'email']
 
-export function missingLegalData() {
-  const missing = REQUIRED_OWNER_FIELDS.filter((field) => isMissing(LEGAL_OWNER[field]))
+export function missingLegalData(): string[] {
+  const missing: string[] = REQUIRED_OWNER_FIELDS.filter((field) => isMissing(LEGAL_OWNER[field]))
   return isMissing(LAST_UPDATED) ? [...missing, 'lastUpdated'] : missing
 }
 
 export const hasPendingLegalData = missingLegalData().length > 0
 
-const owner = (field) => (isMissing(LEGAL_OWNER[field]) ? PENDING : LEGAL_OWNER[field])
+const owner = (field: OwnerField): string =>
+  isMissing(LEGAL_OWNER[field]) ? PENDING : LEGAL_OWNER[field]
 
-export const LEGAL_NOTICE = {
+export const LEGAL_NOTICE: LegalPageContent = {
   path: '/aviso-legal',
   title: 'Aviso legal',
   description: `Aviso legal e información del titular del sitio web de ${COMPANY.name}.`,
@@ -79,12 +101,12 @@ export const LEGAL_NOTICE = {
   ],
 }
 
-export const PRIVACY_POLICY = {
+export const PRIVACY_POLICY: LegalPageContent = {
   path: '/privacidad',
   title: 'Política de privacidad',
   description: `Cómo trata ${COMPANY.name} los datos personales de quienes visitan su web o le contactan.`,
-  // RGPD art. 13.1 a: identidad y contacto del responsable. El NIF y el
-  // domicilio solo figuran en el aviso legal.
+  // GDPR art. 13.1 a: controller identity and contact. The NIF and the address only
+  // appear in the legal notice.
   identification: {
     heading: 'Responsable del tratamiento',
     items: [
@@ -136,7 +158,7 @@ export const PRIVACY_POLICY = {
   ],
 }
 
-export const LEGAL_LINKS = [
+export const LEGAL_LINKS: { label: string; href: string }[] = [
   { label: LEGAL_NOTICE.title, href: LEGAL_NOTICE.path },
   { label: PRIVACY_POLICY.title, href: PRIVACY_POLICY.path },
 ]

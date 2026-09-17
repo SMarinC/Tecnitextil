@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest'
-import { isMissing, missingLegalData, hasPendingLegalData } from './legal.js'
+import { describe, expect, it } from 'vitest'
+import { hasPendingLegalData, isMissing, missingLegalData } from './legal'
 
 describe('isMissing', () => {
   it.each([null, undefined, '', '   '])('treats %j as missing', (value) => {

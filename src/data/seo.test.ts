@@ -1,6 +1,6 @@
-import { describe, it, expect } from 'vitest'
-import { HOME_SEO, SITE_URL, absoluteUrl, localBusinessJsonLd } from './seo.js'
-import { COMPANY } from './company.js'
+import { describe, expect, it } from 'vitest'
+import { COMPANY } from './company'
+import { HOME_SEO, SITE_URL, absoluteUrl, localBusinessJsonLd } from './seo'
 
 describe('seo content', () => {
   it('SITE_URL is an https origin without trailing slash', () => {
