@@ -21,9 +21,11 @@ export function isMissing(value) {
   return value === null || value === undefined || (typeof value === 'string' && value.trim() === '')
 }
 
+const REQUIRED_OWNER_FIELDS = ['legalName', 'taxId', 'address', 'email']
+
 export function missingLegalData() {
-  const data = { ...LEGAL_OWNER, lastUpdated: LAST_UPDATED }
-  return Object.keys(data).filter((key) => isMissing(data[key]))
+  const missing = REQUIRED_OWNER_FIELDS.filter((field) => isMissing(LEGAL_OWNER[field]))
+  return isMissing(LAST_UPDATED) ? [...missing, 'lastUpdated'] : missing
 }
 
 export const hasPendingLegalData = missingLegalData().length > 0

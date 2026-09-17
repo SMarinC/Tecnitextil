@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { renderToString } from 'react-dom/server'
 import App from './App.jsx'
 import { ROUTES, findRoute } from './routes.js'
-import { LEGAL_OWNER, PENDING, hasPendingLegalData } from './content/legal.js'
+import { LEGAL_NOTICE, LEGAL_OWNER, PENDING, hasPendingLegalData } from './content/legal.js'
 
 // The owner identification block of a legal page.
 function identificationBlock(html) {
@@ -55,10 +55,13 @@ describe('routes', () => {
     }
   })
 
-  it('legal pages warn visibly while owner data is pending, never inventing it', () => {
-    const html = renderToString(<App path="/aviso-legal" />)
-    expect(html.includes(PENDING)).toBe(hasPendingLegalData)
-  })
+  it.each(['/aviso-legal', '/privacidad'])(
+    '%s warns visibly while owner data is pending, never inventing it',
+    (path) => {
+      const html = renderToString(<App path={path} />)
+      expect(html.includes(PENDING)).toBe(hasPendingLegalData)
+    },
+  )
 
   it('the legal notice identifies the owner as LSSI-CE art. 10 requires', () => {
     const block = identificationBlock(renderToString(<App path="/aviso-legal" />))
@@ -76,6 +79,6 @@ describe('routes', () => {
     const block = identificationBlock(html)
     expect(block).toContain(LEGAL_OWNER.legalName)
     expect(block).toContain(LEGAL_OWNER.email)
-    expect(block).toContain('href="/aviso-legal"')
+    expect(block).toContain(`href="${LEGAL_NOTICE.path}"`)
   })
 })

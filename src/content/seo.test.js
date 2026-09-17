@@ -24,4 +24,8 @@ describe('seo content', () => {
     expect(HOME_SEO.description.length).toBeLessThanOrEqual(160)
     expect(HOME_SEO.description).toContain('toldos automatizadas')
   })
+
+  it('structured data does not publish the owner address', () => {
+    expect(localBusinessJsonLd()).not.toHaveProperty('address')
+  })
 })
