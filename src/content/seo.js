@@ -22,8 +22,8 @@ export function absoluteUrl(path) {
   return `${SITE_URL}${path}`
 }
 
-// schema.org LocalBusiness. Añadir "address" cuando el negocio confirme su
-// domicilio (ver LEGAL_OWNER en legal.js): mejora la elegibilidad en Google.
+// schema.org LocalBusiness. Sin "address" a propósito: el titular prefiere no
+// mostrar su domicilio en Google. El domicilio figura en el aviso legal.
 export function localBusinessJsonLd() {
   return {
     '@context': 'https://schema.org',
