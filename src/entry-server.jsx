@@ -26,7 +26,7 @@ export function renderSiteFiles() {
     'robots.txt': buildRobotsTxt(SITE_URL),
     'sitemap.xml': buildSitemapXml(
       SITE_URL,
-      ROUTES.map(({ path }) => path),
+      ROUTES.filter(({ head }) => !head.noindex).map(({ path }) => path),
     ),
   }
 }

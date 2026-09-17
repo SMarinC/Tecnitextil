@@ -1,6 +1,6 @@
 // Fills the page-specific <head> of the built index.html template for a
 // prerendered route: title, description, Open Graph/Twitter copies, canonical
-// URL and optional JSON-LD structured data.
+// URL, optional JSON-LD structured data and an optional robots noindex tag.
 
 function escapeHtml(value) {
   return value
@@ -21,7 +21,7 @@ function serializeJsonLd(data) {
   return JSON.stringify(data).replaceAll('<', '\\u003c')
 }
 
-export function applyHead(html, { title, description, url, image, jsonLd }) {
+export function applyHead(html, { title, description, url, image, jsonLd, noindex }) {
   if (!/<title>[\s\S]*?<\/title>/.test(html)) throw new Error('Template is missing <title>')
   if (!html.includes('</head>')) throw new Error('Template is missing </head>')
 
@@ -33,6 +33,7 @@ export function applyHead(html, { title, description, url, image, jsonLd }) {
   result = replaceMetaContent(result, 'name', 'twitter:image', image)
 
   const extraTags = [
+    noindex ? '<meta name="robots" content="noindex" />' : null,
     `<link rel="canonical" href="${escapeHtml(url)}" />`,
     `<meta property="og:url" content="${escapeHtml(url)}" />`,
     jsonLd ? `<script type="application/ld+json">${serializeJsonLd(jsonLd)}</script>` : null,

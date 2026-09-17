@@ -19,7 +19,13 @@ export const ROUTES = [
     file: `${page.path.slice(1)}.html`,
     Page: LegalPage,
     props: { page },
-    head: { title: `${page.title} | ${COMPANY.name}`, description: page.description },
+    // Reachable from the footer but kept out of search results: they carry the
+    // owner's NIF and address.
+    head: {
+      title: `${page.title} | ${COMPANY.name}`,
+      description: page.description,
+      noindex: true,
+    },
   })),
 ]
 

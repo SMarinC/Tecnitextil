@@ -2,7 +2,15 @@ import { describe, it, expect } from 'vitest'
 import { renderToString } from 'react-dom/server'
 import App from './App.jsx'
 import { ROUTES, findRoute } from './routes.js'
-import { LEGAL_NOTICE, LEGAL_OWNER, PENDING, hasPendingLegalData } from './content/legal.js'
+import {
+  LEGAL_NOTICE,
+  LEGAL_OWNER,
+  PENDING,
+  hasPendingLegalData,
+  PRIVACY_POLICY,
+} from './content/legal.js'
+import { renderSiteFiles } from './entry-server.jsx'
+import { SITE_URL } from './content/seo.js'
 
 // The owner identification block of a legal page.
 function identificationBlock(html) {
@@ -80,5 +88,17 @@ describe('routes', () => {
     expect(block).toContain(LEGAL_OWNER.legalName)
     expect(block).toContain(LEGAL_OWNER.email)
     expect(block).toContain(`href="${LEGAL_NOTICE.path}"`)
+  })
+
+  it('keeps the legal pages out of search results and the home page in', () => {
+    const noindexPaths = ROUTES.filter(({ head }) => head.noindex).map(({ path }) => path)
+    expect(noindexPaths).toEqual([LEGAL_NOTICE.path, PRIVACY_POLICY.path])
+  })
+
+  it('lists only indexable pages in the sitemap', () => {
+    const sitemap = renderSiteFiles()['sitemap.xml']
+    expect(sitemap).toContain(`<loc>${SITE_URL}/</loc>`)
+    expect(sitemap).not.toContain(`${SITE_URL}${LEGAL_NOTICE.path}`)
+    expect(sitemap).not.toContain(`${SITE_URL}${PRIVACY_POLICY.path}`)
   })
 })

@@ -64,4 +64,12 @@ describe('applyHead', () => {
   it('fails loudly if the template lost a tag it must replace', () => {
     expect(() => applyHead('<head><title>x</title></head>', HEAD)).toThrow(/description/)
   })
+
+  it('adds a robots noindex meta tag only when asked', () => {
+    expect(applyHead(TEMPLATE, HEAD)).not.toContain('name="robots"')
+
+    const html = applyHead(TEMPLATE, { ...HEAD, noindex: true })
+    expect(html).toContain('<meta name="robots" content="noindex" />')
+    expect(html.indexOf('name="robots"')).toBeLessThan(html.indexOf('</head>'))
+  })
 })
