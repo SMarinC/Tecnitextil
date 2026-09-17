@@ -1,19 +1,19 @@
 import { describe, it, expect } from 'vitest'
-import { LEGAL_OWNER, LAST_UPDATED, hasPendingLegalData } from './legal.js'
+import { isMissing, missingLegalData, hasPendingLegalData } from './legal.js'
 
-// LSSI-CE art. 10: the site must identify its owner. Publishing with any field
-// still pending would show a draft notice on the legal pages.
-describe('legal owner data', () => {
-  it('has every owner field filled in', () => {
-    for (const [field, value] of Object.entries(LEGAL_OWNER)) {
-      expect(value, field).toEqual(expect.any(String))
-      expect(value.trim(), field).not.toBe('')
-    }
-    expect(hasPendingLegalData).toBe(false)
+describe('isMissing', () => {
+  it.each([null, undefined, '', '   '])('treats %j as missing', (value) => {
+    expect(isMissing(value)).toBe(true)
   })
 
-  it('states when the legal texts were last reviewed', () => {
-    expect(LAST_UPDATED).toEqual(expect.any(String))
-    expect(LAST_UPDATED.trim()).not.toBe('')
+  it('treats text with content as present', () => {
+    expect(isMissing('Carrer del Perú, 7')).toBe(false)
+  })
+})
+
+describe('legal data', () => {
+  it('has every required owner field and the review date filled in', () => {
+    expect(missingLegalData()).toEqual([])
+    expect(hasPendingLegalData).toBe(false)
   })
 })

@@ -2,7 +2,12 @@ import { describe, it, expect } from 'vitest'
 import { renderToString } from 'react-dom/server'
 import App from './App.jsx'
 import { ROUTES, findRoute } from './routes.js'
-import { PENDING, hasPendingLegalData } from './content/legal.js'
+import { LEGAL_OWNER, PENDING, hasPendingLegalData } from './content/legal.js'
+
+// The owner identification block of a legal page.
+function identificationBlock(html) {
+  return html.match(/<section[^>]*aria-labelledby="titular"[^>]*>[\s\S]*?<\/section>/)?.[0] ?? ''
+}
 
 describe('findRoute', () => {
   it.each([
@@ -53,5 +58,24 @@ describe('routes', () => {
   it('legal pages warn visibly while owner data is pending, never inventing it', () => {
     const html = renderToString(<App path="/aviso-legal" />)
     expect(html.includes(PENDING)).toBe(hasPendingLegalData)
+  })
+
+  it('the legal notice identifies the owner as LSSI-CE art. 10 requires', () => {
+    const block = identificationBlock(renderToString(<App path="/aviso-legal" />))
+    expect(block).toContain(LEGAL_OWNER.legalName)
+    expect(block).toContain(LEGAL_OWNER.taxId)
+    expect(block).toContain(LEGAL_OWNER.address)
+    expect(block).toContain(LEGAL_OWNER.email)
+    expect(block).not.toContain('Datos registrales')
+  })
+
+  it('the privacy policy only identifies the controller and links to the legal notice', () => {
+    const html = renderToString(<App path="/privacidad" />)
+    expect(html).not.toContain(LEGAL_OWNER.taxId)
+    expect(html).not.toContain(LEGAL_OWNER.address)
+    const block = identificationBlock(html)
+    expect(block).toContain(LEGAL_OWNER.legalName)
+    expect(block).toContain(LEGAL_OWNER.email)
+    expect(block).toContain('href="/aviso-legal"')
   })
 })

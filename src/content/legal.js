@@ -1,40 +1,49 @@
 // Contenido de las páginas legales. Los textos están pendientes de revisión
-// por una asesoría. Si algún dato del titular se deja en null, se muestra como
-// PENDING y la página avisa de ello, para que nunca se publique un dato
-// inventado.
+// por una asesoría. Un dato del titular ausente o vacío se muestra como PENDING
+// y activa el aviso de borrador, para que nunca se publique un dato inventado.
 import { COMPANY } from './company.js'
 
 export const PENDING = '[Pendiente de completar]'
 
-// Datos que debe aportar el titular de la web (LSSI-CE art. 10).
+// Identificación exigida por la LSSI-CE (art. 10.1 a y e). No hay datos del
+// Registro Mercantil (art. 10.1 b): el titular es autónomo.
 export const LEGAL_OWNER = {
-  legalName: 'Jhon Mario Hernández Melo', // Razón social, o nombre y apellidos si es autónomo
-  taxId: '60415860N', // NIF / CIF
-  address: 'Carrer del Perú, 7, 08921 Santa Coloma de Gramenet (Barcelona)', // Domicilio completo
-  email: 'tecnitextil2@gmail.com', // Email de contacto para asuntos legales y de privacidad
-  registry: 'No aplica (trabajador autónomo)', // Inscripción en el Registro Mercantil (solo sociedades)
+  legalName: 'Jhon Mario Hernández Melo',
+  taxId: '60415860N',
+  address: 'Carrer del Perú, 7, 08921 Santa Coloma de Gramenet (Barcelona)',
+  email: 'tecnitextil2@gmail.com',
 }
 
-export const LAST_UPDATED = '15 de septiembre de 2026' // Fecha de la última revisión, p. ej. '14 de septiembre de 2026'
+// Fecha de la última revisión de los textos legales.
+export const LAST_UPDATED = '16 de septiembre de 2026'
 
-export const hasPendingLegalData = Object.values(LEGAL_OWNER).some((value) => value === null)
+export function isMissing(value) {
+  return value === null || value === undefined || (typeof value === 'string' && value.trim() === '')
+}
 
-const owner = (field) => LEGAL_OWNER[field] ?? PENDING
+export function missingLegalData() {
+  const data = { ...LEGAL_OWNER, lastUpdated: LAST_UPDATED }
+  return Object.keys(data).filter((key) => isMissing(data[key]))
+}
 
-const OWNER_DETAILS = [
-  { label: 'Titular', value: owner('legalName') },
-  { label: 'NIF / CIF', value: owner('taxId') },
-  { label: 'Domicilio', value: owner('address') },
-  { label: 'Email', value: owner('email') },
-  { label: 'Teléfono', value: COMPANY.phone.display },
-  { label: 'Datos registrales', value: owner('registry') },
-]
+export const hasPendingLegalData = missingLegalData().length > 0
+
+const owner = (field) => (isMissing(LEGAL_OWNER[field]) ? PENDING : LEGAL_OWNER[field])
 
 export const LEGAL_NOTICE = {
   path: '/aviso-legal',
   title: 'Aviso legal',
   description: `Aviso legal e información del titular del sitio web de ${COMPANY.name}.`,
-  details: OWNER_DETAILS,
+  identification: {
+    heading: 'Datos del titular',
+    items: [
+      { label: 'Titular', value: owner('legalName') },
+      { label: 'NIF', value: owner('taxId') },
+      { label: 'Domicilio', value: owner('address') },
+      { label: 'Email', value: owner('email') },
+      { label: 'Teléfono', value: COMPANY.phone.display },
+    ],
+  },
   sections: [
     {
       heading: 'Objeto',
@@ -72,7 +81,16 @@ export const PRIVACY_POLICY = {
   path: '/privacidad',
   title: 'Política de privacidad',
   description: `Cómo trata ${COMPANY.name} los datos personales de quienes visitan su web o le contactan.`,
-  details: OWNER_DETAILS,
+  // RGPD art. 13.1 a: identidad y contacto del responsable. El NIF y el
+  // domicilio solo figuran en el aviso legal.
+  identification: {
+    heading: 'Responsable del tratamiento',
+    items: [
+      { label: 'Responsable', value: owner('legalName') },
+      { label: 'Email de contacto', value: owner('email') },
+      { label: 'Identificación completa', value: LEGAL_NOTICE.title, href: LEGAL_NOTICE.path },
+    ],
+  },
   sections: [
     {
       heading: 'Qué datos tratamos',

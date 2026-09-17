@@ -3,7 +3,7 @@ import Footer from '../Footer/Footer.jsx'
 import WhatsAppCta from '../WhatsAppCta/WhatsAppCta.jsx'
 import { COMPANY } from '../../content/company.js'
 import { WHATSAPP_CTA } from '../../content/home.js'
-import { LAST_UPDATED, PENDING, hasPendingLegalData } from '../../content/legal.js'
+import { LAST_UPDATED, PENDING, hasPendingLegalData, isMissing } from '../../content/legal.js'
 
 // Shared layout for the legal notice and privacy policy pages.
 function LegalPage({ page }) {
@@ -27,13 +27,13 @@ function LegalPage({ page }) {
 
           <section className={styles.section} aria-labelledby="titular">
             <h2 id="titular" className={styles.heading}>
-              Datos del titular
+              {page.identification.heading}
             </h2>
             <dl className={styles.details}>
-              {page.details.map(({ label, value }) => (
+              {page.identification.items.map(({ label, value, href }) => (
                 <div className={styles.detail} key={label}>
                   <dt>{label}</dt>
-                  <dd>{value}</dd>
+                  <dd>{href ? <a href={href}>{value}</a> : value}</dd>
                 </div>
               ))}
             </dl>
@@ -50,7 +50,9 @@ function LegalPage({ page }) {
             </section>
           ))}
 
-          <p className={styles.updated}>Última actualización: {LAST_UPDATED ?? PENDING}</p>
+          <p className={styles.updated}>
+            Última actualización: {isMissing(LAST_UPDATED) ? PENDING : LAST_UPDATED}
+          </p>
         </article>
       </main>
       <Footer />

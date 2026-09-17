@@ -92,6 +92,20 @@
   margin: 0;
 }
 
+.detail a {
+  color: var(--color-gold-light);
+  text-underline-offset: 0.2em;
+}
+
+.detail a:hover {
+  color: var(--color-gold);
+}
+
+.detail a:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
 .updated {
   font-size: 0.85rem;
 }
