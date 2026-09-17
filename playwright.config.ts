@@ -2,8 +2,9 @@ import { defineConfig, devices } from '@playwright/test'
 
 const PORT = 4173
 
-// Runs against the production build (vite preview). Set BASE_URL to test an
-// already running server or a Vercel preview deployment instead.
+// Runs against the production build served by `astro preview` with the security
+// headers from vercel.json. Set BASE_URL to test an already running server or a Vercel
+// preview deployment instead.
 export default defineConfig({
   testDir: './e2e',
   fullyParallel: true,
@@ -24,9 +25,9 @@ export default defineConfig({
   webServer: process.env.BASE_URL
     ? undefined
     : {
-        command: `npm run build && npm run preview -- --port ${PORT} --strictPort`,
+        command: `npm run build && npm run preview -- --port ${PORT}`,
         url: `http://localhost:${PORT}`,
         reuseExistingServer: !process.env.CI,
-        timeout: 120_000,
+        timeout: 180_000,
       },
 })

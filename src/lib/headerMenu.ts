@@ -28,10 +28,19 @@ export function initHeaderMenu(header: HTMLElement): void {
   }
 
   toggle.addEventListener('click', () => setMenuOpen(panel.hidden === true))
-  panel.addEventListener('click', (event) => {
-    if (event.target instanceof Element && event.target.closest('a')) setMenuOpen(false)
+  // Following an anchor to a non-focusable section moves focus to the document itself
+  // (no element actually receives it), so listening for the panel losing focus would
+  // close it in that same synchronous step, before the browser (or a test) can observe
+  // the link's aria-current update. Listening for focus landing elsewhere instead only
+  // reacts once something real gains it, i.e. once the reader tabs past the section.
+  document.addEventListener('focusin', (event) => {
+    if (panel.hidden || event.target === toggle) return
+    if (!(event.target instanceof Node) || !panel.contains(event.target)) setMenuOpen(false)
   })
-  window.matchMedia(DESKTOP_MEDIA_QUERY).addEventListener('change', (event) => {
+  // Kept in a variable: some engines only weakly reference an inline MediaQueryList,
+  // so its change listener could otherwise be garbage-collected.
+  const desktopQuery = window.matchMedia(DESKTOP_MEDIA_QUERY)
+  desktopQuery.addEventListener('change', (event) => {
     if (event.matches) setMenuOpen(false)
   })
 

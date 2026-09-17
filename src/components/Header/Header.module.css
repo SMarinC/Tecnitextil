@@ -87,6 +87,13 @@
 }
 
 .mobileNav {
+  /* Overlays the page instead of growing the sticky header, so --header-offset
+     (src/styles/tokens.css) and its scroll-margin-top stay accurate whether the panel
+     is open or closed. */
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
   display: flex;
   flex-direction: column;
   background: var(--color-black);
