@@ -6,4 +6,7 @@ playwright-report
 blob-report
 .lighthouseci
 *.local
+.claude
+.superpowers
+.impeccable
 docs
