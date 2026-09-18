@@ -1,6 +1,6 @@
 # TECNITEXTIL
 
-Production website for TECNITEXTIL, an industrial sewing machine repair and maintenance business in Spain. A fast, accessible and fully tested static site whose one job is to turn every visit into a WhatsApp chat or a phone call.
+Production website for TECNITEXTIL, an industrial sewing machine repair and maintenance business in Spain. A fast, accessible static site whose one job is to turn every visit into a WhatsApp chat or a phone call.
 
 **[Live site](https://tecnitextil.vercel.app)** · [Leer en español](README.es.md)
 
@@ -10,12 +10,13 @@ Production website for TECNITEXTIL, an industrial sewing machine repair and main
 
 ## Highlights
 
-- **Prerendered static HTML.** A client build and a server build run together, and `scripts/prerender.js` writes the final HTML for every route before React hydrates it. Search engines and link previews get the full page without running JavaScript.
-- **Content separated from code.** All copy and business data live in `src/content/`, so text changes never touch components. Tests guarantee every menu link points to a section that exists.
-- **Accessibility tested in the browser.** Playwright runs axe on every page and fails on serious or critical violations. It also checks that pages reflow at 200% text size on a 320px screen, that menu navigation respects reduced motion, and that keyboard focus follows the section you jump to.
-- **Performance by default.** Self-hosted Latin-subset fonts with preloads, WebP images with explicit dimensions, analytics loaded from a deferred chunk, and cache headers for hashed build assets.
-- **Strict security headers.** A Content-Security-Policy that only allows same-origin resources, plus `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy` and `Permissions-Policy`.
-- **SEO from a single source.** Canonical URLs, Open Graph tags, `LocalBusiness` structured data, `robots.txt` and `sitemap.xml` are all generated from one site URL.
+- **Static HTML, JavaScript only where it is needed.** Astro renders every page at build time. The only client script is the header menu, and browser tests fail if any page downloads more than 15 kB of JavaScript.
+- **Native navigation.** Menu links are plain anchors: sections can be shared by URL, the back button works, and smooth scrolling is pure CSS that respects reduced motion.
+- **Content separated from code.** All copy and business data live in typed modules in `src/data/`, so text changes never touch components.
+- **Accessibility tested in the browser.** Playwright runs axe on every page and fails on serious or critical violations. It also checks that pages reflow at 200% text size on a 320px screen and that the mobile menu works with its accessible names.
+- **Performance by default.** Self-hosted Latin-subset fonts preloaded from `<head>`, images resized and converted to WebP at build time, and long-lived caching for hashed assets.
+- **Strict security headers.** A Content-Security-Policy that only allows same-origin resources, verified in the browser tests, plus `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy` and `Permissions-Policy`.
+- **SEO from a single source.** Canonical URLs, Open Graph tags, `LocalBusiness` structured data, `robots.txt` and `sitemap.xml` all come from one site URL and one page list.
 
 ## Screenshots
 
@@ -26,7 +27,7 @@ Production website for TECNITEXTIL, an industrial sewing machine repair and main
 
 ## Tech stack
 
-React 19 · Vite 8 · CSS Modules · Vitest 5 and Testing Library · Playwright and axe · Lighthouse CI · ESLint · Prettier · husky and lint-staged · GitHub Actions · Dependabot · Vercel
+Astro 7 · TypeScript · CSS Modules · Vitest 5 · Playwright and axe · Lighthouse CI · ESLint · Prettier · husky and lint-staged · GitHub Actions · Dependabot · Vercel
 
 ## Quality gates
 
@@ -34,8 +35,8 @@ Every pull request and every push to `main` runs three CI jobs:
 
 | Job                        | What it checks                                                                                                  |
 | -------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| Lint, unit tests and build | Prettier formatting, ESLint, 129 unit and component tests, and the full production build with prerendering      |
-| Browser tests              | 16 Playwright scenarios on a mobile device (Pixel 7) and on desktop, including axe accessibility audits         |
+| Lint, unit tests and build | Prettier formatting, ESLint, unit tests for data, logic, components and pages, and the build with type checking |
+| Browser tests              | Playwright on a mobile device (Pixel 7) and on desktop: axe audits, navigation, JavaScript budget and CSP       |
 | Lighthouse budgets         | Fails if accessibility is below 95, SEO below 90 or CLS above 0.1; warns on performance, best practices and LCP |
 
 A pre-commit hook formats and lints the staged files, and Dependabot proposes npm updates weekly and GitHub Actions updates monthly.
@@ -46,49 +47,47 @@ Requires Node.js 24 (pinned in `.nvmrc`; with nvm, run `nvm use`).
 
 ```sh
 npm ci
-npm run dev          # http://localhost:5173
+npm run dev          # http://localhost:4321
 ```
 
 ## Scripts
 
-| Command            | What it does                                                                                                 |
-| ------------------ | ------------------------------------------------------------------------------------------------------------ |
-| `npm run dev`      | Development server with hot reload                                                                           |
-| `npm run build`    | Production build in `dist/`: client, server render, prerendered pages, `robots.txt` and `sitemap.xml`        |
-| `npm run preview`  | Serves `dist/` with the same security headers as production                                                  |
-| `npm test`         | Unit and component tests (Vitest and Testing Library)                                                        |
-| `npm run test:e2e` | Browser tests (Playwright and axe) against the build. First run: `npx playwright install chromium`           |
-| `npm run lint`     | ESLint                                                                                                       |
-| `npm run format`   | Formats the code with Prettier (`format:check` only checks)                                                  |
-| `npm run images`   | Regenerates `public/logo.webp` from `public/logo.png` (run it after changing the logo and commit the result) |
+| Command            | What it does                                                                                       |
+| ------------------ | -------------------------------------------------------------------------------------------------- |
+| `npm run dev`      | Development server with hot reload                                                                 |
+| `npm run build`    | Type checks (`astro check`) and builds the static site in `dist/`                                  |
+| `npm run preview`  | Serves `dist/` with the same security headers as production                                        |
+| `npm test`         | Unit, component and page tests (Vitest)                                                            |
+| `npm run test:e2e` | Browser tests (Playwright and axe) against the build. First run: `npx playwright install chromium` |
+| `npm run lint`     | ESLint                                                                                             |
+| `npm run format`   | Formats the code with Prettier (`format:check` only checks)                                        |
 
 ## Project structure
 
 ```
 src/
-  content/          # all copy and business data (edit here)
-    company.js      #   name, phone, coverage
-    home.js         #   text for each section of the home page
-    sections.js     #   section ids and menu
-    legal.js        #   legal notice, privacy policy and owner details
-    seo.js          #   site URL, titles, structured data
-  components/       # one component per section (.jsx + .module.css)
-  pages/            # full pages (home)
-  hooks/            # reusable React logic (active section, media queries)
-  lib/              # pure, tested functions (head tags, sitemap, scrolling)
+  data/             # all copy and business data (edit here)
+    company.ts      #   name, phone, coverage
+    home.ts         #   text for each section of the home page
+    sections.ts     #   section ids and menu
+    legal.ts        #   legal notice, privacy policy and owner details
+    seo.ts          #   site URL, structured data
+    pages.ts        #   every page: title, description, indexing
+  pages/            # one file per URL, plus robots.txt and sitemap.xml
+  layouts/          # <head> and the legal page template
+  components/       # one component per section (.astro + .module.css)
+  lib/              # pure, tested functions and the header menu script
+  assets/           # images optimized at build time
   styles/           # design tokens and global styles
-  routes.js         # list of site pages
-  entry-server.jsx  # server render used by the prerender step
-scripts/
-  prerender.js      # writes the final HTML for each page
+  test/             # page tests and the render helper
 e2e/                # browser tests, one per use case (UC-xx)
 ```
 
 ### Common changes
 
-- **Text, phone number or brands:** edit `src/content/`.
-- **A new page:** add it to `src/routes.js`. The prerender step, the sitemap and the route tests pick it up automatically.
-- **A custom domain:** set the public `VITE_SITE_URL` environment variable in Vercel (or in a local `.env.local`). It defaults to `https://tecnitextil.vercel.app`.
+- **Text, phone number or brands:** edit `src/data/`.
+- **A new page:** add a file to `src/pages/` and its entry to `src/data/pages.ts`. The sitemap picks it up unless the page is marked `noindex`.
+- **A custom domain:** set the `SITE_URL` environment variable in Vercel (or in a local `.env.local`). It defaults to `https://tecnitextil.vercel.app`.
 
 ## Deployment
 
