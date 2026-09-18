@@ -169,6 +169,14 @@ test('the mobile menu opens, closes and closes itself at the desktop breakpoint'
 
   await openButton.click()
   await page.setViewportSize({ width: DESKTOP_BREAKPOINT_PX, height: 800 })
+  // At the desktop breakpoint the CSS hides .mobileNav *and* the toggle button itself,
+  // so a role query for either finds nothing regardless of the script's state — read
+  // the toggle by its data attribute instead, which stays queryable while hidden. Its
+  // aria-expanded is the only evidence the matchMedia listener actually closed the
+  // panel; awaiting it also stops the two resizes from firing back to back, which some
+  // runners coalesce into one matchMedia change (or none), racing `setMenuOpen(false)`.
+  await expect(page.locator('[data-menu-toggle]')).toHaveAttribute('aria-expanded', 'false')
+
   await page.setViewportSize({ width: DESKTOP_BREAKPOINT_PX - 1, height: 800 })
   await expect(panel).toBeHidden()
   await expect(openButton).toHaveAttribute('aria-expanded', 'false')
