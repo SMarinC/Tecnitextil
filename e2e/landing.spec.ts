@@ -100,7 +100,13 @@ test('UC-03: choosing a menu item jumps to its section with a shareable link', a
       return top >= header.y + header.height - 1 && top <= headerOffset + 1
     })
     .toBe(true)
-  await expect(link).toHaveAttribute('aria-current', 'true')
+  // A CSS locator, not a role query: on mobile the panel has already closed (removing
+  // it from the accessibility tree), but markActiveLink sets aria-current on every
+  // matching [data-nav-link], including the always-present desktop copy.
+  const activeLink = page.locator(
+    'nav[aria-label="Navegación principal"] a[href="#tipos-de-maquina"]',
+  )
+  await expect(activeLink).toHaveAttribute('aria-current', 'true')
 
   await page.keyboard.press('Tab')
   const focusFollowsSection = await page.evaluate(() => {
