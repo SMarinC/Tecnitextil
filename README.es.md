@@ -68,6 +68,7 @@ npm run dev          # http://localhost:4321
 src/
   data/             # todos los textos y datos del negocio (editar aquí)
     company.ts      #   nombre, teléfono, cobertura
+    contact.ts      #   teléfono y enlace de WhatsApp
     home.ts         #   textos de cada sección de la página de inicio
     sections.ts     #   ids de sección y menú
     legal.ts        #   aviso legal, privacidad y datos del titular

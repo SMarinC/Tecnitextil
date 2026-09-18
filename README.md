@@ -68,6 +68,7 @@ npm run dev          # http://localhost:4321
 src/
   data/             # all copy and business data (edit here)
     company.ts      #   name, phone, coverage
+    contact.ts      #   phone number and WhatsApp link
     home.ts         #   text for each section of the home page
     sections.ts     #   section ids and menu
     legal.ts        #   legal notice, privacy policy and owner details
