@@ -27,6 +27,22 @@
   color: var(--color-white);
 }
 
+.tagline {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: var(--color-text-on-dark-secondary);
+  max-width: 50ch;
+}
+
+.aboutHeading {
+  margin-top: var(--space-md);
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.8rem;
+  color: var(--color-gold);
+}
+
 .subtitle {
   font-size: 1.05rem;
   line-height: 1.6;

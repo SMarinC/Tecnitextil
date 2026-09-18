@@ -6,8 +6,9 @@ import {
   PRIVACY_POLICY,
   hasPendingLegalData,
 } from '../data/legal'
+import { HERO } from '../data/home'
 import { HOME_PAGE, LEGAL_NOTICE_PAGE, PAGES, PRIVACY_POLICY_PAGE } from '../data/pages'
-import { NAV_ITEMS } from '../data/sections'
+import { NAV_ITEMS, SECTIONS } from '../data/sections'
 import { OG_IMAGE_PATH, SITE_URL, absoluteUrl } from '../data/seo'
 import LegalNoticePage from '../pages/aviso-legal.astro'
 import HomePage from '../pages/index.astro'
@@ -92,6 +93,18 @@ describe('home page', () => {
   it.each(NAV_ITEMS)('menu item "$label" points to a section of the page', ({ href }) => {
     expect(html[HOME_PAGE.path]).toContain(`id="${href.slice(1)}"`)
   })
+
+  it('names the business in its only <h1>', () => {
+    expect(html[HOME_PAGE.path]).toMatch(new RegExp(`<h1[^>]*>${HERO.title}</h1>`))
+  })
+
+  it('offers WhatsApp in the hero section', () => {
+    const hero =
+      html[HOME_PAGE.path].match(
+        new RegExp(`<section[^>]*id="${SECTIONS.about.id}"[\\s\\S]*?</section>`),
+      )?.[0] ?? ''
+    expect(hero).toContain('href="https://wa.me/')
+  })
 })
 
 describe('legal pages', () => {
@@ -120,4 +133,11 @@ describe('legal pages', () => {
     expect(block).toContain(LEGAL_OWNER.email)
     expect(block).toContain(`href="${LEGAL_NOTICE.path}"`)
   })
+
+  it.each([LEGAL_NOTICE.path, PRIVACY_POLICY.path])(
+    '%s links the owner email with mailto:',
+    (path) => {
+      expect(identificationBlock(html[path])).toContain(`href="mailto:${LEGAL_OWNER.email}"`)
+    },
+  )
 })

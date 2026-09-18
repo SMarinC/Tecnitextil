@@ -79,6 +79,10 @@ test('UC-02: the phone number is a tappable tel: link', async ({ page }) => {
   await expect(phone).toBeVisible()
 })
 
+test('the hero shows its WhatsApp call to action without scrolling', async ({ page }) => {
+  await expect(page.locator('#quienes-somos a[href*="wa.me"]')).toBeInViewport({ ratio: 1 })
+})
+
 test('UC-03: choosing a menu item jumps to its section with a shareable link', async ({
   page,
   isMobile,

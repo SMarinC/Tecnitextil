@@ -54,6 +54,12 @@ export const hasPendingLegalData = missingLegalData().length > 0
 const owner = (field: OwnerField): string =>
   isMissing(LEGAL_OWNER[field]) ? PENDING : LEGAL_OWNER[field]
 
+// The owner email as a mailto: link, or the pending marker (never a link) while it is missing.
+const ownerEmail = (): Pick<LegalDetail, 'value' | 'href'> =>
+  isMissing(LEGAL_OWNER.email)
+    ? { value: PENDING }
+    : { value: LEGAL_OWNER.email, href: `mailto:${LEGAL_OWNER.email}` }
+
 export const LEGAL_NOTICE: LegalPageContent = {
   path: '/aviso-legal',
   title: 'Aviso legal',
@@ -64,7 +70,7 @@ export const LEGAL_NOTICE: LegalPageContent = {
       { label: 'Titular', value: owner('legalName') },
       { label: 'NIF', value: owner('taxId') },
       { label: 'Domicilio', value: owner('address') },
-      { label: 'Email', value: owner('email') },
+      { label: 'Email', ...ownerEmail() },
       { label: 'Teléfono', value: COMPANY.phone.display },
     ],
   },
@@ -111,7 +117,7 @@ export const PRIVACY_POLICY: LegalPageContent = {
     heading: 'Responsable del tratamiento',
     items: [
       { label: 'Responsable', value: owner('legalName') },
-      { label: 'Email de contacto', value: owner('email') },
+      { label: 'Email de contacto', ...ownerEmail() },
       { label: 'Identificación completa', value: LEGAL_NOTICE.title, href: LEGAL_NOTICE.path },
     ],
   },

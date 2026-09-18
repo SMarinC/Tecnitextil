@@ -33,8 +33,17 @@ interface AwningMachinesContent {
   imageNote: string
 }
 
-export const HERO: { title: string; paragraphs: string[] } = {
-  title: 'Quiénes somos',
+export const HERO: {
+  title: string
+  tagline: string
+  ctaLabel: string
+  aboutHeading: string
+  paragraphs: string[]
+} = {
+  title: 'Reparación y mantenimiento de maquinaria textil',
+  tagline: `Máquinas de coser industriales y de toldos automatizadas, corte y confección. En ${COMPANY.coverage}, con más de ${COMPANY.yearsOfExperience} años de experiencia.`,
+  ctaLabel: 'Escríbenos por WhatsApp',
+  aboutHeading: 'Quiénes somos',
   paragraphs: [
     `${COMPANY.name} es una empresa que lleva más de ${COMPANY.yearsOfExperience} años trabajando con maquinaria textil e industrial: máquinas de coser, equipos de corte, confección y equipos auxiliares. Lo que empezó como un taller dedicado a resolver averías se convirtió, con el tiempo, en un equipo técnico altamente capacitado y con experiencia real en cada tipo de máquina, marca y avería.`,
     'Sabemos que detrás de cada máquina hay alguien que depende de ella para trabajar. Por eso combinamos eficiencia con un trato cercano: no solo reparamos, entendemos lo que significa para ti que tu máquina esté parada, y trabajamos con ese compromiso en cada intervención.',
