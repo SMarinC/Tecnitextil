@@ -29,5 +29,13 @@
 
   --max-width: 1120px;
 
-  --header-offset: 128px;
+  --header-offset: 96px;
+}
+
+/* The header grows with the 100px desktop logo. Same width as DESKTOP_BREAKPOINT_PX in
+   src/lib/breakpoints.ts. */
+@media (min-width: 1040px) {
+  :root {
+    --header-offset: 128px;
+  }
 }
