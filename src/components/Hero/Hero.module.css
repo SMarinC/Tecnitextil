@@ -37,6 +37,7 @@
 .aboutHeading {
   margin-top: var(--space-md);
   font-family: var(--font-heading);
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   font-size: 0.8rem;

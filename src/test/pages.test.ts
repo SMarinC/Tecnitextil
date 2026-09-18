@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { buildWhatsAppUrl } from '../data/contact'
 import {
   LEGAL_NOTICE,
   LEGAL_OWNER,
@@ -14,7 +15,7 @@ import LegalNoticePage from '../pages/aviso-legal.astro'
 import HomePage from '../pages/index.astro'
 import PrivacyPolicyPage from '../pages/privacidad.astro'
 import { GET as getSitemap } from '../pages/sitemap.xml.ts'
-import { renderToHtml } from './render'
+import { renderToHtml, textContent } from './render'
 
 const html: Record<string, string> = {
   [HOME_PAGE.path]: await renderToHtml(HomePage),
@@ -29,6 +30,15 @@ function head(page: string): string {
 // The owner identification block of a legal page.
 function identificationBlock(page: string): string {
   return page.match(/<section[^>]*aria-labelledby="titular"[^>]*>[\s\S]*?<\/section>/)?.[0] ?? ''
+}
+
+// The home page's hero section (id="quienes-somos").
+function heroSection(): string {
+  return (
+    html[HOME_PAGE.path].match(
+      new RegExp(`<section[^>]*id="${SECTIONS.about.id}"[\\s\\S]*?</section>`),
+    )?.[0] ?? ''
+  )
 }
 
 describe('every page', () => {
@@ -95,15 +105,16 @@ describe('home page', () => {
   })
 
   it('names the business in its only <h1>', () => {
-    expect(html[HOME_PAGE.path]).toMatch(new RegExp(`<h1[^>]*>${HERO.title}</h1>`))
+    const hero = heroSection()
+    const h1Text = textContent(hero.match(/<h1[^>]*>[\s\S]*?<\/h1>/)?.[0] ?? '')
+    expect(h1Text).toBe(HERO.title)
+    expect(HERO.title).not.toBe(HERO.aboutHeading)
+    const h2Text = textContent(hero.match(/<h2[^>]*>[\s\S]*?<\/h2>/)?.[0] ?? '')
+    expect(h2Text).toBe(HERO.aboutHeading)
   })
 
   it('offers WhatsApp in the hero section', () => {
-    const hero =
-      html[HOME_PAGE.path].match(
-        new RegExp(`<section[^>]*id="${SECTIONS.about.id}"[\\s\\S]*?</section>`),
-      )?.[0] ?? ''
-    expect(hero).toContain('href="https://wa.me/')
+    expect(heroSection()).toContain(`href="${buildWhatsAppUrl()}"`)
   })
 })
 

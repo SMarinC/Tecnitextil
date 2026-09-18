@@ -34,7 +34,7 @@
   }
 }
 
-/* Primary: large pill used in the closing call to action. */
+/* Primary: large pill used in the hero and the closing call to action. */
 .primary {
   composes: primaryCta from '../../styles/buttons.module.css';
   gap: var(--space-xs);
