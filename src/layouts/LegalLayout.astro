@@ -27,6 +27,7 @@ const { meta, content } = Astro.props
 <BaseLayout page={meta}>
   <header class={styles.header}>
     <a href="/" class={styles.homeLink}>
+      {/* Decorative here: the link text already names the destination. */}
       <Image
         src={logo}
         alt=""

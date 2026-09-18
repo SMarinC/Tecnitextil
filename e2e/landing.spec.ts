@@ -360,7 +360,7 @@ test('no page logs console errors or Content-Security-Policy violations', async 
     await page.goto(path, { waitUntil: 'load' })
   }
 
-  expect(errors).toEqual([])
+  await expect.poll(() => errors).toEqual([])
 })
 
 test('every page downloads at most 15 000 bytes of its own JavaScript', async ({

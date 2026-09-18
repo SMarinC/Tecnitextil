@@ -1,6 +1,6 @@
 import { COMPANY } from './company'
 
-export const PHONE_NUMBER = COMPANY.phone.international
+const PHONE_NUMBER = COMPANY.phone.international
 export const PHONE_DISPLAY = COMPANY.phone.display
 export const PHONE_TEL = `tel:+${PHONE_NUMBER}`
 

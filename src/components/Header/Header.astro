@@ -11,6 +11,9 @@ import styles from './Header.module.css'
 
 <header class={styles.header} data-site-header>
   <div class={styles.inner}>
+    {/* src/assets/logo.png and public/logo.png are intentional, byte-identical duplicates:
+    astro:assets needs the source under src/, while the favicon and the JSON-LD `logo` need
+    a stable /logo.png. Do not delete either one as a "duplicate". */}
     <Image
       src={logo}
       alt={COMPANY.name}

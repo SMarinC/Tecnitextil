@@ -43,9 +43,13 @@ export function initHeaderMenu(header: HTMLElement): void {
     .map((href) => document.querySelector(href))
     .filter((section) => section !== null)
   const visibleHrefs = new Set<string>()
+  // undefined (never a real href) so the first call always runs.
+  let lastActiveHref: string | null | undefined
 
   function markActiveLink(): void {
     const activeHref = pickActiveHref(hrefs, visibleHrefs, isAtPageBottom())
+    if (activeHref === lastActiveHref) return
+    lastActiveHref = activeHref
     for (const link of links) {
       if (link.hash === activeHref) link.setAttribute('aria-current', 'true')
       else link.removeAttribute('aria-current')
@@ -54,9 +58,10 @@ export function initHeaderMenu(header: HTMLElement): void {
 
   // The trigger band starts where the sticky header ends (--header-offset, the value
   // sections also use for scroll-margin-top) and ends at 30% of the viewport height.
-  const headerOffset = getComputedStyle(document.documentElement)
-    .getPropertyValue('--header-offset')
-    .trim()
+  // Falls back to the token's own value (see tokens.css) if the custom property ever
+  // resolves empty, so the IntersectionObserver constructor below never throws.
+  const headerOffset =
+    getComputedStyle(document.documentElement).getPropertyValue('--header-offset').trim() || '128px'
   const observer = new IntersectionObserver(
     (entries) => {
       for (const entry of entries) {
