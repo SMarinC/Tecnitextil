@@ -1,0 +1,42 @@
+---
+import { REPAIR_PROCESS, SERVICES } from '../../data/home'
+import { SECTIONS } from '../../data/sections'
+import Icon from '../Icon/Icon.astro'
+import styles from './Services.module.css'
+---
+
+<section class={styles.services} id={SECTIONS.services.id}>
+  <div class={styles.inner}>
+    <div class={styles.layout}>
+      <div class={styles.titleCol}>
+        <h2 class={styles.heading}>{SERVICES.heading}</h2>
+        <p class={styles.intro}>{SERVICES.intro}</p>
+      </div>
+      <div class={styles.itemsCol}>
+        {SERVICES.items.map(({ icon, title, description }) => (
+          <article class={styles.card}>
+            <Icon name={icon} class={styles.cardIcon} />
+            <h3 class={styles.cardTitle}>{title}</h3>
+            <p class={styles.cardDescription}>{description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+  <div class={styles.divider}></div>
+  <div class={styles.inner}>
+    <h3 class={styles.processHeading}>{REPAIR_PROCESS.heading}</h3>
+    <p class={styles.processIntro}>{REPAIR_PROCESS.intro}</p>
+    <ol class={styles.processSteps}>
+      {REPAIR_PROCESS.steps.map(({ title, description }, index) => (
+        <li class={styles.processStep}>
+          <span class={styles.processNumber}>{index + 1}</span>
+          <div class={styles.processStepText}>
+            <h4 class={styles.processStepTitle}>{title}</h4>
+            <p class={styles.processStepDescription}>{description}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

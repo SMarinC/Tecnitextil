@@ -1,0 +1,20 @@
+---
+import { HOW_IT_WORKS } from '../../data/home'
+import { SECTIONS } from '../../data/sections'
+import styles from './HowItWorks.module.css'
+---
+
+<section class={styles.section} id={SECTIONS.howItWorks.id}>
+  <div class={styles.inner}>
+    <h2 class={styles.heading}>{HOW_IT_WORKS.heading}</h2>
+    <ol class={styles.steps}>
+      {HOW_IT_WORKS.steps.map(({ title, description }, index) => (
+        <li class={styles.step}>
+          <span class={styles.number}>{index + 1}</span>
+          <h3 class={styles.stepTitle}>{title}</h3>
+          <p class={styles.stepDescription}>{description}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

@@ -1,41 +1,16 @@
 import js from '@eslint/js'
+import astro from 'eslint-plugin-astro'
 import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
+import tseslint from 'typescript-eslint'
 
 export default [
-  { ignores: ['dist', 'docs'] },
+  { ignores: ['dist', 'docs', '.astro'] },
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
+  ...astro.configs.recommended,
   {
-    files: ['**/*.{js,jsx}'],
     languageOptions: {
-      ecmaVersion: 2022,
       globals: { ...globals.browser, ...globals.node },
-      parserOptions: {
-        ecmaVersion: 'latest',
-        ecmaFeatures: { jsx: true },
-        sourceType: 'module',
-      },
-    },
-    plugins: {
-      'react-hooks': reactHooks,
-      'react-refresh': reactRefresh,
-    },
-    rules: {
-      ...js.configs.recommended.rules,
-      ...reactHooks.configs.recommended.rules,
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
-      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
-    },
-  },
-  {
-    // Build-time server entry, never hot-reloaded in the browser.
-    files: ['src/entry-server.jsx'],
-    rules: { 'react-refresh/only-export-components': 'off' },
-  },
-  {
-    files: ['**/*.test.{js,jsx}'],
-    languageOptions: {
-      globals: { ...globals.node },
     },
   },
 ]

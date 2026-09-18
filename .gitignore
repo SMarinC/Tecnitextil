@@ -1,12 +1,12 @@
 node_modules
 dist
-dist-ssr
+.astro
 test-results
 playwright-report
 blob-report
 .lighthouseci
 *.local
-.superpowers
 .claude
+.superpowers
 .impeccable
 docs

@@ -1,0 +1,79 @@
+---
+import { Image } from 'astro:assets'
+import logo from '../assets/logo.png'
+import Footer from '../components/Footer/Footer.astro'
+import WhatsAppCta from '../components/WhatsAppCta/WhatsAppCta.astro'
+import { WHATSAPP_CTA } from '../data/home'
+import {
+  LAST_UPDATED,
+  PENDING,
+  hasPendingLegalData,
+  isMissing,
+  type LegalPageContent,
+} from '../data/legal'
+import type { PageMeta } from '../data/pages'
+import BaseLayout from './BaseLayout.astro'
+import styles from './LegalLayout.module.css'
+
+// Shared layout for the legal notice and the privacy policy.
+interface Props {
+  meta: PageMeta
+  content: LegalPageContent
+}
+
+const { meta, content } = Astro.props
+---
+
+<BaseLayout page={meta}>
+  <header class={styles.header}>
+    <a href="/" class={styles.homeLink}>
+      {/* Decorative here: the link text already names the destination. */}
+      <Image
+        src={logo}
+        alt=""
+        width={64}
+        height={64}
+        densities={[1, 2]}
+        loading="eager"
+        class={styles.logo}
+      />
+      <span>Volver al inicio</span>
+    </a>
+  </header>
+  <main class={styles.main}>
+    <article class={styles.article}>
+      <h1 class={styles.title}>{content.title}</h1>
+      {hasPendingLegalData && (
+        <p class={styles.pendingNotice} role="note">
+          Borrador: faltan datos del titular marcados como “{PENDING}”.
+        </p>
+      )}
+      <section class={styles.section} aria-labelledby="titular">
+        <h2 id="titular" class={styles.heading}>
+          {content.identification.heading}
+        </h2>
+        <dl class={styles.details}>
+          {content.identification.items.map(({ label, value, href }) => (
+            <div class={styles.detail}>
+              <dt>{label}</dt>
+              <dd>{href ? <a href={href}>{value}</a> : value}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+      {content.sections.map(({ heading, paragraphs }) => (
+        <section class={styles.section}>
+          <h2 class={styles.heading}>{heading}</h2>
+          {paragraphs.map((paragraph) => (
+            <p class={styles.paragraph}>{paragraph}</p>
+          ))}
+        </section>
+      ))}
+      <p class={styles.updated}>
+        Última actualización: {isMissing(LAST_UPDATED) ? PENDING : LAST_UPDATED}
+      </p>
+    </article>
+  </main>
+  <Footer />
+  <WhatsAppCta variant="floating" label={WHATSAPP_CTA.floatingLabel} />
+</BaseLayout>

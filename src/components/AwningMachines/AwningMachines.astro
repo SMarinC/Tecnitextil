@@ -1,0 +1,52 @@
+---
+import { Image } from 'astro:assets'
+import { AWNING_MACHINES } from '../../data/home'
+import { SECTIONS } from '../../data/sections'
+import styles from './AwningMachines.module.css'
+---
+
+<section class={styles.section} id={SECTIONS.awningMachines.id}>
+  <div class={styles.inner}>
+    <div class={styles.layout}>
+      <div class={styles.textCol}>
+        <p class={styles.eyebrow}>{AWNING_MACHINES.eyebrow}</p>
+        <h2 class={styles.heading}>{AWNING_MACHINES.heading}</h2>
+        <p class={styles.intro}>{AWNING_MACHINES.intro}</p>
+        <h3 class={styles.subheading}>{AWNING_MACHINES.services.heading}</h3>
+        <ul class={styles.serviceList} role="list">
+          {AWNING_MACHINES.services.items.map((service) => (
+            <li class={styles.serviceItem}>{service}</li>
+          ))}
+        </ul>
+      </div>
+      <div class={styles.familiesCol}>
+        <ul class={styles.familyList} role="list">
+          {AWNING_MACHINES.families.map(({ title, description, image }) => (
+            <li class={styles.family}>
+              <Image
+                class={styles.familyImage}
+                src={image.src}
+                alt={image.alt}
+                widths={[400, 800]}
+                sizes="(min-width: 1024px) 200px, (min-width: 768px) 160px, 100vw"
+                loading="lazy"
+                decoding="async"
+              />
+              <div class={styles.familyText}>
+                <h3 class={styles.familyTitle}>{title}</h3>
+                <p class={styles.familyDescription}>{description}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+        <h3 class={styles.subheading}>{AWNING_MACHINES.components.heading}</h3>
+        <ul class={styles.componentList} role="list">
+          {AWNING_MACHINES.components.items.map((component) => (
+            <li class={styles.componentItem}>{component}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+    <p class={styles.imageNote}>{AWNING_MACHINES.imageNote}</p>
+  </div>
+</section>

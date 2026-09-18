@@ -1,0 +1,30 @@
+---
+import { MACHINE_TYPES } from '../../data/home'
+import { SECTIONS } from '../../data/sections'
+import Icon from '../Icon/Icon.astro'
+import styles from './MachineTypes.module.css'
+---
+
+<section class={styles.section} id={SECTIONS.machineTypes.id}>
+  <div class={styles.inner}>
+    <div class={styles.layout}>
+      <div class={styles.titleCol}>
+        <h2 class={styles.heading}>{MACHINE_TYPES.heading}</h2>
+        <p class={styles.intro}>{MACHINE_TYPES.intro}</p>
+      </div>
+      <ul class={styles.itemsCol}>
+        {MACHINE_TYPES.items.map(({ icon, title, description }) => (
+          <li class={styles.item}>
+            <span class={styles.iconBadge}>
+              <Icon name={icon} class={styles.icon} />
+            </span>
+            <div class={styles.itemText}>
+              <h3 class={styles.itemTitle}>{title}</h3>
+              <p class={styles.itemDescription}>{description}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>

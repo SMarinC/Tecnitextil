@@ -1,0 +1,20 @@
+---
+import { BRANDS } from '../../data/home'
+import { SECTIONS } from '../../data/sections'
+import styles from './Brands.module.css'
+---
+
+<section class={styles.section} id={SECTIONS.brands.id}>
+  <div class={styles.inner}>
+    <h2 class={styles.heading}>{BRANDS.heading}</h2>
+    {BRANDS.paragraphs.map((paragraph) => (
+      <p class={styles.text}>{paragraph}</p>
+    ))}
+    <ul class={styles.brandList}>
+      {BRANDS.featured.map((brand) => (
+        <li class={styles.brand}>{brand}</li>
+      ))}
+    </ul>
+    <p class={styles.otherBrands}>{BRANDS.others}</p>
+  </div>
+</section>
