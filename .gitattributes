@@ -5,6 +5,4 @@
 *.png binary
 *.jpg binary
 *.jpeg binary
-*.ico binary
-*.woff binary
-*.woff2 binary
+*.webp binary

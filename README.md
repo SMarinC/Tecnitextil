@@ -10,7 +10,7 @@ Production website for TECNITEXTIL, an industrial sewing machine repair and main
 
 ## Highlights
 
-- **Static HTML, JavaScript only where it is needed.** Astro renders every page at build time. The only client script is the header menu, and browser tests fail if any page downloads more than 15 kB of JavaScript.
+- **Static HTML, JavaScript only where it is needed.** Astro renders every page at build time. The only client scripts are the header menu and Vercel Web Analytics, and browser tests fail if any page downloads more than 15 kB of JavaScript (Vercel Web Analytics' `/_vercel/insights` script is excluded from that budget).
 - **Native navigation.** Menu links are plain anchors: sections can be shared by URL, the back button works, and smooth scrolling is pure CSS that respects reduced motion.
 - **Content separated from code.** All copy and business data live in typed modules in `src/data/`, so text changes never touch components.
 - **Accessibility tested in the browser.** Playwright runs axe on every page and fails on serious or critical violations. It also checks that pages reflow at 200% text size on a 320px screen and that the mobile menu works with its accessible names.
@@ -83,7 +83,7 @@ src/
   assets/           # images optimized at build time
   styles/           # design tokens and global styles
   test/             # page tests and the render helper
-e2e/                # browser tests, one per use case (UC-xx)
+e2e/                # browser tests, grouped by purpose (contact, navigation, SEO, a11y…)
 ```
 
 ### Common changes
