@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { buildWhatsAppUrl } from '../data/contact'
 import {
   LEGAL_NOTICE,
   LEGAL_OWNER,
@@ -6,14 +7,15 @@ import {
   PRIVACY_POLICY,
   hasPendingLegalData,
 } from '../data/legal'
+import { HERO } from '../data/home'
 import { HOME_PAGE, LEGAL_NOTICE_PAGE, PAGES, PRIVACY_POLICY_PAGE } from '../data/pages'
-import { NAV_ITEMS } from '../data/sections'
+import { NAV_ITEMS, SECTIONS } from '../data/sections'
 import { OG_IMAGE_PATH, SITE_URL, absoluteUrl } from '../data/seo'
 import LegalNoticePage from '../pages/aviso-legal.astro'
 import HomePage from '../pages/index.astro'
 import PrivacyPolicyPage from '../pages/privacidad.astro'
 import { GET as getSitemap } from '../pages/sitemap.xml.ts'
-import { renderToHtml } from './render'
+import { renderToHtml, textContent } from './render'
 
 const html: Record<string, string> = {
   [HOME_PAGE.path]: await renderToHtml(HomePage),
@@ -28,6 +30,15 @@ function head(page: string): string {
 // The owner identification block of a legal page.
 function identificationBlock(page: string): string {
   return page.match(/<section[^>]*aria-labelledby="titular"[^>]*>[\s\S]*?<\/section>/)?.[0] ?? ''
+}
+
+// The home page's hero section (id="quienes-somos").
+function heroSection(): string {
+  return (
+    html[HOME_PAGE.path].match(
+      new RegExp(`<section[^>]*id="${SECTIONS.about.id}"[\\s\\S]*?</section>`),
+    )?.[0] ?? ''
+  )
 }
 
 describe('every page', () => {
@@ -92,6 +103,19 @@ describe('home page', () => {
   it.each(NAV_ITEMS)('menu item "$label" points to a section of the page', ({ href }) => {
     expect(html[HOME_PAGE.path]).toContain(`id="${href.slice(1)}"`)
   })
+
+  it('names the business in its only <h1>', () => {
+    const hero = heroSection()
+    const h1Text = textContent(hero.match(/<h1[^>]*>[\s\S]*?<\/h1>/)?.[0] ?? '')
+    expect(h1Text).toBe(HERO.title)
+    expect(HERO.title).not.toBe(HERO.aboutHeading)
+    const h2Text = textContent(hero.match(/<h2[^>]*>[\s\S]*?<\/h2>/)?.[0] ?? '')
+    expect(h2Text).toBe(HERO.aboutHeading)
+  })
+
+  it('offers WhatsApp in the hero section', () => {
+    expect(heroSection()).toContain(`href="${buildWhatsAppUrl()}"`)
+  })
 })
 
 describe('legal pages', () => {
@@ -120,4 +144,11 @@ describe('legal pages', () => {
     expect(block).toContain(LEGAL_OWNER.email)
     expect(block).toContain(`href="${LEGAL_NOTICE.path}"`)
   })
+
+  it.each([LEGAL_NOTICE.path, PRIVACY_POLICY.path])(
+    '%s links the owner email with mailto:',
+    (path) => {
+      expect(identificationBlock(html[path])).toContain(`href="mailto:${LEGAL_OWNER.email}"`)
+    },
+  )
 })

@@ -1,5 +1,5 @@
-// Width at which the mobile menu gives way to the desktop nav. Header.module.css
-// repeats 1040px in its media query because CSS cannot read this constant.
+// Width at which the mobile menu gives way to the desktop nav. Header.module.css and
+// styles/tokens.css repeat 1040px in their media queries because CSS cannot read this constant.
 // Chosen so the logo, links and WhatsApp CTA fit inside the header's padding with
 // the self-hosted Oswald and with its Arial Narrow fallback: measured free space at
 // 1040px was ~61px with Oswald and ~42px with Arial Narrow, ~20px of that reserved

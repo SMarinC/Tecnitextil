@@ -31,6 +31,12 @@ async function box(locator: Locator) {
   return bounds
 }
 
+type Box = { x: number; y: number; width: number; height: number }
+
+function overlaps(a: Box, b: Box): boolean {
+  return a.x < b.x + b.width && a.x + a.width > b.x && a.y < b.y + b.height && a.y + a.height > b.y
+}
+
 // Scripts a first visit downloads with an empty cache, excluding Vercel-only ones.
 async function downloadScripts(
   browser: Browser,
@@ -77,6 +83,10 @@ test('UC-02: the phone number is a tappable tel: link', async ({ page }) => {
   const phone = page.getByRole('link', { name: '+34 685 01 80 86' })
   await expect(phone).toHaveAttribute('href', 'tel:+34685018086')
   await expect(phone).toBeVisible()
+})
+
+test('the hero shows its WhatsApp call to action without scrolling', async ({ page }) => {
+  await expect(page.locator('#quienes-somos a[href*="wa.me"]')).toBeInViewport({ ratio: 1 })
 })
 
 test('UC-03: choosing a menu item jumps to its section with a shareable link', async ({
@@ -188,13 +198,19 @@ test('the floating WhatsApp button never covers the closing call to action', asy
 
   const floating = await box(page.getByRole('link', { name: 'Escribir por WhatsApp' }))
   const cta = await box(closing)
-  const overlaps =
-    floating.x < cta.x + cta.width &&
-    floating.x + floating.width > cta.x &&
-    floating.y < cta.y + cta.height &&
-    floating.y + floating.height > cta.y
 
-  expect(overlaps).toBe(false)
+  expect(overlaps(floating, cta)).toBe(false)
+})
+
+test('the floating WhatsApp button does not cover the hero call to action on a short phone', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 375, height: 548 })
+  await page.reload()
+  const floating = await box(page.getByRole('link', { name: 'Escribir por WhatsApp' }))
+  const hero = await box(page.locator('#quienes-somos a[href*="wa.me"]'))
+
+  expect(overlaps(floating, hero)).toBe(false)
 })
 
 test('UC-06: share preview metadata points to absolute URLs', async ({ page }) => {

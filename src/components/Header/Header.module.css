@@ -17,8 +17,8 @@
 }
 
 .logo {
-  height: 100px;
-  width: 100px;
+  height: 64px;
+  width: 64px;
   border-radius: var(--radius-full);
   object-fit: cover;
   flex-shrink: 0;
@@ -140,5 +140,10 @@
   .menuToggle,
   .mobileNav {
     display: none;
+  }
+
+  .logo {
+    height: 100px;
+    width: 100px;
   }
 }
