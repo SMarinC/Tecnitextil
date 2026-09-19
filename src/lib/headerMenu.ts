@@ -57,7 +57,7 @@ export function initHeaderMenu(header: HTMLElement): void {
   }
 
   // The trigger band starts where the sticky header ends (--header-offset, the value
-  // sections also use for scroll-margin-top) and ends at 30% of the viewport height.
+  // `html` also uses for scroll-padding-top) and ends at 30% of the viewport height.
   // Falls back to the token's own value (see tokens.css) if the custom property ever
   // resolves empty, so the IntersectionObserver constructor below never throws.
   const headerOffset =

@@ -301,7 +301,7 @@ test.describe('SEO and sharing', () => {
 
   test('the home page publishes LocalBusiness structured data', async ({ page }) => {
     const json = await page.locator('script[type="application/ld+json"]').textContent()
-    const data = JSON.parse(json ?? '{}')
+    const data = JSON.parse(json ?? '{}') as { '@type'?: string; telephone?: string }
     expect(data['@type']).toBe('LocalBusiness')
     expect(data.telephone).toBe('+34685018086')
   })

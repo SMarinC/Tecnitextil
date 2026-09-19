@@ -4,6 +4,7 @@ import { SECTIONS } from '../../data/sections'
 import { renderToHtml } from '../../test/render'
 import AwningMachines from './AwningMachines.astro'
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- plain tsc (unlike Astro's language server) can't resolve `.astro` imports, so they type-check as `error`
 const html = await renderToHtml(AwningMachines)
 
 describe('AwningMachines section', () => {
