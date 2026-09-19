@@ -15,7 +15,7 @@ Production website for TECNITEXTIL, an industrial sewing machine repair and main
 - **Content separated from code.** All copy and business data live in typed modules in `src/data/`, so text changes never touch components.
 - **Accessibility tested in the browser.** Playwright runs axe on every page and fails on serious or critical violations. It also checks that pages reflow at 200% text size on a 320px screen and that the mobile menu works with its accessible names.
 - **Performance by default.** Self-hosted Latin-subset fonts preloaded from `<head>`, images resized and converted to WebP at build time, and long-lived caching for hashed assets.
-- **Strict security headers.** A Content-Security-Policy that only allows same-origin resources, verified in the browser tests, plus `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy` and `Permissions-Policy`.
+- **Strict security headers.** A Content-Security-Policy that only allows same-origin resources, verified in the browser tests, plus `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy` and cross-origin isolation (`Cross-Origin-Opener-Policy`, `Cross-Origin-Resource-Policy`).
 - **SEO from a single source.** Canonical URLs, Open Graph tags, `LocalBusiness` structured data, `robots.txt` and `sitemap.xml` all come from one site URL and one page list.
 
 ## Screenshots

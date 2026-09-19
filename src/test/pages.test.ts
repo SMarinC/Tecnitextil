@@ -19,11 +19,8 @@ import { GET as getSitemap } from '../pages/sitemap.xml.ts'
 import { renderToHtml, textContent } from './render'
 
 const html: Record<string, string> = {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- plain tsc (unlike Astro's language server) can't resolve `.astro` imports, so they type-check as `error`
   [HOME_PAGE.path]: await renderToHtml(HomePage),
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- plain tsc (unlike Astro's language server) can't resolve `.astro` imports, so they type-check as `error`
   [LEGAL_NOTICE_PAGE.path]: await renderToHtml(LegalNoticePage),
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- plain tsc (unlike Astro's language server) can't resolve `.astro` imports, so they type-check as `error`
   [PRIVACY_POLICY_PAGE.path]: await renderToHtml(PrivacyPolicyPage),
 }
 

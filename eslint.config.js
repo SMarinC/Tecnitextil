@@ -30,7 +30,8 @@ export default [
     files: ['**/*.astro'],
     ...tseslint.configs.disableTypeChecked,
   },
-  // Client code (Astro pages/components and browser-only lib) never runs under Node.
+  // Source code gets browser globals. Build-time code still runs under Node, but
+  // eslint-plugin-astro gives `.astro` frontmatter Node globals and `no-undef` is off for `.ts`.
   {
     files: ['src/**/*.{ts,astro}'],
     ignores: ['src/test/**', '**/*.test.ts'],

@@ -6,12 +6,14 @@ type Component = Parameters<AstroContainer['renderToString']>[0]
 
 let container: AstroContainer | undefined
 
+// `component` is `unknown` because plain tsc can't resolve `.astro` imports: type-aware
+// lint sees them as `error`, and an `unknown` parameter accepts them without a disable.
 export async function renderToHtml(
-  component: Component,
+  component: unknown,
   props: Record<string, unknown> = {},
 ): Promise<string> {
   container ??= await AstroContainer.create()
-  return container.renderToString(component, { props })
+  return container.renderToString(component as Component, { props })
 }
 
 // Visible text of an HTML fragment, ignoring icons and collapsing whitespace.

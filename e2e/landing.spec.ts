@@ -121,7 +121,7 @@ test.describe('navigation', () => {
 
     await expect(page).toHaveURL(/#tipos-de-maquina$/)
     const section = page.locator('#tipos-de-maquina')
-    // The jump ends with the section right below the sticky header (scroll-margin-top).
+    // The jump ends with the section right below the sticky header (scroll-padding-top on html).
     const headerOffset = await page.evaluate(() =>
       parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-offset')),
     )
@@ -373,6 +373,9 @@ test.describe('accessibility', () => {
 
     await page.keyboard.press('Enter')
     await expect(page).toHaveURL(/#contenido$/)
+    // The next Tab continues inside the main content instead of going back through the header.
+    await page.keyboard.press('Tab')
+    await expect(page.locator('#contenido :focus')).toHaveCount(1)
   })
 })
 
