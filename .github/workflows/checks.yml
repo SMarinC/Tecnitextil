@@ -31,7 +31,8 @@ jobs:
         with:
           name: dist
           path: dist/
-          retention-days: 1
+          retention-days: 3
+          overwrite: true
 
   e2e:
     name: Browser tests (Playwright + axe)

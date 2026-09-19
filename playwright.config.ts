@@ -25,8 +25,8 @@ export default defineConfig({
   webServer: process.env.BASE_URL
     ? undefined
     : {
-        // CI reuses the dist/ built by the first job; locally the site is built first.
-        command: `${process.env.CI ? '' : 'npm run build && '}npm run preview -- --port ${PORT} --strictPort`,
+        // CI reuses the dist/ from the first job; everywhere else the site is built first.
+        command: `${process.env.GITHUB_ACTIONS ? '' : 'npm run build && '}npm run preview -- --port ${PORT} --strictPort`,
         url: `http://localhost:${PORT}`,
         // Never test a stale build left running from an earlier session.
         reuseExistingServer: false,

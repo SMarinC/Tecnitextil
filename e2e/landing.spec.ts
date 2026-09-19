@@ -274,9 +274,13 @@ test.describe('navigation', () => {
   })
 
   test('returning to the top leaves no menu link marked as current', async ({ page, isMobile }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' })
     const menu = await openMenu(page, isMobile)
     await menu.getByRole('link', { name: 'Máquinas y marcas' }).click()
-    await expect(page.locator('[data-nav-link][aria-current="true"]').first()).toBeAttached()
+    await expect(page.locator('[data-nav-link][href="#tipos-de-maquina"]').first()).toHaveAttribute(
+      'aria-current',
+      'true',
+    )
 
     await page.evaluate(() => window.scrollTo(0, 0))
     await expect.poll(() => page.locator('[data-nav-link][aria-current]').count()).toBe(0)

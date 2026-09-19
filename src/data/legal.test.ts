@@ -31,11 +31,11 @@ describe('legal data', () => {
 
 describe('emailDetail', () => {
   it.each(['', '   '])('shows the pending marker and no link for %j', (email) => {
-    expect(emailDetail(email)).toEqual({ value: PENDING })
+    expect(emailDetail(email)).toStrictEqual({ value: PENDING })
   })
 
   it('links a present email with mailto:', () => {
-    expect(emailDetail(LEGAL_OWNER.email)).toEqual({
+    expect(emailDetail(LEGAL_OWNER.email)).toStrictEqual({
       value: LEGAL_OWNER.email,
       href: `mailto:${LEGAL_OWNER.email}`,
     })
