@@ -3,10 +3,13 @@ dist
 .astro
 test-results
 playwright-report
-blob-report
 .lighthouseci
 *.local
 .claude
 .superpowers
 .impeccable
 docs
+.env
+.env.*
+!.env.example
+.vercel

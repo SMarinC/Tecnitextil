@@ -10,12 +10,12 @@ Production website for TECNITEXTIL, an industrial sewing machine repair and main
 
 ## Highlights
 
-- **Static HTML, JavaScript only where it is needed.** Astro renders every page at build time. The only client script is the header menu, and browser tests fail if any page downloads more than 15 kB of JavaScript.
+- **Static HTML, JavaScript only where it is needed.** Astro renders every page at build time. The only client scripts are the header menu and Vercel Web Analytics, and browser tests fail if any page downloads more than 15 kB of JavaScript (Vercel Web Analytics' `/_vercel/insights` script is excluded from that budget).
 - **Native navigation.** Menu links are plain anchors: sections can be shared by URL, the back button works, and smooth scrolling is pure CSS that respects reduced motion.
 - **Content separated from code.** All copy and business data live in typed modules in `src/data/`, so text changes never touch components.
 - **Accessibility tested in the browser.** Playwright runs axe on every page and fails on serious or critical violations. It also checks that pages reflow at 200% text size on a 320px screen and that the mobile menu works with its accessible names.
 - **Performance by default.** Self-hosted Latin-subset fonts preloaded from `<head>`, images resized and converted to WebP at build time, and long-lived caching for hashed assets.
-- **Strict security headers.** A Content-Security-Policy that only allows same-origin resources, verified in the browser tests, plus `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy` and `Permissions-Policy`.
+- **Strict security headers.** A Content-Security-Policy that only allows same-origin resources, verified in the browser tests, plus `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy` and cross-origin isolation (`Cross-Origin-Opener-Policy`, `Cross-Origin-Resource-Policy`).
 - **SEO from a single source.** Canonical URLs, Open Graph tags, `LocalBusiness` structured data, `robots.txt` and `sitemap.xml` all come from one site URL and one page list.
 
 ## Screenshots
@@ -83,7 +83,7 @@ src/
   assets/           # images optimized at build time
   styles/           # design tokens and global styles
   test/             # page tests and the render helper
-e2e/                # browser tests, one per use case (UC-xx)
+e2e/                # browser tests, grouped by purpose (contact, navigation, SEO, a11y…)
 ```
 
 ### Common changes
@@ -97,3 +97,7 @@ e2e/                # browser tests, one per use case (UC-xx)
 Vercel builds with `npm run build` and serves `dist/` with clean URLs, security headers and asset caching (see `vercel.json`). Node.js is pinned to `24.x` through `engines`.
 
 Because the Content-Security-Policy only allows same-origin resources, the Vercel preview toolbar (loaded from `vercel.live`) is disabled on purpose with the `VERCEL_PREVIEW_FEEDBACK_ENABLED=0` environment variable in the Vercel project.
+
+## License
+
+All rights reserved. This repository is public as a portfolio piece; its code, content and brand may not be reused without permission.

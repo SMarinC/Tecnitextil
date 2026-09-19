@@ -121,7 +121,7 @@ test.describe('navigation', () => {
 
     await expect(page).toHaveURL(/#tipos-de-maquina$/)
     const section = page.locator('#tipos-de-maquina')
-    // The jump ends with the section right below the sticky header (scroll-margin-top).
+    // The jump ends with the section right below the sticky header (scroll-padding-top on html).
     const headerOffset = await page.evaluate(() =>
       parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-offset')),
     )
@@ -301,7 +301,7 @@ test.describe('SEO and sharing', () => {
 
   test('the home page publishes LocalBusiness structured data', async ({ page }) => {
     const json = await page.locator('script[type="application/ld+json"]').textContent()
-    const data = JSON.parse(json ?? '{}')
+    const data = JSON.parse(json ?? '{}') as { '@type'?: string; telephone?: string }
     expect(data['@type']).toBe('LocalBusiness')
     expect(data.telephone).toBe('+34685018086')
   })
@@ -363,6 +363,19 @@ test.describe('accessibility', () => {
       })
       expect(overflow, path).toBe(0)
     }
+  })
+
+  test('a keyboard user can skip straight to the main content', async ({ page }) => {
+    await page.keyboard.press('Tab')
+    const skipLink = page.locator('a[href$="#contenido"]')
+    await expect(skipLink).toBeFocused()
+    await expect(skipLink).toBeVisible()
+
+    await page.keyboard.press('Enter')
+    await expect(page).toHaveURL(/#contenido$/)
+    // The next Tab continues inside the main content instead of going back through the header.
+    await page.keyboard.press('Tab')
+    await expect(page.locator('#contenido :focus')).toHaveCount(1)
   })
 })
 

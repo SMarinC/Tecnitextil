@@ -10,12 +10,12 @@ Web en producción de TECNITEXTIL, empresa de reparación y mantenimiento de má
 
 ## Puntos destacados
 
-- **HTML estático y JavaScript solo donde hace falta.** Astro genera cada página en el build. El único script del navegador es el del menú del header, y las pruebas en navegador fallan si una página descarga más de 15 kB de JavaScript.
+- **HTML estático y JavaScript solo donde hace falta.** Astro genera cada página en el build. Los únicos scripts del navegador son el del menú del header y el de Vercel Web Analytics, y las pruebas en navegador fallan si una página descarga más de 15 kB de JavaScript (el script `/_vercel/insights` de Vercel Web Analytics queda excluido de ese límite).
 - **Navegación nativa.** Los enlaces del menú son anclas normales: cada sección se puede compartir por URL, el botón "atrás" funciona y el desplazamiento suave es CSS que respeta la preferencia de movimiento reducido.
 - **Contenido separado del código.** Todos los textos y datos del negocio están en módulos tipados en `src/data/`, así que cambiar un texto nunca obliga a tocar componentes.
 - **Accesibilidad probada en el navegador.** Playwright ejecuta axe en todas las páginas y falla si encuentra problemas graves o críticos. También comprueba que las páginas se adaptan con el texto al 200 % en una pantalla de 320px y que el menú móvil funciona con sus nombres accesibles.
 - **Rendimiento por defecto.** Fuentes propias con solo el subconjunto latino y precarga desde el `<head>`, imágenes redimensionadas y convertidas a WebP en el build, y caché de larga duración para los archivos con hash.
-- **Cabeceras de seguridad estrictas.** Una Content-Security-Policy que solo permite recursos del propio dominio, verificada en las pruebas en navegador, además de `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy` y `Permissions-Policy`.
+- **Cabeceras de seguridad estrictas.** Una Content-Security-Policy que solo permite recursos del propio dominio, verificada en las pruebas en navegador, además de `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy` y aislamiento entre orígenes (`Cross-Origin-Opener-Policy`, `Cross-Origin-Resource-Policy`).
 - **SEO desde una única fuente.** Las URLs canónicas, las etiquetas Open Graph, los datos estructurados `LocalBusiness`, `robots.txt` y `sitemap.xml` salen de una sola URL del sitio y una sola lista de páginas.
 
 ## Capturas
@@ -83,7 +83,7 @@ src/
   assets/           # imágenes optimizadas en el build
   styles/           # tokens de diseño y estilos globales
   test/             # pruebas de páginas y helper de render
-e2e/                # pruebas en navegador, una por caso de uso (UC-xx)
+e2e/                # pruebas en navegador, agrupadas por propósito (contacto, navegación, SEO, a11y…)
 ```
 
 ### Cambios habituales
@@ -97,3 +97,7 @@ e2e/                # pruebas en navegador, una por caso de uso (UC-xx)
 Vercel construye con `npm run build` y publica `dist/` con URLs limpias, cabeceras de seguridad y caché de archivos (ver `vercel.json`). Node.js se fija en `24.x` mediante `engines`.
 
 Como la Content-Security-Policy solo permite recursos del propio dominio, la barra de vistas previas de Vercel (que se carga desde `vercel.live`) está desactivada a propósito con la variable de entorno `VERCEL_PREVIEW_FEEDBACK_ENABLED=0` en el proyecto de Vercel.
+
+## Licencia
+
+Todos los derechos reservados. Este repositorio es público como pieza de portafolio; su código, contenido y marca no pueden reutilizarse sin permiso.

@@ -8,6 +8,7 @@ import '../styles/global.css'
 import interLatin400 from '@fontsource/inter/files/inter-latin-400-normal.woff2?url'
 import oswaldLatin600 from '@fontsource/oswald/files/oswald-latin-600-normal.woff2?url'
 import Analytics from '@vercel/analytics/astro'
+import { COMPANY } from '../data/company'
 import type { PageMeta } from '../data/pages'
 import { OG_IMAGE_PATH, absoluteUrl } from '../data/seo'
 import { serializeJsonLd } from '../lib/jsonLd'
@@ -43,6 +44,8 @@ const image = absoluteUrl(OG_IMAGE_PATH)
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:url" content={url} />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:site_name" content={COMPANY.name} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={image} />
     <link rel="canonical" href={url} />
@@ -50,6 +53,9 @@ const image = absoluteUrl(OG_IMAGE_PATH)
     {jsonLd && <script type="application/ld+json" set:html={serializeJsonLd(jsonLd)}></script>}
   </head>
   <body>
+    <a class="skip-link" href="#contenido">
+      Saltar al contenido principal
+    </a>
     <slot />
     <Analytics />
   </body>
