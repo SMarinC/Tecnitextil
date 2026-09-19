@@ -364,6 +364,16 @@ test.describe('accessibility', () => {
       expect(overflow, path).toBe(0)
     }
   })
+
+  test('a keyboard user can skip straight to the main content', async ({ page }) => {
+    await page.keyboard.press('Tab')
+    const skipLink = page.locator('a[href$="#contenido"]')
+    await expect(skipLink).toBeFocused()
+    await expect(skipLink).toBeVisible()
+
+    await page.keyboard.press('Enter')
+    await expect(page).toHaveURL(/#contenido$/)
+  })
 })
 
 test.describe('architecture', () => {

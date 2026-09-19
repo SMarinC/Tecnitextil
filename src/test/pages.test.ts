@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { COMPANY } from '../data/company'
 import { buildWhatsAppUrl } from '../data/contact'
 import {
   LEGAL_NOTICE,
@@ -25,6 +26,10 @@ const html: Record<string, string> = {
 
 function head(page: string): string {
   return page.slice(0, page.indexOf('</head>'))
+}
+
+function body(page: string): string {
+  return page.slice(page.indexOf('<body'))
 }
 
 // The owner identification block of a legal page.
@@ -73,6 +78,21 @@ describe('every page', () => {
       expect(link).toContain('as="font"')
       expect(link).toContain('crossorigin')
     }
+  })
+
+  it.each(PAGES)('$path starts its body with a skip link to the content', ({ path }) => {
+    const firstLink = body(html[path]).match(/<a[^>]*>/)?.[0]
+    expect(firstLink, path).toBeDefined()
+    expect(firstLink).toContain('href="#contenido"')
+    expect(html[path]).toMatch(/id="contenido"/)
+  })
+
+  it.each(PAGES)('$path declares og:locale and og:site_name', ({ path }) => {
+    const pageHead = head(html[path])
+    expect(pageHead).toMatch(/<meta[^>]*property="og:locale"[^>]*content="es_ES"/)
+    expect(pageHead).toMatch(
+      new RegExp(`<meta[^>]*property="og:site_name"[^>]*content="${COMPANY.name}"`),
+    )
   })
 })
 

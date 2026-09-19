@@ -40,7 +40,7 @@ const { meta, content } = Astro.props
       <span>Volver al inicio</span>
     </a>
   </header>
-  <main class={styles.main}>
+  <main id="contenido" class={styles.main}>
     <article class={styles.article}>
       <h1 class={styles.title}>{content.title}</h1>
       {hasPendingLegalData && (

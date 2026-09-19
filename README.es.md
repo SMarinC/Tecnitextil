@@ -97,3 +97,7 @@ e2e/                # pruebas en navegador, agrupadas por propósito (contacto, 
 Vercel construye con `npm run build` y publica `dist/` con URLs limpias, cabeceras de seguridad y caché de archivos (ver `vercel.json`). Node.js se fija en `24.x` mediante `engines`.
 
 Como la Content-Security-Policy solo permite recursos del propio dominio, la barra de vistas previas de Vercel (que se carga desde `vercel.live`) está desactivada a propósito con la variable de entorno `VERCEL_PREVIEW_FEEDBACK_ENABLED=0` en el proyecto de Vercel.
+
+## Licencia
+
+Todos los derechos reservados. Este repositorio es público como pieza de portafolio; su código, contenido y marca no pueden reutilizarse sin permiso.

@@ -1,6 +1,5 @@
 .section {
   background: var(--color-black-soft);
-  scroll-margin-top: var(--header-offset);
 }
 
 .inner {

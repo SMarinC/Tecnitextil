@@ -97,3 +97,7 @@ e2e/                # browser tests, grouped by purpose (contact, navigation, SE
 Vercel builds with `npm run build` and serves `dist/` with clean URLs, security headers and asset caching (see `vercel.json`). Node.js is pinned to `24.x` through `engines`.
 
 Because the Content-Security-Policy only allows same-origin resources, the Vercel preview toolbar (loaded from `vercel.live`) is disabled on purpose with the `VERCEL_PREVIEW_FEEDBACK_ENABLED=0` environment variable in the Vercel project.
+
+## License
+
+All rights reserved. This repository is public as a portfolio piece; its code, content and brand may not be reused without permission.
