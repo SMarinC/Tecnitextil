@@ -51,3 +51,11 @@
   max-width: 65ch;
   text-align: left;
 }
+
+/* Short screens (e.g. iPhone SE): drop the decorative icon so the WhatsApp button
+   clears the floating one at first load. */
+@media (max-height: 619px) {
+  .icon {
+    display: none;
+  }
+}
