@@ -9,11 +9,11 @@ export default defineConfig({
   testDir: './e2e',
   fullyParallel: true,
   forbidOnly: Boolean(process.env.CI),
-  retries: process.env.CI ? 1 : 0,
+  retries: 0,
   reporter: process.env.CI ? 'github' : 'list',
   use: {
     baseURL: process.env.BASE_URL ?? `http://localhost:${PORT}`,
-    trace: 'on-first-retry',
+    trace: 'retain-on-failure',
   },
   projects: [
     { name: 'mobile', use: { ...devices['Pixel 7'] } },
@@ -25,9 +25,14 @@ export default defineConfig({
   webServer: process.env.BASE_URL
     ? undefined
     : {
-        command: `npm run build && npm run preview -- --port ${PORT} --strictPort`,
+        // CI reuses the dist/ built by the first job; locally the site is built first.
+        command: `${process.env.CI ? '' : 'npm run build && '}npm run preview -- --port ${PORT} --strictPort`,
         url: `http://localhost:${PORT}`,
-        reuseExistingServer: !process.env.CI,
+        // Never test a stale build left running from an earlier session.
+        reuseExistingServer: false,
         timeout: 180_000,
+        // Keeps `astro preview` in the foreground in runtimes that would otherwise send it
+        // to the background (AI coding agents, for example); harmless everywhere else.
+        env: { ASTRO_PREVIEW_BACKGROUND: '1' },
       },
 })

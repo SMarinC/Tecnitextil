@@ -39,6 +39,8 @@ Every pull request and every push to `main` runs three CI jobs:
 | Browser tests              | Playwright on a mobile device (Pixel 7) and on desktop: axe audits, navigation, JavaScript budget and CSP       |
 | Lighthouse budgets         | Fails if accessibility is below 95, SEO below 90 or CLS above 0.1; warns on performance, best practices and LCP |
 
+The main branch is protected: every change lands through a pull request, and only when all three jobs pass.
+
 A pre-commit hook formats and lints the staged files, and Dependabot proposes npm updates weekly and GitHub Actions updates monthly.
 
 ## Getting started

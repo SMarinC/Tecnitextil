@@ -39,6 +39,8 @@ Cada pull request y cada push a `main` ejecuta tres trabajos de CI:
 | Pruebas en navegador            | Playwright en móvil (Pixel 7) y escritorio: auditorías de axe, navegación, presupuesto de JavaScript y CSP              |
 | Presupuestos de Lighthouse      | Falla si la accesibilidad baja de 95, el SEO de 90 o el CLS supera 0,1; avisa sobre rendimiento, buenas prácticas y LCP |
 
+La rama main está protegida: todo cambio entra mediante un pull request, y solo si los tres trabajos pasan.
+
 Un hook de pre-commit formatea y revisa los archivos preparados, y Dependabot propone actualizaciones de npm cada semana y de GitHub Actions cada mes.
 
 ## Empezar

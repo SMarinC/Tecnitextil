@@ -27,9 +27,15 @@ jobs:
       - run: npm run lint
       - run: npm test
       - run: npm run build
+      - uses: actions/upload-artifact@v7
+        with:
+          name: dist
+          path: dist/
+          retention-days: 1
 
   e2e:
     name: Browser tests (Playwright + axe)
+    needs: checks
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -38,6 +44,10 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
+      - uses: actions/download-artifact@v7
+        with:
+          name: dist
+          path: dist/
       - run: npx playwright install --with-deps chromium
       - run: npm run test:e2e
       - uses: actions/upload-artifact@v7
@@ -51,15 +61,14 @@ jobs:
 
   lighthouse:
     name: Lighthouse budgets
+    needs: checks
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: actions/download-artifact@v7
         with:
-          node-version-file: .nvmrc
-          cache: npm
-      - run: npm ci
-      - run: npm run build
+          name: dist
+          path: dist/
       - uses: treosh/lighthouse-ci-action@v12
         with:
           configPath: ./lighthouserc.json
