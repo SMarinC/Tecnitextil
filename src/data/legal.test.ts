@@ -1,9 +1,20 @@
 import { describe, expect, it } from 'vitest'
-import { hasPendingLegalData, isMissing, missingLegalData } from './legal'
+import {
+  LEGAL_OWNER,
+  PENDING,
+  emailDetail,
+  hasPendingLegalData,
+  isMissing,
+  missingLegalData,
+} from './legal'
 
 describe('isMissing', () => {
   it.each([null, undefined, '', '   '])('treats %j as missing', (value) => {
     expect(isMissing(value)).toBe(true)
+  })
+
+  it.each([0, false, {}])('does not coerce %j into missing', (value) => {
+    expect(isMissing(value)).toBe(false)
   })
 
   it('treats text with content as present', () => {
@@ -15,5 +26,18 @@ describe('legal data', () => {
   it('has every required owner field and the review date filled in', () => {
     expect(missingLegalData()).toEqual([])
     expect(hasPendingLegalData).toBe(false)
+  })
+})
+
+describe('emailDetail', () => {
+  it.each(['', '   '])('shows the pending marker and no link for %j', (email) => {
+    expect(emailDetail(email)).toEqual({ value: PENDING })
+  })
+
+  it('links a present email with mailto:', () => {
+    expect(emailDetail(LEGAL_OWNER.email)).toEqual({
+      value: LEGAL_OWNER.email,
+      href: `mailto:${LEGAL_OWNER.email}`,
+    })
   })
 })
