@@ -11,7 +11,7 @@ Production website for TECNITEXTIL, an industrial sewing machine repair and main
 ## Highlights
 
 - **Static HTML, JavaScript only where it is needed.** Astro renders every page at build time. The only client scripts are the header menu and Vercel Web Analytics, and browser tests fail if any page downloads more than 15 kB of JavaScript (Vercel Web Analytics' `/_vercel/insights` script is excluded from that budget).
-- **Native navigation.** Menu links are plain anchors: sections can be shared by URL, the back button works, and smooth scrolling is pure CSS that respects reduced motion.
+- **Native navigation.** The site is split into pages (home, technical service, awnings) linked from the menu, which marks the current page in the HTML. The back button works, and the jump to the contact block is a plain anchor with CSS smooth scrolling that respects reduced motion.
 - **Content separated from code.** All copy and business data live in typed modules in `src/data/`, so text changes never touch components.
 - **Accessibility tested in the browser.** Playwright runs axe on every page and fails on serious or critical violations. It also checks that pages reflow at 200% text size on a 320px screen and that the mobile menu works with its accessible names.
 - **Performance by default.** Self-hosted Latin-subset fonts preloaded from `<head>`, images resized and converted to WebP at build time, and long-lived caching for hashed assets.
@@ -71,13 +71,13 @@ src/
   data/             # all copy and business data (edit here)
     company.ts      #   name, phone, coverage
     contact.ts      #   phone number and WhatsApp link
-    home.ts         #   text for each section of the home page
+    home.ts         #   text of the public pages, section by section
     sections.ts     #   section ids and menu
     legal.ts        #   legal notice, privacy policy and owner details
     seo.ts          #   site URL, structured data
     pages.ts        #   every page: title, description, indexing
   pages/            # one file per URL, plus robots.txt and sitemap.xml
-  layouts/          # <head> and the legal page template
+  layouts/          # <head>, the public page frame and the legal page template
   components/       # one component per section (.astro + .module.css)
   lib/              # pure, tested functions and the header menu script
   assets/           # images optimized at build time
