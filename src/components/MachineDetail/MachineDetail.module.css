@@ -5,12 +5,12 @@
 .inner {
   composes: container from '../../styles/container.module.css';
   /* Tighter than the container's usual top padding, so the WhatsApp call to action
-     stays in view on phones without scrolling. */
-  padding-top: var(--space-md);
+     stays in view on phones without scrolling, clear of the floating button. */
+  padding-top: var(--space-sm);
 }
 
 .breadcrumb {
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-sm);
 }
 
 .crumbs {
@@ -45,7 +45,9 @@
 .summary {
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
+  /* Tight gap: on a short phone, this keeps the WhatsApp call to action clear of
+     the floating button below it. */
+  gap: var(--space-xs);
 }
 
 .title {

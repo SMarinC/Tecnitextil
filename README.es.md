@@ -76,6 +76,8 @@ src/
     legal.ts        #   aviso legal, privacidad y datos del titular
     seo.ts          #   URL del sitio, datos estructurados
     pages.ts        #   cada página: título, descripción, indexación
+    catalog.ts      #   textos y etiquetas del catálogo
+  content/          # máquinas en venta: una carpeta por modelo (index.md + fotos)
   pages/            # un archivo por URL, más robots.txt y sitemap.xml
   layouts/          # <head>, marco de las páginas públicas y plantilla de las legales
   components/       # un componente por sección (.astro + .module.css)
@@ -91,6 +93,7 @@ e2e/                # pruebas en navegador, agrupadas por propósito (contacto, 
 - **Textos, teléfono o marcas:** edita `src/data/`.
 - **Una página nueva:** añade un archivo en `src/pages/` y su entrada en `src/data/pages.ts`. El sitemap la incluye salvo que esté marcada como `noindex`. Una página pública además usa `SiteLayout`, recibe una entrada en `src/data/sections.ts` si pertenece al menú, y se añade a `PAGES` en `e2e/landing.spec.ts`.
 - **Un dominio propio:** define la variable de entorno `SITE_URL` en Vercel (o en un `.env.local`). Por defecto vale `https://tecnitextil.vercel.app`.
+- **Una máquina en venta:** añade una carpeta `src/content/maquinas/<modelo-en-minúsculas>/` con `index.md` y hasta 4 fotos; el esquema de `src/content.config.ts` la valida en el build. Nunca se publican precios.
 
 ## Despliegue
 

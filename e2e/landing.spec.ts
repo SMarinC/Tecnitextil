@@ -5,12 +5,21 @@ import { DESKTOP_BREAKPOINT_PX } from '../src/lib/breakpoints'
 
 // Grouped by what each test protects: contact, navigation, SEO and sharing, accessibility and architecture.
 const WHATSAPP_URL = /^https:\/\/wa\.me\/34685018086\?text=.+/
-const PAGES = ['/', '/servicio-tecnico', '/toldos', '/aviso-legal', '/privacidad']
+const PAGES = [
+  '/',
+  '/servicio-tecnico',
+  '/toldos',
+  '/maquinas',
+  '/maquinas/jk-t1900gsk-dii',
+  '/aviso-legal',
+  '/privacidad',
+]
 // Each page's <h1>, as literals: src/data/home.ts imports images Playwright cannot load.
 const TITLES = {
   home: 'Reparación y mantenimiento de maquinaria textil',
   technicalService: 'Servicio técnico de maquinaria textil',
   awnings: 'Asistencia para máquinas de coser toldos automatizadas',
+  catalogue: 'Venta de máquinas de coser industriales',
 }
 
 // Vercel Web Analytics only exists on Vercel; locally its script request fails.
@@ -121,6 +130,8 @@ test.describe('contact', () => {
       ['/', '#quienes-somos a[href*="wa.me"]'],
       ['/servicio-tecnico', '[data-page-hero] a[href*="wa.me"]'],
       ['/toldos', '[data-page-hero] a[href*="wa.me"]'],
+      ['/maquinas', '[data-page-hero] a[href*="wa.me"]'],
+      ['/maquinas/jk-t1900gsk-dii', 'article a[href*="wa.me"]'],
     ] as const) {
       await page.goto(path)
       const floating = await box(page.getByRole('link', { name: 'Escribir por WhatsApp' }))
@@ -288,6 +299,74 @@ test.describe('navigation', () => {
   })
 })
 
+test.describe('catalogue', () => {
+  const MACHINE = '/maquinas/jk-t1900gsk-dii'
+  const TYPES = ['ojales', 'botones', 'presillas-y-botones']
+
+  test('the menu leads to the catalogue, grouped by type, with 13 machines and no WhatsApp on the cards', async ({
+    page,
+    isMobile,
+  }) => {
+    const menu = await openMenu(page, isMobile)
+    await menu.getByRole('link', { name: 'Venta de máquinas' }).click()
+
+    await expect(page).toHaveURL(/\/maquinas$/)
+    await expect(page.getByRole('heading', { level: 1, name: TITLES.catalogue })).toBeVisible()
+    for (const type of TYPES) {
+      await expect(page.locator(`main section#${type} h2`)).toBeVisible()
+    }
+    await expect(page.locator('main h3 a[href^="/maquinas/"]')).toHaveCount(13)
+    await expect(
+      page.locator(TYPES.map((type) => `#${type} a[href*="wa.me"]`).join(', ')),
+    ).toHaveCount(0)
+  })
+
+  test('a machine page offers one WhatsApp enquiry naming the model, also on the floating button', async ({
+    page,
+  }) => {
+    await page.goto('/maquinas')
+    await page.locator(`main a[href="${MACHINE}"]`).click()
+    await expect(page).toHaveURL(new RegExp(`${MACHINE}$`))
+
+    const enquiry = page.locator('article a[href*="wa.me"]')
+    await expect(enquiry).toHaveCount(1)
+    const href = await enquiry.getAttribute('href')
+    expect(decodeURIComponent(href ?? '')).toContain('JACK JK-T1900GSK-DII')
+    await expect(page.getByRole('link', { name: 'Escribir por WhatsApp' })).toHaveAttribute(
+      'href',
+      href ?? '',
+    )
+    await expect(
+      page.locator(`nav[aria-label="Navegación principal"] a[href="/maquinas"]`),
+    ).toHaveAttribute('aria-current', 'page')
+  })
+
+  test('the machine page shows its WhatsApp enquiry without scrolling', async ({ page }) => {
+    await page.goto(MACHINE)
+    await expect(page.locator('article a[href*="wa.me"]')).toBeInViewport({ ratio: 1 })
+  })
+
+  test('catalogue pages never show a price', async ({ page }) => {
+    for (const path of ['/maquinas', MACHINE]) {
+      await page.goto(path)
+      expect(await page.locator('main').innerText(), path).not.toMatch(/€|\bEUR\b|\bIVA\b/)
+    }
+  })
+
+  test('the machine gallery loads its main photo', async ({ page }) => {
+    await page.goto(MACHINE)
+    const photo = page.locator('#foto-1 img')
+    await expect
+      .poll(() =>
+        photo.evaluate((element) => {
+          const image = element as HTMLImageElement
+          return image.complete && image.naturalWidth > 0
+        }),
+      )
+      .toBe(true)
+  })
+})
+
 test.describe('SEO and sharing', () => {
   test('share preview metadata points to absolute URLs', async ({ page }) => {
     await expect(page).toHaveTitle(/TECNITEXTIL/)
@@ -312,6 +391,8 @@ test.describe('SEO and sharing', () => {
       '/': TITLES.home,
       '/servicio-tecnico': 'Qué hacemos',
       '/toldos': 'Qué intervenimos',
+      '/maquinas': 'Presillas y botones',
+      '/maquinas/jk-t1900gsk-dii': 'JK-T1900GSK-DII',
       '/aviso-legal': LEGAL_NOTICE.identification.heading,
       '/privacidad': 'Tus derechos',
     }
