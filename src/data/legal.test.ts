@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import {
+  LEGAL_NOTICE,
   LEGAL_OWNER,
   PENDING,
   emailDetail,
@@ -26,6 +27,14 @@ describe('legal data', () => {
   it('has every required owner field and the review date filled in', () => {
     expect(missingLegalData()).toEqual([])
     expect(hasPendingLegalData).toBe(false)
+  })
+
+  it('never denies a relationship with the brands it names', () => {
+    const text = JSON.stringify(LEGAL_NOTICE)
+    expect(text).not.toContain('sin que exista relación comercial')
+    expect(text).toContain(
+      'Las marcas y nombres comerciales citados pertenecen a sus respectivos titulares y se usan para identificar los productos y servicios ofrecidos.',
+    )
   })
 })
 

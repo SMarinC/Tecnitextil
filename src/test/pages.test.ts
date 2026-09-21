@@ -37,6 +37,7 @@ const html: Record<string, string> = {
 }
 
 const PUBLIC_PAGES = PAGES.filter(({ noindex }) => !noindex)
+const MENU_TARGETS = [...PUBLIC_PAGES.map(({ path }) => path), CATALOG_PAGE.path]
 
 function head(page: string): string {
   return page.slice(0, page.indexOf('</head>'))
@@ -148,7 +149,7 @@ describe('site menu', () => {
         expect(html[path], path).toContain(`id="${href.slice(1)}"`)
       }
     } else {
-      expect(PUBLIC_PAGES.map(({ path }) => path)).toContain(href)
+      expect(MENU_TARGETS).toContain(href)
     }
   })
 
@@ -168,7 +169,7 @@ describe('site menu', () => {
 describe('home page', () => {
   it('links to every inner page from its section cards', () => {
     for (const { href } of SECTION_CARDS.items) {
-      expect(PUBLIC_PAGES.map(({ path }) => path)).toContain(href)
+      expect(MENU_TARGETS).toContain(href)
       expect(html[HOME_PAGE.path]).toContain(`href="${href}"`)
     }
   })

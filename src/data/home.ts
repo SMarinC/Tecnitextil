@@ -6,7 +6,7 @@ import awningRollerTableImage from '../assets/awning-machines/mesa-rodillos.webp
 import awningTrayImage from '../assets/awning-machines/bandeja-movil.webp'
 import type { IconName } from '../components/Icon/icons'
 import { COMPANY } from './company'
-import { AWNINGS_PAGE, TECHNICAL_SERVICE_PAGE } from './pages'
+import { AWNINGS_PAGE, CATALOG_PAGE, TECHNICAL_SERVICE_PAGE } from './pages'
 
 interface IconItem {
   icon: IconName
@@ -77,6 +77,12 @@ export const SECTION_CARDS: {
       description:
         'Instalación, reparación y mantenimiento de máquinas de coser toldos automatizadas.',
       href: AWNINGS_PAGE.path,
+    },
+    {
+      title: 'Venta de máquinas',
+      description:
+        'Máquinas de coser industriales JACK de ojales, botones y presillas. Precio y disponibilidad por WhatsApp.',
+      href: CATALOG_PAGE.path,
     },
   ],
 }

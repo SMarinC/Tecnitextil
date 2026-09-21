@@ -1,6 +1,6 @@
 // Section ids and the menu. Components put these ids on <section id>. The menu links
 // to the public pages plus the closing contact block every public page ends with.
-import { AWNINGS_PAGE, TECHNICAL_SERVICE_PAGE } from './pages'
+import { AWNINGS_PAGE, CATALOG_PAGE, TECHNICAL_SERVICE_PAGE } from './pages'
 
 export interface Section {
   id: string
@@ -25,6 +25,7 @@ export const SECTIONS = {
 export const NAV_ITEMS: NavItem[] = [
   { label: 'Servicio técnico', href: TECHNICAL_SERVICE_PAGE.path },
   { label: 'Toldos', href: AWNINGS_PAGE.path },
+  { label: 'Venta de máquinas', href: CATALOG_PAGE.path },
   { label: 'Contacto', href: `#${SECTIONS.contact.id}` },
 ]
 
