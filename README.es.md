@@ -11,7 +11,7 @@ Web en producción de TECNITEXTIL, empresa de reparación y mantenimiento de má
 ## Puntos destacados
 
 - **HTML estático y JavaScript solo donde hace falta.** Astro genera cada página en el build. Los únicos scripts del navegador son el del menú del header y el de Vercel Web Analytics, y las pruebas en navegador fallan si una página descarga más de 15 kB de JavaScript (el script `/_vercel/insights` de Vercel Web Analytics queda excluido de ese límite).
-- **Navegación nativa.** Los enlaces del menú son anclas normales: cada sección se puede compartir por URL, el botón "atrás" funciona y el desplazamiento suave es CSS que respeta la preferencia de movimiento reducido.
+- **Navegación nativa.** La web se divide en páginas (inicio, servicio técnico y toldos) enlazadas desde el menú, que marca la página actual en el HTML. El botón "atrás" funciona y el salto al bloque de contacto es un ancla normal con desplazamiento suave por CSS que respeta la preferencia de movimiento reducido.
 - **Contenido separado del código.** Todos los textos y datos del negocio están en módulos tipados en `src/data/`, así que cambiar un texto nunca obliga a tocar componentes.
 - **Accesibilidad probada en el navegador.** Playwright ejecuta axe en todas las páginas y falla si encuentra problemas graves o críticos. También comprueba que las páginas se adaptan con el texto al 200 % en una pantalla de 320px y que el menú móvil funciona con sus nombres accesibles.
 - **Rendimiento por defecto.** Fuentes propias con solo el subconjunto latino y precarga desde el `<head>`, imágenes redimensionadas y convertidas a WebP en el build, y caché de larga duración para los archivos con hash.
@@ -71,13 +71,13 @@ src/
   data/             # todos los textos y datos del negocio (editar aquí)
     company.ts      #   nombre, teléfono, cobertura
     contact.ts      #   teléfono y enlace de WhatsApp
-    home.ts         #   textos de cada sección de la página de inicio
+    home.ts         #   textos de las páginas públicas, sección por sección
     sections.ts     #   ids de sección y menú
     legal.ts        #   aviso legal, privacidad y datos del titular
     seo.ts          #   URL del sitio, datos estructurados
     pages.ts        #   cada página: título, descripción, indexación
   pages/            # un archivo por URL, más robots.txt y sitemap.xml
-  layouts/          # <head> y plantilla de las páginas legales
+  layouts/          # <head>, marco de las páginas públicas y plantilla de las legales
   components/       # un componente por sección (.astro + .module.css)
   lib/              # funciones puras y probadas, y el script del menú
   assets/           # imágenes optimizadas en el build
@@ -89,7 +89,7 @@ e2e/                # pruebas en navegador, agrupadas por propósito (contacto, 
 ### Cambios habituales
 
 - **Textos, teléfono o marcas:** edita `src/data/`.
-- **Una página nueva:** añade un archivo en `src/pages/` y su entrada en `src/data/pages.ts`. El sitemap la incluye salvo que esté marcada como `noindex`.
+- **Una página nueva:** añade un archivo en `src/pages/` y su entrada en `src/data/pages.ts`. El sitemap la incluye salvo que esté marcada como `noindex`. Una página pública además usa `SiteLayout`, recibe una entrada en `src/data/sections.ts` si pertenece al menú, y se añade a `PAGES` en `e2e/landing.spec.ts`.
 - **Un dominio propio:** define la variable de entorno `SITE_URL` en Vercel (o en un `.env.local`). Por defecto vale `https://tecnitextil.vercel.app`.
 
 ## Despliegue

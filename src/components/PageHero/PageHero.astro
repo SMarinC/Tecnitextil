@@ -1,0 +1,24 @@
+---
+import WhatsAppCta from '../WhatsAppCta/WhatsAppCta.astro'
+import styles from './PageHero.module.css'
+
+// Opening block of an inner page: its only <h1>, a short intro and WhatsApp in view
+// on first load, like the home page hero.
+interface Props {
+  eyebrow: string
+  title: string
+  intro: string
+  ctaLabel: string
+}
+
+const { eyebrow, title, intro, ctaLabel } = Astro.props
+---
+
+<section class={styles.hero} data-page-hero>
+  <div class={styles.inner}>
+    <p class={styles.eyebrow}>{eyebrow}</p>
+    <h1 class={styles.title}>{title}</h1>
+    <p class={styles.intro}>{intro}</p>
+    <WhatsAppCta variant="primary" label={ctaLabel} />
+  </div>
+</section>

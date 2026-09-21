@@ -34,4 +34,12 @@ describe('AwningMachines section', () => {
     expect(html).not.toContain('wa.me')
     expect(html).not.toContain('tel:')
   })
+
+  it('leaves the title and intro to the page hero and starts at <h2>', () => {
+    expect(html).not.toContain(AWNING_MACHINES.heading)
+    expect(html).not.toContain(AWNING_MACHINES.intro)
+    expect(html).not.toMatch(/<h1[\s>]/)
+    const levels = (html.match(/<h([1-6])[\s>]/g) ?? []).map((tag) => Number(tag[2]))
+    expect(levels[0]).toBe(2)
+  })
 })

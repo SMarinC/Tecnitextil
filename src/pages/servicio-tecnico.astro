@@ -1,0 +1,18 @@
+---
+import Brands from '../components/Brands/Brands.astro'
+import HowItWorks from '../components/HowItWorks/HowItWorks.astro'
+import MachineTypes from '../components/MachineTypes/MachineTypes.astro'
+import PageHero from '../components/PageHero/PageHero.astro'
+import Services from '../components/Services/Services.astro'
+import { TECHNICAL_SERVICE_HERO } from '../data/home'
+import { TECHNICAL_SERVICE_PAGE } from '../data/pages'
+import SiteLayout from '../layouts/SiteLayout.astro'
+---
+
+<SiteLayout page={TECHNICAL_SERVICE_PAGE}>
+  <PageHero {...TECHNICAL_SERVICE_HERO} />
+  <Services />
+  <MachineTypes />
+  <Brands />
+  <HowItWorks />
+</SiteLayout>

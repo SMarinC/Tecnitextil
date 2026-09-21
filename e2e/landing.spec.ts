@@ -5,13 +5,19 @@ import { DESKTOP_BREAKPOINT_PX } from '../src/lib/breakpoints'
 
 // Grouped by what each test protects: contact, navigation, SEO and sharing, accessibility and architecture.
 const WHATSAPP_URL = /^https:\/\/wa\.me\/34685018086\?text=.+/
-const PAGES = ['/', '/aviso-legal', '/privacidad']
+const PAGES = ['/', '/servicio-tecnico', '/toldos', '/aviso-legal', '/privacidad']
+// Each page's <h1>, as literals: src/data/home.ts imports images Playwright cannot load.
+const TITLES = {
+  home: 'Reparación y mantenimiento de maquinaria textil',
+  technicalService: 'Servicio técnico de maquinaria textil',
+  awnings: 'Asistencia para máquinas de coser toldos automatizadas',
+}
 
 // Vercel Web Analytics only exists on Vercel; locally its script request fails.
 const isVercelOnly = (text: string, url = '') =>
   url.includes('/_vercel/') || text.includes('Vercel')
 
-// "Contáctanos" is also a menu label, so scope the closing CTA to its section.
+// Scoped to the closing block: the hero also has WhatsApp links.
 const closingCta = (page: Page) =>
   page.locator('#contacto').getByRole('link', { name: 'Contáctanos' })
 
@@ -88,6 +94,15 @@ test.describe('contact', () => {
     await expect(page.locator('#quienes-somos a[href*="wa.me"]')).toBeInViewport({ ratio: 1 })
   })
 
+  test('inner pages show WhatsApp in their page hero without scrolling', async ({ page }) => {
+    for (const path of ['/servicio-tecnico', '/toldos']) {
+      await page.goto(path)
+      await expect(page.locator('[data-page-hero] a[href*="wa.me"]'), path).toBeInViewport({
+        ratio: 1,
+      })
+    }
+  })
+
   test('the floating WhatsApp button never covers the closing call to action', async ({ page }) => {
     const closing = closingCta(page)
     await closing.scrollIntoViewIfNeeded()
@@ -102,76 +117,21 @@ test.describe('contact', () => {
     page,
   }) => {
     await page.setViewportSize({ width: 375, height: 548 })
-    await page.reload()
-    const floating = await box(page.getByRole('link', { name: 'Escribir por WhatsApp' }))
-    const hero = await box(page.locator('#quienes-somos a[href*="wa.me"]'))
+    for (const [path, selector] of [
+      ['/', '#quienes-somos a[href*="wa.me"]'],
+      ['/servicio-tecnico', '[data-page-hero] a[href*="wa.me"]'],
+      ['/toldos', '[data-page-hero] a[href*="wa.me"]'],
+    ] as const) {
+      await page.goto(path)
+      const floating = await box(page.getByRole('link', { name: 'Escribir por WhatsApp' }))
+      const hero = await box(page.locator(selector))
 
-    expect(overlaps(floating, hero)).toBe(false)
+      expect(overlaps(floating, hero), path).toBe(false)
+    }
   })
 })
 
 test.describe('navigation', () => {
-  test('choosing a menu item jumps to its section with a shareable link', async ({
-    page,
-    isMobile,
-  }) => {
-    const menu = await openMenu(page, isMobile)
-    const link = menu.getByRole('link', { name: 'Máquinas y marcas' })
-    await link.click()
-
-    await expect(page).toHaveURL(/#tipos-de-maquina$/)
-    const section = page.locator('#tipos-de-maquina')
-    // The jump ends with the section right below the sticky header (scroll-padding-top on html).
-    const headerOffset = await page.evaluate(() =>
-      parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-offset')),
-    )
-    await expect
-      .poll(async () => {
-        const top = (await box(section)).y
-        const header = await box(page.locator('[data-site-header]'))
-        return top >= header.y + header.height - 1 && top <= headerOffset + 1
-      })
-      .toBe(true)
-    // A CSS locator, not a role query: on mobile the panel has already closed (removing
-    // it from the accessibility tree), but markActiveLink sets aria-current on every
-    // matching [data-nav-link], including the always-present desktop copy.
-    const activeLink = page.locator(
-      'nav[aria-label="Navegación principal"] a[href="#tipos-de-maquina"]',
-    )
-    await expect(activeLink).toHaveAttribute('aria-current', 'true')
-
-    await page.keyboard.press('Tab')
-    const focusFollowsSection = await page.evaluate(() => {
-      const target = document.querySelector('#tipos-de-maquina')
-      const active = document.activeElement
-      if (!target || !active || active === document.body) return false
-      return (
-        target.contains(active) ||
-        Boolean(target.compareDocumentPosition(active) & Node.DOCUMENT_POSITION_FOLLOWING)
-      )
-    })
-    expect(focusFollowsSection).toBe(true)
-
-    if (isMobile) {
-      await expect(page.getByRole('navigation', { name: 'Navegación móvil' })).toBeHidden()
-    }
-  })
-
-  test('the back button returns from a menu jump to where the reader was', async ({
-    page,
-    isMobile,
-  }) => {
-    await page.emulateMedia({ reducedMotion: 'reduce' })
-    const menu = await openMenu(page, isMobile)
-    await menu.getByRole('link', { name: 'Cómo es el servicio' }).click()
-    await expect(page).toHaveURL(/#como-es-el-servicio$/)
-    await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(0)
-
-    await page.goBack()
-    await expect.poll(() => new URL(page.url()).hash).toBe('')
-    await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0)
-  })
-
   test('menu jumps are smooth unless reduced motion is preferred', async ({ page }) => {
     const scrollBehavior = () =>
       page.evaluate(() => getComputedStyle(document.documentElement).scrollBehavior)
@@ -214,38 +174,6 @@ test.describe('navigation', () => {
     await expect(openButton).toHaveAttribute('aria-expanded', 'false')
   })
 
-  test('the awning machines section is reachable from the menu and shows its photos', async ({
-    page,
-    isMobile,
-  }) => {
-    const menu = await openMenu(page, isMobile)
-    await menu.getByRole('link', { name: 'Toldos' }).click()
-
-    await expect(page).toHaveURL(/#toldos$/)
-    const section = page.locator('#toldos')
-    await expect(
-      section.getByRole('heading', {
-        level: 2,
-        name: 'Asistencia para máquinas de coser toldos automatizadas',
-      }),
-    ).toBeInViewport()
-
-    const photos = section.locator('img')
-    await expect(photos).toHaveCount(3)
-    for (let index = 0; index < 3; index += 1) {
-      const photo = photos.nth(index)
-      await photo.scrollIntoViewIfNeeded()
-      await expect
-        .poll(() =>
-          photo.evaluate((element) => {
-            const image = element as HTMLImageElement
-            return image.complete && image.naturalWidth > 0
-          }),
-        )
-        .toBe(true)
-    }
-  })
-
   test('the header call to action fits inside the header from the desktop breakpoint', async ({
     page,
     isMobile,
@@ -273,17 +201,90 @@ test.describe('navigation', () => {
     await expect(page.getByRole('button', { name: 'Abrir menú de navegación' })).toBeVisible()
   })
 
-  test('returning to the top leaves no menu link marked as current', async ({ page, isMobile }) => {
-    await page.emulateMedia({ reducedMotion: 'reduce' })
-    const menu = await openMenu(page, isMobile)
-    await menu.getByRole('link', { name: 'Máquinas y marcas' }).click()
-    await expect(page.locator('[data-nav-link][href="#tipos-de-maquina"]').first()).toHaveAttribute(
-      'aria-current',
-      'true',
-    )
+  test('the menu leads to each section page and marks it as the current page', async ({
+    page,
+    isMobile,
+  }) => {
+    for (const [name, path, title] of [
+      ['Servicio técnico', '/servicio-tecnico', TITLES.technicalService],
+      ['Toldos', '/toldos', TITLES.awnings],
+    ] as const) {
+      const menu = await openMenu(page, isMobile)
+      await menu.getByRole('link', { name }).click()
 
-    await page.evaluate(() => window.scrollTo(0, 0))
-    await expect.poll(() => page.locator('[data-nav-link][aria-current]').count()).toBe(0)
+      await expect(page).toHaveURL(new RegExp(`${path}$`))
+      await expect(page.getByRole('heading', { level: 1, name: title })).toBeVisible()
+      // A CSS locator: the desktop menu is in the DOM (though hidden) on mobile too.
+      await expect(
+        page.locator(`nav[aria-label="Navegación principal"] a[href="${path}"]`),
+      ).toHaveAttribute('aria-current', 'page')
+      await expect(page.locator('[data-nav-link][aria-current]')).toHaveCount(2)
+    }
+  })
+
+  test('"Contacto" jumps to the closing block, below the sticky header', async ({
+    page,
+    isMobile,
+  }) => {
+    // Reduced motion turns the jump into an instant scroll, so the final resting
+    // position (not a mid-scroll frame) is what the assertions below check.
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await page.goto('/servicio-tecnico')
+    const menu = await openMenu(page, isMobile)
+    await menu.getByRole('link', { name: 'Contacto' }).click()
+
+    await expect(page).toHaveURL(/\/servicio-tecnico#contacto$/)
+    const section = page.locator('#contacto')
+    await expect(section).toBeInViewport()
+    const headerOffset = await page.evaluate(() =>
+      parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-offset')),
+    )
+    await expect
+      .poll(async () => {
+        const header = await box(page.locator('[data-site-header]'))
+        const top = (await box(section)).y
+        return top >= header.y + header.height - 1 && top <= headerOffset + 1
+      })
+      .toBe(true)
+    if (isMobile) {
+      await expect(page.getByRole('navigation', { name: 'Navegación móvil' })).toBeHidden()
+    }
+  })
+
+  test('the back button returns from a section page to the home page', async ({
+    page,
+    isMobile,
+  }) => {
+    const menu = await openMenu(page, isMobile)
+    await menu.getByRole('link', { name: 'Toldos' }).click()
+    await expect(page).toHaveURL(/\/toldos$/)
+
+    await page.goBack()
+    await expect(page.getByRole('heading', { level: 1, name: TITLES.home })).toBeVisible()
+  })
+
+  test('the logo takes the reader back to the home page', async ({ page }) => {
+    await page.goto('/toldos')
+    await page.locator('header a[href="/"]').click()
+    await expect(page.getByRole('heading', { level: 1, name: TITLES.home })).toBeVisible()
+  })
+
+  test('the awnings page shows its three machine photos', async ({ page }) => {
+    await page.goto('/toldos')
+    const photos = page.locator('main img')
+    await expect(photos).toHaveCount(3)
+    for (let index = 0; index < 3; index += 1) {
+      const photo = photos.nth(index)
+      await photo.scrollIntoViewIfNeeded()
+      await expect
+        .poll(() =>
+          photo.evaluate((element) => {
+            const image = element as HTMLImageElement
+            return image.complete && image.naturalWidth > 0
+          }),
+        )
+        .toBe(true)
+    }
   })
 })
 
@@ -308,7 +309,9 @@ test.describe('SEO and sharing', () => {
 
   test('every page is served as static HTML, readable without JavaScript', async ({ request }) => {
     const expectedText: Record<string, string> = {
-      '/': 'Qué hacemos',
+      '/': TITLES.home,
+      '/servicio-tecnico': 'Qué hacemos',
+      '/toldos': 'Qué intervenimos',
       '/aviso-legal': LEGAL_NOTICE.identification.heading,
       '/privacidad': 'Tus derechos',
     }

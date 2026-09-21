@@ -1,0 +1,52 @@
+.hero {
+  background: radial-gradient(circle at 50% 0%, var(--color-black-soft) 0%, var(--color-black) 60%);
+  color: var(--color-text-on-dark);
+  padding: clamp(2.5rem, 6vw, 4.5rem) var(--space-md);
+}
+
+.inner {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.eyebrow {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.8rem;
+  color: var(--color-gold);
+}
+
+.title {
+  font-size: clamp(1.75rem, 5vw, 2.75rem);
+  line-height: 1.15;
+  color: var(--color-white);
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+
+.intro {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--color-text-on-dark-secondary);
+  max-width: 60ch;
+}
+
+/* Short screens (e.g. iPhone SE): tighten the padding and gap so the WhatsApp CTA
+   clears the floating button instead of sitting under it. */
+@media (max-height: 619px) {
+  .hero {
+    padding-top: var(--space-md);
+    padding-bottom: var(--space-md);
+  }
+
+  .inner {
+    gap: var(--space-xs);
+  }
+}

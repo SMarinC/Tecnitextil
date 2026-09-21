@@ -9,10 +9,7 @@ import styles from './AwningMachines.module.css'
   <div class={styles.inner}>
     <div class={styles.layout}>
       <div class={styles.textCol}>
-        <p class={styles.eyebrow}>{AWNING_MACHINES.eyebrow}</p>
-        <h2 class={styles.heading}>{AWNING_MACHINES.heading}</h2>
-        <p class={styles.intro}>{AWNING_MACHINES.intro}</p>
-        <h3 class={styles.subheading}>{AWNING_MACHINES.services.heading}</h3>
+        <h2 class={styles.subheading}>{AWNING_MACHINES.services.heading}</h2>
         <ul class={styles.serviceList} role="list">
           {AWNING_MACHINES.services.items.map((service) => (
             <li class={styles.serviceItem}>{service}</li>
@@ -39,7 +36,7 @@ import styles from './AwningMachines.module.css'
             </li>
           ))}
         </ul>
-        <h3 class={styles.subheading}>{AWNING_MACHINES.components.heading}</h3>
+        <h2 class={styles.subheading}>{AWNING_MACHINES.components.heading}</h2>
         <ul class={styles.componentList} role="list">
           {AWNING_MACHINES.components.items.map((component) => (
             <li class={styles.componentItem}>{component}</li>

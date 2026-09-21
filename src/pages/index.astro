@@ -1,33 +1,14 @@
 ---
-import AwningMachines from '../components/AwningMachines/AwningMachines.astro'
-import Brands from '../components/Brands/Brands.astro'
-import FinalCta from '../components/FinalCta/FinalCta.astro'
-import Footer from '../components/Footer/Footer.astro'
-import Header from '../components/Header/Header.astro'
 import Hero from '../components/Hero/Hero.astro'
-import HowItWorks from '../components/HowItWorks/HowItWorks.astro'
-import MachineTypes from '../components/MachineTypes/MachineTypes.astro'
-import Services from '../components/Services/Services.astro'
+import SectionCards from '../components/SectionCards/SectionCards.astro'
 import ValueProps from '../components/ValueProps/ValueProps.astro'
-import WhatsAppCta from '../components/WhatsAppCta/WhatsAppCta.astro'
-import { WHATSAPP_CTA } from '../data/home'
 import { HOME_PAGE } from '../data/pages'
 import { localBusinessJsonLd } from '../data/seo'
-import BaseLayout from '../layouts/BaseLayout.astro'
+import SiteLayout from '../layouts/SiteLayout.astro'
 ---
 
-<BaseLayout page={HOME_PAGE} jsonLd={localBusinessJsonLd()}>
-  <Header />
-  <main id="contenido">
-    <Hero />
-    <AwningMachines />
-    <Services />
-    <MachineTypes />
-    <Brands />
-    <ValueProps />
-    <HowItWorks />
-    <FinalCta />
-  </main>
-  <Footer />
-  <WhatsAppCta variant="floating" label={WHATSAPP_CTA.floatingLabel} />
-</BaseLayout>
+<SiteLayout page={HOME_PAGE} jsonLd={localBusinessJsonLd()}>
+  <Hero />
+  <SectionCards />
+  <ValueProps />
+</SiteLayout>
