@@ -1,9 +1,9 @@
-// Section ids and menu labels. Components put these ids on <section id> and the menu
-// is built from NAV_ITEMS, so a menu anchor can never point to a missing section.
+// Section ids and the menu. Components put these ids on <section id>. The menu links
+// to the public pages plus the closing contact block every public page ends with.
+import { AWNINGS_PAGE, TECHNICAL_SERVICE_PAGE } from './pages'
 
 export interface Section {
   id: string
-  navLabel?: string
 }
 
 export interface NavItem {
@@ -13,23 +13,20 @@ export interface NavItem {
 
 export const SECTIONS = {
   about: { id: 'quienes-somos' },
-  awningMachines: { id: 'toldos', navLabel: 'Toldos' },
-  services: { id: 'que-hacemos', navLabel: 'Qué hacemos' },
-  machineTypes: { id: 'tipos-de-maquina', navLabel: 'Máquinas y marcas' },
+  awningMachines: { id: 'toldos' },
+  services: { id: 'que-hacemos' },
+  machineTypes: { id: 'tipos-de-maquina' },
   brands: { id: 'marcas' },
-  valueProps: { id: 'por-que-elegirnos', navLabel: 'Por qué elegirnos' },
-  howItWorks: { id: 'como-es-el-servicio', navLabel: 'Cómo es el servicio' },
-  contact: { id: 'contacto', navLabel: 'Contáctanos' },
+  valueProps: { id: 'por-que-elegirnos' },
+  howItWorks: { id: 'como-es-el-servicio' },
+  contact: { id: 'contacto' },
 } satisfies Record<string, Section>
 
 export const NAV_ITEMS: NavItem[] = [
-  SECTIONS.awningMachines,
-  SECTIONS.services,
-  SECTIONS.machineTypes,
-  SECTIONS.valueProps,
-  SECTIONS.howItWorks,
-  SECTIONS.contact,
-].map(({ id, navLabel }) => ({ label: navLabel, href: `#${id}` }))
+  { label: 'Servicio técnico', href: TECHNICAL_SERVICE_PAGE.path },
+  { label: 'Toldos', href: AWNINGS_PAGE.path },
+  { label: 'Contacto', href: `#${SECTIONS.contact.id}` },
+]
 
 export const MENU_TOGGLE_LABELS = {
   open: 'Abrir menú de navegación',

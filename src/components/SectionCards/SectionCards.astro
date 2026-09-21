@@ -1,0 +1,27 @@
+---
+import { SECTION_CARDS } from '../../data/home'
+import styles from './SectionCards.module.css'
+---
+
+<section class={styles.section} aria-labelledby="secciones">
+  <div class={styles.inner}>
+    <h2 id="secciones" class={styles.heading}>
+      {SECTION_CARDS.heading}
+    </h2>
+    <ul class={styles.list} role="list">
+      {SECTION_CARDS.items.map(({ title, description, href }) => (
+        <li class={styles.card}>
+          <h3 class={styles.cardTitle}>
+            <a href={href} class={styles.cardLink}>
+              {title}
+            </a>
+          </h3>
+          <p class={styles.cardDescription}>{description}</p>
+          <span class={styles.more} aria-hidden="true">
+            {SECTION_CARDS.moreLabel}
+          </span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

@@ -7,25 +7,39 @@ import { MENU_TOGGLE_LABELS, NAV_ITEMS } from '../../data/sections'
 import Icon from '../Icon/Icon.astro'
 import WhatsAppCta from '../WhatsAppCta/WhatsAppCta.astro'
 import styles from './Header.module.css'
+
+// The path of the page being rendered: its menu link is marked as the current page.
+interface Props {
+  currentPath: string
+}
+
+const { currentPath } = Astro.props
 ---
 
 <header class={styles.header} data-site-header>
   <div class={styles.inner}>
-    {/* src/assets/logo.png and public/logo.png are intentional, byte-identical duplicates:
-    astro:assets needs the source under src/, while the favicon and the JSON-LD `logo` need
-    a stable /logo.png. Do not delete either one as a "duplicate". */}
-    <Image
-      src={logo}
-      alt={COMPANY.name}
-      width={100}
-      height={100}
-      densities={[1, 2]}
-      loading="eager"
-      class={styles.logo}
-    />
+    <a href="/" class={styles.logoLink}>
+      {/* src/assets/logo.png and public/logo.png are intentional, byte-identical duplicates:
+      astro:assets needs the source under src/, while the favicon and the JSON-LD `logo` need
+      a stable /logo.png. Do not delete either one as a "duplicate". */}
+      <Image
+        src={logo}
+        alt={COMPANY.name}
+        width={100}
+        height={100}
+        densities={[1, 2]}
+        loading="eager"
+        class={styles.logo}
+      />
+    </a>
     <nav class={styles.nav} aria-label="Navegación principal">
       {NAV_ITEMS.map(({ label, href }) => (
-        <a href={href} class={styles.navLink} data-nav-link>
+        <a
+          href={href}
+          class={styles.navLink}
+          data-nav-link
+          aria-current={href === currentPath ? 'page' : undefined}
+        >
           {label}
         </a>
       ))}
@@ -59,7 +73,12 @@ import styles from './Header.module.css'
     hidden
   >
     {NAV_ITEMS.map(({ label, href }) => (
-      <a href={href} class={styles.mobileNavLink} data-nav-link>
+      <a
+        href={href}
+        class={styles.mobileNavLink}
+        data-nav-link
+        aria-current={href === currentPath ? 'page' : undefined}
+      >
         {label}
       </a>
     ))}

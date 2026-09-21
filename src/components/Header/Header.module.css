@@ -16,6 +16,12 @@
   gap: var(--space-md);
 }
 
+.logoLink {
+  display: flex;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+}
+
 .logo {
   height: 64px;
   width: 64px;
@@ -120,13 +126,13 @@
   color: var(--color-gold);
 }
 
-.navLink[aria-current='true'] {
+.navLink[aria-current='page'] {
   color: var(--color-gold);
   border-bottom-color: var(--color-gold);
 }
 
 /* After :last-child, so the active last item keeps its underline. */
-.mobileNavLink[aria-current='true'] {
+.mobileNavLink[aria-current='page'] {
   color: var(--color-gold);
   border-bottom: 1px solid var(--color-gold);
 }

@@ -8,7 +8,7 @@ import {
   PRIVACY_POLICY,
   hasPendingLegalData,
 } from '../data/legal'
-import { AWNING_MACHINES, HERO, TECHNICAL_SERVICE_HERO } from '../data/home'
+import { AWNING_MACHINES, HERO, SECTION_CARDS, TECHNICAL_SERVICE_HERO } from '../data/home'
 import {
   AWNINGS_PAGE,
   HOME_PAGE,
@@ -34,6 +34,8 @@ const html: Record<string, string> = {
   [LEGAL_NOTICE_PAGE.path]: await renderToHtml(LegalNoticePage),
   [PRIVACY_POLICY_PAGE.path]: await renderToHtml(PrivacyPolicyPage),
 }
+
+const PUBLIC_PAGES = PAGES.filter(({ noindex }) => !noindex)
 
 function head(page: string): string {
   return page.slice(0, page.indexOf('</head>'))
@@ -132,9 +134,36 @@ describe('search engines', () => {
   })
 })
 
+describe('site menu', () => {
+  it.each(NAV_ITEMS)('"$label" leads to a public page or to the contact block', ({ href }) => {
+    if (href.startsWith('#')) {
+      for (const { path } of PUBLIC_PAGES) {
+        expect(html[path], path).toContain(`id="${href.slice(1)}"`)
+      }
+    } else {
+      expect(PUBLIC_PAGES.map(({ path }) => path)).toContain(href)
+    }
+  })
+
+  it.each(PUBLIC_PAGES)('$path marks only its own menu links as the current page', ({ path }) => {
+    const current = html[path].match(/<a[^>]*aria-current="page"[^>]*>/g) ?? []
+    // Desktop and mobile menus each carry the link; the home page has none.
+    const expected = NAV_ITEMS.some(({ href }) => href === path) ? 2 : 0
+    expect(current).toHaveLength(expected)
+    for (const link of current) expect(link).toContain(`href="${path}"`)
+  })
+
+  it.each(PUBLIC_PAGES)('$path links the logo to the home page', ({ path }) => {
+    expect(html[path]).toMatch(/<header[\s\S]*?<a href="\/"[^>]*>\s*<img/)
+  })
+})
+
 describe('home page', () => {
-  it.each(NAV_ITEMS)('menu item "$label" points to a section of the page', ({ href }) => {
-    expect(html[HOME_PAGE.path]).toContain(`id="${href.slice(1)}"`)
+  it('links to every inner page from its section cards', () => {
+    for (const { href } of SECTION_CARDS.items) {
+      expect(PUBLIC_PAGES.map(({ path }) => path)).toContain(href)
+      expect(html[HOME_PAGE.path]).toContain(`href="${href}"`)
+    }
   })
 
   it('names the business in its only <h1>', () => {

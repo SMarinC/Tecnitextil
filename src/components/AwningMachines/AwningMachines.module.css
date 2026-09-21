@@ -22,30 +22,6 @@
   gap: var(--space-lg);
 }
 
-.eyebrow {
-  font-family: var(--font-heading);
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-size: 0.8rem;
-  color: var(--color-gold);
-  margin-bottom: var(--space-xs);
-}
-
-.heading {
-  font-size: var(--font-size-section-title);
-  line-height: 1.15;
-  color: var(--color-white);
-  margin-bottom: var(--space-sm);
-  text-wrap: balance;
-  overflow-wrap: anywhere;
-}
-
-.intro {
-  color: var(--color-text-on-dark-secondary);
-  max-width: 60ch;
-  margin-bottom: var(--space-lg);
-}
-
 .subheading {
   font-size: 0.95rem;
   letter-spacing: 0.08em;

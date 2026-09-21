@@ -6,6 +6,7 @@ import awningRollerTableImage from '../assets/awning-machines/mesa-rodillos.webp
 import awningTrayImage from '../assets/awning-machines/bandeja-movil.webp'
 import type { IconName } from '../components/Icon/icons'
 import { COMPANY } from './company'
+import { AWNINGS_PAGE, TECHNICAL_SERVICE_PAGE } from './pages'
 
 interface IconItem {
   icon: IconName
@@ -55,6 +56,29 @@ export const TECHNICAL_SERVICE_HERO = {
   title: 'Servicio técnico de maquinaria textil',
   intro: `Reparamos y mantenemos máquinas de coser industriales y domésticas, equipos de corte y auxiliares, de cualquier marca y generación. En ${COMPANY.coverage}, con recogida a domicilio.`,
   ctaLabel: HERO.ctaLabel,
+}
+
+export const SECTION_CARDS: {
+  heading: string
+  moreLabel: string
+  items: { title: string; description: string; href: string }[]
+} = {
+  heading: 'Qué necesitas',
+  moreLabel: 'Ver más',
+  items: [
+    {
+      title: 'Servicio técnico',
+      description:
+        'Reparación y mantenimiento de máquinas de coser, de corte y equipos auxiliares, de cualquier marca.',
+      href: TECHNICAL_SERVICE_PAGE.path,
+    },
+    {
+      title: 'Toldos',
+      description:
+        'Instalación, reparación y mantenimiento de máquinas de coser toldos automatizadas.',
+      href: AWNINGS_PAGE.path,
+    },
+  ],
 }
 
 export const AWNING_MACHINES: AwningMachinesContent = {

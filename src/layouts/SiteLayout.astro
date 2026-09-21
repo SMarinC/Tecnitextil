@@ -18,7 +18,7 @@ const { page, jsonLd } = Astro.props
 ---
 
 <BaseLayout page={page} jsonLd={jsonLd}>
-  <Header />
+  <Header currentPath={page.path} />
   <main id="contenido">
     <slot />
     <FinalCta />

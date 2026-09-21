@@ -1,0 +1,78 @@
+.section {
+  background: var(--color-cream);
+  color: var(--color-text-primary);
+}
+
+.inner {
+  composes: container from '../../styles/container.module.css';
+}
+
+.heading {
+  font-size: var(--font-size-section-title);
+  text-align: center;
+  margin-bottom: var(--space-lg);
+  text-wrap: balance;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-md);
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-lg) var(--space-md);
+  background: var(--color-white);
+  border: 1px solid color-mix(in srgb, var(--color-gold) 45%, transparent);
+  border-radius: var(--radius-md);
+}
+
+.card:hover {
+  border-color: var(--color-gold);
+}
+
+.cardTitle {
+  font-size: 1.35rem;
+}
+
+.cardLink {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Stretched link: the whole card is clickable, but only the title names the link. */
+.cardLink::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.cardDescription {
+  color: var(--color-text-secondary);
+}
+
+.more {
+  margin-top: auto;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.85rem;
+}
+
+.more::after {
+  content: ' →';
+}
+
+@media (min-width: 768px) {
+  .list {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+}
