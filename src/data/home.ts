@@ -1,4 +1,4 @@
-// Home page copy, grouped by section in reading order. Icons are referenced by name
+// Copy of the public pages, grouped by section in reading order. Icons are referenced by name
 // (see components/Icon/icons.ts) so this file stays plain data.
 import type { ImageMetadata } from 'astro'
 import awningCarriageImage from '../assets/awning-machines/cabezal-movil.webp'
@@ -48,6 +48,13 @@ export const HERO: {
     `${COMPANY.name} es una empresa que lleva más de ${COMPANY.yearsOfExperience} años trabajando con maquinaria textil e industrial: máquinas de coser, equipos de corte, confección y equipos auxiliares. Lo que empezó como un taller dedicado a resolver averías se convirtió, con el tiempo, en un equipo técnico altamente capacitado y con experiencia real en cada tipo de máquina, marca y avería.`,
     'Sabemos que detrás de cada máquina hay alguien que depende de ella para trabajar. Por eso combinamos eficiencia con un trato cercano: no solo reparamos, entendemos lo que significa para ti que tu máquina esté parada, y trabajamos con ese compromiso en cada intervención.',
   ],
+}
+
+export const TECHNICAL_SERVICE_HERO = {
+  eyebrow: 'Reparación y mantenimiento',
+  title: 'Servicio técnico de maquinaria textil',
+  intro: `Reparamos y mantenemos máquinas de coser industriales y domésticas, equipos de corte y auxiliares, de cualquier marca y generación. En ${COMPANY.coverage}, con recogida a domicilio.`,
+  ctaLabel: HERO.ctaLabel,
 }
 
 export const AWNING_MACHINES: AwningMachinesContent = {

@@ -8,18 +8,29 @@ import {
   PRIVACY_POLICY,
   hasPendingLegalData,
 } from '../data/legal'
-import { HERO } from '../data/home'
-import { HOME_PAGE, LEGAL_NOTICE_PAGE, PAGES, PRIVACY_POLICY_PAGE } from '../data/pages'
+import { AWNING_MACHINES, HERO, TECHNICAL_SERVICE_HERO } from '../data/home'
+import {
+  AWNINGS_PAGE,
+  HOME_PAGE,
+  LEGAL_NOTICE_PAGE,
+  PAGES,
+  PRIVACY_POLICY_PAGE,
+  TECHNICAL_SERVICE_PAGE,
+} from '../data/pages'
 import { NAV_ITEMS, SECTIONS } from '../data/sections'
 import { OG_IMAGE_PATH, SITE_URL, absoluteUrl } from '../data/seo'
+import AwningsPage from '../pages/toldos.astro'
 import LegalNoticePage from '../pages/aviso-legal.astro'
 import HomePage from '../pages/index.astro'
 import PrivacyPolicyPage from '../pages/privacidad.astro'
+import TechnicalServicePage from '../pages/servicio-tecnico.astro'
 import { GET as getSitemap } from '../pages/sitemap.xml.ts'
 import { renderToHtml, textContent } from './render'
 
 const html: Record<string, string> = {
   [HOME_PAGE.path]: await renderToHtml(HomePage),
+  [TECHNICAL_SERVICE_PAGE.path]: await renderToHtml(TechnicalServicePage),
+  [AWNINGS_PAGE.path]: await renderToHtml(AwningsPage),
   [LEGAL_NOTICE_PAGE.path]: await renderToHtml(LegalNoticePage),
   [PRIVACY_POLICY_PAGE.path]: await renderToHtml(PrivacyPolicyPage),
 }
@@ -111,9 +122,11 @@ describe('search engines', () => {
     expect(withJsonLd).toEqual([HOME_PAGE.path])
   })
 
-  it('the sitemap lists the home page and leaves the legal pages out', async () => {
+  it('the sitemap lists the public pages and leaves the legal pages out', async () => {
     const sitemap = await getSitemap().text()
-    expect(sitemap).toContain(`<loc>${SITE_URL}/</loc>`)
+    for (const { path } of [HOME_PAGE, TECHNICAL_SERVICE_PAGE, AWNINGS_PAGE]) {
+      expect(sitemap).toContain(`<loc>${absoluteUrl(path)}</loc>`)
+    }
     expect(sitemap).not.toContain(`${SITE_URL}${LEGAL_NOTICE.path}`)
     expect(sitemap).not.toContain(`${SITE_URL}${PRIVACY_POLICY.path}`)
   })
@@ -169,6 +182,29 @@ describe('legal pages', () => {
     '%s links the owner email with mailto:',
     (path) => {
       expect(identificationBlock(html[path])).toContain(`href="mailto:${LEGAL_OWNER.email}"`)
+    },
+  )
+})
+
+describe('inner pages', () => {
+  const pageHero = (page: string) =>
+    page.match(/<section[^>]*data-page-hero[\s\S]*?<\/section>/)?.[0] ?? ''
+
+  it.each([
+    [TECHNICAL_SERVICE_PAGE.path, TECHNICAL_SERVICE_HERO.title],
+    [AWNINGS_PAGE.path, AWNING_MACHINES.heading],
+  ])('%s opens with its <h1> and WhatsApp in the page hero', (path, title) => {
+    const hero = pageHero(html[path])
+    expect(textContent(hero.match(/<h1[^>]*>[\s\S]*?<\/h1>/)?.[0] ?? '')).toBe(title)
+    expect(hero).toContain(`href="${buildWhatsAppUrl()}"`)
+  })
+
+  it.each([TECHNICAL_SERVICE_PAGE.path, AWNINGS_PAGE.path])(
+    '%s ends its content with the contact block',
+    (path) => {
+      expect(html[path]).toMatch(
+        new RegExp(`<section[^>]*id="${SECTIONS.contact.id}"[\\s\\S]*</main>`),
+      )
     },
   )
 })

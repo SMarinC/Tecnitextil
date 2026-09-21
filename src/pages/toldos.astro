@@ -1,0 +1,17 @@
+---
+import AwningMachines from '../components/AwningMachines/AwningMachines.astro'
+import PageHero from '../components/PageHero/PageHero.astro'
+import { AWNING_MACHINES, HERO } from '../data/home'
+import { AWNINGS_PAGE } from '../data/pages'
+import SiteLayout from '../layouts/SiteLayout.astro'
+---
+
+<SiteLayout page={AWNINGS_PAGE}>
+  <PageHero
+    eyebrow={AWNING_MACHINES.eyebrow}
+    title={AWNING_MACHINES.heading}
+    intro={AWNING_MACHINES.intro}
+    ctaLabel={HERO.ctaLabel}
+  />
+  <AwningMachines />
+</SiteLayout>

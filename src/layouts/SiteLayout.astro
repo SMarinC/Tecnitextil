@@ -1,0 +1,28 @@
+---
+import FinalCta from '../components/FinalCta/FinalCta.astro'
+import Footer from '../components/Footer/Footer.astro'
+import Header from '../components/Header/Header.astro'
+import WhatsAppCta from '../components/WhatsAppCta/WhatsAppCta.astro'
+import { WHATSAPP_CTA } from '../data/home'
+import type { PageMeta } from '../data/pages'
+import BaseLayout from './BaseLayout.astro'
+
+// Frame of the public pages: header menu, the page's own sections, then the closing
+// WhatsApp block (#contacto, the menu's "Contacto"), the footer and the floating button.
+interface Props {
+  page: PageMeta
+  jsonLd?: Record<string, unknown>
+}
+
+const { page, jsonLd } = Astro.props
+---
+
+<BaseLayout page={page} jsonLd={jsonLd}>
+  <Header />
+  <main id="contenido">
+    <slot />
+    <FinalCta />
+  </main>
+  <Footer />
+  <WhatsAppCta variant="floating" label={WHATSAPP_CTA.floatingLabel} />
+</BaseLayout>
