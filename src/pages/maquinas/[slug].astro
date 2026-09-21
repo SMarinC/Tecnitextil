@@ -1,0 +1,45 @@
+---
+import { getImage } from 'astro:assets'
+import { getCollection, render, type CollectionEntry } from 'astro:content'
+import MachineDetail from '../../components/MachineDetail/MachineDetail.astro'
+import { absoluteUrl } from '../../data/seo'
+import SiteLayout from '../../layouts/SiteLayout.astro'
+import {
+  assertCatalog,
+  machineBreadcrumbJsonLd,
+  machinePageMeta,
+  machineWhatsAppMessage,
+  toMachine,
+} from '../../lib/catalog'
+
+export async function getStaticPaths() {
+  const entries = await getCollection('maquinas')
+  assertCatalog(entries.map(toMachine))
+  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }))
+}
+
+interface Props {
+  entry: CollectionEntry<'maquinas'>
+}
+
+const { entry } = Astro.props
+const machine = toMachine(entry)
+const { Content } = await render(entry)
+// The main photo, as a 1200 px JPEG for link previews.
+const share = await getImage({ src: machine.fotos[0], width: 1200, format: 'jpeg' })
+---
+
+<SiteLayout
+  page={machinePageMeta(machine)}
+  jsonLd={machineBreadcrumbJsonLd(machine)}
+  image={{
+    url: absoluteUrl(share.src),
+    width: Number(share.attributes.width),
+    height: Number(share.attributes.height),
+  }}
+  whatsappMessage={machineWhatsAppMessage(machine)}
+>
+  <MachineDetail machine={machine}>
+    <Content />
+  </MachineDetail>
+</SiteLayout>

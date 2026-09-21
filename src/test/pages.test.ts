@@ -11,6 +11,7 @@ import {
 import { AWNING_MACHINES, HERO, SECTION_CARDS, TECHNICAL_SERVICE_HERO } from '../data/home'
 import {
   AWNINGS_PAGE,
+  CATALOG_PAGE,
   HOME_PAGE,
   LEGAL_NOTICE_PAGE,
   PAGES,
@@ -130,10 +131,11 @@ describe('search engines', () => {
   })
 
   it('the sitemap lists the public pages and leaves the legal pages out', async () => {
-    const sitemap = await getSitemap().text()
+    const sitemap = await (await getSitemap()).text()
     for (const { path } of [HOME_PAGE, TECHNICAL_SERVICE_PAGE, AWNINGS_PAGE]) {
       expect(sitemap).toContain(`<loc>${absoluteUrl(path)}</loc>`)
     }
+    expect(sitemap).toContain(`<loc>${absoluteUrl(CATALOG_PAGE.path)}</loc>`)
     expect(sitemap).not.toContain(`${SITE_URL}${LEGAL_NOTICE.path}`)
     expect(sitemap).not.toContain(`${SITE_URL}${PRIVACY_POLICY.path}`)
   })

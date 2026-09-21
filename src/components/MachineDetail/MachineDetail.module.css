@@ -1,0 +1,141 @@
+.detail {
+  background: var(--color-cream);
+}
+
+.inner {
+  composes: container from '../../styles/container.module.css';
+  /* Tighter than the container's usual top padding, so the WhatsApp call to action
+     stays in view on phones without scrolling. */
+  padding-top: var(--space-md);
+}
+
+.breadcrumb {
+  margin-bottom: var(--space-md);
+}
+
+.crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+}
+
+.crumbs li + li::before {
+  content: '›';
+  margin: 0 var(--space-xs);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+@media (min-width: 768px) {
+  .layout {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xl);
+  }
+}
+
+.summary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.title {
+  font-size: clamp(1.75rem, 5vw, 2.75rem);
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+.model {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-secondary);
+}
+
+.facts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin: 0;
+}
+
+.facts div {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.facts dt {
+  font-weight: 700;
+}
+
+.facts dt::after {
+  content: ':';
+}
+
+.facts dd {
+  margin: 0;
+}
+
+.includes {
+  color: var(--color-text-secondary);
+}
+
+.description {
+  max-width: 70ch;
+  margin-bottom: var(--space-xl);
+}
+
+.description :global(p) + :global(p) {
+  margin-top: var(--space-sm);
+}
+
+.block {
+  margin-bottom: var(--space-xl);
+}
+
+.heading {
+  font-size: calc(var(--font-size-section-title) * 0.8);
+  margin-bottom: var(--space-md);
+}
+
+.specs {
+  margin: 0;
+}
+
+.spec {
+  display: flex;
+  gap: var(--space-md);
+  padding: var(--space-xs) 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-gold) 15%, transparent);
+}
+
+.spec dt {
+  width: 40%;
+  font-weight: 600;
+}
+
+.spec dd {
+  margin: 0;
+}
+
+.notes {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+}
+
+@media (min-width: 768px) {
+  .notes {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
