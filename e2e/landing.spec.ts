@@ -117,11 +117,17 @@ test.describe('contact', () => {
     page,
   }) => {
     await page.setViewportSize({ width: 375, height: 548 })
-    await page.reload()
-    const floating = await box(page.getByRole('link', { name: 'Escribir por WhatsApp' }))
-    const hero = await box(page.locator('#quienes-somos a[href*="wa.me"]'))
+    for (const [path, selector] of [
+      ['/', '#quienes-somos a[href*="wa.me"]'],
+      ['/servicio-tecnico', '[data-page-hero] a[href*="wa.me"]'],
+      ['/toldos', '[data-page-hero] a[href*="wa.me"]'],
+    ] as const) {
+      await page.goto(path)
+      const floating = await box(page.getByRole('link', { name: 'Escribir por WhatsApp' }))
+      const hero = await box(page.locator(selector))
 
-    expect(overlaps(floating, hero)).toBe(false)
+      expect(overlaps(floating, hero), path).toBe(false)
+    }
   })
 })
 
@@ -220,6 +226,9 @@ test.describe('navigation', () => {
     page,
     isMobile,
   }) => {
+    // Reduced motion turns the jump into an instant scroll, so the final resting
+    // position (not a mid-scroll frame) is what the assertions below check.
+    await page.emulateMedia({ reducedMotion: 'reduce' })
     await page.goto('/servicio-tecnico')
     const menu = await openMenu(page, isMobile)
     await menu.getByRole('link', { name: 'Contacto' }).click()
@@ -227,10 +236,14 @@ test.describe('navigation', () => {
     await expect(page).toHaveURL(/\/servicio-tecnico#contacto$/)
     const section = page.locator('#contacto')
     await expect(section).toBeInViewport()
+    const headerOffset = await page.evaluate(() =>
+      parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-offset')),
+    )
     await expect
       .poll(async () => {
         const header = await box(page.locator('[data-site-header]'))
-        return (await box(section)).y >= header.y + header.height - 1
+        const top = (await box(section)).y
+        return top >= header.y + header.height - 1 && top <= headerOffset + 1
       })
       .toBe(true)
     if (isMobile) {

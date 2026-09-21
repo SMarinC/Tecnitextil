@@ -89,7 +89,7 @@ e2e/                # pruebas en navegador, agrupadas por propósito (contacto, 
 ### Cambios habituales
 
 - **Textos, teléfono o marcas:** edita `src/data/`.
-- **Una página nueva:** añade un archivo en `src/pages/` y su entrada en `src/data/pages.ts`. El sitemap la incluye salvo que esté marcada como `noindex`.
+- **Una página nueva:** añade un archivo en `src/pages/` y su entrada en `src/data/pages.ts`. El sitemap la incluye salvo que esté marcada como `noindex`. Una página pública además usa `SiteLayout`, recibe una entrada en `src/data/sections.ts` si pertenece al menú, y se añade a `PAGES` en `e2e/landing.spec.ts`.
 - **Un dominio propio:** define la variable de entorno `SITE_URL` en Vercel (o en un `.env.local`). Por defecto vale `https://tecnitextil.vercel.app`.
 
 ## Despliegue

@@ -59,6 +59,11 @@ function heroSection(): string {
   )
 }
 
+// The page's <header>...</header> block, so a later link can't stand in for the logo.
+function headerBlock(page: string): string {
+  return page.match(/<header[\s\S]*?<\/header>/)?.[0] ?? ''
+}
+
 describe('every page', () => {
   it.each(PAGES)('$path has exactly one <h1>', ({ path }) => {
     expect(html[path].match(/<h1[\s>]/g)).toHaveLength(1)
@@ -154,7 +159,7 @@ describe('site menu', () => {
   })
 
   it.each(PUBLIC_PAGES)('$path links the logo to the home page', ({ path }) => {
-    expect(html[path]).toMatch(/<header[\s\S]*?<a href="\/"[^>]*>\s*<img/)
+    expect(headerBlock(html[path])).toMatch(/<a href="\/"[^>]*>\s*<img/)
   })
 })
 
@@ -227,13 +232,14 @@ describe('inner pages', () => {
     expect(textContent(hero.match(/<h1[^>]*>[\s\S]*?<\/h1>/)?.[0] ?? '')).toBe(title)
     expect(hero).toContain(`href="${buildWhatsAppUrl()}"`)
   })
+})
 
-  it.each([TECHNICAL_SERVICE_PAGE.path, AWNINGS_PAGE.path])(
-    '%s ends its content with the contact block',
-    (path) => {
-      expect(html[path]).toMatch(
-        new RegExp(`<section[^>]*id="${SECTIONS.contact.id}"[\\s\\S]*</main>`),
-      )
-    },
-  )
+describe('public pages', () => {
+  it.each(PUBLIC_PAGES)('$path ends its content with the contact block', ({ path }) => {
+    const page = html[path]
+    const main = page.slice(0, page.indexOf('</main>'))
+    const sections = main.match(/<section[^>]*>/g) ?? []
+    expect(sections.length, path).toBeGreaterThan(0)
+    expect(sections[sections.length - 1], path).toContain(`id="${SECTIONS.contact.id}"`)
+  })
 })

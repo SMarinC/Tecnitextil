@@ -37,3 +37,16 @@
   color: var(--color-text-on-dark-secondary);
   max-width: 60ch;
 }
+
+/* Short screens (e.g. iPhone SE): tighten the padding and gap so the WhatsApp CTA
+   clears the floating button instead of sitting under it. */
+@media (max-height: 619px) {
+  .hero {
+    padding-top: var(--space-md);
+    padding-bottom: var(--space-md);
+  }
+
+  .inner {
+    gap: var(--space-xs);
+  }
+}
