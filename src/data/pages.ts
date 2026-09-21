@@ -33,6 +33,16 @@ export const AWNINGS_PAGE: PageMeta = {
   noindex: false,
 }
 
+// Built from the machine collection, which Vitest cannot load, so it stays out of PAGES
+// (every PAGES entry is rendered by src/test/pages.test.ts). The sitemap adds it.
+export const CATALOG_PAGE: PageMeta = {
+  path: '/maquinas',
+  title: `Venta de máquinas de coser industriales JACK | ${COMPANY.name}`,
+  description:
+    'Máquinas de coser industriales JACK de ojales, botones y presillas, con tablero y bancada. Consulta precio y disponibilidad por WhatsApp.',
+  noindex: false,
+}
+
 // Reachable from the footer but kept out of search results: they carry the owner's
 // NIF and address.
 function legalPageMeta(content: LegalPageContent): PageMeta {

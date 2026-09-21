@@ -12,17 +12,20 @@ import BaseLayout from './BaseLayout.astro'
 interface Props {
   page: PageMeta
   jsonLd?: Record<string, unknown>
+  image?: { url: string; width: number; height: number }
+  // Message of the floating WhatsApp button, for pages about one product.
+  whatsappMessage?: string
 }
 
-const { page, jsonLd } = Astro.props
+const { page, jsonLd, image, whatsappMessage } = Astro.props
 ---
 
-<BaseLayout page={page} jsonLd={jsonLd}>
+<BaseLayout page={page} jsonLd={jsonLd} image={image}>
   <Header currentPath={page.path} />
   <main id="contenido">
     <slot />
     <FinalCta />
   </main>
   <Footer />
-  <WhatsAppCta variant="floating" label={WHATSAPP_CTA.floatingLabel} />
+  <WhatsAppCta variant="floating" label={WHATSAPP_CTA.floatingLabel} message={whatsappMessage} />
 </BaseLayout>

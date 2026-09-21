@@ -18,11 +18,16 @@ import { serializeJsonLd } from '../lib/jsonLd'
 interface Props {
   page: PageMeta
   jsonLd?: Record<string, unknown>
+  // Share image; defaults to the site-wide og-image.png.
+  image?: { url: string; width: number; height: number }
 }
 
-const { page, jsonLd } = Astro.props
+const {
+  page,
+  jsonLd,
+  image = { url: absoluteUrl(OG_IMAGE_PATH), width: 1200, height: 630 },
+} = Astro.props
 const url = absoluteUrl(page.path)
-const image = absoluteUrl(OG_IMAGE_PATH)
 ---
 
 <!doctype html>
@@ -40,14 +45,14 @@ const image = absoluteUrl(OG_IMAGE_PATH)
     <meta property="og:type" content="website" />
     <meta property="og:title" content={page.title} />
     <meta property="og:description" content={page.description} />
-    <meta property="og:image" content={image} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <meta property="og:image" content={image.url} />
+    <meta property="og:image:width" content={`${image.width}`} />
+    <meta property="og:image:height" content={`${image.height}`} />
     <meta property="og:url" content={url} />
     <meta property="og:locale" content="es_ES" />
     <meta property="og:site_name" content={COMPANY.name} />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content={image} />
+    <meta name="twitter:image" content={image.url} />
     <link rel="canonical" href={url} />
     {page.noindex && <meta name="robots" content="noindex" />}
     {jsonLd && <script type="application/ld+json" set:html={serializeJsonLd(jsonLd)}></script>}
