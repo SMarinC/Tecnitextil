@@ -2,6 +2,9 @@
   background: var(--color-black-soft);
   color: var(--color-text-on-dark-secondary);
   text-align: center;
+  /* Same thin gold separator as between sections inside <main>: the footer sits
+     right after <main> in the DOM but outside it, so the global rule does not reach it. */
+  border-top: 1px solid color-mix(in srgb, var(--color-gold) 25%, transparent);
   padding: var(--space-lg) var(--space-md);
   /* Extra clearance so the fixed WhatsApp floating button (56px tall,
      offset 1rem from the viewport bottom) never overlaps this text

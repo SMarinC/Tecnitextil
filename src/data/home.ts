@@ -31,7 +31,6 @@ interface AwningMachinesContent {
   services: { heading: string; items: string[] }
   families: { title: string; description: string; image: Photo }[]
   components: { heading: string; items: string[] }
-  imageNote: string
 }
 
 export const HERO: {
@@ -135,8 +134,6 @@ export const AWNING_MACHINES: AwningMachinesContent = {
       'Carro, guías y bandeja',
     ],
   },
-  imageNote:
-    'Imágenes de referencia de los fabricantes. TECNITEXTIL es un servicio técnico independiente y no está vinculado a las marcas mostradas.',
 }
 
 export const SERVICES: { heading: string; intro: string; items: IconItem[] } = {

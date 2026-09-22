@@ -1,9 +1,8 @@
 .section {
   /* Plain dark panel: the gold grid is the header's signature (Hero/PageHero), so
-     it is not repeated here. Only the fillets and the soft black stay. */
+     it is not repeated here. Only the soft black stays; the top/bottom fillets are
+     now the global section separator rule (src/styles/global.css). */
   background-color: var(--color-black-soft);
-  border-top: 2px solid color-mix(in srgb, var(--color-gold) 45%, transparent);
-  border-bottom: 2px solid color-mix(in srgb, var(--color-gold) 45%, transparent);
 }
 
 .inner {
@@ -108,12 +107,6 @@
   border: 1px solid color-mix(in srgb, var(--color-gold) 45%, transparent);
   border-radius: 3px;
   padding: 0.25rem 0.5rem;
-}
-
-.imageNote {
-  margin-top: var(--space-lg);
-  font-size: 0.8rem;
-  color: var(--color-text-on-dark-secondary);
 }
 
 @media (min-width: 768px) {

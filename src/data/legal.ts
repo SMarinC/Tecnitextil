@@ -91,6 +91,7 @@ export const LEGAL_NOTICE: LegalPageContent = {
       paragraphs: [
         `Los textos, el logotipo y el diseño de esta web pertenecen a su titular o se usan con autorización. Queda prohibida su reproducción sin permiso.`,
         'Las marcas y nombres comerciales citados pertenecen a sus respectivos titulares y se usan para identificar los productos y servicios ofrecidos.',
+        'Las fotografías de la sección de máquinas de coser toldos son imágenes de referencia de sus fabricantes. En ese servicio, TECNITEXTIL actúa como servicio técnico independiente, sin vinculación con dichas marcas.',
       ],
     },
     {
