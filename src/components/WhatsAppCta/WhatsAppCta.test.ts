@@ -22,6 +22,11 @@ describe('WhatsAppCta', () => {
     },
   )
 
+  it.each(VARIANTS)('%s variant is marked for WhatsApp click tracking', async (variant) => {
+    const html = await renderToHtml(WhatsAppCta, { variant, label: 'Escribir' })
+    expect(html).toContain(`data-whatsapp="${variant}"`)
+  })
+
   it('floating variant is icon-only and uses the label as its accessible name', async () => {
     const html = await renderToHtml(WhatsAppCta, {
       variant: 'floating',
