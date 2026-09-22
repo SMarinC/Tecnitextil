@@ -95,7 +95,7 @@ e2e/                # browser tests, grouped by purpose (contact, navigation, SE
 ### Common changes
 
 - **Text, phone number or brands:** edit `src/data/`.
-- **A new page:** add a file to `src/pages/` and its entry to `src/data/pages.ts`. The sitemap picks it up unless the page is marked `noindex`. A public page also uses `SiteLayout`, gets a menu entry in `src/data/sections.ts` when it belongs in the menu, and is added to `PAGES` in `e2e/landing.spec.ts`.
+- **A new page:** add a file to `src/pages/` and its entry to `src/data/pages.ts`. The sitemap picks it up unless the page is marked `noindex`. A public page also uses `SiteLayout`, gets a menu entry in `src/data/navigation.ts` when it belongs in the menu, and is added to `PAGES` in `e2e/landing.spec.ts`.
 - **A custom domain:** set the `SITE_URL` environment variable in Vercel (or in a local `.env.local`). It defaults to `https://tecnitextil.vercel.app`.
 - **A machine for sale:** add a folder `src/content/maquinas/<model-in-lowercase>/` with `index.md` and up to 4 photos; the schema in `src/content.config.ts` checks it at build time. Prices are never published.
 

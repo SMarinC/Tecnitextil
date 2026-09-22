@@ -239,6 +239,13 @@ describe('legal pages', () => {
       expect(identificationBlock(html[path])).toContain(`href="mailto:${LEGAL_OWNER.email}"`)
     },
   )
+
+  it.each([LEGAL_NOTICE.path, PRIVACY_POLICY.path])(
+    '%s ends with the closing contact block, so the menu\'s "Contacto" link works',
+    (path) => {
+      expect(html[path]).toContain(`id="${SECTIONS.contact.id}"`)
+    },
+  )
 })
 
 describe('inner pages', () => {
@@ -280,8 +287,14 @@ describe('404 page', () => {
   })
 
   it('links to the three sections', () => {
+    // Scoped to <main>, after the header: the header nav links to the same paths, so
+    // checking the whole page would pass even without SectionCards.
+    const main = notFoundHtml.slice(
+      notFoundHtml.indexOf('</header>'),
+      notFoundHtml.indexOf('</main>'),
+    )
     for (const { href } of SECTION_CARDS.items) {
-      expect(notFoundHtml).toContain(`href="${href}"`)
+      expect(main).toContain(`href="${href}"`)
     }
   })
 

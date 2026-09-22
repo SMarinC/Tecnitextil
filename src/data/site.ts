@@ -1,5 +1,5 @@
 // Copy shared by every public page: the header/floating WhatsApp labels, the closing
-// contact block and the footer.
+// contact block, the footer and the 404 page's copy.
 import { COMPANY } from './company'
 
 export const WHATSAPP_CTA = {

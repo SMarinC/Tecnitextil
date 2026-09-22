@@ -14,7 +14,8 @@ const PAGES = [
   '/aviso-legal',
   '/privacidad',
 ]
-// Each page's <h1>, as literals: src/data/home.ts imports images Playwright cannot load.
+// Each page's <h1>, as literals: the content modules for the awnings page and the
+// catalogue import images Playwright cannot load.
 const TITLES = {
   home: 'Reparación y mantenimiento de maquinaria textil',
   technicalService: 'Servicio técnico de maquinaria textil',
@@ -338,11 +339,19 @@ test.describe('navigation', () => {
   })
 
   test('the legal pages carry the main menu', async ({ page, isMobile }) => {
+    // Reduced motion turns the jump into an instant scroll, so the viewport check
+    // below sees the final resting position rather than a mid-scroll frame.
+    await page.emulateMedia({ reducedMotion: 'reduce' })
     for (const path of ['/aviso-legal', '/privacidad']) {
       await page.goto(path)
       const menu = await openMenu(page, isMobile)
       await expect(menu).toBeVisible()
       await expect(menu.getByRole('link', { name: 'Toldos' })).toHaveAttribute('href', '/toldos')
+
+      if (path === '/aviso-legal') {
+        await menu.getByRole('link', { name: 'Contacto' }).click()
+        await expect(page.locator('#contacto')).toBeInViewport()
+      }
     }
   })
 
