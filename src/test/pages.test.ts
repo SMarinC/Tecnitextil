@@ -8,7 +8,9 @@ import {
   PRIVACY_POLICY,
   hasPendingLegalData,
 } from '../data/legal'
-import { AWNING_MACHINES, HERO, SECTION_CARDS, TECHNICAL_SERVICE_HERO } from '../data/home'
+import { AWNING_MACHINES } from '../data/awnings'
+import { HERO, SECTION_CARDS } from '../data/home'
+import { NAV_ITEMS, SECTIONS } from '../data/navigation'
 import {
   AWNINGS_PAGE,
   CATALOG_PAGE,
@@ -18,7 +20,7 @@ import {
   PRIVACY_POLICY_PAGE,
   TECHNICAL_SERVICE_PAGE,
 } from '../data/pages'
-import { NAV_ITEMS, SECTIONS } from '../data/sections'
+import { TECHNICAL_SERVICE_HERO } from '../data/technicalService'
 import { OG_IMAGE_PATH, SITE_URL, absoluteUrl } from '../data/seo'
 import AwningsPage from '../pages/toldos.astro'
 import LegalNoticePage from '../pages/aviso-legal.astro'

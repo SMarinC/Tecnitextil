@@ -27,7 +27,7 @@
   text-align: center;
   gap: var(--space-xs);
   padding: var(--space-md);
-  border: 1px solid color-mix(in srgb, var(--color-gold) 20%, transparent);
+  border: 1px solid var(--line);
   border-radius: var(--radius-md);
 }
 

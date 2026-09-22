@@ -4,7 +4,7 @@
   text-align: center;
   /* Same thin gold separator as between sections inside <main>: the footer sits
      right after <main> in the DOM but outside it, so the global rule does not reach it. */
-  border-top: 1px solid color-mix(in srgb, var(--color-gold) 25%, transparent);
+  border-top: 1px solid var(--line);
   padding: var(--space-lg) var(--space-md);
   /* Extra clearance so the fixed WhatsApp floating button (56px tall,
      offset 1rem from the viewport bottom) never overlaps this text
@@ -35,7 +35,7 @@
   color: var(--color-gold-light);
   text-decoration: none;
   font-weight: 500;
-  border: 1.5px solid color-mix(in srgb, var(--color-gold) 45%, transparent);
+  border: 1.5px solid var(--line-control);
   border-radius: var(--radius-full);
   padding: 0.5rem 1.1rem;
   min-height: 44px;
@@ -46,7 +46,7 @@
 
 .phone:hover {
   border-color: var(--color-gold);
-  background: color-mix(in srgb, var(--color-gold) 10%, transparent);
+  background: var(--tint-gold);
 }
 
 .phoneIcon {

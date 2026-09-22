@@ -100,7 +100,7 @@ a {
    hero, main > [data-page-hero]), since that hero already ends in its own 2px gold
    bottom border. */
 main > * + * {
-  border-top: 1px solid color-mix(in srgb, var(--color-gold) 25%, transparent);
+  border-top: 1px solid var(--line);
 }
 
 main > #quienes-somos + *,

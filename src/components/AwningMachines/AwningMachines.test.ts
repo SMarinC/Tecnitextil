@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { AWNING_MACHINES } from '../../data/home'
-import { SECTIONS } from '../../data/sections'
+import { AWNING_MACHINES } from '../../data/awnings'
+import { SECTIONS } from '../../data/navigation'
 import { renderToHtml } from '../../test/render'
 import AwningMachines from './AwningMachines.astro'
 

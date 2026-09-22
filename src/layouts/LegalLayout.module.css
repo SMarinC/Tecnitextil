@@ -1,6 +1,6 @@
 .header {
   background: var(--color-black);
-  border-bottom: 1px solid color-mix(in srgb, var(--color-gold) 25%, transparent);
+  border-bottom: 1px solid var(--line);
   padding: var(--space-xs) var(--space-md);
 }
 

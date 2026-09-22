@@ -69,14 +69,18 @@ npm run dev          # http://localhost:4321
 ```
 src/
   data/             # all copy and business data (edit here)
-    company.ts      #   name, phone, coverage
-    contact.ts      #   phone number and WhatsApp link
-    home.ts         #   text of the public pages, section by section
-    sections.ts     #   section ids and menu
-    legal.ts        #   legal notice, privacy policy and owner details
-    seo.ts          #   site URL, structured data
-    pages.ts        #   every page: title, description, indexing
-    catalog.ts      #   catalogue labels and copy
+    company.ts           #   name, phone, coverage
+    contact.ts           #   phone number and WhatsApp link
+    site.ts              #   WhatsApp labels, closing CTA and footer, shared by every page
+    home.ts              #   text of the home page: hero, section cards, value props
+    technicalService.ts  #   text of the technical service page
+    awnings.ts           #   text of the awnings (toldos) page
+    catalog.ts           #   catalogue labels and copy
+    types.ts             #   content shapes shared across the data modules
+    navigation.ts        #   section anchor ids and menu
+    legal.ts             #   legal notice, privacy policy and owner details
+    seo.ts               #   site URL, structured data
+    pages.ts             #   every page: title, description, indexing
   content/          # machines for sale: one folder per model (index.md + photos)
   pages/            # one file per URL, plus robots.txt and sitemap.xml
   layouts/          # <head>, the public page frame and the legal page template

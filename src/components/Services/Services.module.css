@@ -8,7 +8,7 @@
 
 .divider {
   height: 2px;
-  background: color-mix(in srgb, var(--color-gold) 35%, transparent);
+  background: var(--line-strong);
 }
 
 .layout {
@@ -39,7 +39,7 @@
 
 .card {
   background: var(--color-black-elevated);
-  border: 1px solid color-mix(in srgb, var(--color-gold) 15%, transparent);
+  border: 1px solid var(--line-subtle);
   border-radius: var(--radius-md);
   padding: var(--space-md);
   display: flex;
@@ -127,7 +127,7 @@
   align-items: flex-start;
   gap: var(--space-sm);
   padding-bottom: var(--space-md);
-  border-bottom: 1px solid color-mix(in srgb, var(--color-gold) 15%, transparent);
+  border-bottom: 1px solid var(--line-subtle);
 }
 
 .processStep:last-child {

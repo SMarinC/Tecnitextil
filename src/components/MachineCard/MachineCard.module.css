@@ -1,9 +1,9 @@
 .card {
-  position: relative;
+  composes: card from '../../styles/stretchedLink.module.css';
   display: flex;
   flex-direction: column;
   background: var(--color-black-elevated);
-  border: 1px solid color-mix(in srgb, var(--color-gold) 35%, transparent);
+  border: 1px solid var(--line-control);
   border-radius: var(--radius-md);
   overflow: hidden;
 }
@@ -34,15 +34,7 @@
 }
 
 .link {
-  color: inherit;
-  text-decoration: none;
-}
-
-/* Stretched link: the whole card is clickable, but only the title names the link. */
-.link::after {
-  content: '';
-  position: absolute;
-  inset: 0;
+  composes: link from '../../styles/stretchedLink.module.css';
 }
 
 .model {

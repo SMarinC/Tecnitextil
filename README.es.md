@@ -69,14 +69,18 @@ npm run dev          # http://localhost:4321
 ```
 src/
   data/             # todos los textos y datos del negocio (editar aquí)
-    company.ts      #   nombre, teléfono, cobertura
-    contact.ts      #   teléfono y enlace de WhatsApp
-    home.ts         #   textos de las páginas públicas, sección por sección
-    sections.ts     #   ids de sección y menú
-    legal.ts        #   aviso legal, privacidad y datos del titular
-    seo.ts          #   URL del sitio, datos estructurados
-    pages.ts        #   cada página: título, descripción, indexación
-    catalog.ts      #   textos y etiquetas del catálogo
+    company.ts           #   nombre, teléfono, cobertura
+    contact.ts           #   teléfono y enlace de WhatsApp
+    site.ts              #   textos de WhatsApp, CTA de cierre y footer, comunes a toda página
+    home.ts              #   textos de la página de inicio: hero, tarjetas y valores
+    technicalService.ts  #   textos de la página de servicio técnico
+    awnings.ts           #   textos de la página de toldos
+    catalog.ts           #   textos y etiquetas del catálogo
+    types.ts             #   formas de contenido compartidas entre los módulos de datos
+    navigation.ts        #   ids de sección y menú
+    legal.ts             #   aviso legal, privacidad y datos del titular
+    seo.ts               #   URL del sitio, datos estructurados
+    pages.ts             #   cada página: título, descripción, indexación
   content/          # máquinas en venta: una carpeta por modelo (index.md + fotos)
   pages/            # un archivo por URL, más robots.txt y sitemap.xml
   layouts/          # <head>, marco de las páginas públicas y plantilla de las legales
