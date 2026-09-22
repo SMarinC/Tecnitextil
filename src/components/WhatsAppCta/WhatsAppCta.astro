@@ -6,6 +6,11 @@ import styles from './WhatsAppCta.module.css'
 // Single component for every "start a WhatsApp chat" link, so the URL, security
 // attributes and icon can never drift apart between placements. `floating` is
 // icon-only: `label` becomes its accessible name.
+//
+// `data-whatsapp={variant}` marks the link for src/lib/analytics.ts, which counts a
+// click on it as a visit to /contactar/<page>. It never changes the href, the
+// message, the target or rel: the link still opens wa.me directly so iOS treats the
+// tap as user-driven navigation and opens the app.
 interface Props {
   variant: 'header' | 'primary' | 'floating'
   label: string
@@ -23,6 +28,7 @@ const iconOnly = variant === 'floating'
   rel="noopener noreferrer"
   class={styles[variant]}
   aria-label={iconOnly ? label : undefined}
+  data-whatsapp={variant}
 >
   <Icon name="whatsApp" class={styles.icon} />
   {iconOnly ? null : label}

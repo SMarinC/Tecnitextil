@@ -114,6 +114,14 @@ describe('every page', () => {
       new RegExp(`<meta[^>]*property="og:site_name"[^>]*content="${COMPANY.name}"`),
     )
   })
+
+  // `<vercel-analytics>` is `@vercel/analytics/astro`'s own component: it reports
+  // `Astro.url.pathname`, which under `build.format: 'file'` keeps the file name
+  // (`/index.html`...). src/lib/analytics.ts replaces it with a script that reads
+  // `location.pathname` instead, so this element should never come back.
+  it.each(PAGES)('$path does not load the Astro Analytics component', ({ path }) => {
+    expect(html[path]).not.toContain('<vercel-analytics')
+  })
 })
 
 describe('search engines', () => {

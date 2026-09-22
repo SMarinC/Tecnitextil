@@ -164,6 +164,39 @@ test.describe('contact', () => {
       expect(overlaps(floating, cta), path).toBe(false)
     }
   })
+
+  test('a WhatsApp click is counted as a visit to /contactar/<page>', async ({ page }) => {
+    // The real chat never has to open for this: wa.me is blocked so the click stays
+    // fast and offline-safe, and the new tab it still opens (target="_blank") is
+    // closed right away.
+    await page
+      .context()
+      .route('https://wa.me/**', (route) =>
+        route.fulfill({ status: 200, contentType: 'text/html', body: '<title>WhatsApp</title>' }),
+      )
+
+    for (const [path, selector, expected] of [
+      ['/', '#quienes-somos a[data-whatsapp]', '/contactar/portada'],
+      [
+        '/maquinas/jk-t1900gsk-dii',
+        'article a[data-whatsapp]',
+        '/contactar/maquinas/jk-t1900gsk-dii',
+      ],
+    ] as const) {
+      await page.goto(path)
+      const [popup] = await Promise.all([
+        page.context().waitForEvent('page'),
+        page.locator(selector).click(),
+      ])
+      await popup.close()
+
+      // Locally the Vercel Web Analytics script 404s, so `window.va` never gets
+      // replaced by the real one and just keeps queuing every call onto `window.vaq`.
+      await expect
+        .poll(() => page.evaluate(() => (window as unknown as { vaq?: unknown[][] }).vaq ?? []))
+        .toContainEqual(['pageview', { route: expected, path: expected }])
+    }
+  })
 })
 
 test.describe('navigation', () => {
