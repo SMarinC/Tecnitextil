@@ -15,7 +15,9 @@ body {
   margin: 0;
   font-family: var(--font-body);
   color: var(--color-text-primary);
-  background: var(--color-cream);
+  /* Dark workshop: black behind every page, so there is no light strip when
+     scrolling past content edges or on the overscroll bounce. */
+  background: var(--color-black);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   /* Long words wrap instead of forcing horizontal scroll when the user enlarges

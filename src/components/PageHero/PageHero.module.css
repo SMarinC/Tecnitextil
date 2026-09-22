@@ -1,5 +1,15 @@
 .hero {
-  background: radial-gradient(circle at 50% 0%, var(--color-black-soft) 0%, var(--color-black) 60%);
+  /* Gold grid signature: the radial gradient sits on top of the grid texture, both
+     on the black base. Three image layers means three background-size entries below. */
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      color-mix(in srgb, var(--color-black-soft) 85%, transparent) 0%,
+      color-mix(in srgb, var(--color-black) 60%, transparent) 60%
+    ),
+    var(--texture-grid), var(--color-black);
+  background-size: auto, var(--texture-grid-size), var(--texture-grid-size);
+  border-bottom: 2px solid color-mix(in srgb, var(--color-gold) 45%, transparent);
   color: var(--color-text-on-dark);
   padding: clamp(2.5rem, 6vw, 4.5rem) var(--space-md);
 }

@@ -1,13 +1,7 @@
 .section {
+  /* Plain dark panel: the gold grid is the header's signature (Hero/PageHero), so
+     it is not repeated here. Only the fillets and the soft black stay. */
   background-color: var(--color-black-soft);
-  background-image:
-    linear-gradient(color-mix(in srgb, var(--color-gold) 7%, transparent) 1px, transparent 1px),
-    linear-gradient(
-      90deg,
-      color-mix(in srgb, var(--color-gold) 7%, transparent) 1px,
-      transparent 1px
-    );
-  background-size: 24px 24px;
   border-top: 2px solid color-mix(in srgb, var(--color-gold) 45%, transparent);
   border-bottom: 2px solid color-mix(in srgb, var(--color-gold) 45%, transparent);
 }

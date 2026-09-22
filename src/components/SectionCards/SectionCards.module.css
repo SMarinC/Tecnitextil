@@ -1,6 +1,6 @@
 .section {
-  background: var(--color-cream);
-  color: var(--color-text-primary);
+  background: var(--color-black-soft);
+  color: var(--color-white);
 }
 
 .inner {
@@ -28,8 +28,8 @@
   flex-direction: column;
   gap: var(--space-sm);
   padding: var(--space-lg) var(--space-md);
-  background: var(--color-white);
-  border: 1px solid color-mix(in srgb, var(--color-gold) 45%, transparent);
+  background: var(--color-black-elevated);
+  border: 1px solid color-mix(in srgb, var(--color-gold) 35%, transparent);
   border-radius: var(--radius-md);
 }
 
@@ -39,6 +39,7 @@
 
 .cardTitle {
   font-size: 1.35rem;
+  color: var(--color-white);
 }
 
 .cardLink {
@@ -55,7 +56,7 @@
 }
 
 .cardDescription {
-  color: var(--color-text-secondary);
+  color: var(--color-text-on-dark-secondary);
 }
 
 .more {
@@ -65,6 +66,7 @@
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-size: 0.85rem;
+  color: var(--color-gold);
 }
 
 .more::after {

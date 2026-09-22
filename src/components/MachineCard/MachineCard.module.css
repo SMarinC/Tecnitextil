@@ -2,8 +2,8 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  background: var(--color-white);
-  border: 1px solid color-mix(in srgb, var(--color-gold) 45%, transparent);
+  background: var(--color-black-elevated);
+  border: 1px solid color-mix(in srgb, var(--color-gold) 35%, transparent);
   border-radius: var(--radius-md);
   overflow: hidden;
 }
@@ -17,7 +17,8 @@
   height: auto;
   aspect-ratio: 1;
   object-fit: contain;
-  background: var(--color-white);
+  /* Matches the JACK photos' own baked-in background so the edge disappears. */
+  background: var(--color-showcase);
 }
 
 .body {
@@ -29,6 +30,7 @@
 
 .title {
   font-size: 1.1rem;
+  color: var(--color-white);
 }
 
 .link {
@@ -49,10 +51,10 @@
   text-transform: uppercase;
   letter-spacing: 0.06em;
   font-size: 0.85rem;
-  color: var(--color-text-secondary);
+  color: var(--color-gold);
 }
 
 .meta {
   font-size: 0.9rem;
-  color: var(--color-text-secondary);
+  color: var(--color-text-on-dark-secondary);
 }

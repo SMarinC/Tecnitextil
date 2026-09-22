@@ -12,6 +12,20 @@
   --color-text-on-dark: #f5f2ea;
   --color-text-on-dark-secondary: #c9c4b8;
 
+  /* Product photos (JACK) ship on this exact light blue: panels behind them use it so
+     the photo edge disappears. */
+  --color-showcase: #d7e5f2;
+
+  /* Signature gold grid, used behind page headers. */
+  --texture-grid:
+    linear-gradient(color-mix(in srgb, var(--color-gold) 7%, transparent) 1px, transparent 1px),
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--color-gold) 7%, transparent) 1px,
+      transparent 1px
+    );
+  --texture-grid-size: 24px 24px;
+
   --font-heading: 'Oswald', 'Arial Narrow', sans-serif;
   --font-body: 'Inter', system-ui, -apple-system, sans-serif;
 

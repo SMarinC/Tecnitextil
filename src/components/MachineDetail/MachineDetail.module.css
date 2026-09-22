@@ -1,5 +1,6 @@
 .detail {
-  background: var(--color-cream);
+  background: var(--color-black);
+  color: var(--color-text-on-dark);
 }
 
 .inner {
@@ -20,12 +21,26 @@
   margin: 0;
   padding: 0;
   font-size: 0.9rem;
-  color: var(--color-text-secondary);
+  /* The current page (plain text, no link) reads at this secondary tone. */
+  color: var(--color-text-on-dark-secondary);
 }
 
 .crumbs li + li::before {
   content: '›';
   margin: 0 var(--space-xs);
+}
+
+.crumbs a {
+  color: var(--color-gold-light);
+}
+
+.crumbs a:hover {
+  color: var(--color-gold);
+}
+
+.crumbs a:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
 }
 
 .layout {
@@ -64,6 +79,7 @@
   font-size: clamp(1.75rem, 5vw, 2.75rem);
   line-height: 1.15;
   text-wrap: balance;
+  color: var(--color-white);
 }
 
 .model {
@@ -71,7 +87,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--color-text-secondary);
+  color: var(--color-gold);
 }
 
 .facts {
@@ -88,6 +104,7 @@
 
 .facts dt {
   font-weight: 700;
+  color: var(--color-white);
 }
 
 .facts dt::after {
@@ -96,14 +113,17 @@
 
 .facts dd {
   margin: 0;
+  color: var(--color-text-on-dark);
 }
 
 .includes {
-  color: var(--color-text-secondary);
+  color: var(--color-text-on-dark-secondary);
 }
 
 .description {
-  max-width: 70ch;
+  max-width: 65ch;
+  font-size: 1rem;
+  line-height: 1.6;
   margin-bottom: var(--space-xl);
 }
 
@@ -118,6 +138,7 @@
 .heading {
   font-size: calc(var(--font-size-section-title) * 0.8);
   margin-bottom: var(--space-md);
+  color: var(--color-white);
 }
 
 .specs {
@@ -134,16 +155,23 @@
 .spec dt {
   width: 40%;
   font-weight: 600;
+  color: var(--color-white);
 }
 
 .spec dd {
   margin: 0;
+  color: var(--color-text-on-dark);
 }
 
 .notes {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-lg);
+  /* "Qué incluye" and "Garantía" read as one panel, one tone lighter than the
+     page background. */
+  background: var(--color-black-soft);
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
 }
 
 @media (min-width: 768px) {
