@@ -1,0 +1,92 @@
+---
+import { AVAILABILITY_LABELS, CATALOG_COPY, machineTypeLabel } from '../../data/catalog'
+import { CATALOG_PAGE } from '../../data/pages'
+import { machineWhatsAppMessage, type Machine } from '../../lib/catalog'
+import MachineGallery from '../MachineGallery/MachineGallery.astro'
+import WhatsAppCta from '../WhatsAppCta/WhatsAppCta.astro'
+import styles from './MachineDetail.module.css'
+
+// A machine's page body. The summary with its WhatsApp enquiry comes before the gallery,
+// so the call to action is in view on phones. The Markdown description is the default slot.
+interface Props {
+  machine: Machine
+}
+
+const { machine } = Astro.props
+---
+
+<article class={styles.detail}>
+  <div class={styles.inner}>
+    <nav class={styles.breadcrumb} aria-label={CATALOG_COPY.breadcrumbLabel}>
+      <ol class={styles.crumbs} role="list">
+        <li>
+          <a href={CATALOG_PAGE.path}>{CATALOG_COPY.breadcrumbRoot}</a>
+        </li>
+        <li>
+          <a href={`${CATALOG_PAGE.path}#${machine.tipo}`}>{machineTypeLabel(machine.tipo)}</a>
+        </li>
+        <li aria-current="page">
+          {machine.marca} {machine.modelo}
+        </li>
+      </ol>
+    </nav>
+    <div class={styles.layout}>
+      <div class={styles.summary}>
+        <h1 class={styles.title}>{machine.nombre}</h1>
+        <p class={styles.model}>
+          {machine.marca} {machine.modelo}
+        </p>
+        {/* The CTA sits right after the model line, above the facts and the
+            includes note, so it stays clear of the floating button on short
+            phones even for the longest machine titles. */}
+        <WhatsAppCta
+          variant="primary"
+          label={CATALOG_COPY.machineCta}
+          message={machineWhatsAppMessage(machine)}
+        />
+        <dl class={styles.facts}>
+          <div>
+            <dt>{CATALOG_COPY.availabilityLabel}</dt>
+            <dd>{AVAILABILITY_LABELS[machine.disponibilidad]}</dd>
+          </div>
+          <div>
+            <dt>{CATALOG_COPY.priceLabel}</dt>
+            <dd>{CATALOG_COPY.priceValue}</dd>
+          </div>
+        </dl>
+        <p class={styles.includes}>{CATALOG_COPY.includesTable}</p>
+      </div>
+      <MachineGallery machine={machine} />
+    </div>
+    <div class={styles.description}>
+      <slot />
+    </div>
+    <section class={styles.block} aria-labelledby="especificaciones">
+      <h2 id="especificaciones" class={styles.heading}>
+        {CATALOG_COPY.specsHeading}
+      </h2>
+      <dl class={styles.specs}>
+        {machine.especificaciones.map(({ etiqueta, valor }) => (
+          <div class={styles.spec}>
+            <dt>{etiqueta}</dt>
+            <dd>{valor}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+    <div class={styles.notes}>
+      <section class={styles.block} aria-labelledby="que-incluye">
+        <h2 id="que-incluye" class={styles.heading}>
+          {CATALOG_COPY.service.heading}
+        </h2>
+        <p>{CATALOG_COPY.service.text}</p>
+      </section>
+      <section class={styles.block} aria-labelledby="garantia">
+        <h2 id="garantia" class={styles.heading}>
+          {CATALOG_COPY.warranty.heading}
+        </h2>
+        <p>{CATALOG_COPY.warranty.text}</p>
+      </section>
+    </div>
+  </div>
+</article>

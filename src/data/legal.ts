@@ -90,7 +90,8 @@ export const LEGAL_NOTICE: LegalPageContent = {
       heading: 'Propiedad intelectual e industrial',
       paragraphs: [
         `Los textos, el logotipo y el diseño de esta web pertenecen a su titular o se usan con autorización. Queda prohibida su reproducción sin permiso.`,
-        'Las marcas de fabricantes que se mencionan (por ejemplo, Juki, Brother, Singer o Pfaff) pertenecen a sus respectivos titulares. Se citan únicamente para indicar con qué equipos se trabaja, sin que exista relación comercial con ellos salvo que se indique lo contrario.',
+        'Las marcas y nombres comerciales citados pertenecen a sus respectivos titulares y se usan para identificar los productos y servicios ofrecidos.',
+        'Las fotografías de la sección de máquinas de coser toldos son imágenes de referencia de sus fabricantes. En ese servicio, TECNITEXTIL actúa como servicio técnico independiente, sin vinculación con dichas marcas.',
       ],
     },
     {

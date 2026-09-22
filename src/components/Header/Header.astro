@@ -8,12 +8,16 @@ import Icon from '../Icon/Icon.astro'
 import WhatsAppCta from '../WhatsAppCta/WhatsAppCta.astro'
 import styles from './Header.module.css'
 
-// The path of the page being rendered: its menu link is marked as the current page.
+// The path of the page being rendered: its menu link, or its section's, is marked as current.
 interface Props {
   currentPath: string
 }
 
 const { currentPath } = Astro.props
+
+// A section's own page and the pages under it (/maquinas/<slug>) mark its link.
+const isCurrent = (href: string) =>
+  href.startsWith('/') && (currentPath === href || currentPath.startsWith(`${href}/`))
 ---
 
 <header class={styles.header} data-site-header>
@@ -38,7 +42,7 @@ const { currentPath } = Astro.props
           href={href}
           class={styles.navLink}
           data-nav-link
-          aria-current={href === currentPath ? 'page' : undefined}
+          aria-current={isCurrent(href) ? 'page' : undefined}
         >
           {label}
         </a>
@@ -77,7 +81,7 @@ const { currentPath } = Astro.props
         href={href}
         class={styles.mobileNavLink}
         data-nav-link
-        aria-current={href === currentPath ? 'page' : undefined}
+        aria-current={isCurrent(href) ? 'page' : undefined}
       >
         {label}
       </a>

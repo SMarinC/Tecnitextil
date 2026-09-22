@@ -30,4 +30,13 @@ describe('WhatsAppCta', () => {
     expect(html).toContain('aria-label="Escribir por WhatsApp"')
     expect(textContent(html)).toBe('')
   })
+
+  it('can open the chat with a specific message', async () => {
+    const html = await renderToHtml(WhatsAppCta, {
+      variant: 'primary',
+      label: 'Consultar',
+      message: 'Hola, me interesa la JACK JK-N9-D',
+    })
+    expect(html).toContain(`href="${buildWhatsAppUrl('Hola, me interesa la JACK JK-N9-D')}"`)
+  })
 })

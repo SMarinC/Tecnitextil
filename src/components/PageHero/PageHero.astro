@@ -9,9 +9,10 @@ interface Props {
   title: string
   intro: string
   ctaLabel: string
+  message?: string
 }
 
-const { eyebrow, title, intro, ctaLabel } = Astro.props
+const { eyebrow, title, intro, ctaLabel, message } = Astro.props
 ---
 
 <section class={styles.hero} data-page-hero>
@@ -19,6 +20,6 @@ const { eyebrow, title, intro, ctaLabel } = Astro.props
     <p class={styles.eyebrow}>{eyebrow}</p>
     <h1 class={styles.title}>{title}</h1>
     <p class={styles.intro}>{intro}</p>
-    <WhatsAppCta variant="primary" label={ctaLabel} />
+    <WhatsAppCta variant="primary" label={ctaLabel} message={message} />
   </div>
 </section>

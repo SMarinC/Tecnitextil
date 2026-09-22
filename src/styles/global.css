@@ -15,7 +15,9 @@ body {
   margin: 0;
   font-family: var(--font-body);
   color: var(--color-text-primary);
-  background: var(--color-cream);
+  /* Dark workshop: black behind every page, so there is no light strip when
+     scrolling past content edges or on the overscroll bounce. */
+  background: var(--color-black);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   /* Long words wrap instead of forcing horizontal scroll when the user enlarges
@@ -89,4 +91,19 @@ a {
   border-radius: var(--radius-sm);
   outline: 3px solid var(--color-black);
   outline-offset: 2px;
+}
+
+/* Section separators: adjacent sections often share the same or a nearly identical
+   background, so the boundary between them can otherwise be invisible. Every direct
+   child of <main> that follows another child gets a thin gold line on top, except the
+   child right after a page hero (the home hero, main > #quienes-somos, or an inner-page
+   hero, main > [data-page-hero]), since that hero already ends in its own 2px gold
+   bottom border. */
+main > * + * {
+  border-top: 1px solid color-mix(in srgb, var(--color-gold) 25%, transparent);
+}
+
+main > #quienes-somos + *,
+main > [data-page-hero] + * {
+  border-top: none;
 }

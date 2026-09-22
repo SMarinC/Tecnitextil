@@ -1,0 +1,96 @@
+.catalog {
+  background: var(--color-black);
+  /* Clips the alternating band's 100vw bleed (below) to this element's own
+     width, so it never adds horizontal scroll to the page (100vw includes the
+     scrollbar's width in some browsers, which would otherwise overflow). */
+  overflow-x: hidden;
+}
+
+.jumpNav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-lg) var(--space-md) 0;
+}
+
+.jumpLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--space-md);
+  border: 1px solid color-mix(in srgb, var(--color-gold) 45%, transparent);
+  border-radius: var(--radius-full);
+  color: var(--color-text-on-dark);
+  text-decoration: none;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.85rem;
+}
+
+.jumpLink:hover,
+.jumpLink:focus-visible {
+  border-color: var(--color-gold);
+  background: var(--color-gold);
+  color: var(--color-black);
+}
+
+.jumpLink:focus-visible {
+  outline: 2px solid var(--color-gold-light);
+  outline-offset: 2px;
+}
+
+.group {
+  composes: container from '../../styles/container.module.css';
+  /* Full-bleed alternating band: the container above caps the width and centers
+     it, so a background on .group itself would not reach the viewport edges.
+     A pseudo-element sized to 100vw and re-centered gives the band edge-to-edge
+     without adding a wrapper element in the markup. z-index: 0 makes .group its
+     own stacking context, so the pseudo-element's negative z-index stays local
+     and does not sink below .catalog's own background. */
+  position: relative;
+  z-index: 0;
+}
+
+.group:nth-of-type(even)::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  background: var(--color-black-soft);
+  z-index: -1;
+}
+
+.heading {
+  font-size: var(--font-size-section-title);
+  text-align: center;
+  margin-bottom: var(--space-lg);
+  text-wrap: balance;
+  color: var(--color-white);
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+
+@media (min-width: 640px) {
+  .list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

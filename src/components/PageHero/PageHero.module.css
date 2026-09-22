@@ -1,5 +1,15 @@
 .hero {
-  background: radial-gradient(circle at 50% 0%, var(--color-black-soft) 0%, var(--color-black) 60%);
+  /* Gold grid signature: the radial gradient sits on top of the grid texture, both
+     on the black base. Three image layers means three background-size entries below. */
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      color-mix(in srgb, var(--color-black-soft) 85%, transparent) 0%,
+      color-mix(in srgb, var(--color-black) 60%, transparent) 60%
+    ),
+    var(--texture-grid), var(--color-black);
+  background-size: auto, var(--texture-grid-size), var(--texture-grid-size);
+  border-bottom: 2px solid color-mix(in srgb, var(--color-gold) 45%, transparent);
   color: var(--color-text-on-dark);
   padding: clamp(2.5rem, 6vw, 4.5rem) var(--space-md);
 }
@@ -48,5 +58,20 @@
 
   .inner {
     gap: var(--space-xs);
+  }
+}
+
+/* Short and narrow screens (e.g. 320x568): the longest title/intro pairs (the
+   toldos page) still wrap tall enough to push the WhatsApp CTA under the floating
+   button, even with the padding and gap above already tightened. Shrink the type
+   a step further so every page hero clears it. */
+@media (max-height: 619px) and (max-width: 340px) {
+  .title {
+    font-size: 1.4rem;
+  }
+
+  .intro {
+    font-size: 0.95rem;
+    line-height: 1.5;
   }
 }

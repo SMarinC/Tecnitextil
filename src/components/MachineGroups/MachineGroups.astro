@@ -1,0 +1,35 @@
+---
+import { CATALOG_COPY } from '../../data/catalog'
+import type { MachineGroup } from '../../lib/catalog'
+import MachineCard from '../MachineCard/MachineCard.astro'
+import styles from './MachineGroups.module.css'
+
+// The /maquinas listing: a jump menu, then one section per machine type.
+interface Props {
+  groups: MachineGroup[]
+}
+
+const { groups } = Astro.props
+---
+
+<div class={styles.catalog}>
+  <nav class={styles.jumpNav} aria-label={CATALOG_COPY.jumpNavLabel}>
+    {groups.map(({ type, label }) => (
+      <a href={`#${type}`} class={styles.jumpLink}>
+        {label}
+      </a>
+    ))}
+  </nav>
+  {groups.map(({ type, label, machines }) => (
+    <section class={styles.group} id={type} aria-labelledby={`${type}-titulo`}>
+      <h2 id={`${type}-titulo`} class={styles.heading}>
+        {label}
+      </h2>
+      <ul class={styles.list} role="list">
+        {machines.map((machine) => (
+          <MachineCard machine={machine} />
+        ))}
+      </ul>
+    </section>
+  ))}
+</div>

@@ -11,6 +11,7 @@ import {
 import { AWNING_MACHINES, HERO, SECTION_CARDS, TECHNICAL_SERVICE_HERO } from '../data/home'
 import {
   AWNINGS_PAGE,
+  CATALOG_PAGE,
   HOME_PAGE,
   LEGAL_NOTICE_PAGE,
   PAGES,
@@ -36,6 +37,7 @@ const html: Record<string, string> = {
 }
 
 const PUBLIC_PAGES = PAGES.filter(({ noindex }) => !noindex)
+const MENU_TARGETS = [...PUBLIC_PAGES.map(({ path }) => path), CATALOG_PAGE.path]
 
 function head(page: string): string {
   return page.slice(0, page.indexOf('</head>'))
@@ -130,10 +132,11 @@ describe('search engines', () => {
   })
 
   it('the sitemap lists the public pages and leaves the legal pages out', async () => {
-    const sitemap = await getSitemap().text()
+    const sitemap = await (await getSitemap()).text()
     for (const { path } of [HOME_PAGE, TECHNICAL_SERVICE_PAGE, AWNINGS_PAGE]) {
       expect(sitemap).toContain(`<loc>${absoluteUrl(path)}</loc>`)
     }
+    expect(sitemap).toContain(`<loc>${absoluteUrl(CATALOG_PAGE.path)}</loc>`)
     expect(sitemap).not.toContain(`${SITE_URL}${LEGAL_NOTICE.path}`)
     expect(sitemap).not.toContain(`${SITE_URL}${PRIVACY_POLICY.path}`)
   })
@@ -146,7 +149,7 @@ describe('site menu', () => {
         expect(html[path], path).toContain(`id="${href.slice(1)}"`)
       }
     } else {
-      expect(PUBLIC_PAGES.map(({ path }) => path)).toContain(href)
+      expect(MENU_TARGETS).toContain(href)
     }
   })
 
@@ -166,7 +169,7 @@ describe('site menu', () => {
 describe('home page', () => {
   it('links to every inner page from its section cards', () => {
     for (const { href } of SECTION_CARDS.items) {
-      expect(PUBLIC_PAGES.map(({ path }) => path)).toContain(href)
+      expect(MENU_TARGETS).toContain(href)
       expect(html[HOME_PAGE.path]).toContain(`href="${href}"`)
     }
   })

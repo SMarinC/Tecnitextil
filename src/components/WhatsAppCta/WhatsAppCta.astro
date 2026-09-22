@@ -9,14 +9,16 @@ import styles from './WhatsAppCta.module.css'
 interface Props {
   variant: 'header' | 'primary' | 'floating'
   label: string
+  // Defaults to the general enquiry (WHATSAPP_MESSAGE).
+  message?: string
 }
 
-const { variant, label } = Astro.props
+const { variant, label, message } = Astro.props
 const iconOnly = variant === 'floating'
 ---
 
 <a
-  href={buildWhatsAppUrl()}
+  href={buildWhatsAppUrl(message)}
   target="_blank"
   rel="noopener noreferrer"
   class={styles[variant]}

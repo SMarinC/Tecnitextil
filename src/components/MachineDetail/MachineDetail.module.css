@@ -1,0 +1,181 @@
+.detail {
+  background: var(--color-black);
+  color: var(--color-text-on-dark);
+}
+
+.inner {
+  composes: container from '../../styles/container.module.css';
+  /* Tighter than the container's usual top padding, so the WhatsApp call to action
+     stays in view on phones without scrolling, clear of the floating button. */
+  padding-top: var(--space-sm);
+}
+
+.breadcrumb {
+  margin-bottom: var(--space-sm);
+}
+
+.crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.9rem;
+  /* The current page (plain text, no link) reads at this secondary tone. */
+  color: var(--color-text-on-dark-secondary);
+}
+
+.crumbs li + li::before {
+  content: '›';
+  margin: 0 var(--space-xs);
+}
+
+.crumbs a {
+  color: var(--color-gold-light);
+}
+
+.crumbs a:hover {
+  color: var(--color-gold);
+}
+
+.crumbs a:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+@media (min-width: 768px) {
+  .layout {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xl);
+  }
+}
+
+.summary {
+  display: flex;
+  flex-direction: column;
+  /* Tight gap: on a short phone, this keeps the WhatsApp call to action clear of
+     the floating button below it. The CTA itself comes right after .model in the
+     markup, before the facts and the includes note, for the same reason. */
+  gap: var(--space-xs);
+}
+
+/* Short screens (e.g. iPhone SE): tighten the breadcrumb so the WhatsApp CTA,
+   which now sits right after the model line, clears the floating button
+   instead of sitting under it. Same pattern as Hero and PageHero. */
+@media (max-height: 619px) {
+  .breadcrumb {
+    margin-bottom: var(--space-xs);
+  }
+}
+
+.title {
+  font-size: clamp(1.75rem, 5vw, 2.75rem);
+  line-height: 1.15;
+  text-wrap: balance;
+  color: var(--color-white);
+}
+
+.model {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-gold);
+}
+
+.facts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin: 0;
+}
+
+.facts div {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.facts dt {
+  font-weight: 700;
+  color: var(--color-white);
+}
+
+.facts dt::after {
+  content: ':';
+}
+
+.facts dd {
+  margin: 0;
+  color: var(--color-text-on-dark);
+}
+
+.includes {
+  color: var(--color-text-on-dark-secondary);
+}
+
+.description {
+  max-width: 65ch;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: var(--space-xl);
+}
+
+.description :global(p) + :global(p) {
+  margin-top: var(--space-sm);
+}
+
+.block {
+  margin-bottom: var(--space-xl);
+}
+
+.heading {
+  font-size: calc(var(--font-size-section-title) * 0.8);
+  margin-bottom: var(--space-md);
+  color: var(--color-white);
+}
+
+.specs {
+  margin: 0;
+}
+
+.spec {
+  display: flex;
+  gap: var(--space-md);
+  padding: var(--space-xs) 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-gold) 15%, transparent);
+}
+
+.spec dt {
+  width: 40%;
+  font-weight: 600;
+  color: var(--color-white);
+}
+
+.spec dd {
+  margin: 0;
+  color: var(--color-text-on-dark);
+}
+
+.notes {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  /* "Qué incluye" and "Garantía" read as one panel, one tone lighter than the
+     page background. */
+  background: var(--color-black-soft);
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+}
+
+@media (min-width: 768px) {
+  .notes {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

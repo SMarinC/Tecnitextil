@@ -1,0 +1,74 @@
+.gallery {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  min-width: 0;
+}
+
+.strip {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: var(--color-showcase);
+  border-radius: var(--radius-md);
+}
+
+.strip:focus-visible {
+  /* Gold-light reads on both the dark page (about 11:1 on black) and the light
+     showcase panel behind the photo; the inset black ring keeps it visible over
+     the showcase too (WCAG 1.4.11). */
+  outline: 3px solid var(--color-gold-light);
+  box-shadow: inset 0 0 0 3px var(--color-black);
+}
+
+.slide {
+  flex: 0 0 100%;
+  scroll-snap-align: center;
+}
+
+.photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: contain;
+}
+
+.thumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.thumbLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  border: 1px solid color-mix(in srgb, var(--color-gold) 45%, transparent);
+  border-radius: var(--radius-sm);
+}
+
+.thumbLink:hover {
+  border-color: var(--color-gold);
+}
+
+.thumbLink:focus-visible {
+  outline: 2px solid var(--color-gold-light);
+  outline-offset: 2px;
+}
+
+.thumb {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  background: var(--color-showcase);
+}

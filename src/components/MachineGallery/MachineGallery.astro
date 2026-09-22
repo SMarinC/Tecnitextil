@@ -1,0 +1,56 @@
+---
+import { Image } from 'astro:assets'
+import { CATALOG_COPY } from '../../data/catalog'
+import { photoAlt, type Machine } from '../../lib/catalog'
+import styles from './MachineGallery.module.css'
+
+// CSS-only gallery: a horizontal scroll-snap strip, plus thumbnails that jump to each
+// photo. The strip is focusable so keyboard users can scroll it (axe
+// scrollable-region-focusable).
+interface Props {
+  machine: Machine
+}
+
+const { machine } = Astro.props
+---
+
+<div class={styles.gallery}>
+  <ul class={styles.strip} role="list" tabindex="0" aria-label={CATALOG_COPY.galleryLabel}>
+    {machine.fotos.map((photo, index) => (
+      <li class={styles.slide} id={`foto-${index + 1}`}>
+        <Image
+          class={styles.photo}
+          src={photo}
+          alt={photoAlt(machine, index)}
+          widths={[480, 960]}
+          sizes="(min-width: 768px) 50vw, 100vw"
+          loading={index === 0 ? 'eager' : 'lazy'}
+          decoding="async"
+        />
+      </li>
+    ))}
+  </ul>
+  {machine.fotos.length > 1 && (
+    <ul class={styles.thumbs} role="list">
+      {machine.fotos.map((photo, index) => (
+        <li>
+          <a
+            href={`#foto-${index + 1}`}
+            class={styles.thumbLink}
+            aria-label={`${CATALOG_COPY.photoLabel} ${index + 1}`}
+          >
+            <Image
+              class={styles.thumb}
+              src={photo}
+              alt=""
+              widths={[96, 192]}
+              sizes="96px"
+              loading="lazy"
+              decoding="async"
+            />
+          </a>
+        </li>
+      ))}
+    </ul>
+  )}
+</div>
