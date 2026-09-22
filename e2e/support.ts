@@ -12,6 +12,8 @@ export const PAGES = [
   '/aviso-legal',
   '/privacidad',
 ]
+// PAGES plus the 404 page, for checks that must also hold on an unknown route.
+export const ROUTES_WITH_ERRORS = [...PAGES, '/no-existe']
 // Each page's <h1>, as literals: the content modules for the awnings page and the
 // catalogue import images Playwright cannot load.
 export const TITLES = {

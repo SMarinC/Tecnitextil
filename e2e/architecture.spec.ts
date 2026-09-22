@@ -1,9 +1,18 @@
 import { expect, test } from '@playwright/test'
 import { LEGAL_NOTICE, LEGAL_OWNER, PRIVACY_POLICY } from '../src/data/legal'
-import { PAGES, downloadScripts, isVercelOnly } from './support'
+import { PAGES, ROUTES_WITH_ERRORS, downloadScripts, isVercelOnly } from './support'
 
 test.describe('architecture', () => {
-  test('the preloaded fonts are the ones the page uses, downloaded once', async ({ page }) => {
+  test('the preloaded fonts are the ones the page uses, downloaded once', async ({
+    page,
+    browserName,
+  }) => {
+    test.skip(
+      browserName === 'webkit',
+      'WebKit fetches each <link rel=preload as=font crossorigin> font a second time: the ' +
+        'preload goes out in CORS mode but the @font-face request that actually uses it goes ' +
+        'out in no-cors mode, so WebKit treats them as different cache entries.',
+    )
     const fonts: string[] = []
     page.on('response', (response) => {
       if (response.url().endsWith('.woff2')) fonts.push(new URL(response.url()).pathname)
@@ -29,14 +38,19 @@ test.describe('architecture', () => {
 
   test('no page logs console errors or Content-Security-Policy violations', async ({ page }) => {
     const errors: string[] = []
+    // Chromium (not WebKit) logs the main document's own non-2xx response as a console
+    // error; on /no-existe that 404 is the page under test, not a script bug.
+    let currentPath = ''
     page.on('console', (message) => {
-      if (message.type() === 'error' && !isVercelOnly(message.text(), message.location().url)) {
-        errors.push(message.text())
-      }
+      if (message.type() !== 'error') return
+      if (isVercelOnly(message.text(), message.location().url)) return
+      if (currentPath === '/no-existe' && /\b404\b/.test(message.text())) return
+      errors.push(message.text())
     })
     page.on('pageerror', (error) => errors.push(error.message))
 
-    for (const path of PAGES) {
+    for (const path of ROUTES_WITH_ERRORS) {
+      currentPath = path
       await page.goto(path, { waitUntil: 'load' })
     }
 
@@ -47,7 +61,7 @@ test.describe('architecture', () => {
     browser,
     baseURL,
   }) => {
-    for (const path of PAGES) {
+    for (const path of ROUTES_WITH_ERRORS) {
       const scripts = await downloadScripts(browser, baseURL, path)
       expect(scripts.length, path).toBeGreaterThan(0)
       const bytes = scripts.reduce((total, script) => total + script.length, 0)
@@ -77,7 +91,7 @@ test.describe('architecture', () => {
   })
 
   test('pages carry no inline styles or executable inline scripts', async ({ request }) => {
-    for (const path of PAGES) {
+    for (const path of ROUTES_WITH_ERRORS) {
       const html = await (await request.get(path)).text()
       expect(html, path).not.toMatch(/<style[\s>]/)
       const inlineScripts = (html.match(/<script\b[^>]*>/g) ?? []).filter(

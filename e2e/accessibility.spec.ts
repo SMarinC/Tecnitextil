@@ -31,7 +31,11 @@ test.describe('accessibility', () => {
     }
   })
 
-  test('a keyboard user can skip straight to the main content', async ({ page }) => {
+  test('a keyboard user can skip straight to the main content', async ({ page, browserName }) => {
+    test.skip(
+      browserName === 'webkit',
+      'Safari moves focus to links with Tab only when the user enables a system setting.',
+    )
     await page.keyboard.press('Tab')
     const skipLink = page.locator('a[href$="#contenido"]')
     await expect(skipLink).toBeFocused()
