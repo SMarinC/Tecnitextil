@@ -44,7 +44,8 @@ test.describe('architecture', () => {
     page.on('console', (message) => {
       if (message.type() !== 'error') return
       if (isVercelOnly(message.text(), message.location().url)) return
-      if (currentPath === '/no-existe' && /\b404\b/.test(message.text())) return
+      if (currentPath === '/no-existe' && /Failed to load resource.*\b404\b/.test(message.text()))
+        return
       errors.push(message.text())
     })
     page.on('pageerror', (error) => errors.push(error.message))
