@@ -42,7 +42,6 @@ export const CATALOG_COPY = {
   includesTable: 'Incluye tablero y bancada',
   machineCta: 'Consultar esta máquina por WhatsApp',
   specsHeading: 'Especificaciones',
-  // PROVISIONAL until the owner writes it: blocks the merge (see docs/borrador-catalogo.md §7).
   service: {
     heading: 'Qué incluye',
     text: 'Te asesoramos para elegir la máquina adecuada y te ayudamos con la instalación y la puesta en marcha. Consúltanos las condiciones de envío a tu zona.',
