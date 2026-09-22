@@ -50,6 +50,10 @@ export const CATALOG_COPY = {
     heading: 'Garantía',
     text: 'Garantía oficial del fabricante. Te ayudamos a tramitarla.',
   },
+  conditions: {
+    label: 'Condiciones de venta: desistimiento y garantía',
+    href: '/condiciones-de-venta',
+  },
   galleryLabel: 'Fotos de la máquina',
   photoLabel: 'Ver foto',
   breadcrumbLabel: 'Ruta de navegación',

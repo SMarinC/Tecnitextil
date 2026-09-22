@@ -1,5 +1,5 @@
 import { COMPANY } from './company'
-import { LEGAL_NOTICE, PRIVACY_POLICY, type LegalPageContent } from './legal'
+import { LEGAL_NOTICE, PRIVACY_POLICY, SALES_CONDITIONS, type LegalPageContent } from './legal'
 import { HOME_SEO } from './seo'
 
 // Every page of the site: its <head> and whether search engines may index it.
@@ -54,6 +54,7 @@ function legalPageMeta(content: LegalPageContent): PageMeta {
   }
 }
 
+export const SALES_CONDITIONS_PAGE = legalPageMeta(SALES_CONDITIONS)
 export const LEGAL_NOTICE_PAGE = legalPageMeta(LEGAL_NOTICE)
 export const PRIVACY_POLICY_PAGE = legalPageMeta(PRIVACY_POLICY)
 
@@ -70,6 +71,7 @@ export const PAGES: PageMeta[] = [
   HOME_PAGE,
   TECHNICAL_SERVICE_PAGE,
   AWNINGS_PAGE,
+  SALES_CONDITIONS_PAGE,
   LEGAL_NOTICE_PAGE,
   PRIVACY_POLICY_PAGE,
 ]

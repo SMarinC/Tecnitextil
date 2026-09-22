@@ -36,7 +36,7 @@ export const LEGAL_OWNER: Record<OwnerField, string> = {
 }
 
 // Date of the last review of the legal texts.
-export const LAST_UPDATED: string = '16 de septiembre de 2026'
+export const LAST_UPDATED: string = '22 de septiembre de 2026'
 
 export function isMissing(value: unknown): boolean {
   return value === null || value === undefined || (typeof value === 'string' && value.trim() === '')
@@ -59,19 +59,23 @@ export function emailDetail(email: string): Pick<LegalDetail, 'value' | 'href'> 
   return isMissing(email) ? { value: PENDING } : { value: email, href: `mailto:${email}` }
 }
 
+// Owner identification required by LSSI-CE art. 10.1 a and e, shared by the legal
+// notice and the sales conditions page (as "Vendedor").
+const ownerDetails: LegalDetail[] = [
+  { label: 'Titular', value: owner('legalName') },
+  { label: 'NIF', value: owner('taxId') },
+  { label: 'Domicilio', value: owner('address') },
+  { label: 'Email', ...emailDetail(LEGAL_OWNER.email) },
+  { label: 'Teléfono', value: COMPANY.phone.display },
+]
+
 export const LEGAL_NOTICE: LegalPageContent = {
   path: '/aviso-legal',
   title: 'Aviso legal',
   description: `Aviso legal e información del titular del sitio web de ${COMPANY.name}.`,
   identification: {
     heading: 'Datos del titular',
-    items: [
-      { label: 'Titular', value: owner('legalName') },
-      { label: 'NIF', value: owner('taxId') },
-      { label: 'Domicilio', value: owner('address') },
-      { label: 'Email', ...emailDetail(LEGAL_OWNER.email) },
-      { label: 'Teléfono', value: COMPANY.phone.display },
-    ],
+    items: ownerDetails,
   },
   sections: [
     {
@@ -134,6 +138,7 @@ export const PRIVACY_POLICY: LegalPageContent = {
       paragraphs: [
         'Para responder a tu consulta y, en su caso, prestarte el servicio solicitado: base legal de aplicación de medidas precontractuales o ejecución de un contrato a petición tuya (art. 6.1.b RGPD).',
         'Para conocer de forma agregada cómo se usa la web y mejorarla: interés legítimo del titular (art. 6.1.f RGPD).',
+        'Si compras una máquina, también para emitir la factura y cumplir las obligaciones contables y fiscales: base legal de cumplimiento de una obligación legal (art. 6.1.c RGPD).',
       ],
     },
     {
@@ -164,7 +169,51 @@ export const PRIVACY_POLICY: LegalPageContent = {
   ],
 }
 
+// Generic art. 97 LGDCU pre-contractual information for a consumer buying a machine:
+// withdrawal, legal warranty and complaints. Each quote links here; the site itself is
+// not an online shop (LSSI art. 27.2.b), since every sale closes by WhatsApp, phone or
+// email.
+export const SALES_CONDITIONS: LegalPageContent = {
+  path: '/condiciones-de-venta',
+  title: 'Condiciones de venta',
+  description: `Información para comprar una máquina a ${COMPANY.name} como consumidor: desistimiento, garantía y reclamaciones.`,
+  identification: { heading: 'Vendedor', items: ownerDetails },
+  sections: [
+    {
+      heading: 'Antes de comprar',
+      paragraphs: [
+        'Esta web no es una tienda online: cada venta se acuerda por WhatsApp, teléfono o correo electrónico. Antes de la compra te enviamos por escrito un presupuesto con las características de la máquina, el precio total con impuestos, los gastos de envío, la forma de pago, el plazo de entrega y el coste estimado de devolverla si desistes. Cuando lo aceptas, te confirmamos la compra por escrito.',
+        'La información de esta página se aplica cuando compras como consumidor. Si compras como empresa o profesional, no se aplican el derecho de desistimiento ni la garantía legal de consumo.',
+      ],
+    },
+    {
+      heading: 'Derecho de desistimiento',
+      paragraphs: [
+        'Si la compra se ha cerrado a distancia (por WhatsApp, teléfono o correo electrónico) o fuera de nuestras instalaciones, tienes derecho a desistir del contrato en un plazo de 14 días naturales sin necesidad de justificación. El plazo de desistimiento expirará a los 14 días naturales del día en que tú o un tercero indicado por ti, distinto del transportista, adquiera la posesión material de la máquina.',
+        `Para ejercer el derecho de desistimiento, deberás notificarnos tu decisión de desistir del contrato a través de una declaración inequívoca, por ejemplo por WhatsApp o por teléfono al ${COMPANY.phone.display}, o por correo electrónico a ${owner('email')}. Podrás utilizar el modelo de formulario de desistimiento que figura a continuación, aunque su uso no es obligatorio. Para cumplir el plazo, basta con que la comunicación se envíe antes de que venza.`,
+        'En caso de desistimiento, te devolveremos todos los pagos recibidos, incluidos los gastos de entrega (con la excepción de los gastos adicionales resultantes de la elección de una modalidad de entrega diferente a la modalidad menos costosa de entrega ordinaria que ofrezcamos), sin ninguna demora indebida y, en todo caso, a más tardar 14 días naturales a partir de la fecha en la que se nos informe de tu decisión de desistir. El reembolso se hará con el mismo medio de pago que usaste, salvo que dispongas expresamente lo contrario, y no te supondrá ningún gasto. Podremos retener el reembolso hasta haber recibido la máquina o hasta que presentes una prueba de su devolución, según qué condición se cumpla primero.',
+        'Deberás devolvernos la máquina sin ninguna demora indebida y, en cualquier caso, a más tardar en el plazo de 14 días naturales a partir de la fecha en que nos comuniques tu decisión de desistir. Deberás asumir el coste directo de la devolución; como las máquinas no pueden devolverse normalmente por correo, su coste estimado se indica en el presupuesto. Solo serás responsable de la disminución de valor de la máquina resultante de una manipulación distinta a la necesaria para establecer su naturaleza, sus características y su funcionamiento.',
+        `Modelo de formulario de desistimiento (solo debes cumplimentarlo y enviarlo si deseas desistir del contrato): A la atención de ${owner('legalName')}, ${owner('address')}, ${owner('email')}. Por la presente le comunico que desisto de mi contrato de venta del siguiente bien: [máquina y modelo]. Pedido el / recibido el: [fecha]. Nombre del consumidor: [nombre]. Domicilio del consumidor: [domicilio]. Firma del consumidor (solo si el presente formulario se presenta en papel). Fecha: [fecha].`,
+      ],
+    },
+    {
+      heading: 'Garantía',
+      paragraphs: [
+        'Como consumidor, tienes la garantía legal de conformidad: respondemos de las faltas de conformidad que se manifiesten en los tres años siguientes a la entrega de la máquina.',
+        'Además, las máquinas tienen la garantía comercial del fabricante, en las condiciones que este establece. Te ayudamos a tramitarla, y no limita tus derechos de la garantía legal.',
+      ],
+    },
+    {
+      heading: 'Reclamaciones',
+      paragraphs: [
+        `Puedes presentar cualquier queja o reclamación por WhatsApp o por teléfono al ${COMPANY.phone.display}, o por correo electrónico a ${owner('email')}.`,
+      ],
+    },
+  ],
+}
+
 export const LEGAL_LINKS: { label: string; href: string }[] = [
+  { label: SALES_CONDITIONS.title, href: SALES_CONDITIONS.path },
   { label: LEGAL_NOTICE.title, href: LEGAL_NOTICE.path },
   { label: PRIVACY_POLICY.title, href: PRIVACY_POLICY.path },
 ]

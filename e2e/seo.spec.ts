@@ -44,6 +44,7 @@ test.describe('SEO and sharing', () => {
       '/toldos': 'Qué intervenimos',
       '/maquinas': 'Presillas y botones',
       '/maquinas/jk-t1900gsk-dii': 'JK-T1900GSK-DII',
+      '/condiciones-de-venta': 'Derecho de desistimiento',
       '/aviso-legal': LEGAL_NOTICE.identification.heading,
       '/privacidad': 'Tus derechos',
     }

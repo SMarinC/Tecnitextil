@@ -9,6 +9,7 @@ export const PAGES = [
   '/toldos',
   '/maquinas',
   '/maquinas/jk-t1900gsk-dii',
+  '/condiciones-de-venta',
   '/aviso-legal',
   '/privacidad',
 ]

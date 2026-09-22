@@ -6,6 +6,7 @@ import {
   LEGAL_OWNER,
   PENDING,
   PRIVACY_POLICY,
+  SALES_CONDITIONS,
   hasPendingLegalData,
 } from '../data/legal'
 import { AWNING_MACHINES } from '../data/awnings'
@@ -19,6 +20,7 @@ import {
   NOT_FOUND_PAGE,
   PAGES,
   PRIVACY_POLICY_PAGE,
+  SALES_CONDITIONS_PAGE,
   TECHNICAL_SERVICE_PAGE,
 } from '../data/pages'
 import { NOT_FOUND } from '../data/site'
@@ -29,6 +31,7 @@ import LegalNoticePage from '../pages/aviso-legal.astro'
 import HomePage from '../pages/index.astro'
 import NotFoundPage from '../pages/404.astro'
 import PrivacyPolicyPage from '../pages/privacidad.astro'
+import SalesConditionsPage from '../pages/condiciones-de-venta.astro'
 import TechnicalServicePage from '../pages/servicio-tecnico.astro'
 import { GET as getSitemap } from '../pages/sitemap.xml.ts'
 import { renderToHtml, textContent } from './render'
@@ -37,6 +40,7 @@ const html: Record<string, string> = {
   [HOME_PAGE.path]: await renderToHtml(HomePage),
   [TECHNICAL_SERVICE_PAGE.path]: await renderToHtml(TechnicalServicePage),
   [AWNINGS_PAGE.path]: await renderToHtml(AwningsPage),
+  [SALES_CONDITIONS_PAGE.path]: await renderToHtml(SalesConditionsPage),
   [LEGAL_NOTICE_PAGE.path]: await renderToHtml(LegalNoticePage),
   [PRIVACY_POLICY_PAGE.path]: await renderToHtml(PrivacyPolicyPage),
 }
@@ -139,7 +143,7 @@ describe('search engines', () => {
     const noindexPaths = PAGES.filter(({ path }) =>
       html[path].includes('name="robots" content="noindex"'),
     ).map(({ path }) => path)
-    expect(noindexPaths).toEqual([LEGAL_NOTICE.path, PRIVACY_POLICY.path])
+    expect(noindexPaths).toEqual([SALES_CONDITIONS.path, LEGAL_NOTICE.path, PRIVACY_POLICY.path])
   })
 
   it('only the home page publishes structured data', () => {
