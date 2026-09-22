@@ -18,8 +18,11 @@
 }
 
 .strip:focus-visible {
-  outline: 3px solid var(--color-gold);
+  /* A dark outline first for contrast against the white strip (WCAG 1.4.11),
+     with the usual gold ring outside it for brand consistency. */
+  outline: 3px solid var(--color-text-primary);
   outline-offset: -3px;
+  box-shadow: 0 0 0 5px var(--color-gold);
 }
 
 .slide {

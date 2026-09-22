@@ -18,7 +18,7 @@ especificaciones:
   - etiqueta: Altura del prensatelas
     valor: 17 mm
   - etiqueta: Velocidad máxima
-    valor: 4200 ppm
+    valor: 4.200 puntadas/min
   - etiqueta: Longitud máxima de costura continua
     valor: 120 mm
 ---

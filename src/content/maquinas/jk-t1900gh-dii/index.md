@@ -20,13 +20,13 @@ especificaciones:
   - etiqueta: Altura del prensatelas
     valor: 13 mm
   - etiqueta: Velocidad máxima
-    valor: 3200 ppm
+    valor: 3.200 puntadas/min
   - etiqueta: Motor
     valor: Direct Drive
 ---
 
 La JK-T1900GH-DII es una máquina de presillas electrónica pensada para género grueso, con panel táctil de programación y luz LED integrada para trabajar con más precisión.
 
-Su motor Direct Drive y el control electrónico permiten hacer puntadas reforzadas en materiales resistentes, como bolsas o redes de pesca, sin perder consistencia en la costura.
+El control electrónico mantiene la puntada firme incluso sobre materiales muy resistentes, por lo que rinde bien cosiendo piezas como bolsos de carga o mallas de pesca.
 
 Es una máquina adecuada para talleres que necesitan presillas fuertes en tejidos gruesos, con un cambio de patrón sencillo desde el panel táctil.

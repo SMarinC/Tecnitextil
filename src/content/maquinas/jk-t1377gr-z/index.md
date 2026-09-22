@@ -19,13 +19,13 @@ especificaciones:
   - etiqueta: Altura del prensatelas
     valor: 10 mm
   - etiqueta: Velocidad máxima
-    valor: 1500 ppm
+    valor: 1.500 puntadas/min
   - etiqueta: Alimentación de botones
     valor: tolva automática
 ---
 
-La JK-T1377GR-Z es una máquina de coser botones con tolva de alimentación automática, lo que agiliza el trabajo frente a colocar el botón a mano. Permite cambiar entre tres tipos de costura girando la manija de ajuste.
+La JK-T1377GR-Z es una máquina de coser botones con tolva de alimentación automática, lo que agiliza el trabajo frente a colocar el botón a mano. Ofrece tres tipos de puntada distintos, y se pasa de uno a otro con un simple giro del selector, sin herramientas adicionales.
 
-Lleva luz LED integrada para ver mejor la zona de la aguja y el hilo, y el alzaprensatelas junto con el cortahílos funcionan mediante electroimanes, lo que hace el proceso más estable.
+Lleva luz LED integrada para ver mejor la zona de la aguja y el hilo. El accionamiento por electroimanes gobierna tanto el corte de hilo como la subida del prensatelas, dos movimientos que ganan en consistencia frente a un accionamiento mecánico.
 
 Su motor va integrado, con parada automática y ajuste de velocidad, pensada para coser botones en serie con buena regularidad.

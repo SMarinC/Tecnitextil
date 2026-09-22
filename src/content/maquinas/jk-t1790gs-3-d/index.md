@@ -18,7 +18,7 @@ especificaciones:
   - etiqueta: Altura del prensatelas
     valor: 17 mm
   - etiqueta: Velocidad máxima
-    valor: 4200 ppm
+    valor: 4.200 puntadas/min
   - etiqueta: Tensión del hilo
     valor: electrónica, con 2 preajustes
 ---

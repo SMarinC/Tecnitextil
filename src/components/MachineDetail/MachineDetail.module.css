@@ -46,8 +46,18 @@
   display: flex;
   flex-direction: column;
   /* Tight gap: on a short phone, this keeps the WhatsApp call to action clear of
-     the floating button below it. */
+     the floating button below it. The CTA itself comes right after .model in the
+     markup, before the facts and the includes note, for the same reason. */
   gap: var(--space-xs);
+}
+
+/* Short screens (e.g. iPhone SE): tighten the breadcrumb so the WhatsApp CTA,
+   which now sits right after the model line, clears the floating button
+   instead of sitting under it. Same pattern as Hero and PageHero. */
+@media (max-height: 619px) {
+  .breadcrumb {
+    margin-bottom: var(--space-xs);
+  }
 }
 
 .title {

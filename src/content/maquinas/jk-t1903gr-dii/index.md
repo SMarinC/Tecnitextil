@@ -17,7 +17,7 @@ especificaciones:
   - etiqueta: Diámetro de botón
     valor: 9 - 22 mm
   - etiqueta: Velocidad máxima
-    valor: 2700 ppm
+    valor: 2.700 puntadas/min
   - etiqueta: Alimentación de botones
     valor: automática, con tolva
   - etiqueta: Motor
@@ -26,6 +26,6 @@ especificaciones:
 
 La JK-T1903GR-DII es una máquina de coser botones electrónica con tolva de alimentación automática, que coloca el botón sin intervención manual y agiliza el trabajo en serie. Admite botones de entre 9 y 22 mm de diámetro.
 
-El panel táctil controla el reinicio y la transferencia de patrones de forma sencilla, y la máquina permite convertir su uso en ambas direcciones de costura, lo que da flexibilidad para distintos tipos de botón.
+El panel táctil controla el reinicio y la transferencia de patrones, y la alimentación automática de botones reduce el tiempo de trabajo frente a colocarlos a mano.
 
-También sirve para hacer puntadas reforzadas en materiales resistentes, como bolsas o redes, gracias a su motor Direct Drive.
+Su motor Direct Drive también le permite coser con firmeza sobre materiales muy resistentes, como bolsos de carga o redes.

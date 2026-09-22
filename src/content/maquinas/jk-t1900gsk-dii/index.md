@@ -20,13 +20,13 @@ especificaciones:
   - etiqueta: Altura del prensatelas
     valor: 13 mm
   - etiqueta: Velocidad máxima
-    valor: 3200 ppm
+    valor: 3.200 puntadas/min
   - etiqueta: Motor
     valor: Direct Drive
 ---
 
 La JK-T1900GSK-DII combina en una sola máquina la costura de presillas y de botones, con prensatelas y pinza intercambiables según lo que haga falta coser. Lleva panel táctil de programación y luz LED integrada.
 
-Su motor Direct Drive facilita el cambio entre trabajos sin perder tiempo, lo que resulta útil en talleres que alternan entre presillas y botones en la misma línea de producción.
+El cambio entre presillas y botones es rápido gracias al prensatelas y la pinza intercambiables, sin perder tiempo entre una operación y otra, lo que resulta útil en talleres que alternan ambos trabajos en la misma línea de producción.
 
 Es una opción práctica para quien busca cubrir ambas operaciones sin tener dos máquinas distintas.

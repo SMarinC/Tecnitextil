@@ -36,6 +36,14 @@ const { machine } = Astro.props
         <p class={styles.model}>
           {machine.marca} {machine.modelo}
         </p>
+        {/* The CTA sits right after the model line, above the facts and the
+            includes note, so it stays clear of the floating button on short
+            phones even for the longest machine titles. */}
+        <WhatsAppCta
+          variant="primary"
+          label={CATALOG_COPY.machineCta}
+          message={machineWhatsAppMessage(machine)}
+        />
         <dl class={styles.facts}>
           <div>
             <dt>{CATALOG_COPY.availabilityLabel}</dt>
@@ -47,11 +55,6 @@ const { machine } = Astro.props
           </div>
         </dl>
         <p class={styles.includes}>{CATALOG_COPY.includesTable}</p>
-        <WhatsAppCta
-          variant="primary"
-          label={CATALOG_COPY.machineCta}
-          message={machineWhatsAppMessage(machine)}
-        />
       </div>
       <MachineGallery machine={machine} />
     </div>

@@ -132,12 +132,31 @@ test.describe('contact', () => {
       ['/toldos', '[data-page-hero] a[href*="wa.me"]'],
       ['/maquinas', '[data-page-hero] a[href*="wa.me"]'],
       ['/maquinas/jk-t1900gsk-dii', 'article a[href*="wa.me"]'],
+      // Longest `nombre` of the 13 machines (src/content/maquinas/*/index.md),
+      // so its 3+ line <h1> is the worst case for this overlap.
+      ['/maquinas/jk-n9-t-d', 'article a[href*="wa.me"]'],
     ] as const) {
       await page.goto(path)
       const floating = await box(page.getByRole('link', { name: 'Escribir por WhatsApp' }))
       const hero = await box(page.locator(selector))
 
       expect(overlaps(floating, hero), path).toBe(false)
+    }
+  })
+
+  test('a machine page keeps its WhatsApp enquiry clear of the floating button on the narrowest phone', async ({
+    page,
+  }) => {
+    // 320x568: the narrowest supported phone. Only the machine pages are in scope
+    // here (Important 1 of the final review); the other pages' hero already has
+    // its own short-screen handling (Hero/PageHero's max-height media query).
+    await page.setViewportSize({ width: 320, height: 568 })
+    for (const path of ['/maquinas/jk-t1900gsk-dii', '/maquinas/jk-n9-t-d']) {
+      await page.goto(path)
+      const floating = await box(page.getByRole('link', { name: 'Escribir por WhatsApp' }))
+      const cta = await box(page.locator('article a[href*="wa.me"]'))
+
+      expect(overlaps(floating, cta), path).toBe(false)
     }
   })
 })
@@ -384,6 +403,17 @@ test.describe('SEO and sharing', () => {
     const data = JSON.parse(json ?? '{}') as { '@type'?: string; telephone?: string }
     expect(data['@type']).toBe('LocalBusiness')
     expect(data.telephone).toBe('+34685018086')
+  })
+
+  test('the sitemap lists all 17 pages, including the machine catalogue', async ({ request }) => {
+    const response = await request.get('/sitemap.xml')
+    expect(response.ok()).toBe(true)
+
+    const xml = await response.text()
+    const locCount = (xml.match(/<loc>/g) ?? []).length
+    expect(locCount).toBe(17)
+    expect(xml).toMatch(/<loc>https:\/\/[^<]*\/maquinas<\/loc>/)
+    expect(xml).toMatch(/<loc>https:\/\/[^<]*\/maquinas\/jk-t1900gsk-dii<\/loc>/)
   })
 
   test('every page is served as static HTML, readable without JavaScript', async ({ request }) => {
