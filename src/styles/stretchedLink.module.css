@@ -1,0 +1,17 @@
+/* Shared stretched link: the whole card is clickable, but only its title names the link.
+   .card gives the positioning context and .link's ::after stretches over it. */
+.card {
+  position: relative;
+}
+
+.link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}

@@ -1,0 +1,12 @@
+---
+import PageHero from '../components/PageHero/PageHero.astro'
+import SectionCards from '../components/SectionCards/SectionCards.astro'
+import { NOT_FOUND_PAGE } from '../data/pages'
+import { NOT_FOUND } from '../data/site'
+import SiteLayout from '../layouts/SiteLayout.astro'
+---
+
+<SiteLayout page={NOT_FOUND_PAGE}>
+  <PageHero {...NOT_FOUND} />
+  <SectionCards />
+</SiteLayout>

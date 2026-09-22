@@ -26,6 +26,16 @@
     );
   --texture-grid-size: 24px 24px;
 
+  /* Gold lines, from quietest to strongest. --line-control outlines things you can
+     press (cards, pills, the phone link, thumbnails): at 65% it keeps 3:1 or more
+     against every dark surface, the WCAG 1.4.11 minimum for component boundaries. */
+  --line-subtle: color-mix(in srgb, var(--color-gold) 15%, transparent);
+  --line: color-mix(in srgb, var(--color-gold) 25%, transparent);
+  --line-strong: color-mix(in srgb, var(--color-gold) 45%, transparent);
+  --line-control: color-mix(in srgb, var(--color-gold) 65%, transparent);
+  --tint-gold: color-mix(in srgb, var(--color-gold) 10%, transparent);
+  --shadow-floating: 0 4px 14px rgb(0 0 0 / 30%);
+
   --font-heading: 'Oswald', 'Arial Narrow', sans-serif;
   --font-body: 'Inter', system-ui, -apple-system, sans-serif;
 

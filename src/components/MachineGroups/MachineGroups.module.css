@@ -19,7 +19,7 @@
   align-items: center;
   min-height: 44px;
   padding: 0 var(--space-md);
-  border: 1px solid color-mix(in srgb, var(--color-gold) 45%, transparent);
+  border: 1px solid var(--line-control);
   border-radius: var(--radius-full);
   color: var(--color-text-on-dark);
   text-decoration: none;

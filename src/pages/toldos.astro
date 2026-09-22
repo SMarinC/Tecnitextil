@@ -1,8 +1,9 @@
 ---
 import AwningMachines from '../components/AwningMachines/AwningMachines.astro'
 import PageHero from '../components/PageHero/PageHero.astro'
-import { AWNING_MACHINES, HERO } from '../data/home'
+import { AWNING_MACHINES } from '../data/awnings'
 import { AWNINGS_PAGE } from '../data/pages'
+import { WHATSAPP_CTA } from '../data/site'
 import SiteLayout from '../layouts/SiteLayout.astro'
 ---
 
@@ -11,7 +12,7 @@ import SiteLayout from '../layouts/SiteLayout.astro'
     eyebrow={AWNING_MACHINES.eyebrow}
     title={AWNING_MACHINES.heading}
     intro={AWNING_MACHINES.intro}
-    ctaLabel={HERO.ctaLabel}
+    ctaLabel={WHATSAPP_CTA.primaryLabel}
   />
   <AwningMachines />
 </SiteLayout>

@@ -1,27 +1,10 @@
 .hero {
-  /* Gold grid signature: the radial gradient sits on top of the grid texture, both
-     on the black base. Three layers means three background-size entries below. */
-  background:
-    radial-gradient(
-      circle at 50% 0%,
-      color-mix(in srgb, var(--color-black-soft) 85%, transparent) 0%,
-      color-mix(in srgb, var(--color-black) 60%, transparent) 60%
-    ),
-    var(--texture-grid), var(--color-black);
-  background-size: auto, var(--texture-grid-size), var(--texture-grid-size);
-  border-bottom: 2px solid color-mix(in srgb, var(--color-gold) 45%, transparent);
-  color: var(--color-text-on-dark);
+  composes: surface from '../../styles/hero.module.css';
   padding: clamp(3rem, 8vw, 6rem) var(--space-md);
 }
 
 .inner {
-  max-width: 720px;
-  margin: 0 auto;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-md);
+  composes: inner from '../../styles/hero.module.css';
 }
 
 .icon {
@@ -31,9 +14,8 @@
 }
 
 .title {
+  composes: title from '../../styles/hero.module.css';
   font-size: clamp(1.75rem, 5vw, 3rem);
-  line-height: 1.15;
-  color: var(--color-white);
 }
 
 .tagline {
@@ -44,13 +26,8 @@
 }
 
 .aboutHeading {
+  composes: eyebrow from '../../styles/hero.module.css';
   margin-top: var(--space-md);
-  font-family: var(--font-heading);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-size: 0.8rem;
-  color: var(--color-gold);
 }
 
 .subtitle {

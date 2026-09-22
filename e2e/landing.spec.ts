@@ -14,7 +14,8 @@ const PAGES = [
   '/aviso-legal',
   '/privacidad',
 ]
-// Each page's <h1>, as literals: src/data/home.ts imports images Playwright cannot load.
+// Each page's <h1>, as literals: the content modules for the awnings page and the
+// catalogue import images Playwright cannot load.
 const TITLES = {
   home: 'Reparación y mantenimiento de maquinaria textil',
   technicalService: 'Servicio técnico de maquinaria textil',
@@ -337,6 +338,23 @@ test.describe('navigation', () => {
     await expect(page.getByRole('heading', { level: 1, name: TITLES.home })).toBeVisible()
   })
 
+  test('the legal pages carry the main menu', async ({ page, isMobile }) => {
+    // Reduced motion turns the jump into an instant scroll, so the viewport check
+    // below sees the final resting position rather than a mid-scroll frame.
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    for (const path of ['/aviso-legal', '/privacidad']) {
+      await page.goto(path)
+      const menu = await openMenu(page, isMobile)
+      await expect(menu).toBeVisible()
+      await expect(menu.getByRole('link', { name: 'Toldos' })).toHaveAttribute('href', '/toldos')
+
+      if (path === '/aviso-legal') {
+        await menu.getByRole('link', { name: 'Contacto' }).click()
+        await expect(page.locator('#contacto')).toBeInViewport()
+      }
+    }
+  })
+
   test('the awnings page shows its three machine photos', async ({ page }) => {
     await page.goto('/toldos')
     const photos = page.locator('main img')
@@ -489,6 +507,19 @@ test.describe('SEO and sharing', () => {
     )
     await page.reload()
     await analyticsScript
+  })
+
+  test('an unknown URL answers 404 with the branded page', async ({ page, request }) => {
+    const response = await request.get('/no-existe')
+    expect(response.status()).toBe(404)
+    expect(await response.text()).toContain('Esta página no existe')
+
+    await page.goto('/no-existe')
+    const { violations } = await new AxeBuilder({ page }).analyze()
+    const blocking = violations.filter(
+      ({ impact }) => impact === 'serious' || impact === 'critical',
+    )
+    expect(blocking).toEqual([])
   })
 })
 

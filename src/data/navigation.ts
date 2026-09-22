@@ -1,5 +1,6 @@
-// Section ids and the menu. Components put these ids on <section id>. The menu links
-// to the public pages plus the closing contact block every public page ends with.
+// Section anchor ids, the menu and its mobile toggle labels. Components put these ids
+// on <section id>. The menu links to the public pages plus the closing contact block
+// every public page ends with.
 import { AWNINGS_PAGE, CATALOG_PAGE, TECHNICAL_SERVICE_PAGE } from './pages'
 
 export interface Section {

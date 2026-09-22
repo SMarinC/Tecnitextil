@@ -149,7 +149,7 @@
   display: flex;
   gap: var(--space-md);
   padding: var(--space-xs) 0;
-  border-bottom: 1px solid color-mix(in srgb, var(--color-gold) 15%, transparent);
+  border-bottom: 1px solid var(--line-subtle);
 }
 
 .spec dt {

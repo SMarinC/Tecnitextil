@@ -1,1 +1,3 @@
+# Type-aware lint needs Astro's generated types (.astro/), which a fresh clone lacks.
+astro sync > /dev/null
 npx lint-staged
