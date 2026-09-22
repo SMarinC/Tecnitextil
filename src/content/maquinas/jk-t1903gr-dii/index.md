@@ -28,4 +28,4 @@ La JK-T1903GR-DII es una máquina de coser botones electrónica con tolva de ali
 
 El panel táctil controla el reinicio y la transferencia de patrones, y la alimentación automática de botones reduce el tiempo de trabajo frente a colocarlos a mano.
 
-Su motor Direct Drive también le permite coser con firmeza sobre materiales muy resistentes, como bolsos de carga o redes.
+Su motor Direct Drive también le permite coser con firmeza sobre materiales muy resistentes, como sacos de carga o redes.

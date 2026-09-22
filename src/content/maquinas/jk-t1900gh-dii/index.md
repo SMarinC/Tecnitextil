@@ -27,6 +27,6 @@ especificaciones:
 
 La JK-T1900GH-DII es una máquina de presillas electrónica pensada para género grueso, con panel táctil de programación y luz LED integrada para trabajar con más precisión.
 
-El control electrónico mantiene la puntada firme incluso sobre materiales muy resistentes, por lo que rinde bien cosiendo piezas como bolsos de carga o mallas de pesca.
+El control electrónico mantiene la puntada firme incluso sobre materiales muy resistentes, por lo que rinde bien cosiendo piezas como sacos de carga o mallas de pesca.
 
 Es una máquina adecuada para talleres que necesitan presillas fuertes en tejidos gruesos, con un cambio de patrón sencillo desde el panel táctil.

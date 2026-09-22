@@ -12,7 +12,7 @@ export function sampleMachine(overrides: Partial<Machine> = {}): Machine {
     resumen: 'Máquina de presillas y botones de prueba, con tablero y bancada incluidos.',
     disponibilidad: 'bajo-pedido',
     fotos: [photo, photo],
-    especificaciones: [{ etiqueta: 'Velocidad máxima', valor: '3.200 puntadas por minuto' }],
+    especificaciones: [{ etiqueta: 'Velocidad máxima', valor: '3.200 puntadas/min' }],
     ...overrides,
   }
 }

@@ -50,3 +50,18 @@
     gap: var(--space-xs);
   }
 }
+
+/* Short and narrow screens (e.g. 320x568): the longest title/intro pairs (the
+   toldos page) still wrap tall enough to push the WhatsApp CTA under the floating
+   button, even with the padding and gap above already tightened. Shrink the type
+   a step further so every page hero clears it. */
+@media (max-height: 619px) and (max-width: 340px) {
+  .title {
+    font-size: 1.4rem;
+  }
+
+  .intro {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+}
