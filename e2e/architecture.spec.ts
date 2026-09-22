@@ -94,9 +94,10 @@ test.describe('architecture', () => {
   test('pages carry no inline styles or executable inline scripts', async ({ request }) => {
     for (const path of ROUTES_WITH_ERRORS) {
       const html = await (await request.get(path)).text()
-      expect(html, path).not.toMatch(/<style[\s>]/)
-      const inlineScripts = (html.match(/<script\b[^>]*>/g) ?? []).filter(
-        (tag) => !tag.includes(' src=') && !tag.includes('application/ld+json'),
+      expect(html, path).not.toMatch(/<style[\s>]/i)
+      // Case-insensitive: HTML tag and attribute names are, so <SCRIPT> must not slip through.
+      const inlineScripts = (html.match(/<script\b[^>]*>/gi) ?? []).filter(
+        (tag) => !/\ssrc=/i.test(tag) && !/application\/ld\+json/i.test(tag),
       )
       expect(inlineScripts, path).toEqual([])
     }
