@@ -33,11 +33,11 @@ Astro 7 · TypeScript · CSS Modules · Vitest 5 · Playwright y axe · Lighthou
 
 Cada pull request y cada push a `main` ejecuta tres trabajos de CI:
 
-| Trabajo                         | Qué comprueba                                                                                                           |
-| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| Lint, pruebas unitarias y build | Formato con Prettier, ESLint, pruebas de datos, lógica, componentes y páginas, y el build con comprobación de tipos     |
-| Pruebas en navegador            | Playwright en móvil (Pixel 7) y escritorio: auditorías de axe, navegación, presupuesto de JavaScript y CSP              |
-| Presupuestos de Lighthouse      | Falla si la accesibilidad baja de 95, el SEO de 90 o el CLS supera 0,1; avisa sobre rendimiento, buenas prácticas y LCP |
+| Trabajo                         | Qué comprueba                                                                                                                                |
+| ------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| Lint, pruebas unitarias y build | Formato con Prettier, ESLint, pruebas de datos, lógica, componentes y páginas, y el build con comprobación de tipos                          |
+| Pruebas en navegador            | Playwright en Pixel 7 (Chromium), iPhone (WebKit/Safari) y escritorio Chrome: auditorías de axe, navegación, presupuesto de JavaScript y CSP |
+| Presupuestos de Lighthouse      | Falla si la accesibilidad baja de 95, el SEO de 90 o el CLS supera 0,1; avisa sobre rendimiento, buenas prácticas y LCP                      |
 
 La rama main está protegida: todo cambio entra mediante un pull request, y solo si los tres trabajos pasan.
 
@@ -54,15 +54,15 @@ npm run dev          # http://localhost:4321
 
 ## Scripts
 
-| Comando            | Qué hace                                                                                                  |
-| ------------------ | --------------------------------------------------------------------------------------------------------- |
-| `npm run dev`      | Servidor de desarrollo con recarga en caliente                                                            |
-| `npm run build`    | Comprueba los tipos (`astro check`) y genera el sitio estático en `dist/`                                 |
-| `npm run preview`  | Sirve `dist/` con las mismas cabeceras de seguridad que producción                                        |
-| `npm test`         | Pruebas unitarias, de componentes y de páginas (Vitest)                                                   |
-| `npm run test:e2e` | Pruebas en navegador (Playwright y axe) sobre el build. La primera vez: `npx playwright install chromium` |
-| `npm run lint`     | ESLint                                                                                                    |
-| `npm run format`   | Formatea el código con Prettier (`format:check` solo comprueba)                                           |
+| Comando            | Qué hace                                                                                                         |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------- |
+| `npm run dev`      | Servidor de desarrollo con recarga en caliente                                                                   |
+| `npm run build`    | Comprueba los tipos (`astro check`) y genera el sitio estático en `dist/`                                        |
+| `npm run preview`  | Sirve `dist/` con las mismas cabeceras de seguridad que producción                                               |
+| `npm test`         | Pruebas unitarias, de componentes y de páginas (Vitest)                                                          |
+| `npm run test:e2e` | Pruebas en navegador (Playwright y axe) sobre el build. La primera vez: `npx playwright install chromium webkit` |
+| `npm run lint`     | ESLint                                                                                                           |
+| `npm run format`   | Formatea el código con Prettier (`format:check` solo comprueba)                                                  |
 
 ## Cómo está organizado
 
@@ -95,7 +95,7 @@ e2e/                # pruebas en navegador, agrupadas por propósito (contacto, 
 ### Cambios habituales
 
 - **Textos, teléfono o marcas:** edita `src/data/`.
-- **Una página nueva:** añade un archivo en `src/pages/` y su entrada en `src/data/pages.ts`. El sitemap la incluye salvo que esté marcada como `noindex`. Una página pública además usa `SiteLayout`, recibe una entrada en `src/data/navigation.ts` si pertenece al menú, y se añade a `PAGES` en `e2e/landing.spec.ts`.
+- **Una página nueva:** añade un archivo en `src/pages/` y su entrada en `src/data/pages.ts`. El sitemap la incluye salvo que esté marcada como `noindex`. Una página pública además usa `SiteLayout`, recibe una entrada en `src/data/navigation.ts` si pertenece al menú, y se añade a `PAGES` en `e2e/support.ts`.
 - **Un dominio propio:** define la variable de entorno `SITE_URL` en Vercel (o en un `.env.local`). Por defecto vale `https://tecnitextil.vercel.app`.
 - **Una máquina en venta:** añade una carpeta `src/content/maquinas/<modelo-en-minúsculas>/` con `index.md` y hasta 4 fotos; el esquema de `src/content.config.ts` la valida en el build. Nunca se publican precios.
 

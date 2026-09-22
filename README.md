@@ -33,11 +33,11 @@ Astro 7 · TypeScript · CSS Modules · Vitest 5 · Playwright and axe · Lighth
 
 Every pull request and every push to `main` runs three CI jobs:
 
-| Job                        | What it checks                                                                                                  |
-| -------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| Lint, unit tests and build | Prettier formatting, ESLint, unit tests for data, logic, components and pages, and the build with type checking |
-| Browser tests              | Playwright on a mobile device (Pixel 7) and on desktop: axe audits, navigation, JavaScript budget and CSP       |
-| Lighthouse budgets         | Fails if accessibility is below 95, SEO below 90 or CLS above 0.1; warns on performance, best practices and LCP |
+| Job                        | What it checks                                                                                                                 |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| Lint, unit tests and build | Prettier formatting, ESLint, unit tests for data, logic, components and pages, and the build with type checking                |
+| Browser tests              | Playwright on Pixel 7 (Chromium), iPhone (WebKit/Safari) and desktop Chrome: axe audits, navigation, JavaScript budget and CSP |
+| Lighthouse budgets         | Fails if accessibility is below 95, SEO below 90 or CLS above 0.1; warns on performance, best practices and LCP                |
 
 The main branch is protected: every change lands through a pull request, and only when all three jobs pass.
 
@@ -54,15 +54,15 @@ npm run dev          # http://localhost:4321
 
 ## Scripts
 
-| Command            | What it does                                                                                       |
-| ------------------ | -------------------------------------------------------------------------------------------------- |
-| `npm run dev`      | Development server with hot reload                                                                 |
-| `npm run build`    | Type checks (`astro check`) and builds the static site in `dist/`                                  |
-| `npm run preview`  | Serves `dist/` with the same security headers as production                                        |
-| `npm test`         | Unit, component and page tests (Vitest)                                                            |
-| `npm run test:e2e` | Browser tests (Playwright and axe) against the build. First run: `npx playwright install chromium` |
-| `npm run lint`     | ESLint                                                                                             |
-| `npm run format`   | Formats the code with Prettier (`format:check` only checks)                                        |
+| Command            | What it does                                                                                              |
+| ------------------ | --------------------------------------------------------------------------------------------------------- |
+| `npm run dev`      | Development server with hot reload                                                                        |
+| `npm run build`    | Type checks (`astro check`) and builds the static site in `dist/`                                         |
+| `npm run preview`  | Serves `dist/` with the same security headers as production                                               |
+| `npm test`         | Unit, component and page tests (Vitest)                                                                   |
+| `npm run test:e2e` | Browser tests (Playwright and axe) against the build. First run: `npx playwright install chromium webkit` |
+| `npm run lint`     | ESLint                                                                                                    |
+| `npm run format`   | Formats the code with Prettier (`format:check` only checks)                                               |
 
 ## Project structure
 
@@ -95,7 +95,7 @@ e2e/                # browser tests, grouped by purpose (contact, navigation, SE
 ### Common changes
 
 - **Text, phone number or brands:** edit `src/data/`.
-- **A new page:** add a file to `src/pages/` and its entry to `src/data/pages.ts`. The sitemap picks it up unless the page is marked `noindex`. A public page also uses `SiteLayout`, gets a menu entry in `src/data/navigation.ts` when it belongs in the menu, and is added to `PAGES` in `e2e/landing.spec.ts`.
+- **A new page:** add a file to `src/pages/` and its entry to `src/data/pages.ts`. The sitemap picks it up unless the page is marked `noindex`. A public page also uses `SiteLayout`, gets a menu entry in `src/data/navigation.ts` when it belongs in the menu, and is added to `PAGES` in `e2e/support.ts`.
 - **A custom domain:** set the `SITE_URL` environment variable in Vercel (or in a local `.env.local`). It defaults to `https://tecnitextil.vercel.app`.
 - **A machine for sale:** add a folder `src/content/maquinas/<model-in-lowercase>/` with `index.md` and up to 4 photos; the schema in `src/content.config.ts` checks it at build time. Prices are never published.
 
