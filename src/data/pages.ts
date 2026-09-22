@@ -57,6 +57,15 @@ function legalPageMeta(content: LegalPageContent): PageMeta {
 export const LEGAL_NOTICE_PAGE = legalPageMeta(LEGAL_NOTICE)
 export const PRIVACY_POLICY_PAGE = legalPageMeta(PRIVACY_POLICY)
 
+// Served by src/pages/404.astro for any unknown path, so it stays out of PAGES (every
+// PAGES entry is rendered by src/test/pages.test.ts and listed in the sitemap).
+export const NOT_FOUND_PAGE: PageMeta = {
+  path: '/404',
+  title: 'Página no encontrada | TECNITEXTIL',
+  description: 'La página que buscas no existe o ha cambiado de sitio.',
+  noindex: true,
+}
+
 export const PAGES: PageMeta[] = [
   HOME_PAGE,
   TECHNICAL_SERVICE_PAGE,

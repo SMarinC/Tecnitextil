@@ -337,6 +337,15 @@ test.describe('navigation', () => {
     await expect(page.getByRole('heading', { level: 1, name: TITLES.home })).toBeVisible()
   })
 
+  test('the legal pages carry the main menu', async ({ page, isMobile }) => {
+    for (const path of ['/aviso-legal', '/privacidad']) {
+      await page.goto(path)
+      const menu = await openMenu(page, isMobile)
+      await expect(menu).toBeVisible()
+      await expect(menu.getByRole('link', { name: 'Toldos' })).toHaveAttribute('href', '/toldos')
+    }
+  })
+
   test('the awnings page shows its three machine photos', async ({ page }) => {
     await page.goto('/toldos')
     const photos = page.locator('main img')
@@ -489,6 +498,19 @@ test.describe('SEO and sharing', () => {
     )
     await page.reload()
     await analyticsScript
+  })
+
+  test('an unknown URL answers 404 with the branded page', async ({ page, request }) => {
+    const response = await request.get('/no-existe')
+    expect(response.status()).toBe(404)
+    expect(await response.text()).toContain('Esta página no existe')
+
+    await page.goto('/no-existe')
+    const { violations } = await new AxeBuilder({ page }).analyze()
+    const blocking = violations.filter(
+      ({ impact }) => impact === 'serious' || impact === 'critical',
+    )
+    expect(blocking).toEqual([])
   })
 })
 

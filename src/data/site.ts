@@ -17,3 +17,11 @@ export const FINAL_CTA = {
 export const FOOTER = {
   coverage: `Servicio en ${COMPANY.coverage}`,
 }
+
+// Copy of the branded 404 page (src/pages/404.astro).
+export const NOT_FOUND = {
+  eyebrow: 'Error 404',
+  title: 'Esta página no existe',
+  intro: 'Puede que el enlace esté roto o que la página haya cambiado de sitio.',
+  ctaLabel: WHATSAPP_CTA.primaryLabel,
+}

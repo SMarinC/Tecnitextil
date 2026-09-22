@@ -1,7 +1,6 @@
 ---
-import { Image } from 'astro:assets'
-import logo from '../assets/logo.png'
 import Footer from '../components/Footer/Footer.astro'
+import Header from '../components/Header/Header.astro'
 import WhatsAppCta from '../components/WhatsAppCta/WhatsAppCta.astro'
 import { WHATSAPP_CTA } from '../data/site'
 import {
@@ -25,21 +24,7 @@ const { meta, content } = Astro.props
 ---
 
 <BaseLayout page={meta}>
-  <header class={styles.header}>
-    <a href="/" class={styles.homeLink}>
-      {/* Decorative here: the link text already names the destination. */}
-      <Image
-        src={logo}
-        alt=""
-        width={64}
-        height={64}
-        densities={[1, 2]}
-        loading="eager"
-        class={styles.logo}
-      />
-      <span>Volver al inicio</span>
-    </a>
-  </header>
+  <Header currentPath={meta.path} />
   <main id="contenido" class={styles.main}>
     <article class={styles.article}>
       <h1 class={styles.title}>{content.title}</h1>

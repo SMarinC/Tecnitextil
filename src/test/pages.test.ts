@@ -16,15 +16,18 @@ import {
   CATALOG_PAGE,
   HOME_PAGE,
   LEGAL_NOTICE_PAGE,
+  NOT_FOUND_PAGE,
   PAGES,
   PRIVACY_POLICY_PAGE,
   TECHNICAL_SERVICE_PAGE,
 } from '../data/pages'
+import { NOT_FOUND } from '../data/site'
 import { TECHNICAL_SERVICE_HERO } from '../data/technicalService'
 import { OG_IMAGE_PATH, SITE_URL, absoluteUrl } from '../data/seo'
 import AwningsPage from '../pages/toldos.astro'
 import LegalNoticePage from '../pages/aviso-legal.astro'
 import HomePage from '../pages/index.astro'
+import NotFoundPage from '../pages/404.astro'
 import PrivacyPolicyPage from '../pages/privacidad.astro'
 import TechnicalServicePage from '../pages/servicio-tecnico.astro'
 import { GET as getSitemap } from '../pages/sitemap.xml.ts'
@@ -37,6 +40,7 @@ const html: Record<string, string> = {
   [LEGAL_NOTICE_PAGE.path]: await renderToHtml(LegalNoticePage),
   [PRIVACY_POLICY_PAGE.path]: await renderToHtml(PrivacyPolicyPage),
 }
+const notFoundHtml = await renderToHtml(NotFoundPage)
 
 const PUBLIC_PAGES = PAGES.filter(({ noindex }) => !noindex)
 const MENU_TARGETS = [...PUBLIC_PAGES.map(({ path }) => path), CATALOG_PAGE.path]
@@ -71,6 +75,10 @@ function headerBlock(page: string): string {
 describe('every page', () => {
   it.each(PAGES)('$path has exactly one <h1>', ({ path }) => {
     expect(html[path].match(/<h1[\s>]/g)).toHaveLength(1)
+  })
+
+  it.each(PAGES)('$path renders the main navigation', ({ path }) => {
+    expect(html[path]).toMatch(/<nav[^>]*aria-label="Navegación principal"/)
   })
 
   it.each(PAGES)(
@@ -254,5 +262,33 @@ describe('public pages', () => {
     const sections = main.match(/<section[^>]*>/g) ?? []
     expect(sections.length, path).toBeGreaterThan(0)
     expect(sections[sections.length - 1], path).toContain(`id="${SECTIONS.contact.id}"`)
+  })
+})
+
+// NOT_FOUND_PAGE stays out of PAGES (it is not a real route to render for every generic
+// check above), so it gets its own render and its own assertions here.
+describe('404 page', () => {
+  it('has exactly one <h1>, with the not-found title', () => {
+    const matches = notFoundHtml.match(/<h1[^>]*>[\s\S]*?<\/h1>/g)
+    expect(matches).toHaveLength(1)
+    expect(textContent(matches?.[0] ?? '')).toBe(NOT_FOUND.title)
+  })
+
+  it('is kept out of search results', () => {
+    expect(NOT_FOUND_PAGE.noindex).toBe(true)
+    expect(head(notFoundHtml)).toContain('name="robots" content="noindex"')
+  })
+
+  it('links to the three sections', () => {
+    for (const { href } of SECTION_CARDS.items) {
+      expect(notFoundHtml).toContain(`href="${href}"`)
+    }
+  })
+
+  it('ends its content with the contact block', () => {
+    const main = notFoundHtml.slice(0, notFoundHtml.indexOf('</main>'))
+    const sections = main.match(/<section[^>]*>/g) ?? []
+    expect(sections.length).toBeGreaterThan(0)
+    expect(sections[sections.length - 1]).toContain(`id="${SECTIONS.contact.id}"`)
   })
 })
