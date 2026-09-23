@@ -16,7 +16,7 @@ Web en producción de una empresa española de reparación, mantenimiento y vent
 - **Conversión medida en el plan gratuito.** Los clics en WhatsApp se cuentan como visitas virtuales a `/contactar/...` en Vercel Web Analytics, que no tiene eventos personalizados en el plan gratuito. Los enlaces siguen siendo anclas directas a `wa.me` para que el propio toque abra la app de WhatsApp en iOS.
 - **Accesibilidad probada en tres navegadores.** Playwright ejecuta axe en todas las páginas en Pixel 7 (Chromium), iPhone 15 (WebKit) y escritorio Chrome, y falla si encuentra problemas graves o críticos.
 - **Tokens de diseño.** Colores compartidos y una escala dorada de "líneas" (`--line-subtle` a `--line-control`) cuyo paso más fuerte mantiene un contraste medido de al menos 3:1 para los bordes interactivos, además de estilos de hero y tarjetas compartidos entre páginas.
-- **Cabeceras de seguridad estrictas.** Una Content-Security-Policy que solo permite el propio dominio, más las cabeceras de refuerzo habituales, fijadas una sola vez en `vercel.json`; las pruebas en navegador fallan si alguna página registra una violación de CSP.
+- **Cabeceras de seguridad estrictas.** Una Content-Security-Policy que solo permite el propio dominio, más las cabeceras de refuerzo habituales, fijadas una sola vez en `vercel.json`; una prueba en navegador comprueba cada cabecera, con su valor exacto, en todas las páginas incluida la 404, y otra falla si alguna página registra una violación de CSP.
 - **SEO desde una única fuente.** URLs canónicas, etiquetas Open Graph, datos estructurados `LocalBusiness` y `BreadcrumbList`, `sitemap.xml`, noindex en las páginas legales y una página 404 de marca salen de una sola URL del sitio y una sola lista de páginas.
 
 ## Capturas

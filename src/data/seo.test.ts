@@ -1,7 +1,8 @@
+import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import { COMPANY } from './company'
 import { HOME_PAGE } from './pages'
-import { SITE_URL, absoluteUrl, localBusinessJsonLd } from './seo'
+import { SITE_URL, THEME_COLOR, absoluteUrl, localBusinessJsonLd } from './seo'
 
 describe('seo content', () => {
   it('SITE_URL is an https origin without trailing slash', () => {
@@ -37,5 +38,10 @@ describe('seo content', () => {
     })
     expect(address).not.toHaveProperty('streetAddress')
     expect(address).not.toHaveProperty('postalCode')
+  })
+
+  it('THEME_COLOR matches --color-black in tokens.css, the only other place it is written', () => {
+    const tokens = readFileSync(new URL('../styles/tokens.css', import.meta.url), 'utf8')
+    expect(tokens).toContain(`--color-black: ${THEME_COLOR};`)
   })
 })

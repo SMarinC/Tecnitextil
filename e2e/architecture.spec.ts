@@ -1,6 +1,13 @@
+import { readFileSync } from 'node:fs'
 import { expect, test } from '@playwright/test'
 import { LEGAL_NOTICE, LEGAL_OWNER, PRIVACY_POLICY } from '../src/data/legal'
 import { PAGES, ROUTES_WITH_ERRORS, downloadScripts, isVercelOnly } from './support'
+
+// The same rule astro.config.mjs reads to make `astro preview` serve these headers.
+interface VercelHeaderRule {
+  source: string
+  headers: { key: string; value: string }[]
+}
 
 test.describe('architecture', () => {
   test('the preloaded fonts are the ones the page uses, downloaded once', async ({
@@ -87,6 +94,22 @@ test.describe('architecture', () => {
         for (const heading of legalHeadings) {
           expect(code, `${path}: ${heading}`).not.toContain(heading)
         }
+      }
+    }
+  })
+
+  test('every page is served with the security headers from vercel.json', async ({ request }) => {
+    const vercelConfig = JSON.parse(
+      readFileSync(new URL('../vercel.json', import.meta.url), 'utf8'),
+    ) as { headers: VercelHeaderRule[] }
+    const securityHeaders = vercelConfig.headers.find((rule) => rule.source === '/(.*)')?.headers
+    if (!securityHeaders) throw new Error("vercel.json has no headers rule for source '/(.*)'")
+    expect(securityHeaders.length).toBeGreaterThan(0)
+
+    for (const path of ROUTES_WITH_ERRORS) {
+      const responseHeaders = (await request.get(path)).headers()
+      for (const { key, value } of securityHeaders) {
+        expect(responseHeaders[key.toLowerCase()], `${path}: ${key}`).toBe(value)
       }
     }
   })

@@ -39,8 +39,8 @@
 }
 
 .crumbs a:focus-visible {
-  outline: 2px solid var(--color-gold);
-  outline-offset: 2px;
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
 }
 
 .layout {

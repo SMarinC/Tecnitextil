@@ -9,6 +9,10 @@ export const SITE_URL = import.meta.env.SITE.replace(/\/+$/, '')
 
 export const OG_IMAGE_PATH = '/og-image.png'
 
+// Must match --color-black in src/styles/tokens.css: <meta name="theme-color"> cannot
+// read CSS custom properties, so this is the one other place that colour is written.
+export const THEME_COLOR = '#0a0a0a'
+
 export function absoluteUrl(path: string): string {
   return `${SITE_URL}${path}`
 }

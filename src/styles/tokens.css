@@ -36,6 +36,11 @@
   --tint-gold: color-mix(in srgb, var(--color-gold) 10%, transparent);
   --shadow-floating: 0 4px 14px rgb(0 0 0 / 30%);
 
+  /* Focus ring, used by every :focus-visible rule in src/. Gold-light keeps at least
+     3:1 against every dark surface. */
+  --focus-ring: 2px solid var(--color-gold-light);
+  --focus-ring-offset: 2px;
+
   --font-heading: 'Oswald', 'Arial Narrow', sans-serif;
   --font-body: 'Inter', system-ui, -apple-system, sans-serif;
 
