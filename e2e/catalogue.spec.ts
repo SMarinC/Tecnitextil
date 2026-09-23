@@ -1,5 +1,7 @@
 import { expect, test } from '@playwright/test'
-import { TITLES, openMenu } from './support'
+import { CATALOG_PAGE } from '../src/data/pages'
+import { WHATSAPP_CTA } from '../src/data/site'
+import { TITLES, navLabel, openMenu } from './support'
 
 test.beforeEach(async ({ page }) => {
   await page.goto('/')
@@ -14,7 +16,7 @@ test.describe('catalogue', () => {
     isMobile,
   }) => {
     const menu = await openMenu(page, isMobile)
-    await menu.getByRole('link', { name: 'Venta de máquinas' }).click()
+    await menu.getByRole('link', { name: navLabel(CATALOG_PAGE.path) }).click()
 
     await expect(page).toHaveURL(/\/maquinas$/)
     await expect(page.getByRole('heading', { level: 1, name: TITLES.catalogue })).toBeVisible()
@@ -38,7 +40,7 @@ test.describe('catalogue', () => {
     await expect(enquiry).toHaveCount(1)
     const href = await enquiry.getAttribute('href')
     expect(decodeURIComponent(href ?? '')).toContain('JACK JK-T1900GSK-DII')
-    await expect(page.getByRole('link', { name: 'Escribir por WhatsApp' })).toHaveAttribute(
+    await expect(page.getByRole('link', { name: WHATSAPP_CTA.floatingLabel })).toHaveAttribute(
       'href',
       href ?? '',
     )

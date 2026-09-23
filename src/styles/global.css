@@ -96,14 +96,14 @@ a {
 /* Section separators: adjacent sections often share the same or a nearly identical
    background, so the boundary between them can otherwise be invisible. Every direct
    child of <main> that follows another child gets a thin gold line on top, except the
-   child right after a page hero (the home hero, main > #quienes-somos, or an inner-page
+   child right after a page hero (the home hero, main > [data-hero], or an inner-page
    hero, main > [data-page-hero]), since that hero already ends in its own 2px gold
    bottom border. */
 main > * + * {
   border-top: 1px solid var(--line);
 }
 
-main > #quienes-somos + *,
+main > [data-hero] + *,
 main > [data-page-hero] + * {
   border-top: none;
 }

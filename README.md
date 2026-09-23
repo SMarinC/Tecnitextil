@@ -102,7 +102,7 @@ src/
     awnings.ts            #   text of the awnings (toldos) page
     catalog.ts            #   catalogue labels and copy
     types.ts              #   content shapes shared across the data modules
-    navigation.ts         #   section anchor ids and menu
+    navigation.ts         #   menu and the closing contact block's anchor id
     legal.ts              #   legal notice, privacy policy and owner details
     seo.ts                #   site URL, structured data
     pages.ts              #   every page: title, description, indexing

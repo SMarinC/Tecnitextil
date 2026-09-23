@@ -1,5 +1,6 @@
 // Data for search engines and link previews.
 import { COMPANY } from './company'
+import { HOME_PAGE } from './pages'
 
 // Public site origin without a trailing slash. It comes from `site` in
 // astro.config.mjs (SITE_URL environment variable), the single source for canonical
@@ -8,28 +9,29 @@ export const SITE_URL = import.meta.env.SITE.replace(/\/+$/, '')
 
 export const OG_IMAGE_PATH = '/og-image.png'
 
-export const HOME_SEO = {
-  title: COMPANY.name,
-  description:
-    'TECNITEXTIL: reparación de máquinas de coser industriales y de toldos automatizadas, corte y confección en toda España. +20 años. Recogida a domicilio.',
-}
-
 export function absoluteUrl(path: string): string {
   return `${SITE_URL}${path}`
 }
 
-// schema.org LocalBusiness. No "address" on purpose: the owner prefers not to show
-// the home address on Google; it is published in the legal notice.
+// schema.org LocalBusiness. Only the city is public, never the street or postal code:
+// the owner prefers not to show the home address on Google, and the full address is
+// published in the legal notice.
 export function localBusinessJsonLd() {
   return {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
     name: COMPANY.name,
-    description: HOME_SEO.description,
+    description: HOME_PAGE.description,
     url: absoluteUrl('/'),
     image: absoluteUrl(OG_IMAGE_PATH),
     logo: absoluteUrl('/logo.png'),
     telephone: `+${COMPANY.phone.international}`,
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: COMPANY.locality,
+      addressRegion: COMPANY.region,
+      addressCountry: 'ES',
+    },
     areaServed: { '@type': 'Country', name: 'España' },
   }
 }

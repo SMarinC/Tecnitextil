@@ -1,12 +1,11 @@
 ---
 import { HERO } from '../../data/home'
-import { SECTIONS } from '../../data/navigation'
 import Icon from '../Icon/Icon.astro'
 import WhatsAppCta from '../WhatsAppCta/WhatsAppCta.astro'
 import styles from './Hero.module.css'
 ---
 
-<section class={styles.hero} id={SECTIONS.about.id}>
+<section class={styles.hero} data-hero>
   <div class={styles.inner}>
     <Icon name="sewingMachine" class={styles.icon} />
     <h1 class={styles.title}>{HERO.title}</h1>

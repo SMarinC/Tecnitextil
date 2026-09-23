@@ -102,7 +102,7 @@ src/
     awnings.ts            #   textos de la página de toldos
     catalog.ts            #   textos y etiquetas del catálogo
     types.ts              #   formas de contenido compartidas entre los módulos de datos
-    navigation.ts         #   ids de sección y menú
+    navigation.ts         #   menú y el id de anclaje del bloque de contacto
     legal.ts              #   aviso legal, privacidad y datos del titular
     seo.ts                #   URL del sitio, datos estructurados
     pages.ts              #   cada página: título, descripción, indexación
