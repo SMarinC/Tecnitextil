@@ -70,6 +70,10 @@
 .floating:focus-visible {
   outline: var(--focus-ring);
   outline-offset: var(--focus-ring-offset);
+  /* The button floats over light photo panels too: a black gap keeps the gold ring visible there. */
+  box-shadow:
+    0 0 0 2px var(--color-black),
+    var(--shadow-floating);
 }
 
 .floating .icon {

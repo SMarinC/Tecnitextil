@@ -47,7 +47,7 @@ The main branch is protected: every change lands through a pull request, merged 
 
 ## By the numbers
 
-As of 2026-09-22, measured in CI:
+As of 2026-09-23, measured in CI:
 
 - 20 pages built; 161 unit/component/page tests (Vitest) and 114 browser tests across 3 projects (109 run, 5 skipped with reasons)
 - Lighthouse: performance 0.97–1.00, accessibility 1.00, SEO 1.00 on every indexable page, best practices 0.96 everywhere (Vercel Analytics' own script 404s outside Vercel and logs a console error)

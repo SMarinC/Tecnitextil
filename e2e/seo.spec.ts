@@ -8,8 +8,8 @@ import { SERVICES } from '../src/data/technicalService'
 import { PAGES, TITLES } from './support'
 
 // The rights section, a recognizable piece of the privacy policy that only shows up
-// in the rendered HTML: PRIVACY_POLICY.sections[4] is "Tus derechos".
-const PRIVACY_RIGHTS_HEADING = PRIVACY_POLICY.sections[4].heading
+// in the rendered HTML: PRIVACY_POLICY.identification is "Tus derechos".
+const PRIVACY_RIGHTS_HEADING = PRIVACY_POLICY.identification.heading
 
 test.beforeEach(async ({ page }) => {
   await page.goto('/')
@@ -63,7 +63,7 @@ test.describe('SEO and sharing', () => {
   })
 
   test('the footer links to the legal notice and privacy policy pages', async ({ page }) => {
-    for (const name of ['Aviso legal', 'Política de privacidad']) {
+    for (const name of [LEGAL_NOTICE.title, PRIVACY_POLICY.title]) {
       await page.goto('/')
       await page
         .getByRole('navigation', { name: 'Información legal' })

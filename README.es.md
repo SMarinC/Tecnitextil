@@ -47,7 +47,7 @@ La rama `main` está protegida: todo cambio entra mediante un pull request, y so
 
 ## En cifras
 
-A fecha de 2026-09-22, medido en CI:
+A fecha de 2026-09-23, medido en CI:
 
 - 20 páginas generadas; 161 pruebas unitarias/de componentes/de páginas (Vitest) y 114 pruebas en navegador en 3 proyectos (109 se ejecutan, 5 se omiten con motivo)
 - Lighthouse: rendimiento 0,97–1,00, accesibilidad 1,00, SEO 1,00 en toda página indexable, buenas prácticas 0,96 en todas partes (el propio script de Vercel Analytics devuelve 404 fuera de Vercel y registra un error en consola)
