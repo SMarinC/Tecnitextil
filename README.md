@@ -16,7 +16,7 @@ Production site of a Spanish business that repairs, maintains and sells industri
 - **Conversion measured on the free plan.** WhatsApp clicks are counted as virtual `/contactar/...` pageviews in Vercel Web Analytics, which has no custom events on the free tier. The links stay plain `wa.me` anchors so the tap alone still opens the WhatsApp app on iOS.
 - **Accessibility tested in three browsers.** Playwright runs axe against every page on Pixel 7 (Chromium), iPhone 15 (WebKit) and desktop Chrome, and fails on serious or critical violations.
 - **Design tokens.** Shared colours and a gold "line" scale (`--line-subtle` to `--line-control`) whose strongest step keeps a measured ≥3:1 contrast for interactive borders, plus shared hero and card styles reused across pages.
-- **Strict security headers.** A same-origin Content-Security-Policy and the usual hardening headers, verified header by header in the browser tests.
+- **Strict security headers.** A same-origin Content-Security-Policy plus the usual hardening headers, all set once in `vercel.json`; the browser tests fail if any page logs a CSP violation.
 - **SEO from one source.** Canonical URLs, Open Graph tags, `LocalBusiness` and `BreadcrumbList` JSON-LD, `sitemap.xml`, noindex on the legal pages and a branded 404 all come from one site URL and one page list.
 
 ## Screenshots
