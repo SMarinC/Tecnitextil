@@ -40,6 +40,11 @@ describe('MachineDetail', () => {
     expect(text).toContain(CATALOG_COPY.warranty.text)
   })
 
+  it('links to the sales conditions from the warranty block', () => {
+    expect(html).toContain(`href="${CATALOG_COPY.conditions.href}"`)
+    expect(text).toContain(CATALOG_COPY.conditions.label)
+  })
+
   it('links the breadcrumb back to the catalogue and to the type', () => {
     const nav = html.match(/<nav[^>]*>[\s\S]*?<\/nav>/)?.[0] ?? ''
     expect(nav).toContain(`aria-label="${CATALOG_COPY.breadcrumbLabel}"`)

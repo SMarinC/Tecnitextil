@@ -18,13 +18,13 @@
           }
         },
         {
-          "matchingUrlPattern": "^(?!.*/(aviso-legal|privacidad|404)\\.html$)",
+          "matchingUrlPattern": "^(?!.*/(condiciones-de-venta|aviso-legal|privacidad|404)\\.html$)",
           "assertions": {
             "categories:seo": ["error", { "minScore": 0.9 }]
           }
         },
         {
-          "matchingUrlPattern": "/(aviso-legal|privacidad|404)\\.html$",
+          "matchingUrlPattern": "/(condiciones-de-venta|aviso-legal|privacidad|404)\\.html$",
           "assertions": {
             "document-title": ["error", { "minScore": 1 }],
             "meta-description": ["error", { "minScore": 1 }],

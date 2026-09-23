@@ -1,8 +1,12 @@
 import { describe, expect, it } from 'vitest'
+import { COMPANY } from './company'
 import {
+  LEGAL_LINKS,
   LEGAL_NOTICE,
   LEGAL_OWNER,
   PENDING,
+  PRIVACY_POLICY,
+  SALES_CONDITIONS,
   emailDetail,
   hasPendingLegalData,
   isMissing,
@@ -38,6 +42,50 @@ describe('legal data', () => {
     expect(text).toContain(
       'Las fotografías de la sección de máquinas de coser toldos son imágenes de referencia de sus fabricantes. En ese servicio, TECNITEXTIL actúa como servicio técnico independiente, sin vinculación con dichas marcas.',
     )
+  })
+
+  it('keeps the legal notice unchanged after sharing the owner identification', () => {
+    expect(LEGAL_NOTICE.identification).toEqual({
+      heading: 'Datos del titular',
+      items: [
+        { label: 'Titular', value: LEGAL_OWNER.legalName },
+        { label: 'NIF', value: LEGAL_OWNER.taxId },
+        { label: 'Domicilio', value: LEGAL_OWNER.address },
+        { label: 'Email', value: LEGAL_OWNER.email, href: `mailto:${LEGAL_OWNER.email}` },
+        { label: 'Teléfono', value: COMPANY.phone.display },
+      ],
+    })
+  })
+})
+
+describe('sales conditions', () => {
+  it('states the withdrawal period, the legal warranty period and includes the withdrawal form', () => {
+    const text = JSON.stringify(SALES_CONDITIONS)
+    expect(text).toContain('14 días naturales')
+    expect(text).toContain('tres años')
+    expect(text).toContain('Modelo de formulario de desistimiento')
+  })
+
+  it('gives the owner email and address the withdrawal form requires', () => {
+    const text = JSON.stringify(SALES_CONDITIONS)
+    expect(text).toContain(LEGAL_OWNER.email)
+    expect(text).toContain(LEGAL_OWNER.address)
+  })
+})
+
+describe('privacy policy', () => {
+  it('adds the invoicing legal basis for buyers', () => {
+    expect(JSON.stringify(PRIVACY_POLICY)).toContain('art. 6.1.c RGPD')
+  })
+})
+
+describe('LEGAL_LINKS', () => {
+  it('lists the sales conditions first, then the legal notice and the privacy policy', () => {
+    expect(LEGAL_LINKS).toEqual([
+      { label: SALES_CONDITIONS.title, href: SALES_CONDITIONS.path },
+      { label: LEGAL_NOTICE.title, href: LEGAL_NOTICE.path },
+      { label: PRIVACY_POLICY.title, href: PRIVACY_POLICY.path },
+    ])
   })
 })
 
