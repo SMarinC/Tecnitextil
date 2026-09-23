@@ -7,7 +7,11 @@ test.beforeEach(async ({ page }) => {
 })
 
 test.describe('accessibility', () => {
-  test('no page has serious or critical accessibility violations', async ({ page }) => {
+  test('no page has serious or critical accessibility violations', async ({
+    page,
+    browserName,
+  }) => {
+    test.slow(browserName === 'webkit', 'axe over every page is slower in WebKit')
     for (const path of PAGES) {
       await page.goto(path)
       const { violations } = await new AxeBuilder({ page }).analyze()

@@ -16,7 +16,7 @@ Web en producción de una empresa española de reparación, mantenimiento y vent
 - **Conversión medida en el plan gratuito.** Los clics en WhatsApp se cuentan como visitas virtuales a `/contactar/...` en Vercel Web Analytics, que no tiene eventos personalizados en el plan gratuito. Los enlaces siguen siendo anclas directas a `wa.me` para que el propio toque abra la app de WhatsApp en iOS.
 - **Accesibilidad probada en tres navegadores.** Playwright ejecuta axe en todas las páginas en Pixel 7 (Chromium), iPhone 15 (WebKit) y escritorio Chrome, y falla si encuentra problemas graves o críticos.
 - **Tokens de diseño.** Colores compartidos y una escala dorada de "líneas" (`--line-subtle` a `--line-control`) cuyo paso más fuerte mantiene un contraste medido de al menos 3:1 para los bordes interactivos, además de estilos de hero y tarjetas compartidos entre páginas.
-- **Cabeceras de seguridad estrictas.** Una Content-Security-Policy que solo permite el propio dominio, más las cabeceras de refuerzo habituales, fijadas una sola vez en `vercel.json`; una prueba en navegador comprueba cada cabecera, con su valor exacto, en todas las páginas incluida la 404, y otra falla si alguna página registra una violación de CSP.
+- **Cabeceras de seguridad estrictas.** Una Content-Security-Policy que solo permite el propio dominio, más las cabeceras de refuerzo habituales, fijadas una sola vez en `vercel.json`; una prueba en navegador comprueba cada cabecera, con su valor exacto, en todas las páginas, y otra falla si alguna página registra una violación de CSP.
 - **SEO desde una única fuente.** URLs canónicas, etiquetas Open Graph, datos estructurados `LocalBusiness` y `BreadcrumbList`, `sitemap.xml`, noindex en las páginas legales y una página 404 de marca salen de una sola URL del sitio y una sola lista de páginas.
 
 ## Capturas
@@ -49,7 +49,7 @@ La rama `main` está protegida: todo cambio entra mediante un pull request, y so
 
 A fecha de 2026-09-22, medido en CI:
 
-- 20 páginas generadas; 161 pruebas unitarias/de componentes/de páginas (Vitest) y 111 pruebas en navegador en 3 proyectos (106 se ejecutan, 5 se omiten con motivo)
+- 20 páginas generadas; 161 pruebas unitarias/de componentes/de páginas (Vitest) y 114 pruebas en navegador en 3 proyectos (109 se ejecutan, 5 se omiten con motivo)
 - Lighthouse: rendimiento 0,97–1,00, accesibilidad 1,00, SEO 1,00 en toda página indexable, buenas prácticas 0,96 en todas partes (el propio script de Vercel Analytics devuelve 404 fuera de Vercel y registra un error en consola)
 - LCP de 1,6–2,6 s en CI, peso de página de 165–390 KB incluyendo fuentes e imágenes
 - Unos 3 kB de JavaScript propio del sitio por página, muy por debajo del presupuesto de 15 kB que exige el CI

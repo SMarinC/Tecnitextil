@@ -106,7 +106,9 @@ test.describe('architecture', () => {
     if (!securityHeaders) throw new Error("vercel.json has no headers rule for source '/(.*)'")
     expect(securityHeaders.length).toBeGreaterThan(0)
 
-    for (const path of ROUTES_WITH_ERRORS) {
+    // PAGES, not ROUTES_WITH_ERRORS: `astro preview` serves its 404 through its own
+    // handler without `server.headers`; on Vercel the same rule covers the 404.
+    for (const path of PAGES) {
       const responseHeaders = (await request.get(path)).headers()
       for (const { key, value } of securityHeaders) {
         expect(responseHeaders[key.toLowerCase()], `${path}: ${key}`).toBe(value)
