@@ -19,8 +19,8 @@
 }
 
 .header:focus-visible {
-  outline: 2px solid var(--color-white);
-  outline-offset: 2px;
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
 }
 
 .header .icon {
@@ -68,8 +68,12 @@
 }
 
 .floating:focus-visible {
-  outline: 2px solid var(--color-black);
-  outline-offset: 2px;
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+  /* The button floats over light photo panels too: a black gap keeps the gold ring visible there. */
+  box-shadow:
+    0 0 0 2px var(--color-black),
+    var(--shadow-floating);
 }
 
 .floating .icon {

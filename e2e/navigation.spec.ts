@@ -1,6 +1,8 @@
 import { expect, test } from '@playwright/test'
 import { DESKTOP_BREAKPOINT_PX } from '../src/lib/breakpoints'
-import { TITLES, box, openMenu } from './support'
+import { CONTACT_SECTION_ID, MENU_TOGGLE_LABELS } from '../src/data/navigation'
+import { AWNINGS_PAGE, TECHNICAL_SERVICE_PAGE } from '../src/data/pages'
+import { TITLES, box, navLabel, openMenu } from './support'
 
 test.beforeEach(async ({ page }) => {
   await page.goto('/')
@@ -23,10 +25,10 @@ test.describe('navigation', () => {
   }) => {
     test.skip(!isMobile, 'mobile menu only')
     const panel = page.getByRole('navigation', { name: 'Navegación móvil' })
-    const openButton = page.getByRole('button', { name: 'Abrir menú de navegación' })
+    const openButton = page.getByRole('button', { name: MENU_TOGGLE_LABELS.open })
 
     await openButton.click()
-    const closeButton = page.getByRole('button', { name: 'Cerrar menú de navegación' })
+    const closeButton = page.getByRole('button', { name: MENU_TOGGLE_LABELS.close })
     await expect(closeButton).toHaveAttribute('aria-expanded', 'true')
     await expect(panel).toBeVisible()
 
@@ -73,7 +75,7 @@ test.describe('navigation', () => {
     expect(Math.round(atBreakpoint.height)).toBe(Math.round(reference.height))
 
     await page.setViewportSize({ width: DESKTOP_BREAKPOINT_PX - 1, height: 800 })
-    await expect(page.getByRole('button', { name: 'Abrir menú de navegación' })).toBeVisible()
+    await expect(page.getByRole('button', { name: MENU_TOGGLE_LABELS.open })).toBeVisible()
   })
 
   test('the menu leads to each section page and marks it as the current page', async ({
@@ -81,8 +83,8 @@ test.describe('navigation', () => {
     isMobile,
   }) => {
     for (const [name, path, title] of [
-      ['Servicio técnico', '/servicio-tecnico', TITLES.technicalService],
-      ['Toldos', '/toldos', TITLES.awnings],
+      [navLabel(TECHNICAL_SERVICE_PAGE.path), TECHNICAL_SERVICE_PAGE.path, TITLES.technicalService],
+      [navLabel(AWNINGS_PAGE.path), AWNINGS_PAGE.path, TITLES.awnings],
     ] as const) {
       const menu = await openMenu(page, isMobile)
       await menu.getByRole('link', { name }).click()
@@ -106,7 +108,7 @@ test.describe('navigation', () => {
     await page.emulateMedia({ reducedMotion: 'reduce' })
     await page.goto('/servicio-tecnico')
     const menu = await openMenu(page, isMobile)
-    await menu.getByRole('link', { name: 'Contacto' }).click()
+    await menu.getByRole('link', { name: navLabel(`#${CONTACT_SECTION_ID}`) }).click()
 
     await expect(page).toHaveURL(/\/servicio-tecnico#contacto$/)
     const section = page.locator('#contacto')
@@ -131,7 +133,7 @@ test.describe('navigation', () => {
     isMobile,
   }) => {
     const menu = await openMenu(page, isMobile)
-    await menu.getByRole('link', { name: 'Toldos' }).click()
+    await menu.getByRole('link', { name: navLabel(AWNINGS_PAGE.path) }).click()
     await expect(page).toHaveURL(/\/toldos$/)
 
     await page.goBack()
@@ -152,10 +154,13 @@ test.describe('navigation', () => {
       await page.goto(path)
       const menu = await openMenu(page, isMobile)
       await expect(menu).toBeVisible()
-      await expect(menu.getByRole('link', { name: 'Toldos' })).toHaveAttribute('href', '/toldos')
+      await expect(menu.getByRole('link', { name: navLabel(AWNINGS_PAGE.path) })).toHaveAttribute(
+        'href',
+        AWNINGS_PAGE.path,
+      )
 
       if (path === '/aviso-legal') {
-        await menu.getByRole('link', { name: 'Contacto' }).click()
+        await menu.getByRole('link', { name: navLabel(`#${CONTACT_SECTION_ID}`) }).click()
         await expect(page.locator('#contacto')).toBeInViewport()
       }
     }

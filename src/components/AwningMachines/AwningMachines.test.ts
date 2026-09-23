@@ -1,16 +1,11 @@
 import { describe, expect, it } from 'vitest'
 import { AWNING_MACHINES } from '../../data/awnings'
-import { SECTIONS } from '../../data/navigation'
 import { renderToHtml } from '../../test/render'
 import AwningMachines from './AwningMachines.astro'
 
 const html = await renderToHtml(AwningMachines)
 
 describe('AwningMachines section', () => {
-  it('carries the id the header menu links to', () => {
-    expect(html).toMatch(new RegExp(`<section[^>]*id="${SECTIONS.awningMachines.id}"`))
-  })
-
   it('shows one described, sized and lazy-loaded photo per machine family', () => {
     const images = html.match(/<img[^>]*>/g) ?? []
     expect(images).toHaveLength(AWNING_MACHINES.families.length)

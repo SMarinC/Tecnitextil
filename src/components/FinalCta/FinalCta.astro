@@ -1,11 +1,11 @@
 ---
 import { FINAL_CTA } from '../../data/site'
-import { SECTIONS } from '../../data/navigation'
+import { CONTACT_SECTION_ID } from '../../data/navigation'
 import WhatsAppCta from '../WhatsAppCta/WhatsAppCta.astro'
 import styles from './FinalCta.module.css'
 ---
 
-<section class={styles.section} id={SECTIONS.contact.id}>
+<section class={styles.section} id={CONTACT_SECTION_ID}>
   <h2 class={styles.heading}>{FINAL_CTA.heading}</h2>
   <p class={styles.subheading}>{FINAL_CTA.subheading}</p>
   <WhatsAppCta variant="primary" label={FINAL_CTA.ctaLabel} />

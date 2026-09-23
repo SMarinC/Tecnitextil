@@ -8,6 +8,8 @@ test.beforeEach(async ({ page }) => {
 
 test.describe('accessibility', () => {
   test('no page has serious or critical accessibility violations', async ({ page }) => {
+    // axe runs over every page in this one test, close to the default 30 s on a busy runner.
+    test.slow()
     for (const path of PAGES) {
       await page.goto(path)
       const { violations } = await new AxeBuilder({ page }).analyze()

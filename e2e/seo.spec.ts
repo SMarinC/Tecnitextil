@@ -1,7 +1,15 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test } from '@playwright/test'
-import { LEGAL_NOTICE } from '../src/data/legal'
+import { AWNING_MACHINES } from '../src/data/awnings'
+import { machineTypeLabel } from '../src/data/catalog'
+import { LEGAL_NOTICE, PRIVACY_POLICY } from '../src/data/legal'
+import { NOT_FOUND } from '../src/data/site'
+import { SERVICES } from '../src/data/technicalService'
 import { PAGES, TITLES } from './support'
+
+// The rights section, a recognizable piece of the privacy policy that only shows up
+// in the rendered HTML: PRIVACY_POLICY.identification is "Tus derechos".
+const PRIVACY_RIGHTS_HEADING = PRIVACY_POLICY.identification.heading
 
 test.beforeEach(async ({ page }) => {
   await page.goto('/')
@@ -40,12 +48,12 @@ test.describe('SEO and sharing', () => {
   test('every page is served as static HTML, readable without JavaScript', async ({ request }) => {
     const expectedText: Record<string, string> = {
       '/': TITLES.home,
-      '/servicio-tecnico': 'Qué hacemos',
-      '/toldos': 'Qué intervenimos',
-      '/maquinas': 'Presillas y botones',
+      '/servicio-tecnico': SERVICES.heading,
+      '/toldos': AWNING_MACHINES.components.heading,
+      '/maquinas': machineTypeLabel('presillas-y-botones'),
       '/maquinas/jk-t1900gsk-dii': 'JK-T1900GSK-DII',
       '/aviso-legal': LEGAL_NOTICE.identification.heading,
-      '/privacidad': 'Tus derechos',
+      '/privacidad': PRIVACY_RIGHTS_HEADING,
     }
     for (const path of PAGES) {
       const response = await request.get(path)
@@ -55,7 +63,7 @@ test.describe('SEO and sharing', () => {
   })
 
   test('the footer links to the legal notice and privacy policy pages', async ({ page }) => {
-    for (const name of ['Aviso legal', 'Política de privacidad']) {
+    for (const name of [LEGAL_NOTICE.title, PRIVACY_POLICY.title]) {
       await page.goto('/')
       await page
         .getByRole('navigation', { name: 'Información legal' })
@@ -77,7 +85,7 @@ test.describe('SEO and sharing', () => {
   test('an unknown URL answers 404 with the branded page', async ({ page, request }) => {
     const response = await request.get('/no-existe')
     expect(response.status()).toBe(404)
-    expect(await response.text()).toContain('Esta página no existe')
+    expect(await response.text()).toContain(NOT_FOUND.title)
 
     await page.goto('/no-existe')
     const { violations } = await new AxeBuilder({ page }).analyze()

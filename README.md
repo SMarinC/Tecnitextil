@@ -16,7 +16,7 @@ Production site of a Spanish business that repairs, maintains and sells industri
 - **Conversion measured on the free plan.** WhatsApp clicks are counted as virtual `/contactar/...` pageviews in Vercel Web Analytics, which has no custom events on the free tier. The links stay plain `wa.me` anchors so the tap alone still opens the WhatsApp app on iOS.
 - **Accessibility tested in three browsers.** Playwright runs axe against every page on Pixel 7 (Chromium), iPhone 15 (WebKit) and desktop Chrome, and fails on serious or critical violations.
 - **Design tokens.** Shared colours and a gold "line" scale (`--line-subtle` to `--line-control`) whose strongest step keeps a measured ≥3:1 contrast for interactive borders, plus shared hero and card styles reused across pages.
-- **Strict security headers.** A same-origin Content-Security-Policy plus the usual hardening headers, all set once in `vercel.json`; the browser tests fail if any page logs a CSP violation.
+- **Strict security headers.** A same-origin Content-Security-Policy plus the usual hardening headers, all set once in `vercel.json`; a browser test checks every one of them, with its exact value, on every page, and another fails if any page logs a CSP violation.
 - **SEO from one source.** Canonical URLs, Open Graph tags, `LocalBusiness` and `BreadcrumbList` JSON-LD, `sitemap.xml`, noindex on the legal pages and a branded 404 all come from one site URL and one page list.
 
 ## Screenshots
@@ -47,9 +47,9 @@ The main branch is protected: every change lands through a pull request, merged 
 
 ## By the numbers
 
-As of 2026-09-22, measured in CI:
+As of 2026-09-23, measured in CI:
 
-- 20 pages built; 161 unit/component/page tests (Vitest) and 111 browser tests across 3 projects (106 run, 5 skipped with reasons)
+- 20 pages built; 161 unit/component/page tests (Vitest) and 114 browser tests across 3 projects (109 run, 5 skipped with reasons)
 - Lighthouse: performance 0.97–1.00, accessibility 1.00, SEO 1.00 on every indexable page, best practices 0.96 everywhere (Vercel Analytics' own script 404s outside Vercel and logs a console error)
 - LCP 1.6–2.6 s on CI, page weight 165–390 KB including fonts and images
 - About 3 kB of the site's own JavaScript per page, well under the 15 kB budget the CI enforces
@@ -102,7 +102,7 @@ src/
     awnings.ts            #   text of the awnings (toldos) page
     catalog.ts            #   catalogue labels and copy
     types.ts              #   content shapes shared across the data modules
-    navigation.ts         #   section anchor ids and menu
+    navigation.ts         #   menu and the closing contact block's anchor id
     legal.ts              #   legal notice, privacy policy and owner details
     seo.ts                #   site URL, structured data
     pages.ts              #   every page: title, description, indexing

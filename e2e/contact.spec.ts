@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test'
+import { WHATSAPP_CTA } from '../src/data/site'
 import { WHATSAPP_URL, box, closingCta, overlaps } from './support'
 
 test.beforeEach(async ({ page }) => {
@@ -18,7 +19,7 @@ test.describe('contact', () => {
       await expect(link).toHaveAttribute('rel', 'noopener noreferrer')
     }
 
-    await expect(page.getByRole('link', { name: 'Escribir por WhatsApp' })).toBeVisible()
+    await expect(page.getByRole('link', { name: WHATSAPP_CTA.floatingLabel })).toBeVisible()
     await expect(closingCta(page)).toBeVisible()
   })
 
@@ -29,7 +30,7 @@ test.describe('contact', () => {
   })
 
   test('the hero shows its WhatsApp call to action without scrolling', async ({ page }) => {
-    await expect(page.locator('#quienes-somos a[href*="wa.me"]')).toBeInViewport({ ratio: 1 })
+    await expect(page.locator('[data-hero] a[href*="wa.me"]')).toBeInViewport({ ratio: 1 })
   })
 
   test('inner pages show WhatsApp in their page hero without scrolling', async ({ page }) => {
@@ -45,7 +46,7 @@ test.describe('contact', () => {
     const closing = closingCta(page)
     await closing.scrollIntoViewIfNeeded()
 
-    const floating = await box(page.getByRole('link', { name: 'Escribir por WhatsApp' }))
+    const floating = await box(page.getByRole('link', { name: WHATSAPP_CTA.floatingLabel }))
     const cta = await box(closing)
 
     expect(overlaps(floating, cta)).toBe(false)
@@ -56,7 +57,7 @@ test.describe('contact', () => {
   }) => {
     await page.setViewportSize({ width: 375, height: 548 })
     for (const [path, selector] of [
-      ['/', '#quienes-somos a[href*="wa.me"]'],
+      ['/', '[data-hero] a[href*="wa.me"]'],
       ['/servicio-tecnico', '[data-page-hero] a[href*="wa.me"]'],
       ['/toldos', '[data-page-hero] a[href*="wa.me"]'],
       ['/maquinas', '[data-page-hero] a[href*="wa.me"]'],
@@ -66,7 +67,7 @@ test.describe('contact', () => {
       ['/maquinas/jk-n9-t-d', 'article a[href*="wa.me"]'],
     ] as const) {
       await page.goto(path)
-      const floating = await box(page.getByRole('link', { name: 'Escribir por WhatsApp' }))
+      const floating = await box(page.getByRole('link', { name: WHATSAPP_CTA.floatingLabel }))
       const hero = await box(page.locator(selector))
 
       expect(overlaps(floating, hero), path).toBe(false)
@@ -79,7 +80,7 @@ test.describe('contact', () => {
     // 320x568: the narrowest supported phone.
     await page.setViewportSize({ width: 320, height: 568 })
     for (const [path, selector] of [
-      ['/', '#quienes-somos a[href*="wa.me"]'],
+      ['/', '[data-hero] a[href*="wa.me"]'],
       ['/servicio-tecnico', '[data-page-hero] a[href*="wa.me"]'],
       ['/toldos', '[data-page-hero] a[href*="wa.me"]'],
       ['/maquinas', '[data-page-hero] a[href*="wa.me"]'],
@@ -87,7 +88,7 @@ test.describe('contact', () => {
       ['/maquinas/jk-n9-t-d', 'article a[href*="wa.me"]'],
     ] as const) {
       await page.goto(path)
-      const floating = await box(page.getByRole('link', { name: 'Escribir por WhatsApp' }))
+      const floating = await box(page.getByRole('link', { name: WHATSAPP_CTA.floatingLabel }))
       const cta = await box(page.locator(selector))
 
       expect(overlaps(floating, cta), path).toBe(false)
@@ -105,7 +106,7 @@ test.describe('contact', () => {
       )
 
     for (const [path, selector, expected] of [
-      ['/', '#quienes-somos a[data-whatsapp]', '/contactar/portada'],
+      ['/', '[data-hero] a[data-whatsapp]', '/contactar/portada'],
       [
         '/maquinas/jk-t1900gsk-dii',
         'article a[data-whatsapp]',

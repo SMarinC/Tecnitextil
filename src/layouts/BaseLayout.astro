@@ -9,7 +9,7 @@ import interLatin400 from '@fontsource/inter/files/inter-latin-400-normal.woff2?
 import oswaldLatin600 from '@fontsource/oswald/files/oswald-latin-600-normal.woff2?url'
 import { COMPANY } from '../data/company'
 import type { PageMeta } from '../data/pages'
-import { OG_IMAGE_PATH, absoluteUrl } from '../data/seo'
+import { OG_IMAGE_PATH, THEME_COLOR, absoluteUrl } from '../data/seo'
 import { serializeJsonLd } from '../lib/jsonLd'
 
 // Self-hosted fonts (no request to Google, GDPR), Latin subset only. Body text and the
@@ -36,7 +36,7 @@ const url = absoluteUrl(page.path)
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href="/logo.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <meta name="theme-color" content="#0a0a0a" />
+    <meta name="theme-color" content={THEME_COLOR} />
     <link rel="preload" href={interLatin400} as="font" type="font/woff2" crossorigin="anonymous" />
     <link rel="preload" href={oswaldLatin600} as="font" type="font/woff2" crossorigin="anonymous" />
     <title>{page.title}</title>

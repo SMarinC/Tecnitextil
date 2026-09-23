@@ -10,7 +10,7 @@ import {
 } from '../data/legal'
 import { AWNING_MACHINES } from '../data/awnings'
 import { HERO, SECTION_CARDS } from '../data/home'
-import { NAV_ITEMS, SECTIONS } from '../data/navigation'
+import { CONTACT_SECTION_ID, NAV_ITEMS } from '../data/navigation'
 import {
   AWNINGS_PAGE,
   CATALOG_PAGE,
@@ -58,13 +58,9 @@ function identificationBlock(page: string): string {
   return page.match(/<section[^>]*aria-labelledby="titular"[^>]*>[\s\S]*?<\/section>/)?.[0] ?? ''
 }
 
-// The home page's hero section (id="quienes-somos").
+// The home page's hero section (data-hero).
 function heroSection(): string {
-  return (
-    html[HOME_PAGE.path].match(
-      new RegExp(`<section[^>]*id="${SECTIONS.about.id}"[\\s\\S]*?</section>`),
-    )?.[0] ?? ''
-  )
+  return html[HOME_PAGE.path].match(/<section[^>]*data-hero[\s\S]*?<\/section>/)?.[0] ?? ''
 }
 
 // The page's <header>...</header> block, so a later link can't stand in for the logo.
@@ -243,7 +239,7 @@ describe('legal pages', () => {
   it.each([LEGAL_NOTICE.path, PRIVACY_POLICY.path])(
     '%s ends with the closing contact block, so the menu\'s "Contacto" link works',
     (path) => {
-      expect(html[path]).toContain(`id="${SECTIONS.contact.id}"`)
+      expect(html[path]).toContain(`id="${CONTACT_SECTION_ID}"`)
     },
   )
 })
@@ -268,7 +264,7 @@ describe('public pages', () => {
     const main = page.slice(0, page.indexOf('</main>'))
     const sections = main.match(/<section[^>]*>/g) ?? []
     expect(sections.length, path).toBeGreaterThan(0)
-    expect(sections[sections.length - 1], path).toContain(`id="${SECTIONS.contact.id}"`)
+    expect(sections[sections.length - 1], path).toContain(`id="${CONTACT_SECTION_ID}"`)
   })
 })
 
@@ -302,6 +298,6 @@ describe('404 page', () => {
     const main = notFoundHtml.slice(0, notFoundHtml.indexOf('</main>'))
     const sections = main.match(/<section[^>]*>/g) ?? []
     expect(sections.length).toBeGreaterThan(0)
-    expect(sections[sections.length - 1]).toContain(`id="${SECTIONS.contact.id}"`)
+    expect(sections[sections.length - 1]).toContain(`id="${CONTACT_SECTION_ID}"`)
   })
 })

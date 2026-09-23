@@ -1,6 +1,8 @@
+import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import { COMPANY } from './company'
-import { HOME_SEO, SITE_URL, absoluteUrl, localBusinessJsonLd } from './seo'
+import { HOME_PAGE } from './pages'
+import { SITE_URL, THEME_COLOR, absoluteUrl, localBusinessJsonLd } from './seo'
 
 describe('seo content', () => {
   it('SITE_URL is an https origin without trailing slash', () => {
@@ -8,8 +10,9 @@ describe('seo content', () => {
     expect(absoluteUrl('/privacidad')).toBe(`${SITE_URL}/privacidad`)
   })
 
-  it('home title fits in a search result (≤ 60 characters)', () => {
-    expect(HOME_SEO.title.length).toBeLessThanOrEqual(60)
+  it('home title fits in a search result (≤ 60 characters) and is the local title', () => {
+    expect(HOME_PAGE.title).toBe(`${COMPANY.name} | Reparación y venta de maquinaria textil`)
+    expect(HOME_PAGE.title.length).toBeLessThanOrEqual(60)
   })
 
   it('structured data describes the business with the real phone and site URL', () => {
@@ -21,11 +24,24 @@ describe('seo content', () => {
   })
 
   it('home description fits in a search result and mentions the awning machines', () => {
-    expect(HOME_SEO.description.length).toBeLessThanOrEqual(160)
-    expect(HOME_SEO.description).toContain('toldos automatizadas')
+    expect(HOME_PAGE.description.length).toBeLessThanOrEqual(160)
+    expect(HOME_PAGE.description).toContain('toldos automatizadas')
   })
 
-  it('structured data does not publish the owner address', () => {
-    expect(localBusinessJsonLd()).not.toHaveProperty('address')
+  it('structured data publishes only the city, region and country, never the street or postal code', () => {
+    const { address } = localBusinessJsonLd()
+    expect(address).toEqual({
+      '@type': 'PostalAddress',
+      addressLocality: COMPANY.locality,
+      addressRegion: COMPANY.region,
+      addressCountry: 'ES',
+    })
+    expect(address).not.toHaveProperty('streetAddress')
+    expect(address).not.toHaveProperty('postalCode')
+  })
+
+  it('THEME_COLOR matches --color-black in tokens.css, the only other place it is written', () => {
+    const tokens = readFileSync(new URL('../styles/tokens.css', import.meta.url), 'utf8')
+    expect(tokens).toContain(`--color-black: ${THEME_COLOR};`)
   })
 })
