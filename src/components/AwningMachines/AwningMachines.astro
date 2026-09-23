@@ -1,11 +1,11 @@
 ---
 import { Image } from 'astro:assets'
 import { AWNING_MACHINES } from '../../data/awnings'
-import { SECTIONS } from '../../data/navigation'
+import { AWNING_PHOTOS } from './photos'
 import styles from './AwningMachines.module.css'
 ---
 
-<section class={styles.section} id={SECTIONS.awningMachines.id}>
+<section class={styles.section}>
   <div class={styles.inner}>
     <div class={styles.layout}>
       <div class={styles.textCol}>
@@ -18,12 +18,12 @@ import styles from './AwningMachines.module.css'
       </div>
       <div class={styles.familiesCol}>
         <ul class={styles.familyList} role="list">
-          {AWNING_MACHINES.families.map(({ title, description, image }) => (
+          {AWNING_MACHINES.families.map(({ title, description, photo }) => (
             <li class={styles.family}>
               <Image
                 class={styles.familyImage}
-                src={image.src}
-                alt={image.alt}
+                src={AWNING_PHOTOS[photo.key]}
+                alt={photo.alt}
                 widths={[400, 800]}
                 sizes="(min-width: 1024px) 200px, (min-width: 768px) 160px, 100vw"
                 loading="lazy"

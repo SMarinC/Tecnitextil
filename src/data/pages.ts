@@ -1,6 +1,5 @@
 import { COMPANY } from './company'
 import { LEGAL_NOTICE, PRIVACY_POLICY, SALES_CONDITIONS, type LegalPageContent } from './legal'
-import { HOME_SEO } from './seo'
 
 // Every page of the site: its <head> and whether search engines may index it.
 export interface PageMeta {
@@ -12,8 +11,9 @@ export interface PageMeta {
 
 export const HOME_PAGE: PageMeta = {
   path: '/',
-  title: HOME_SEO.title,
-  description: HOME_SEO.description,
+  title: `${COMPANY.name} | Reparación y venta de maquinaria textil`,
+  description:
+    'TECNITEXTIL: reparación de máquinas de coser industriales y de toldos automatizadas, corte y confección en toda España. +20 años. Recogida a domicilio.',
   noindex: false,
 }
 

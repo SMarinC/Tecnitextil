@@ -1,4 +1,10 @@
 import type { Browser, Locator, Page } from '@playwright/test'
+import { AWNING_MACHINES } from '../src/data/awnings'
+import { CATALOG_COPY } from '../src/data/catalog'
+import { HERO } from '../src/data/home'
+import { MENU_TOGGLE_LABELS, NAV_ITEMS } from '../src/data/navigation'
+import { FINAL_CTA } from '../src/data/site'
+import { TECHNICAL_SERVICE_HERO } from '../src/data/technicalService'
 
 // Shared constants and helpers for the browser tests, grouped by what they protect:
 // contact, navigation, catalogue, SEO and sharing, accessibility and architecture.
@@ -15,27 +21,34 @@ export const PAGES = [
 ]
 // PAGES plus the 404 page, for checks that must also hold on an unknown route.
 export const ROUTES_WITH_ERRORS = [...PAGES, '/no-existe']
-// Each page's <h1>, as literals: the content modules for the awnings page and the
-// catalogue import images Playwright cannot load.
+// Each page's <h1>, read from the content modules themselves: none of them imports
+// images or reads import.meta.env, so Playwright can load every one of them.
 export const TITLES = {
-  home: 'Reparación y mantenimiento de maquinaria textil',
-  technicalService: 'Servicio técnico de maquinaria textil',
-  awnings: 'Asistencia para máquinas de coser toldos automatizadas',
-  catalogue: 'Venta de máquinas de coser industriales',
+  home: HERO.title,
+  technicalService: TECHNICAL_SERVICE_HERO.title,
+  awnings: AWNING_MACHINES.heading,
+  catalogue: CATALOG_COPY.hero.title,
 }
 
 // Vercel Web Analytics only exists on Vercel; locally its script request fails.
 export const isVercelOnly = (text: string, url = '') =>
   url.includes('/_vercel/') || text.includes('Vercel')
 
+// A menu item's accessible name, looked up by the page (or anchor) it links to.
+export function navLabel(href: string): string {
+  const item = NAV_ITEMS.find((navItem) => navItem.href === href)
+  if (!item) throw new Error(`No nav item links to ${href}`)
+  return item.label
+}
+
 // Scoped to the closing block: the hero also has WhatsApp links.
 export const closingCta = (page: Page) =>
-  page.locator('#contacto').getByRole('link', { name: 'Contáctanos' })
+  page.locator('#contacto').getByRole('link', { name: FINAL_CTA.ctaLabel })
 
 // On mobile the menu links live in a panel that opens from the header button.
 export async function openMenu(page: Page, isMobile: boolean): Promise<Locator> {
   if (isMobile) {
-    await page.getByRole('button', { name: 'Abrir menú de navegación' }).click()
+    await page.getByRole('button', { name: MENU_TOGGLE_LABELS.open }).click()
   }
   return page.getByRole('navigation', {
     name: isMobile ? 'Navegación móvil' : 'Navegación principal',

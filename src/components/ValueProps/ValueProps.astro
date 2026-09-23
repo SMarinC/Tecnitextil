@@ -1,11 +1,10 @@
 ---
 import { VALUE_PROPS } from '../../data/home'
-import { SECTIONS } from '../../data/navigation'
 import Icon from '../Icon/Icon.astro'
 import styles from './ValueProps.module.css'
 ---
 
-<section class={styles.section} id={SECTIONS.valueProps.id}>
+<section class={styles.section}>
   <h2 class={styles.heading}>{VALUE_PROPS.heading}</h2>
   <ul class={styles.list}>
     {VALUE_PROPS.items.map(({ icon, stat, label }) => (
