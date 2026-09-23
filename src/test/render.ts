@@ -20,9 +20,14 @@ export async function renderToHtml(
 
 // Visible text of an HTML fragment, ignoring icons and collapsing whitespace.
 export function textContent(html: string): string {
-  return html
-    .replace(/<svg[\s\S]*?<\/svg>/g, '')
-    .replace(/<[^>]+>/g, '')
-    .replace(/\s+/g, ' ')
-    .trim()
+  let stripped = html.replace(/<svg[\s\S]*?<\/svg>/g, '')
+  // Repeat until the string stops changing: a single pass can leave a new "tag" behind
+  // when a removed one exposes another (e.g. `<<a>script>`), which is what CodeQL flags
+  // as incomplete multi-character sanitization.
+  let previous: string
+  do {
+    previous = stripped
+    stripped = stripped.replace(/<[^>]+>/g, '')
+  } while (stripped !== previous)
+  return stripped.replace(/\s+/g, ' ').trim()
 }
