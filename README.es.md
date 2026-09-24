@@ -2,7 +2,7 @@
 
 Web en producción de una empresa española de reparación, mantenimiento y venta de máquinas de coser industriales. Su único objetivo es que cada visita termine en una conversación de WhatsApp o en una llamada.
 
-**[Ver la web](https://tecnitextil.vercel.app)** · [Read in English](README.md)
+**[Ver la web](https://www.tecnitextil.com)** · [Read in English](README.md)
 
 [![checks](https://github.com/SMarinC/Tecnitextil/actions/workflows/checks.yml/badge.svg)](https://github.com/SMarinC/Tecnitextil/actions/workflows/checks.yml)
 
@@ -122,7 +122,7 @@ e2e/                # pruebas en navegador, un archivo por área (accessibility,
 
 - **Textos, teléfono o marcas:** edita `src/data/`.
 - **Una página nueva:** añade un archivo en `src/pages/` y su entrada en `src/data/pages.ts`. El sitemap la incluye salvo que esté marcada como `noindex`. Una página pública además usa `SiteLayout`, recibe una entrada en `src/data/navigation.ts` si pertenece al menú, y se añade a `PAGES` en `e2e/support.ts`.
-- **Un dominio propio:** define la variable de entorno `SITE_URL` en Vercel (o en un `.env.local`). Por defecto vale `https://tecnitextil.vercel.app`.
+- **Un dominio propio:** la URL de la web es `https://www.tecnitextil.com` por defecto, definida en `astro.config.mjs`; se puede cambiar con la variable de entorno `SITE_URL` en Vercel (o en un `.env.local`).
 - **Una máquina en venta:** añade una carpeta `src/content/maquinas/<modelo-en-minúsculas>/` con `index.md` y hasta 4 fotos; el esquema de `src/content.config.ts` la valida en el build. Nunca se publican precios.
 
 ## Despliegue

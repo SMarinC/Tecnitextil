@@ -3,8 +3,9 @@ import { COMPANY } from './company'
 import { HOME_PAGE } from './pages'
 
 // Public site origin without a trailing slash. It comes from `site` in
-// astro.config.mjs (SITE_URL environment variable), the single source for canonical
-// URLs, Open Graph, structured data, robots.txt and sitemap.xml.
+// astro.config.mjs, whose default the SITE_URL environment variable can override.
+// The single source for canonical URLs, Open Graph, structured data, robots.txt and
+// sitemap.xml.
 export const SITE_URL = import.meta.env.SITE.replace(/\/+$/, '')
 
 export const OG_IMAGE_PATH = '/og-image.png'
