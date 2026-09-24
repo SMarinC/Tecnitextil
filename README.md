@@ -37,23 +37,23 @@ Astro 7 · TypeScript · CSS Modules · Vitest 5 · Playwright and axe · Lighth
 
 Every pull request and every push to `main` runs three CI jobs:
 
-| Job                        | What it checks                                                                                                                      |
-| -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| Lint, unit tests and build | Prettier formatting, ESLint, 161 unit/component/page tests (Vitest), and the build with type checking                               |
-| Browser tests              | Playwright + axe on Pixel 7 (Chromium), iPhone 15 (WebKit) and desktop Chrome: accessibility, navigation, JavaScript budget and CSP |
-| Lighthouse budgets         | Errors if accessibility is below 0.95, or performance, best practices or SEO are below 0.9, or CLS is above 0.1; warns on LCP       |
+| Job                        | What it checks                                                                                                                                                      |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Lint, unit tests and build | Prettier formatting, ESLint, 224 unit/component/page tests (Vitest), and the build with type checking                                                               |
+| Browser tests              | Playwright + axe on Pixel 7 (Chromium), iPhone 15 (WebKit) and desktop Chrome: accessibility, navigation, JavaScript budget and CSP                                 |
+| Lighthouse budgets         | Errors if accessibility is below 0.95, or performance, best practices or SEO are below 0.9, or CLS is above 0.1, on a fixed list of 14 page templates; warns on LCP |
 
 The main branch is protected: every change lands through a pull request, merged only once all three jobs are green. CodeQL scans every push for vulnerabilities (it flagged the tag-stripping helper this repo's own tests use), GitHub secret scanning watches for committed credentials, and Dependabot proposes npm updates weekly and GitHub Actions updates monthly.
 
 ## By the numbers
 
-As of 2026-09-23, measured in CI:
+As of 2026-09-24, measured in CI:
 
-- 20 pages built; 161 unit/component/page tests (Vitest) and 114 browser tests across 3 projects (109 run, 5 skipped with reasons)
-- Lighthouse: performance 0.97–1.00, accessibility 1.00, SEO 1.00 on every indexable page, best practices 0.96 everywhere (Vercel Analytics' own script 404s outside Vercel and logs a console error)
-- LCP 1.6–2.6 s on CI, page weight 165–390 KB including fonts and images
+- 78 pages built; 224 unit/component/page tests (Vitest) and 141 browser tests across 3 projects (132 run, 9 skipped with reasons)
+- Lighthouse on 14 page templates: performance 0.98–1.00, accessibility 1.00, SEO 1.00 on every indexable template, best practices 0.96 everywhere (Vercel Analytics' own script 404s outside Vercel and logs a console error)
+- LCP 1.6–2.2 s on CI, page weight 163–406 KB including fonts and images
 - About 3 kB of the site's own JavaScript per page, well under the 15 kB budget the CI enforces
-- 17 URLs in the sitemap (home, technical service, awnings, catalogue and 13 machines); the legal pages and the 404 are noindex
+- 74 URLs in the sitemap (home, technical service, awnings, the catalogue hub, 4 categories and 66 machines); the legal pages and the 404 are noindex
 - WhatsApp clicks tracked as `/contactar/...` virtual pageviews, verified in production
 
 ## Architecture decisions

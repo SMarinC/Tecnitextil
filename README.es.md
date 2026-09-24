@@ -37,23 +37,23 @@ Astro 7 · TypeScript · CSS Modules · Vitest 5 · Playwright y axe · Lighthou
 
 Cada pull request y cada push a `main` ejecuta tres trabajos de CI:
 
-| Trabajo                         | Qué comprueba                                                                                                                                 |
-| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| Lint, pruebas unitarias y build | Formato con Prettier, ESLint, 161 pruebas unitarias/de componentes/de páginas (Vitest), y el build con comprobación de tipos                  |
-| Pruebas en navegador            | Playwright + axe en Pixel 7 (Chromium), iPhone 15 (WebKit) y escritorio Chrome: accesibilidad, navegación, presupuesto de JavaScript y CSP    |
-| Presupuestos de Lighthouse      | Falla si la accesibilidad baja de 0,95, o el rendimiento, las buenas prácticas o el SEO bajan de 0,9, o el CLS supera 0,1; avisa sobre el LCP |
+| Trabajo                         | Qué comprueba                                                                                                                                                                               |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Lint, pruebas unitarias y build | Formato con Prettier, ESLint, 224 pruebas unitarias/de componentes/de páginas (Vitest), y el build con comprobación de tipos                                                                |
+| Pruebas en navegador            | Playwright + axe en Pixel 7 (Chromium), iPhone 15 (WebKit) y escritorio Chrome: accesibilidad, navegación, presupuesto de JavaScript y CSP                                                  |
+| Presupuestos de Lighthouse      | Falla si la accesibilidad baja de 0,95, o el rendimiento, las buenas prácticas o el SEO bajan de 0,9, o el CLS supera 0,1, en una lista fija de 14 plantillas de página; avisa sobre el LCP |
 
 La rama `main` está protegida: todo cambio entra mediante un pull request, y solo se fusiona cuando los tres trabajos están en verde. CodeQL analiza cada push en busca de vulnerabilidades (marcó el helper de eliminación de etiquetas que usan las propias pruebas de este repositorio), el secret scanning de GitHub vigila que no se suban credenciales, y Dependabot propone actualizaciones de npm cada semana y de GitHub Actions cada mes.
 
 ## En cifras
 
-A fecha de 2026-09-23, medido en CI:
+A fecha de 2026-09-24, medido en CI:
 
-- 20 páginas generadas; 161 pruebas unitarias/de componentes/de páginas (Vitest) y 114 pruebas en navegador en 3 proyectos (109 se ejecutan, 5 se omiten con motivo)
-- Lighthouse: rendimiento 0,97–1,00, accesibilidad 1,00, SEO 1,00 en toda página indexable, buenas prácticas 0,96 en todas partes (el propio script de Vercel Analytics devuelve 404 fuera de Vercel y registra un error en consola)
-- LCP de 1,6–2,6 s en CI, peso de página de 165–390 KB incluyendo fuentes e imágenes
+- 78 páginas generadas; 224 pruebas unitarias/de componentes/de páginas (Vitest) y 141 pruebas en navegador en 3 proyectos (132 se ejecutan, 9 se omiten con motivo)
+- Lighthouse en 14 plantillas de página: rendimiento 0,98–1,00, accesibilidad 1,00, SEO 1,00 en toda plantilla indexable, buenas prácticas 0,96 en todas partes (el propio script de Vercel Analytics devuelve 404 fuera de Vercel y registra un error en consola)
+- LCP de 1,6–2,2 s en CI, peso de página de 163–406 KB incluyendo fuentes e imágenes
 - Unos 3 kB de JavaScript propio del sitio por página, muy por debajo del presupuesto de 15 kB que exige el CI
-- 17 URLs en el sitemap (inicio, servicio técnico, toldos, catálogo y 13 máquinas); las páginas legales y la 404 son noindex
+- 74 URLs en el sitemap (inicio, servicio técnico, toldos, el índice del catálogo, 4 categorías y 66 máquinas); las páginas legales y la 404 son noindex
 - Los clics en WhatsApp se registran como visitas virtuales a `/contactar/...`, verificado en producción
 
 ## Decisiones de arquitectura
