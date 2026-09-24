@@ -1,7 +1,7 @@
 ---
-import { AVAILABILITY_LABELS, CATALOG_COPY, machineTypeLabel } from '../../data/catalog'
-import { CATALOG_PAGE } from '../../data/pages'
-import { machineWhatsAppMessage, type Machine } from '../../lib/catalog'
+import { AVAILABILITY_LABELS, CATALOG_COPY, type MachineFamily } from '../../data/catalog'
+import { machineBreadcrumb, machineWhatsAppMessage, type Machine } from '../../lib/catalog'
+import Breadcrumb from '../Breadcrumb/Breadcrumb.astro'
 import MachineGallery from '../MachineGallery/MachineGallery.astro'
 import WhatsAppCta from '../WhatsAppCta/WhatsAppCta.astro'
 import styles from './MachineDetail.module.css'
@@ -10,26 +10,15 @@ import styles from './MachineDetail.module.css'
 // so the call to action is in view on phones. The Markdown description is the default slot.
 interface Props {
   machine: Machine
+  family: MachineFamily
 }
 
-const { machine } = Astro.props
+const { machine, family } = Astro.props
 ---
 
 <article class={styles.detail}>
   <div class={styles.inner}>
-    <nav class={styles.breadcrumb} aria-label={CATALOG_COPY.breadcrumbLabel}>
-      <ol class={styles.crumbs} role="list">
-        <li>
-          <a href={CATALOG_PAGE.path}>{CATALOG_COPY.breadcrumbRoot}</a>
-        </li>
-        <li>
-          <a href={`${CATALOG_PAGE.path}#${machine.tipo}`}>{machineTypeLabel(machine.tipo)}</a>
-        </li>
-        <li aria-current="page">
-          {machine.marca} {machine.modelo}
-        </li>
-      </ol>
-    </nav>
+    <Breadcrumb items={machineBreadcrumb(family, machine)} />
     <div class={styles.layout}>
       <div class={styles.summary}>
         <h1 class={styles.title}>{machine.nombre}</h1>
@@ -54,7 +43,7 @@ const { machine } = Astro.props
             <dd>{CATALOG_COPY.priceValue}</dd>
           </div>
         </dl>
-        <p class={styles.includes}>{CATALOG_COPY.includesTable}</p>
+        {family.includes && <p class={styles.includes}>{family.includes}</p>}
       </div>
       <MachineGallery machine={machine} />
     </div>

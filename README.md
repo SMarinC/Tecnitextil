@@ -11,8 +11,8 @@ Production site of a Spanish business that repairs, maintains and sells industri
 ## Highlights
 
 - **Static HTML, JavaScript only where it's needed.** Astro renders every page at build time; the only client scripts are the header menu and Web Analytics, about 3 kB per page. A browser test fails if any page ships more than 15 kB of its own JavaScript.
-- **Pages, not an endless scroll.** Home, technical service, awnings and the catalogue are separate pages linked from a menu that marks the current page in the HTML (`aria-current="page"`), checked in the browser tests.
-- **A typed machine catalogue.** Machines live in a content collection validated by a Zod schema at build time. Each machine page has exactly one WhatsApp enquiry naming the model, and no page shows a price — a business decision, checked by a test that scans for `€`, `EUR` and `IVA`.
+- **Pages, not an endless scroll.** Home, technical service, awnings and the catalogue are separate pages linked from a menu that marks the current page in the HTML (`aria-current="page"`), checked in the browser tests. The catalogue is a hub of four JACK categories, each on its own page grouped by JACK's own types, with two machine cards per row on phones.
+- **A typed machine catalogue.** 66 machines live in a content collection, one folder per category and model, validated by a Zod schema and a build check: a machine in the wrong folder, a type outside its category, an empty category or a missing cover photo fails the build. Machines without a supplier photo show a "Foto no disponible" frame. Each machine page has exactly one WhatsApp enquiry naming the model, and no page shows a price — a business decision, checked by a test that scans for `€`, `EUR` and `IVA`.
 - **Conversion measured on the free plan.** WhatsApp clicks are counted as virtual `/contactar/...` pageviews in Vercel Web Analytics, which has no custom events on the free tier. The links stay plain `wa.me` anchors so the tap alone still opens the WhatsApp app on iOS.
 - **Accessibility tested in three browsers.** Playwright runs axe against every page on Pixel 7 (Chromium), iPhone 15 (WebKit) and desktop Chrome, and fails on serious or critical violations.
 - **Design tokens.** Shared colours and a gold "line" scale (`--line-subtle` to `--line-control`) whose strongest step keeps a measured ≥3:1 contrast for interactive borders, plus shared hero and card styles reused across pages.
@@ -22,11 +22,11 @@ Production site of a Spanish business that repairs, maintains and sells industri
 ## Screenshots
 
 <p>
-  <img src=".github/assets/screenshot-catalogue.jpg" alt="Machine catalogue page on desktop, grouped by type" width="48%">
+  <img src=".github/assets/screenshot-catalogue.jpg" alt="The machine catalogue hub on desktop: four JACK categories with their model counts" width="48%">
   <img src=".github/assets/screenshot-machine.jpg" alt="A machine page on desktop, with its WhatsApp enquiry and breadcrumb" width="48%">
 </p>
 <p>
-  <img src=".github/assets/screenshot-mobile.jpg" alt="A machine page on a mobile screen" width="28%">
+  <img src=".github/assets/screenshot-mobile.jpg" alt="A category page on a phone: two machine cards per row" width="28%">
 </p>
 
 ## Tech stack
@@ -37,29 +37,31 @@ Astro 7 · TypeScript · CSS Modules · Vitest 5 · Playwright and axe · Lighth
 
 Every pull request and every push to `main` runs three CI jobs:
 
-| Job                        | What it checks                                                                                                                      |
-| -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| Lint, unit tests and build | Prettier formatting, ESLint, 161 unit/component/page tests (Vitest), and the build with type checking                               |
-| Browser tests              | Playwright + axe on Pixel 7 (Chromium), iPhone 15 (WebKit) and desktop Chrome: accessibility, navigation, JavaScript budget and CSP |
-| Lighthouse budgets         | Errors if accessibility is below 0.95, or performance, best practices or SEO are below 0.9, or CLS is above 0.1; warns on LCP       |
+| Job                        | What it checks                                                                                                                                                      |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Lint, unit tests and build | Prettier formatting, ESLint, 224 unit/component/page tests (Vitest), and the build with type checking                                                               |
+| Browser tests              | Playwright + axe on Pixel 7 (Chromium), iPhone 15 (WebKit) and desktop Chrome: accessibility, navigation, JavaScript budget and CSP                                 |
+| Lighthouse budgets         | Errors if accessibility is below 0.95, or performance, best practices or SEO are below 0.9, or CLS is above 0.1, on a fixed list of 14 page templates; warns on LCP |
 
 The main branch is protected: every change lands through a pull request, merged only once all three jobs are green. CodeQL scans every push for vulnerabilities (it flagged the tag-stripping helper this repo's own tests use), GitHub secret scanning watches for committed credentials, and Dependabot proposes npm updates weekly and GitHub Actions updates monthly.
 
 ## By the numbers
 
-As of 2026-09-23, measured in CI:
+As of 2026-09-24, measured in CI:
 
-- 20 pages built; 161 unit/component/page tests (Vitest) and 114 browser tests across 3 projects (109 run, 5 skipped with reasons)
-- Lighthouse: performance 0.97–1.00, accessibility 1.00, SEO 1.00 on every indexable page, best practices 0.96 everywhere (Vercel Analytics' own script 404s outside Vercel and logs a console error)
-- LCP 1.6–2.6 s on CI, page weight 165–390 KB including fonts and images
+- 78 pages built; 224 unit/component/page tests (Vitest) and 141 browser tests across 3 projects (132 run, 9 skipped with reasons)
+- Lighthouse on 14 page templates: performance 0.98–1.00, accessibility 1.00, SEO 1.00 on every indexable template, best practices 0.96 everywhere (Vercel Analytics' own script 404s outside Vercel and logs a console error)
+- LCP 1.6–2.2 s on CI, page weight 163–406 KB including fonts and images
 - About 3 kB of the site's own JavaScript per page, well under the 15 kB budget the CI enforces
-- 17 URLs in the sitemap (home, technical service, awnings, catalogue and 13 machines); the legal pages and the 404 are noindex
+- 74 URLs in the sitemap (home, technical service, awnings, the catalogue hub, 4 categories and 66 machines); the legal pages and the 404 are noindex
 - WhatsApp clicks tracked as `/contactar/...` virtual pageviews, verified in production
 
 ## Architecture decisions
 
 - **Astro static instead of Next.js** — the content is fixed marketing copy plus a small catalogue, so a build-time renderer that ships zero client JS by default is enough — trade-off: no built-in server rendering if the site ever needs per-visitor personalization.
 - **A content collection for the catalogue** — each machine is a typed Markdown file checked against a Zod schema at build time, so a bad entry fails the build instead of shipping — trade-off: adding a machine takes a pull request, not a CMS form.
+- **Categories as data** — `MACHINE_FAMILIES` in `src/data/catalog.ts` is the one source for the category pages, hub cards, breadcrumbs, sitemap entries and build checks, and machine URLs nest under their category (`/maquinas/<category>/<model>`, the 13 original flat URLs redirect permanently) — trade-off: copy that names the categories in prose, such as the hub intro, is still edited by hand.
+- **Lighthouse by page template, not by page** — the catalogue grows by adding folders, so CI audits a fixed list of templates (every category page, a machine with and one without photos) instead of all 70-odd pages, and a browser test fails if a category is missing from that list — trade-off: a new kind of page has to be added to the list by hand.
 - **No `Product` JSON-LD without a price** — Google treats a `Product` listing that omits a price as invalid, and prices are never published by business decision — trade-off: machine pages only get `BreadcrumbList` structured data, not product rich results.
 - **CSP `'self'` and nothing inline** — a same-origin-only policy blocks the injected `<script>`/`<style>` tags most XSS relies on — trade-off: every asset, including Vercel Analytics, must be self-hosted, and Astro's `assetsInlineLimit` is forced to 0.
 - **Clicks as virtual pageviews, not custom events or a bridge page** — the free analytics plan has no custom events, and a bridge page would delay the tap enough to break the iOS universal link to `wa.me` — trade-off: contact activity shows up as pageviews under `/contactar/...`, not as dedicated events.
@@ -100,13 +102,13 @@ src/
     home.ts              #   text of the home page: hero, section cards, value props
     technicalService.ts  #   text of the technical service page
     awnings.ts            #   text of the awnings (toldos) page
-    catalog.ts            #   catalogue labels and copy
+    catalog.ts            #   catalogue categories, labels and copy
     types.ts              #   content shapes shared across the data modules
     navigation.ts         #   menu and the closing contact block's anchor id
     legal.ts              #   legal notice, privacy policy and owner details
     seo.ts                #   site URL, structured data
     pages.ts              #   every page: title, description, indexing
-  content/          # machines for sale: one folder per model (index.md + photos)
+  content/          # machines for sale: one folder per category and model (index.md + photos)
   pages/            # one file per URL, plus robots.txt and sitemap.xml
   layouts/          # <head>, the public page frame and the legal page template
   components/       # one component per section (.astro + .module.css)
@@ -123,7 +125,8 @@ e2e/                # browser tests, one file per area (accessibility, architect
 - **Text, phone number or brands:** edit `src/data/`.
 - **A new page:** add a file to `src/pages/` and its entry to `src/data/pages.ts`. The sitemap picks it up unless the page is marked `noindex`. A public page also uses `SiteLayout`, gets a menu entry in `src/data/navigation.ts` when it belongs in the menu, and is added to `PAGES` in `e2e/support.ts`.
 - **A custom domain:** the site URL is `https://www.tecnitextil.com` by default, set in `astro.config.mjs`; override it with the `SITE_URL` environment variable in Vercel (or in a local `.env.local`).
-- **A machine for sale:** add a folder `src/content/maquinas/<model-in-lowercase>/` with `index.md` and up to 4 photos; the schema in `src/content.config.ts` checks it at build time. Prices are never published.
+- **A machine for sale:** add a folder `src/content/maquinas/<category>/<model-in-lowercase>/` with `index.md` and up to 4 photos (with none, its pages say the photo is not available); the schema in `src/content.config.ts` and `assertCatalog` check it at build time. Prices are never published.
+- **A new machine category:** add its entry (label, title, summary, cover model and JACK's types, in order) to `MACHINE_FAMILIES` in `src/data/catalog.ts`, plus its machine folders; its page, hub card, breadcrumbs and sitemap entries follow. Add its page to `lighthouserc.json` (a browser test fails until you do) and review the texts that name the categories in prose.
 
 ## Deployment
 

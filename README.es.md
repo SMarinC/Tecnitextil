@@ -11,8 +11,8 @@ Web en producción de una empresa española de reparación, mantenimiento y vent
 ## Puntos destacados
 
 - **HTML estático, JavaScript solo donde hace falta.** Astro genera cada página en el build; los únicos scripts del navegador son el del menú del header y el de Web Analytics, unos 3 kB por página. Una prueba en navegador falla si una página descarga más de 15 kB de JavaScript propio.
-- **Páginas, no un scroll interminable.** Inicio, servicio técnico, toldos y el catálogo son páginas independientes enlazadas desde un menú que marca la página actual en el HTML (`aria-current="page"`), comprobado en las pruebas en navegador.
-- **Un catálogo de máquinas tipado.** Las máquinas viven en una colección de contenido validada por un esquema Zod en el build. Cada página de máquina tiene exactamente una consulta de WhatsApp que nombra el modelo, y ninguna página muestra un precio, una decisión de negocio comprobada por una prueba que busca `€`, `EUR` e `IVA`.
+- **Páginas, no un scroll interminable.** Inicio, servicio técnico, toldos y el catálogo son páginas independientes enlazadas desde un menú que marca la página actual en el HTML (`aria-current="page"`), comprobado en las pruebas en navegador. El catálogo es un índice de cuatro categorías JACK, cada una en su página y agrupada por los tipos del propio JACK, con dos tarjetas de máquina por fila en el móvil.
+- **Un catálogo de máquinas tipado.** 66 máquinas viven en una colección de contenido, con una carpeta por categoría y modelo, validada por un esquema Zod y una comprobación del build: una máquina en la carpeta equivocada, un tipo fuera de su categoría, una categoría vacía o una foto de portada que falta rompen el build. Las máquinas sin foto del proveedor muestran un recuadro "Foto no disponible". Cada página de máquina tiene exactamente una consulta de WhatsApp que nombra el modelo, y ninguna página muestra un precio, una decisión de negocio comprobada por una prueba que busca `€`, `EUR` e `IVA`.
 - **Conversión medida en el plan gratuito.** Los clics en WhatsApp se cuentan como visitas virtuales a `/contactar/...` en Vercel Web Analytics, que no tiene eventos personalizados en el plan gratuito. Los enlaces siguen siendo anclas directas a `wa.me` para que el propio toque abra la app de WhatsApp en iOS.
 - **Accesibilidad probada en tres navegadores.** Playwright ejecuta axe en todas las páginas en Pixel 7 (Chromium), iPhone 15 (WebKit) y escritorio Chrome, y falla si encuentra problemas graves o críticos.
 - **Tokens de diseño.** Colores compartidos y una escala dorada de "líneas" (`--line-subtle` a `--line-control`) cuyo paso más fuerte mantiene un contraste medido de al menos 3:1 para los bordes interactivos, además de estilos de hero y tarjetas compartidos entre páginas.
@@ -22,11 +22,11 @@ Web en producción de una empresa española de reparación, mantenimiento y vent
 ## Capturas
 
 <p>
-  <img src=".github/assets/screenshot-catalogue.jpg" alt="Página del catálogo de máquinas en escritorio, agrupado por tipo" width="48%">
+  <img src=".github/assets/screenshot-catalogue.jpg" alt="Índice del catálogo de máquinas en escritorio: cuatro categorías JACK con su número de modelos" width="48%">
   <img src=".github/assets/screenshot-machine.jpg" alt="Página de una máquina en escritorio, con su consulta de WhatsApp y las migas de pan" width="48%">
 </p>
 <p>
-  <img src=".github/assets/screenshot-mobile.jpg" alt="Página de una máquina en un móvil" width="28%">
+  <img src=".github/assets/screenshot-mobile.jpg" alt="Página de una categoría en un móvil: dos tarjetas de máquina por fila" width="28%">
 </p>
 
 ## Tecnologías
@@ -37,29 +37,31 @@ Astro 7 · TypeScript · CSS Modules · Vitest 5 · Playwright y axe · Lighthou
 
 Cada pull request y cada push a `main` ejecuta tres trabajos de CI:
 
-| Trabajo                         | Qué comprueba                                                                                                                                 |
-| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| Lint, pruebas unitarias y build | Formato con Prettier, ESLint, 161 pruebas unitarias/de componentes/de páginas (Vitest), y el build con comprobación de tipos                  |
-| Pruebas en navegador            | Playwright + axe en Pixel 7 (Chromium), iPhone 15 (WebKit) y escritorio Chrome: accesibilidad, navegación, presupuesto de JavaScript y CSP    |
-| Presupuestos de Lighthouse      | Falla si la accesibilidad baja de 0,95, o el rendimiento, las buenas prácticas o el SEO bajan de 0,9, o el CLS supera 0,1; avisa sobre el LCP |
+| Trabajo                         | Qué comprueba                                                                                                                                                                               |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Lint, pruebas unitarias y build | Formato con Prettier, ESLint, 224 pruebas unitarias/de componentes/de páginas (Vitest), y el build con comprobación de tipos                                                                |
+| Pruebas en navegador            | Playwright + axe en Pixel 7 (Chromium), iPhone 15 (WebKit) y escritorio Chrome: accesibilidad, navegación, presupuesto de JavaScript y CSP                                                  |
+| Presupuestos de Lighthouse      | Falla si la accesibilidad baja de 0,95, o el rendimiento, las buenas prácticas o el SEO bajan de 0,9, o el CLS supera 0,1, en una lista fija de 14 plantillas de página; avisa sobre el LCP |
 
 La rama `main` está protegida: todo cambio entra mediante un pull request, y solo se fusiona cuando los tres trabajos están en verde. CodeQL analiza cada push en busca de vulnerabilidades (marcó el helper de eliminación de etiquetas que usan las propias pruebas de este repositorio), el secret scanning de GitHub vigila que no se suban credenciales, y Dependabot propone actualizaciones de npm cada semana y de GitHub Actions cada mes.
 
 ## En cifras
 
-A fecha de 2026-09-23, medido en CI:
+A fecha de 2026-09-24, medido en CI:
 
-- 20 páginas generadas; 161 pruebas unitarias/de componentes/de páginas (Vitest) y 114 pruebas en navegador en 3 proyectos (109 se ejecutan, 5 se omiten con motivo)
-- Lighthouse: rendimiento 0,97–1,00, accesibilidad 1,00, SEO 1,00 en toda página indexable, buenas prácticas 0,96 en todas partes (el propio script de Vercel Analytics devuelve 404 fuera de Vercel y registra un error en consola)
-- LCP de 1,6–2,6 s en CI, peso de página de 165–390 KB incluyendo fuentes e imágenes
+- 78 páginas generadas; 224 pruebas unitarias/de componentes/de páginas (Vitest) y 141 pruebas en navegador en 3 proyectos (132 se ejecutan, 9 se omiten con motivo)
+- Lighthouse en 14 plantillas de página: rendimiento 0,98–1,00, accesibilidad 1,00, SEO 1,00 en toda plantilla indexable, buenas prácticas 0,96 en todas partes (el propio script de Vercel Analytics devuelve 404 fuera de Vercel y registra un error en consola)
+- LCP de 1,6–2,2 s en CI, peso de página de 163–406 KB incluyendo fuentes e imágenes
 - Unos 3 kB de JavaScript propio del sitio por página, muy por debajo del presupuesto de 15 kB que exige el CI
-- 17 URLs en el sitemap (inicio, servicio técnico, toldos, catálogo y 13 máquinas); las páginas legales y la 404 son noindex
+- 74 URLs en el sitemap (inicio, servicio técnico, toldos, el índice del catálogo, 4 categorías y 66 máquinas); las páginas legales y la 404 son noindex
 - Los clics en WhatsApp se registran como visitas virtuales a `/contactar/...`, verificado en producción
 
 ## Decisiones de arquitectura
 
 - **Astro estático en vez de Next.js** — el contenido es texto de marketing fijo más un catálogo pequeño, así que basta un generador en build time que no envía JS de cliente por defecto — contrapartida: sin renderizado en servidor si la web algún día necesita personalización por visitante.
 - **Una colección de contenido para el catálogo** — cada máquina es un archivo Markdown tipado, validado contra un esquema Zod en el build, así que una entrada incorrecta rompe el build en vez de publicarse — contrapartida: añadir una máquina requiere un pull request, no un formulario de CMS.
+- **Las categorías como datos** — `MACHINE_FAMILIES` en `src/data/catalog.ts` es la única fuente de las páginas de categoría, las tarjetas del índice, las migas de pan, las entradas del sitemap y las comprobaciones del build, y las URLs de las máquinas cuelgan de su categoría (`/maquinas/<categoria>/<modelo>`; las 13 URLs planas originales redirigen de forma permanente) — contrapartida: los textos que nombran las categorías en prosa, como la introducción del índice, se siguen editando a mano.
+- **Lighthouse por plantilla, no por página** — el catálogo crece añadiendo carpetas, así que el CI audita una lista fija de plantillas (cada página de categoría, una máquina con fotos y otra sin ellas) en vez de las más de 70 páginas, y una prueba en navegador falla si falta una categoría en esa lista — contrapartida: un tipo de página nuevo hay que añadirlo a la lista a mano.
 - **Sin JSON-LD de `Product` sin precio** — Google trata como inválido un listado `Product` sin precio, y los precios nunca se publican por decisión de negocio — contrapartida: las páginas de máquina solo llevan datos estructurados `BreadcrumbList`, sin resultados enriquecidos de producto.
 - **CSP `'self'` y nada en línea** — una política que solo permite el propio dominio bloquea las etiquetas `<script>`/`<style>` inyectadas de las que depende la mayoría de XSS — contrapartida: cualquier recurso, incluido Vercel Analytics, debe alojarse en el propio dominio, y el `assetsInlineLimit` de Astro se fuerza a 0.
 - **Clics como visitas virtuales, no eventos personalizados ni una página puente** — el plan gratuito de analítica no tiene eventos personalizados, y una página puente retrasaría el toque lo suficiente para romper el enlace universal de iOS a `wa.me` — contrapartida: la actividad de contacto aparece como visitas bajo `/contactar/...`, no como eventos dedicados.
@@ -100,13 +102,13 @@ src/
     home.ts              #   textos de la página de inicio: hero, tarjetas y valores
     technicalService.ts  #   textos de la página de servicio técnico
     awnings.ts            #   textos de la página de toldos
-    catalog.ts            #   textos y etiquetas del catálogo
+    catalog.ts            #   categorías, textos y etiquetas del catálogo
     types.ts              #   formas de contenido compartidas entre los módulos de datos
     navigation.ts         #   menú y el id de anclaje del bloque de contacto
     legal.ts              #   aviso legal, privacidad y datos del titular
     seo.ts                #   URL del sitio, datos estructurados
     pages.ts              #   cada página: título, descripción, indexación
-  content/          # máquinas en venta: una carpeta por modelo (index.md + fotos)
+  content/          # máquinas en venta: una carpeta por categoría y modelo (index.md + fotos)
   pages/            # un archivo por URL, más robots.txt y sitemap.xml
   layouts/          # <head>, marco de las páginas públicas y plantilla de las legales
   components/       # un componente por sección (.astro + .module.css)
@@ -123,7 +125,8 @@ e2e/                # pruebas en navegador, un archivo por área (accessibility,
 - **Textos, teléfono o marcas:** edita `src/data/`.
 - **Una página nueva:** añade un archivo en `src/pages/` y su entrada en `src/data/pages.ts`. El sitemap la incluye salvo que esté marcada como `noindex`. Una página pública además usa `SiteLayout`, recibe una entrada en `src/data/navigation.ts` si pertenece al menú, y se añade a `PAGES` en `e2e/support.ts`.
 - **Un dominio propio:** la URL de la web es `https://www.tecnitextil.com` por defecto, definida en `astro.config.mjs`; se puede cambiar con la variable de entorno `SITE_URL` en Vercel (o en un `.env.local`).
-- **Una máquina en venta:** añade una carpeta `src/content/maquinas/<modelo-en-minúsculas>/` con `index.md` y hasta 4 fotos; el esquema de `src/content.config.ts` la valida en el build. Nunca se publican precios.
+- **Una máquina en venta:** añade una carpeta `src/content/maquinas/<categoria>/<modelo-en-minúsculas>/` con `index.md` y hasta 4 fotos (sin ninguna, sus páginas indican que la foto no está disponible); el esquema de `src/content.config.ts` y `assertCatalog` la validan en el build. Nunca se publican precios.
+- **Una categoría de máquinas nueva:** añade su entrada (etiqueta, título, resumen, modelo de portada y los tipos de JACK, en orden) a `MACHINE_FAMILIES` en `src/data/catalog.ts`, más las carpetas de sus máquinas; su página, su tarjeta en el índice, sus migas de pan y sus entradas del sitemap salen solas. Añade su página a `lighthouserc.json` (una prueba en navegador falla hasta que lo hagas) y revisa los textos que nombran las categorías en prosa.
 
 ## Despliegue
 

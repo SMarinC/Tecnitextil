@@ -34,12 +34,13 @@ export const AWNINGS_PAGE: PageMeta = {
 }
 
 // Built from the machine collection, which Vitest cannot load, so it stays out of PAGES
-// (every PAGES entry is rendered by src/test/pages.test.ts). The sitemap adds it.
+// (every PAGES entry is rendered by src/test/pages.test.ts). The sitemap adds it, along
+// with a page per category (from MACHINE_FAMILIES) and one per machine (from the collection).
 export const CATALOG_PAGE: PageMeta = {
   path: '/maquinas',
   title: `Venta de máquinas de coser industriales JACK | ${COMPANY.name}`,
   description:
-    'Máquinas de coser industriales JACK de ojales, botones y presillas, con tablero y bancada. Consulta precio y disponibilidad por WhatsApp.',
+    'Máquinas de coser industriales JACK: pespunte de 1 y 2 agujas, remalladoras, ojales, botones y presillas. Consulta precio y disponibilidad por WhatsApp.',
   noindex: false,
 }
 

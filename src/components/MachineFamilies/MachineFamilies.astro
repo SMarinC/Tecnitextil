@@ -1,0 +1,46 @@
+---
+import { Image } from 'astro:assets'
+import { CATALOG_COPY, modelCountLabel } from '../../data/catalog'
+import { familyPath, type FamilyCard } from '../../lib/catalog'
+import styles from './MachineFamilies.module.css'
+
+// The hub's category cards. Each whole card is one link to its category (stretched from
+// the title); the cover photo is decorative, the title names the link.
+interface Props {
+  cards: FamilyCard[]
+}
+
+const { cards } = Astro.props
+---
+
+<section class={styles.section} aria-labelledby="tipos-de-maquina">
+  <div class={styles.inner}>
+    <h2 id="tipos-de-maquina" class={styles.heading}>
+      {CATALOG_COPY.familiesHeading}
+    </h2>
+    <ul class={styles.list} role="list">
+      {cards.map(({ family, count, photo }) => (
+        <li class={styles.card}>
+          <Image
+            class={styles.photo}
+            src={photo}
+            alt=""
+            widths={[192, 320, 640]}
+            sizes="(min-width: 1024px) 300px, (min-width: 640px) 45vw, 96px"
+            loading="lazy"
+            decoding="async"
+          />
+          <div class={styles.body}>
+            <h3 class={styles.title}>
+              <a href={familyPath(family)} class={styles.link}>
+                {family.label}
+              </a>
+            </h3>
+            <p class={styles.count}>{modelCountLabel(count)}</p>
+            <p class={styles.summary}>{family.summary}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

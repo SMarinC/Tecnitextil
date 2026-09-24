@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { CATALOG_COPY } from '../../data/catalog'
+import { CATALOG_COPY, familyById } from '../../data/catalog'
 import { groupByType, machinePath } from '../../lib/catalog'
 import { sampleMachine } from '../../test/machines'
 import { renderToHtml, textContent } from '../../test/render'
@@ -7,9 +7,16 @@ import MachineGroups from './MachineGroups.astro'
 
 const machines = [
   sampleMachine(),
-  sampleMachine({ slug: 'jk-n9-d', modelo: 'JK-N9-D', tipo: 'ojales', nombre: 'Ojaladora' }),
+  sampleMachine({
+    id: 'ojales-botones-presillas/jk-n9-d',
+    modelo: 'JK-N9-D',
+    tipo: 'ojales',
+    nombre: 'Ojaladora',
+  }),
 ]
-const html = await renderToHtml(MachineGroups, { groups: groupByType(machines) })
+const html = await renderToHtml(MachineGroups, {
+  groups: groupByType(familyById('ojales-botones-presillas'), machines),
+})
 
 describe('MachineGroups', () => {
   it('jumps to each type from a labelled navigation', () => {
@@ -32,6 +39,15 @@ describe('MachineGroups', () => {
       expect(textContent(card)).toContain(CATALOG_COPY.priceOnRequest)
       expect(textContent(card)).not.toMatch(/€|\bIVA\b/)
     }
-    expect(html).toContain(`href="${machinePath('jk-n9-d')}"`)
+    expect(html).toContain(`href="${machinePath({ id: 'ojales-botones-presillas/jk-n9-d' })}"`)
+  })
+
+  it('shows a machine without photos with the no-photo frame, not a broken image', async () => {
+    const family = familyById('ojales-botones-presillas')
+    const html = await renderToHtml(MachineGroups, {
+      groups: groupByType(family, [sampleMachine({ fotos: [] })]),
+    })
+    expect(textContent(html)).toContain(CATALOG_COPY.noPhoto)
+    expect(html).not.toContain('<img')
   })
 })

@@ -8,10 +8,27 @@
 
 .jumpNav {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  /* Phones get one scrolling row instead of wrapping, so a family with many series
+     (e.g. remalladora-overlock's 8) never pushes a wall of pills above the machines. */
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scroll-padding-inline: var(--space-md);
   gap: var(--space-sm);
-  padding: var(--space-lg) var(--space-md) 0;
+  /* Block padding keeps the links' focus outline from being clipped: overflow-x here
+     makes the UA compute overflow-y as auto too. */
+  padding: var(--space-md) var(--space-md) var(--space-xs);
+}
+
+@media (min-width: 640px) {
+  .jumpNav {
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow-x: visible;
+    scroll-snap-type: none;
+    padding: var(--space-lg) var(--space-md) 0;
+  }
 }
 
 .jumpLink {
@@ -28,6 +45,15 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
   font-size: 0.85rem;
+  flex: 0 0 auto;
+  white-space: nowrap;
+  scroll-snap-align: start;
+}
+
+@media (min-width: 640px) {
+  .jumpLink {
+    scroll-snap-align: none;
+  }
 }
 
 .jumpLink:hover,
@@ -79,18 +105,27 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-md);
+  /* Two columns from 344px up (covers 360px Android phones) and one below that (or at
+     200 % zoom), so a large category never turns into an endless scroll. */
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: var(--space-sm);
 }
 
 @media (min-width: 640px) {
   .list {
     grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
   }
 }
 
 @media (min-width: 1024px) {
   .list {
     grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1280px) {
+  .list {
+    grid-template-columns: repeat(4, 1fr);
   }
 }

@@ -1,7 +1,14 @@
 import { readFileSync } from 'node:fs'
 import { expect, test } from '@playwright/test'
 import { LEGAL_NOTICE, LEGAL_OWNER, PRIVACY_POLICY } from '../src/data/legal'
-import { PAGES, ROUTES_WITH_ERRORS, downloadScripts, isVercelOnly } from './support'
+import {
+  CATALOGUE,
+  MACHINE_WITHOUT_PHOTOS,
+  PAGES,
+  ROUTES_WITH_ERRORS,
+  downloadScripts,
+  isVercelOnly,
+} from './support'
 
 // The same rule astro.config.mjs reads to make `astro preview` serve these headers.
 interface VercelHeaderRule {
@@ -126,5 +133,23 @@ test.describe('architecture', () => {
       )
       expect(inlineScripts, path).toEqual([])
     }
+  })
+
+  test('every page Lighthouse audits is a real page', async ({ request }) => {
+    const { ci } = JSON.parse(readFileSync('lighthouserc.json', 'utf8')) as {
+      ci: { collect: { url: string[] } }
+    }
+    const paths = ci.collect.url.map((url) =>
+      new URL(url).pathname.replace(/\.html$/, '').replace(/^\/index$/, '/'),
+    )
+    for (const path of paths) {
+      if (path === '/404') continue
+      expect((await request.get(path)).ok(), path).toBe(true)
+    }
+
+    // A 5th category, or a machine template no longer represented, would otherwise go
+    // unaudited without anything failing.
+    for (const { path } of CATALOGUE) expect(paths, path).toContain(path)
+    if (MACHINE_WITHOUT_PHOTOS) expect(paths).toContain(MACHINE_WITHOUT_PHOTOS)
   })
 })

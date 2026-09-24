@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { COMPANY } from '../data/company'
 import { buildWhatsAppUrl } from '../data/contact'
+import { MACHINE_FAMILIES } from '../data/catalog'
 import {
   LEGAL_NOTICE,
   LEGAL_OWNER,
@@ -34,6 +35,7 @@ import PrivacyPolicyPage from '../pages/privacidad.astro'
 import SalesConditionsPage from '../pages/condiciones-de-venta.astro'
 import TechnicalServicePage from '../pages/servicio-tecnico.astro'
 import { GET as getSitemap } from '../pages/sitemap.xml.ts'
+import { familyPath } from '../lib/catalog'
 import { renderToHtml, textContent } from './render'
 
 const html: Record<string, string> = {
@@ -155,6 +157,9 @@ describe('search engines', () => {
       expect(sitemap).toContain(`<loc>${absoluteUrl(path)}</loc>`)
     }
     expect(sitemap).toContain(`<loc>${absoluteUrl(CATALOG_PAGE.path)}</loc>`)
+    for (const family of MACHINE_FAMILIES) {
+      expect(sitemap).toContain(`<loc>${absoluteUrl(familyPath(family))}</loc>`)
+    }
     expect(sitemap).not.toContain(`${SITE_URL}${LEGAL_NOTICE.path}`)
     expect(sitemap).not.toContain(`${SITE_URL}${PRIVACY_POLICY.path}`)
   })

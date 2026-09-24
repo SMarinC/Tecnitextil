@@ -3,7 +3,22 @@
     "collect": {
       "staticDistDir": "./dist",
       "numberOfRuns": 2,
-      "maxAutodiscoverUrls": 0
+      "url": [
+        "http://localhost/index.html",
+        "http://localhost/servicio-tecnico.html",
+        "http://localhost/toldos.html",
+        "http://localhost/maquinas.html",
+        "http://localhost/maquinas/ojales-botones-presillas.html",
+        "http://localhost/maquinas/pespunte.html",
+        "http://localhost/maquinas/pespunte-2-agujas.html",
+        "http://localhost/maquinas/remalladora-overlock.html",
+        "http://localhost/maquinas/ojales-botones-presillas/jk-t1900gsk-dii.html",
+        "http://localhost/maquinas/remalladora-overlock/jk-c5t-a-4-m03.html",
+        "http://localhost/condiciones-de-venta.html",
+        "http://localhost/aviso-legal.html",
+        "http://localhost/privacidad.html",
+        "http://localhost/404.html"
+      ]
     },
     "assert": {
       "assertMatrix": [

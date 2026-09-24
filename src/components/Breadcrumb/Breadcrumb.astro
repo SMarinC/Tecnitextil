@@ -1,0 +1,26 @@
+---
+import { CATALOG_COPY } from '../../data/catalog'
+import type { Crumb } from '../../lib/jsonLd'
+import styles from './Breadcrumb.module.css'
+
+// The way back up the catalogue. The last step is the current page, as plain text.
+interface Props {
+  items: Crumb[]
+}
+
+const { items } = Astro.props
+---
+
+<nav class={styles.breadcrumb} aria-label={CATALOG_COPY.breadcrumbLabel}>
+  <ol class={styles.crumbs} role="list">
+    {items.map(({ label, href }) =>
+      href === undefined ? (
+        <li aria-current="page">{label}</li>
+      ) : (
+        <li>
+          <a href={href}>{label}</a>
+        </li>
+      ),
+    )}
+  </ol>
+</nav>

@@ -32,4 +32,10 @@ describe('PageHero', () => {
   it('is marked for the browser tests', () => {
     expect(html).toMatch(/<section[^>]*data-page-hero/)
   })
+
+  it('puts a breadcrumb, when given, before the eyebrow', async () => {
+    const withTrail = await renderToHtml(PageHero, props, { breadcrumb: '<nav>ruta</nav>' })
+    expect(withTrail.indexOf('<nav>ruta</nav>')).toBeGreaterThan(-1)
+    expect(withTrail.indexOf('<nav>ruta</nav>')).toBeLessThan(withTrail.indexOf(props.eyebrow))
+  })
 })

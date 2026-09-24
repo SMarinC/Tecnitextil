@@ -1,11 +1,20 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test } from '@playwright/test'
 import { AWNING_MACHINES } from '../src/data/awnings'
-import { machineTypeLabel } from '../src/data/catalog'
+import { CATALOG_COPY } from '../src/data/catalog'
 import { LEGAL_NOTICE, PRIVACY_POLICY, SALES_CONDITIONS } from '../src/data/legal'
+import { indexablePaths } from '../src/data/pages'
 import { NOT_FOUND } from '../src/data/site'
 import { SERVICES } from '../src/data/technicalService'
-import { PAGES, TITLES } from './support'
+import {
+  CATALOGUE,
+  LARGEST_CATEGORY,
+  MACHINE_PATHS,
+  MACHINE_WITHOUT_PHOTOS,
+  PAGES,
+  SAMPLE_MACHINE,
+  TITLES,
+} from './support'
 
 // The rights section, a recognizable piece of the privacy policy that only shows up
 // in the rendered HTML: PRIVACY_POLICY.identification is "Tus derechos".
@@ -34,15 +43,20 @@ test.describe('SEO and sharing', () => {
     expect(data.telephone).toBe('+34685018086')
   })
 
-  test('the sitemap lists all 17 pages, including the machine catalogue', async ({ request }) => {
+  test('the sitemap lists every indexable page, category and machine', async ({ request }) => {
     const response = await request.get('/sitemap.xml')
     expect(response.ok()).toBe(true)
-
     const xml = await response.text()
-    const locCount = (xml.match(/<loc>/g) ?? []).length
-    expect(locCount).toBe(17)
-    expect(xml).toMatch(/<loc>https:\/\/[^<]*\/maquinas<\/loc>/)
-    expect(xml).toMatch(/<loc>https:\/\/[^<]*\/maquinas\/jk-t1900gsk-dii<\/loc>/)
+    const expected = [
+      ...indexablePaths(),
+      '/maquinas',
+      ...CATALOGUE.map(({ path }) => path),
+      ...MACHINE_PATHS,
+    ]
+    expect((xml.match(/<loc>/g) ?? []).length).toBe(expected.length)
+    for (const path of expected) {
+      expect(xml, path).toMatch(new RegExp(`<loc>https://[^<]*${path === '/' ? '' : path}</loc>`))
+    }
   })
 
   test('every page is served as static HTML, readable without JavaScript', async ({ request }) => {
@@ -50,8 +64,11 @@ test.describe('SEO and sharing', () => {
       '/': TITLES.home,
       '/servicio-tecnico': SERVICES.heading,
       '/toldos': AWNING_MACHINES.components.heading,
-      '/maquinas': machineTypeLabel('presillas-y-botones'),
-      '/maquinas/jk-t1900gsk-dii': 'JK-T1900GSK-DII',
+      '/maquinas': CATALOG_COPY.familiesHeading,
+      [LARGEST_CATEGORY]:
+        CATALOGUE.find(({ path }) => path === LARGEST_CATEGORY)?.family.title ?? '',
+      [SAMPLE_MACHINE]: 'JK-T1900GSK-DII',
+      ...(MACHINE_WITHOUT_PHOTOS ? { [MACHINE_WITHOUT_PHOTOS]: CATALOG_COPY.noPhoto } : {}),
       '/condiciones-de-venta': SALES_CONDITIONS.identification.heading,
       '/aviso-legal': LEGAL_NOTICE.identification.heading,
       '/privacidad': PRIVACY_RIGHTS_HEADING,
