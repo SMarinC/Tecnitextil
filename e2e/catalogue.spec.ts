@@ -144,6 +144,34 @@ test.describe('catalogue', () => {
     expect((await box(firstCard)).y).not.toBe((await box(secondCard)).y)
   })
 
+  test('the jump menu stays a single scrolling row on phones instead of stacking', async ({
+    page,
+  }, testInfo) => {
+    // Forced viewport, like the reflow test above: this checks CSS flex-wrap/overflow
+    // behaviour, which is engine-independent for this layout (checked manually in
+    // Chromium and WebKit during review), so running it in every project would only
+    // repeat the same assertion.
+    test.skip(testInfo.project.name !== 'mobile', 'Viewport-driven: other projects repeat it')
+
+    await page.setViewportSize({ width: 390, height: 844 })
+    await page.goto('/maquinas/remalladora-overlock')
+
+    const nav = page.getByRole('navigation', { name: CATALOG_COPY.jumpNavLabel })
+    const links = nav.getByRole('link')
+    const navHeight = (await box(nav)).height
+    const firstLinkHeight = (await box(links.first())).height
+    expect(navHeight).toBeLessThanOrEqual(firstLinkHeight * 1.5)
+
+    const overflow = await page.evaluate(
+      () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+    )
+    expect(overflow).toBeLessThanOrEqual(0)
+
+    const lastLink = links.last()
+    await lastLink.scrollIntoViewIfNeeded()
+    await expect(lastLink).toBeInViewport()
+  })
+
   test('a machine without photos says so on its page and on its card', async ({ page }) => {
     test.skip(!MACHINE_WITHOUT_PHOTOS, 'Every machine in the catalogue has photos')
     const machinePath = MACHINE_WITHOUT_PHOTOS ?? ''

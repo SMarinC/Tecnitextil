@@ -8,10 +8,29 @@
 
 .jumpNav {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  /* Below 640px, families with many long series names (e.g. remalladora-overlock's 8)
+     would wrap one pill per line and push ~700px of pills above the first machine: the
+     endless scroll these category pages exist to avoid. A single scrolling row keeps
+     every pill reachable, by touch or by Tab, without that vertical cost. */
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
   gap: var(--space-sm);
-  padding: var(--space-lg) var(--space-md) 0;
+  /* overflow-x other than visible makes the UA compute overflow-y as auto too, so the
+     links' focus outline (painted outside their border box) needs a little real padding
+     above and below them, not just the 0 this container used when it only ever wrapped. */
+  padding: var(--space-xs) var(--space-md);
+}
+
+@media (min-width: 640px) {
+  .jumpNav {
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow-x: visible;
+    scroll-snap-type: none;
+    padding: var(--space-lg) var(--space-md) 0;
+  }
 }
 
 .jumpLink {
@@ -28,6 +47,15 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
   font-size: 0.85rem;
+  flex: 0 0 auto;
+  white-space: nowrap;
+  scroll-snap-align: start;
+}
+
+@media (min-width: 640px) {
+  .jumpLink {
+    scroll-snap-align: none;
+  }
 }
 
 .jumpLink:hover,
