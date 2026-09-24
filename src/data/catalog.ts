@@ -43,6 +43,32 @@ export const MACHINE_FAMILIES: readonly MachineFamily[] = [
       { id: 'presillas-y-botones', label: 'Presillas y botones' },
     ],
   },
+  {
+    id: 'pespunte',
+    label: 'Pespunte',
+    title: 'Máquinas de pespunte',
+    summary:
+      'Máquinas de pespunte JACK de una aguja, con o sin cortahílos, para género fino, medio y grueso.',
+    cover: 'jk-a4c-c',
+    types: [
+      { id: 'sin-cortahilos', label: 'Sin cortahílos' },
+      { id: 'con-cortahilos', label: 'Con cortahílos' },
+      { id: 'aguja-acompanante', label: 'Aguja acompañante' },
+      { id: 'coser-y-cortar', label: 'Coser y cortar' },
+    ],
+  },
+  {
+    id: 'pespunte-2-agujas',
+    label: 'Pespunte 2 agujas',
+    title: 'Máquinas de pespunte de 2 agujas',
+    summary:
+      'Máquinas de pespunte JACK de dos agujas, fijas o desembragables, con o sin cortahílos.',
+    cover: 'jk-58450j-a-103',
+    types: [
+      { id: 'sin-cortahilos', label: 'Sin cortahílos' },
+      { id: 'con-cortahilos', label: 'Con cortahílos' },
+    ],
+  },
 ]
 
 // For the content schema's enums, which need at least one value. Type ids repeat across
