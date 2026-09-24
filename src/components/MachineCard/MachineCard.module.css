@@ -12,6 +12,28 @@
   border-color: var(--color-gold);
 }
 
+.card:has(.link:focus-visible) {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* Two cards per row on phones: tighter padding, and long JACK names cut at three lines
+   (the full name stays in the link and on the machine page). */
+@media (max-width: 639px) {
+  .body {
+    padding: var(--space-sm);
+  }
+
+  .title {
+    font-size: 1rem;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    overflow: hidden;
+  }
+}
+
 .photo {
   width: 100%;
   height: auto;

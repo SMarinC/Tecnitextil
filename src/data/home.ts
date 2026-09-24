@@ -44,7 +44,7 @@ export const SECTION_CARDS: {
     {
       title: 'Venta de máquinas',
       description:
-        'Máquinas de coser industriales JACK de ojales, botones y presillas. Precio y disponibilidad por WhatsApp.',
+        'Máquinas de coser industriales JACK: pespunte, remalladoras, ojales, botones y presillas. Precio y disponibilidad por WhatsApp.',
       href: CATALOG_PAGE.path,
     },
   ],

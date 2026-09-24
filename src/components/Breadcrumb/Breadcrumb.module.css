@@ -1,0 +1,32 @@
+.breadcrumb {
+  margin-bottom: var(--space-sm);
+}
+
+.crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.9rem;
+  /* The current page (plain text, no link) reads at this secondary tone. */
+  color: var(--color-text-on-dark-secondary);
+}
+
+.crumbs li + li::before {
+  content: '›';
+  margin: 0 var(--space-xs);
+}
+
+.crumbs a {
+  color: var(--color-gold-light);
+}
+
+.crumbs a:hover {
+  color: var(--color-gold);
+}
+
+.crumbs a:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}

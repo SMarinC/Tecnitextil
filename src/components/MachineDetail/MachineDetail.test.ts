@@ -1,15 +1,16 @@
 import { describe, expect, it } from 'vitest'
+import { CATALOG_COPY, familyById } from '../../data/catalog'
 import { buildWhatsAppUrl } from '../../data/contact'
-import { CATALOG_COPY } from '../../data/catalog'
 import { machineWhatsAppMessage } from '../../lib/catalog'
-import { sampleMachine } from '../../test/machines'
+import { SAMPLE_FAMILY, sampleMachine, sampleSewingMachine } from '../../test/machines'
 import { renderToHtml, textContent } from '../../test/render'
 import MachineDetail from './MachineDetail.astro'
 
 const machine = sampleMachine()
+const family = familyById('ojales-botones-presillas')
 const html = await renderToHtml(
   MachineDetail,
-  { machine },
+  { machine, family },
   { default: '<p>Descripción de prueba.</p>' },
 )
 const text = textContent(html)
@@ -28,7 +29,7 @@ describe('MachineDetail', () => {
 
   it('shows price on request, the table and stand, and availability, never an amount', () => {
     expect(text).toContain(CATALOG_COPY.priceValue)
-    expect(text).toContain(CATALOG_COPY.includesTable)
+    expect(text).toContain(family.includes ?? '')
     expect(text).toContain('Bajo pedido')
     expect(text).not.toMatch(/€|\bIVA\b/)
   })
@@ -49,7 +50,8 @@ describe('MachineDetail', () => {
     const nav = html.match(/<nav[^>]*>[\s\S]*?<\/nav>/)?.[0] ?? ''
     expect(nav).toContain(`aria-label="${CATALOG_COPY.breadcrumbLabel}"`)
     expect(nav).toContain('href="/maquinas"')
-    expect(nav).toContain('href="/maquinas#presillas-y-botones"')
+    expect(nav).toContain('href="/maquinas/ojales-botones-presillas"')
+    expect(nav).toContain('href="/maquinas/ojales-botones-presillas#presillas-y-botones"')
   })
 
   it('makes the photo strip keyboard-scrollable and describes every photo', () => {
@@ -63,5 +65,23 @@ describe('MachineDetail', () => {
     )
     expect(html).toContain(', vista 2"')
     expect(html).toContain('href="#foto-2"')
+  })
+
+  it('leaves out the includes note when its category has none', async () => {
+    const sewing = sampleSewingMachine('JK-F6')
+    const other = textContent(
+      await renderToHtml(MachineDetail, { machine: sewing, family: SAMPLE_FAMILY }),
+    )
+    expect(other).not.toContain(familyById('ojales-botones-presillas').includes ?? '—')
+  })
+
+  it('says the photo is not available instead of showing an empty gallery', async () => {
+    const withoutPhotos = await renderToHtml(MachineDetail, {
+      machine: sampleMachine({ fotos: [] }),
+      family: familyById('ojales-botones-presillas'),
+    })
+    expect(textContent(withoutPhotos)).toContain(CATALOG_COPY.noPhoto)
+    expect(withoutPhotos).not.toContain('<img')
+    expect(withoutPhotos).not.toContain('tabindex="0"')
   })
 })

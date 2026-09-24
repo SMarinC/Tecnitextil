@@ -1,0 +1,27 @@
+/* On the showcase tone the JACK photos use, with dark text: about 15:1 contrast. */
+.placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  width: 100%;
+  aspect-ratio: 1;
+  padding: var(--space-sm);
+  background: var(--color-showcase);
+  color: var(--color-black);
+  text-align: center;
+}
+
+.icon {
+  width: 3rem;
+  height: 3rem;
+}
+
+.text {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.85rem;
+}

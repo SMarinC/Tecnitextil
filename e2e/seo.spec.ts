@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test } from '@playwright/test'
 import { AWNING_MACHINES } from '../src/data/awnings'
-import { machineTypeLabel } from '../src/data/catalog'
+import { CATALOG_COPY } from '../src/data/catalog'
 import { LEGAL_NOTICE, PRIVACY_POLICY, SALES_CONDITIONS } from '../src/data/legal'
 import { NOT_FOUND } from '../src/data/site'
 import { SERVICES } from '../src/data/technicalService'
@@ -50,7 +50,7 @@ test.describe('SEO and sharing', () => {
       '/': TITLES.home,
       '/servicio-tecnico': SERVICES.heading,
       '/toldos': AWNING_MACHINES.components.heading,
-      '/maquinas': machineTypeLabel('presillas-y-botones'),
+      '/maquinas': CATALOG_COPY.familiesHeading,
       '/maquinas/jk-t1900gsk-dii': 'JK-T1900GSK-DII',
       '/condiciones-de-venta': SALES_CONDITIONS.identification.heading,
       '/aviso-legal': LEGAL_NOTICE.identification.heading,

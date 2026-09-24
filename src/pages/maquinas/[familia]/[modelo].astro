@@ -1,0 +1,57 @@
+---
+import { getImage } from 'astro:assets'
+import { getCollection, render, type CollectionEntry } from 'astro:content'
+import MachineDetail from '../../../components/MachineDetail/MachineDetail.astro'
+import { familyById } from '../../../data/catalog'
+import { absoluteUrl } from '../../../data/seo'
+import SiteLayout from '../../../layouts/SiteLayout.astro'
+import {
+  assertCatalog,
+  machineBreadcrumb,
+  machinePageMeta,
+  machineWhatsAppMessage,
+  modelSlug,
+  toMachine,
+} from '../../../lib/catalog'
+import { breadcrumbJsonLd } from '../../../lib/jsonLd'
+
+export async function getStaticPaths() {
+  const entries = await getCollection('maquinas')
+  assertCatalog(entries.map(toMachine))
+  return entries.map((entry) => {
+    const machine = toMachine(entry)
+    return { params: { familia: machine.familia, modelo: modelSlug(machine) }, props: { entry } }
+  })
+}
+
+interface Props {
+  entry: CollectionEntry<'maquinas'>
+}
+
+const { entry } = Astro.props
+const machine = toMachine(entry)
+const family = familyById(machine.familia)
+const { Content } = await render(entry)
+// The main photo, as a 1200 px JPEG for link previews; without one, the site's image.
+const [mainPhoto] = machine.fotos
+const share = mainPhoto && (await getImage({ src: mainPhoto, width: 1200, format: 'jpeg' }))
+---
+
+<SiteLayout
+  page={machinePageMeta(machine)}
+  jsonLd={breadcrumbJsonLd(machineBreadcrumb(family, machine))}
+  image={
+    share
+      ? {
+          url: absoluteUrl(share.src),
+          width: Number(share.attributes.width),
+          height: Number(share.attributes.height),
+        }
+      : undefined
+  }
+  whatsappMessage={machineWhatsAppMessage(machine)}
+>
+  <MachineDetail machine={machine} family={family}>
+    <Content />
+  </MachineDetail>
+</SiteLayout>

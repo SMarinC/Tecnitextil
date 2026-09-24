@@ -1,0 +1,54 @@
+---
+import { getCollection } from 'astro:content'
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb.astro'
+import MachineGroups from '../../components/MachineGroups/MachineGroups.astro'
+import PageHero from '../../components/PageHero/PageHero.astro'
+import { CATALOG_COPY, MACHINE_FAMILIES, type MachineFamily } from '../../data/catalog'
+import SiteLayout from '../../layouts/SiteLayout.astro'
+import {
+  assertCatalog,
+  familyBreadcrumb,
+  familyIntro,
+  familyPageMeta,
+  familyWhatsAppMessage,
+  groupByType,
+  toMachine,
+  type Machine,
+} from '../../lib/catalog'
+import { breadcrumbJsonLd } from '../../lib/jsonLd'
+
+export async function getStaticPaths() {
+  const machines = (await getCollection('maquinas')).map(toMachine)
+  assertCatalog(machines)
+  return MACHINE_FAMILIES.map((family) => ({
+    params: { familia: family.id },
+    props: { family, machines },
+  }))
+}
+
+interface Props {
+  family: MachineFamily
+  machines: Machine[]
+}
+
+const { family, machines } = Astro.props
+const message = familyWhatsAppMessage(family)
+const breadcrumb = familyBreadcrumb(family)
+---
+
+<SiteLayout
+  page={familyPageMeta(family)}
+  jsonLd={breadcrumbJsonLd(breadcrumb)}
+  whatsappMessage={message}
+>
+  <PageHero
+    eyebrow={CATALOG_COPY.hero.eyebrow}
+    title={family.title}
+    intro={familyIntro(family)}
+    ctaLabel={CATALOG_COPY.hero.ctaLabel}
+    message={message}
+  >
+    <Breadcrumb slot="breadcrumb" items={breadcrumb} />
+  </PageHero>
+  <MachineGroups groups={groupByType(family, machines)} />
+</SiteLayout>

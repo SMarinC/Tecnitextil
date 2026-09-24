@@ -10,39 +10,6 @@
   padding-top: var(--space-sm);
 }
 
-.breadcrumb {
-  margin-bottom: var(--space-sm);
-}
-
-.crumbs {
-  display: flex;
-  flex-wrap: wrap;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  font-size: 0.9rem;
-  /* The current page (plain text, no link) reads at this secondary tone. */
-  color: var(--color-text-on-dark-secondary);
-}
-
-.crumbs li + li::before {
-  content: '›';
-  margin: 0 var(--space-xs);
-}
-
-.crumbs a {
-  color: var(--color-gold-light);
-}
-
-.crumbs a:hover {
-  color: var(--color-gold);
-}
-
-.crumbs a:focus-visible {
-  outline: var(--focus-ring);
-  outline-offset: var(--focus-ring-offset);
-}
-
 .layout {
   display: grid;
   grid-template-columns: 1fr;
@@ -64,15 +31,6 @@
      the floating button below it. The CTA itself comes right after .model in the
      markup, before the facts and the includes note, for the same reason. */
   gap: var(--space-xs);
-}
-
-/* Short screens (e.g. iPhone SE): tighten the breadcrumb so the WhatsApp CTA,
-   which now sits right after the model line, clears the floating button
-   instead of sitting under it. Same pattern as Hero and PageHero. */
-@media (max-height: 619px) {
-  .breadcrumb {
-    margin-bottom: var(--space-xs);
-  }
 }
 
 .title {

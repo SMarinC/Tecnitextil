@@ -79,18 +79,27 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-md);
+  /* Two columns on a regular phone and one on the narrowest (or at 200 % zoom), so a
+     large category never turns into an endless scroll. */
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: var(--space-sm);
 }
 
 @media (min-width: 640px) {
   .list {
     grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
   }
 }
 
 @media (min-width: 1024px) {
   .list {
     grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1280px) {
+  .list {
+    grid-template-columns: repeat(4, 1fr);
   }
 }

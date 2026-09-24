@@ -1,0 +1,18 @@
+---
+import { CATALOG_COPY } from '../../data/catalog'
+import Icon from '../Icon/Icon.astro'
+import styles from './PhotoPlaceholder.module.css'
+
+// Stands in for a photo the supplier has not published: the same square frame as a
+// photo, so cards and galleries keep their rhythm, and the reason in plain text.
+interface Props {
+  class?: string
+}
+
+const { class: className } = Astro.props
+---
+
+<div class:list={[styles.placeholder, className]}>
+  <Icon name="sewingMachine" class={styles.icon} />
+  <p class={styles.text}>{CATALOG_COPY.noPhoto}</p>
+</div>

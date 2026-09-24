@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets'
 import { AVAILABILITY_LABELS, CATALOG_COPY } from '../../data/catalog'
 import { machinePath, photoAlt, type Machine } from '../../lib/catalog'
+import PhotoPlaceholder from '../PhotoPlaceholder/PhotoPlaceholder.astro'
 import styles from './MachineCard.module.css'
 
 // A machine in the listing: the whole card is one link to its page (stretched from the
@@ -14,18 +15,22 @@ const { machine } = Astro.props
 ---
 
 <li class={styles.card}>
-  <Image
-    class={styles.photo}
-    src={machine.fotos[0]}
-    alt={photoAlt(machine, 0)}
-    widths={[320, 640]}
-    sizes="(min-width: 1024px) 320px, (min-width: 640px) 45vw, 100vw"
-    loading="lazy"
-    decoding="async"
-  />
+  {machine.fotos[0] ? (
+    <Image
+      class={styles.photo}
+      src={machine.fotos[0]}
+      alt={photoAlt(machine, 0)}
+      widths={[320, 640]}
+      sizes="(min-width: 1280px) 280px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, 50vw"
+      loading="lazy"
+      decoding="async"
+    />
+  ) : (
+    <PhotoPlaceholder class={styles.photo} />
+  )}
   <div class={styles.body}>
     <h3 class={styles.title}>
-      <a href={machinePath(machine.slug)} class={styles.link}>
+      <a href={machinePath(machine)} class={styles.link}>
         {machine.nombre}
       </a>
     </h3>

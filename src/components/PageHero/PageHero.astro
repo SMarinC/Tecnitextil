@@ -17,6 +17,8 @@ const { eyebrow, title, intro, ctaLabel, message } = Astro.props
 
 <section class={styles.hero} data-page-hero>
   <div class={styles.inner}>
+    {/* Category pages put their breadcrumb here, above the eyebrow. */}
+    <slot name="breadcrumb" />
     <p class={styles.eyebrow}>{eyebrow}</p>
     <h1 class={styles.title}>{title}</h1>
     <p class={styles.intro}>{intro}</p>

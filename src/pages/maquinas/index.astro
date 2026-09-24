@@ -1,11 +1,11 @@
 ---
 import { getCollection } from 'astro:content'
-import MachineGroups from '../../components/MachineGroups/MachineGroups.astro'
+import MachineFamilies from '../../components/MachineFamilies/MachineFamilies.astro'
 import PageHero from '../../components/PageHero/PageHero.astro'
 import { CATALOG_COPY, CATALOG_WHATSAPP_MESSAGE } from '../../data/catalog'
 import { CATALOG_PAGE } from '../../data/pages'
 import SiteLayout from '../../layouts/SiteLayout.astro'
-import { assertCatalog, groupByType, toMachine } from '../../lib/catalog'
+import { assertCatalog, familyCards, toMachine } from '../../lib/catalog'
 
 const machines = (await getCollection('maquinas')).map(toMachine)
 assertCatalog(machines)
@@ -13,5 +13,5 @@ assertCatalog(machines)
 
 <SiteLayout page={CATALOG_PAGE} whatsappMessage={CATALOG_WHATSAPP_MESSAGE}>
   <PageHero {...CATALOG_COPY.hero} message={CATALOG_WHATSAPP_MESSAGE} />
-  <MachineGroups groups={groupByType(machines)} />
+  <MachineFamilies cards={familyCards(machines)} />
 </SiteLayout>
