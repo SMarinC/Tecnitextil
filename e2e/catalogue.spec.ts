@@ -158,18 +158,20 @@ test.describe('catalogue', () => {
 
     const nav = page.getByRole('navigation', { name: CATALOG_COPY.jumpNavLabel })
     const links = nav.getByRole('link')
-    const navHeight = (await box(nav)).height
-    const firstLinkHeight = (await box(links.first())).height
-    expect(navHeight).toBeLessThanOrEqual(firstLinkHeight * 1.5)
+    const firstLink = links.first()
+    const lastLink = links.last()
+    const firstTop = (await box(firstLink)).y
 
     const overflow = await page.evaluate(
       () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
     )
     expect(overflow).toBeLessThanOrEqual(0)
 
-    const lastLink = links.last()
     await lastLink.scrollIntoViewIfNeeded()
     await expect(lastLink).toBeInViewport()
+    // A single row: scrolling the last pill into view must not have moved it to a
+    // different line than the first one.
+    expect(Math.abs((await box(lastLink)).y - firstTop)).toBeLessThanOrEqual(1)
   })
 
   test('a machine without photos says so on its page and on its card', async ({ page }) => {

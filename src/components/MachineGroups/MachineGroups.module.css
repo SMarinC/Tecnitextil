@@ -8,19 +8,17 @@
 
 .jumpNav {
   display: flex;
-  /* Below 640px, families with many long series names (e.g. remalladora-overlock's 8)
-     would wrap one pill per line and push ~700px of pills above the first machine: the
-     endless scroll these category pages exist to avoid. A single scrolling row keeps
-     every pill reachable, by touch or by Tab, without that vertical cost. */
+  /* Phones get one scrolling row instead of wrapping, so a family with many series
+     (e.g. remalladora-overlock's 8) never pushes a wall of pills above the machines. */
   flex-wrap: nowrap;
   justify-content: flex-start;
   overflow-x: auto;
   scroll-snap-type: x proximity;
+  scroll-padding-inline: var(--space-md);
   gap: var(--space-sm);
-  /* overflow-x other than visible makes the UA compute overflow-y as auto too, so the
-     links' focus outline (painted outside their border box) needs a little real padding
-     above and below them, not just the 0 this container used when it only ever wrapped. */
-  padding: var(--space-xs) var(--space-md);
+  /* Block padding keeps the links' focus outline from being clipped: overflow-x here
+     makes the UA compute overflow-y as auto too. */
+  padding: var(--space-md) var(--space-md) var(--space-xs);
 }
 
 @media (min-width: 640px) {
