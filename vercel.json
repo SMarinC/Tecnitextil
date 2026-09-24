@@ -6,9 +6,9 @@
   "trailingSlash": false,
   "redirects": [
     {
-      "source": "/:path*",
+      "source": "/:path(.*)",
       "has": [{ "type": "host", "value": "tecnitextil.vercel.app" }],
-      "destination": "https://www.tecnitextil.com/:path*",
+      "destination": "https://www.tecnitextil.com/:path",
       "permanent": true
     },
     {
