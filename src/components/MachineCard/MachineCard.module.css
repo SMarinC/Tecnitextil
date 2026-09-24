@@ -17,32 +17,6 @@
   outline-offset: var(--focus-ring-offset);
 }
 
-/* Two cards per row on phones: tighter padding, and long JACK names cut at three lines
-   (the full name stays in the link and on the machine page). */
-@media (max-width: 639px) {
-  .body {
-    padding: var(--space-sm);
-  }
-
-  .title {
-    font-size: 1rem;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
-    overflow: hidden;
-  }
-
-  .model {
-    font-size: 0.75rem;
-    letter-spacing: 0.04em;
-  }
-
-  .meta {
-    font-size: 0.8rem;
-  }
-}
-
 .photo {
   width: 100%;
   height: auto;
@@ -80,4 +54,30 @@
 .meta {
   font-size: 0.9rem;
   color: var(--color-text-on-dark-secondary);
+}
+
+/* Two cards per row on phones: tighter padding, and long JACK names cut at three lines
+   (the full name stays in the link and on the machine page). */
+@media (max-width: 639px) {
+  .body {
+    padding: var(--space-sm);
+  }
+
+  .title {
+    font-size: 1rem;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    overflow: hidden;
+  }
+
+  .model {
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+  }
+
+  .meta {
+    font-size: 0.8rem;
+  }
 }
