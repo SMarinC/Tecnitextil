@@ -2,7 +2,7 @@
 
 Production site of a Spanish business that repairs, maintains and sells industrial sewing machines. Its one job is to turn every visit into a WhatsApp chat or a call.
 
-**[Live site](https://tecnitextil.vercel.app)** · [Leer en español](README.es.md)
+**[Live site](https://www.tecnitextil.com)** · [Leer en español](README.es.md)
 
 [![checks](https://github.com/SMarinC/Tecnitextil/actions/workflows/checks.yml/badge.svg)](https://github.com/SMarinC/Tecnitextil/actions/workflows/checks.yml)
 
@@ -122,7 +122,7 @@ e2e/                # browser tests, one file per area (accessibility, architect
 
 - **Text, phone number or brands:** edit `src/data/`.
 - **A new page:** add a file to `src/pages/` and its entry to `src/data/pages.ts`. The sitemap picks it up unless the page is marked `noindex`. A public page also uses `SiteLayout`, gets a menu entry in `src/data/navigation.ts` when it belongs in the menu, and is added to `PAGES` in `e2e/support.ts`.
-- **A custom domain:** set the `SITE_URL` environment variable in Vercel (or in a local `.env.local`). It defaults to `https://tecnitextil.vercel.app`.
+- **A custom domain:** the site URL is `https://www.tecnitextil.com` by default, set in `astro.config.mjs`; override it with the `SITE_URL` environment variable in Vercel (or in a local `.env.local`).
 - **A machine for sale:** add a folder `src/content/maquinas/<model-in-lowercase>/` with `index.md` and up to 4 photos; the schema in `src/content.config.ts` checks it at build time. Prices are never published.
 
 ## Deployment

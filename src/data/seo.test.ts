@@ -44,4 +44,23 @@ describe('seo content', () => {
     const tokens = readFileSync(new URL('../styles/tokens.css', import.meta.url), 'utf8')
     expect(tokens).toContain(`--color-black: ${THEME_COLOR};`)
   })
+
+  it('the old Vercel address redirects to the site URL, so they can never drift apart', () => {
+    type Redirect = {
+      has?: { type: string; value: string }[]
+      permanent: boolean
+      destination: string
+    }
+    const vercelConfig = JSON.parse(
+      readFileSync(new URL('../../vercel.json', import.meta.url), 'utf8'),
+    ) as { redirects: Redirect[] }
+    const redirect = vercelConfig.redirects.find((r) =>
+      r.has?.some(
+        (condition) => condition.type === 'host' && condition.value === 'tecnitextil.vercel.app',
+      ),
+    )
+    expect(redirect).toBeDefined()
+    expect(redirect?.permanent).toBe(true)
+    expect(redirect?.destination).toBe(`${SITE_URL}/:path*`)
+  })
 })

@@ -6,6 +6,12 @@
   "trailingSlash": false,
   "redirects": [
     {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "tecnitextil.vercel.app" }],
+      "destination": "https://www.tecnitextil.com/:path*",
+      "permanent": true
+    },
+    {
       "source": "/maquinas/:modelo(fjk-t9820g-01-d-t|jk-n9-d|jk-n9-h-d|jk-n9-t-d|jk-t1377gr-z|jk-t1790gs-1-d|jk-t1790gs-2-d|jk-t1790gs-3-d|jk-t1900gh-dii|jk-t1900gsk-dii|jk-t1903gr-dii|jk-t373gvr|jk-t782g-z)",
       "destination": "/maquinas/ojales-botones-presillas/:modelo",
       "permanent": true
