@@ -30,3 +30,12 @@
   outline: var(--focus-ring);
   outline-offset: var(--focus-ring-offset);
 }
+
+/* Short screens (e.g. iPhone SE): tighten the breadcrumb so the WhatsApp CTA,
+   which now sits right after the model line, clears the floating button
+   instead of sitting under it. Same pattern as Hero and PageHero. */
+@media (max-height: 619px) {
+  .breadcrumb {
+    margin-bottom: var(--space-xs);
+  }
+}

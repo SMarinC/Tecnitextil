@@ -4,7 +4,8 @@ marca: JACK
 nombre: Máquina de pespunte 1 aguja
 familia: pespunte
 tipo: sin-cortahilos
-resumen: Equipada con posicionador de aguja, luz LED integrada y motor Direct Drive.
+resumen: Máquina de pespunte JACK de una aguja, sin cortahílos, con posicionador
+  de aguja y motor Direct Drive.
 disponibilidad: bajo-pedido
 fotos:
   - ./1.jpg

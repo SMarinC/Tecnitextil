@@ -4,7 +4,8 @@ marca: JACK
 nombre: Máquina pespunte 1 aguja cortahílos doble arrastre con puller
 familia: pespunte
 tipo: aguja-acompanante
-resumen: Arrastre suave, sin arrugas y sin desplazamiento de capas.
+resumen: Máquina de pespunte JACK de una aguja con doble arrastre por aguja y
+  dientes, cortahílos y puller.
 disponibilidad: bajo-pedido
 fotos:
   - ./1.jpg

@@ -4,8 +4,8 @@ marca: JACK
 nombre: Máquina de coser con cortahílos automático
 familia: pespunte
 tipo: con-cortahilos
-resumen: La Jack A2C es una máquina de coser industrial de alto rendimiento
-  diseñada para profesionales que buscan velocidad, precisión y durabilidad.
+resumen: Máquina de pespunte JACK de una aguja con cortahílos automático y motor
+  de plataforma Mighty Ape.
 disponibilidad: bajo-pedido
 fotos:
   - ./1.jpg

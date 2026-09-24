@@ -5,8 +5,8 @@ nombre: Máquina pespunte 1 aguja Direct Drive con garfio de gran capacidad para
   géneros gruesos
 familia: pespunte
 tipo: sin-cortahilos
-resumen: Equipada con posicionador de aguja, longitud de puntada de 7 mm, garfio
-  de gran capacidad y motor Direc Drive.
+resumen: Máquina de pespunte JACK de una aguja, sin cortahílos, con garfio de
+  gran capacidad para géneros gruesos.
 disponibilidad: bajo-pedido
 fotos:
   - ./1.jpg

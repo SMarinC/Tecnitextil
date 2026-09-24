@@ -4,7 +4,8 @@ marca: JACK
 nombre: Máquina de pespunte 2 agujas fijas
 familia: pespunte-2-agujas
 tipo: sin-cortahilos
-resumen: Equipada con doble arrastre, luz LED integrada y motor Direct Drive.
+resumen: Máquina de pespunte JACK de dos agujas fijas, sin cortahílos, con
+  garfio estándar y doble arrastre.
 disponibilidad: bajo-pedido
 fotos:
   - ./1.jpg

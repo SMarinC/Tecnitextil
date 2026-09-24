@@ -86,7 +86,12 @@ describe('assertCatalog', () => {
   })
 
   it('rejects a category with no machines', () => {
-    expect(() => assertCatalog(CATALOGUE.slice(0, 2), FAMILIES)).toThrow(/pespunte/)
+    expect(() => assertCatalog(CATALOGUE.slice(0, 2), FAMILIES)).toThrow(/has no machines/)
+  })
+
+  it('rejects a machine whose category is not one of the catalogue families', () => {
+    const misplaced = sampleMachine({ id: 'otra/jk-x3', familia: 'otra', modelo: 'JK-X3' })
+    expect(() => assertCatalog([...CATALOGUE, misplaced], FAMILIES)).toThrow(/unknown category/)
   })
 
   it('rejects a cover that is not one of its machines or has no photos', () => {

@@ -4,7 +4,8 @@ marca: JACK
 nombre: Máquina de pespunte 1 aguja cortahílos con IA para género fino y medio
 familia: pespunte
 tipo: con-cortahilos
-resumen: Máquina de pespunte de 1 aguja cortahílos Direc Drive, con carter de aceite.
+resumen: Máquina de pespunte JACK de una aguja con cortahílos e IA, para género
+  fino y medio, con motor Direct Drive.
 disponibilidad: bajo-pedido
 fotos:
   - ./1.jpg

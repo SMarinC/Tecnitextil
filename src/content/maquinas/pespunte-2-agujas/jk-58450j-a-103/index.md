@@ -4,8 +4,8 @@ marca: JACK
 nombre: Máquina de pespunte 2 agujas desembragables cortahílos
 familia: pespunte-2-agujas
 tipo: con-cortahilos
-resumen: Equipada con doble arrastre, panel de programación, luz LED integrada y
-  motor Direct Drive.
+resumen: Máquina de pespunte JACK de dos agujas desembragables, con cortahílos
+  directo y garfio estándar.
 disponibilidad: bajo-pedido
 fotos:
   - ./1.jpg

@@ -5,7 +5,8 @@ nombre: Máquina pespunte 1 aguja Direct Drive cortahílos con IA para género
   fino, medio y grueso
 familia: pespunte
 tipo: con-cortahilos
-resumen: Equipada con sistema AMH adaptable a todos los tejidos.
+resumen: Máquina de pespunte JACK de una aguja Direct Drive con IA y sistema
+  AMH, para género fino, medio y grueso.
 disponibilidad: bajo-pedido
 fotos:
   - ./1.jpg
