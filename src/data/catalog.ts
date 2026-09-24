@@ -69,6 +69,24 @@ export const MACHINE_FAMILIES: readonly MachineFamily[] = [
       { id: 'con-cortahilos', label: 'Con cortahílos' },
     ],
   },
+  {
+    id: 'remalladora-overlock',
+    label: 'Remalladora/Overlock',
+    title: 'Remalladoras (overlock)',
+    summary:
+      'Remalladoras JACK de 2 a 6 hilos: modelos base, con IA, con arrastre superior y cilíndricas.',
+    cover: 'jk-c5c-4-m03',
+    types: [
+      { id: 'c5c', label: 'C5C (Alta eficiencia IA)' },
+      { id: 'e5', label: 'E5 (Nuevo modelo)' },
+      { id: 'c5t-a', label: 'C5T-A (Arrastre superior)' },
+      { id: 'e4s', label: 'E4S (Modelo base)' },
+      { id: 'c7', label: 'C7 (Inteligencia Artificial)' },
+      { id: 'jk-797', label: 'JK-797 (Cilíndrica)' },
+      { id: 'jk-798', label: 'JK-798 (Arrastre superior)' },
+      { id: 'c4', label: 'C4 (Electrónica)' },
+    ],
+  },
 ]
 
 // For the content schema's enums, which need at least one value. Type ids repeat across
