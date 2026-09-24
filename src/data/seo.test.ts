@@ -47,6 +47,7 @@ describe('seo content', () => {
 
   it('the old Vercel address redirects to the site URL, so they can never drift apart', () => {
     type Redirect = {
+      source: string
       has?: { type: string; value: string }[]
       permanent: boolean
       destination: string
@@ -60,7 +61,9 @@ describe('seo content', () => {
       ),
     )
     expect(redirect).toBeDefined()
+    // (.*) also matches the root: /:path* needs at least one segment on Vercel, so / was not redirected.
+    expect(redirect?.source).toBe('/:path(.*)')
     expect(redirect?.permanent).toBe(true)
-    expect(redirect?.destination).toBe(`${SITE_URL}/:path*`)
+    expect(redirect?.destination).toBe(`${SITE_URL}/:path`)
   })
 })
