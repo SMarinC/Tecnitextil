@@ -4,8 +4,8 @@ marca: JACK
 nombre: Máquina remalladora de 6 hilos (3x2x4) con IA
 familia: remalladora-overlock
 tipo: c7
-resumen: Máquina remalladora JACK C7 de 6 hilos (3x2x4) con IA, cortahílos
-  automático y funcionamiento eléctrico.
+resumen: Máquina remalladora JACK C7 de 6 hilos (3x2x4) con IA, cortahílos y
+  funcionamiento eléctrico.
 disponibilidad: bajo-pedido
 fotos:
   - ./1.jpg

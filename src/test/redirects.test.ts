@@ -11,12 +11,13 @@ interface Redirect {
 const { redirects = [] } = JSON.parse(readFileSync('vercel.json', 'utf8')) as {
   redirects?: Redirect[]
 }
-const [rule] = redirects
+const machineRules = redirects.filter((redirect) => /^\/maquinas\/:modelo\(/.test(redirect.source))
+const [rule] = machineRules
 const slugs = rule?.source.match(/^\/maquinas\/:modelo\(([^)]+)\)$/)?.[1]?.split('|') ?? []
 
 describe('redirects of the original machine pages', () => {
   it('is one permanent rule for the 13 original machines', () => {
-    expect(redirects).toHaveLength(1)
+    expect(machineRules).toHaveLength(1)
     expect(rule?.permanent).toBe(true)
     expect(slugs).toHaveLength(13)
   })

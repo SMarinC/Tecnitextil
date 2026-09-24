@@ -6,7 +6,7 @@ nombre: Máquina remalladora de 4 hilos Direct Drive con IA, cortahílos y
 familia: remalladora-overlock
 tipo: c5c
 resumen: Máquina remalladora JACK C5C de 4 hilos Direct Drive con IA, cortahílos
-  automático y alzaprensatelas.
+  y alzaprensatelas.
 disponibilidad: bajo-pedido
 fotos:
   - ./1.jpg

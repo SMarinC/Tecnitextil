@@ -7,6 +7,7 @@ import {
   MACHINE_WITHOUT_PHOTOS,
   SAMPLE_MACHINE,
   TITLES,
+  box,
   navLabel,
   openMenu,
 } from './support'
@@ -119,6 +120,28 @@ test.describe('catalogue', () => {
         }),
       )
       .toBe(true)
+  })
+
+  test('the compact card grid gives two columns at 360px, but one at 320px', async ({
+    page,
+  }, testInfo) => {
+    // Both breakpoints are forced viewports, and CSS grid track sizing is engine-independent
+    // for this layout (checked manually in Chromium and WebKit during review), so running
+    // this in every project would only repeat the same assertion.
+    test.skip(testInfo.project.name !== 'mobile', 'Viewport-driven: other projects repeat it')
+
+    await page.goto('/maquinas/remalladora-overlock')
+    // Scoped to machine cards (each has an <h3> link): "main li" alone would also match
+    // the breadcrumb's list items.
+    const machineCards = page.locator('main li').filter({ has: page.locator('h3 a') })
+    const firstCard = machineCards.nth(0)
+    const secondCard = machineCards.nth(1)
+
+    await page.setViewportSize({ width: 360, height: 800 })
+    expect((await box(firstCard)).y).toBe((await box(secondCard)).y)
+
+    await page.setViewportSize({ width: 320, height: 800 })
+    expect((await box(firstCard)).y).not.toBe((await box(secondCard)).y)
   })
 
   test('a machine without photos says so on its page and on its card', async ({ page }) => {

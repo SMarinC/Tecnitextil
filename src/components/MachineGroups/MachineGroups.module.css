@@ -79,9 +79,9 @@
   margin: 0;
   padding: 0;
   display: grid;
-  /* Two columns on a regular phone and one on the narrowest (or at 200 % zoom), so a
-     large category never turns into an endless scroll. */
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  /* Two columns from 344px up (covers 360px Android phones) and one below that (or at
+     200 % zoom), so a large category never turns into an endless scroll. */
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   gap: var(--space-sm);
 }
 

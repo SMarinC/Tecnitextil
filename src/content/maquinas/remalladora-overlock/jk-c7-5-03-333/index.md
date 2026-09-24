@@ -5,7 +5,7 @@ nombre: Máquina remalladora de 5 hilos Direct Drive electrónica 333 (3x4)
 familia: remalladora-overlock
 tipo: c7
 resumen: Máquina remalladora JACK C7 de 5 hilos Direct Drive electrónica, ancho
-  de costura 3x4, con cortahílos automático.
+  de costura 3x4, con cortahílos.
 disponibilidad: bajo-pedido
 fotos:
   - ./1.jpg

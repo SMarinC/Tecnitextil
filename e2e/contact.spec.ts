@@ -1,14 +1,27 @@
 import { expect, test } from '@playwright/test'
 import { WHATSAPP_CTA } from '../src/data/site'
 import {
-  LARGEST_CATEGORY,
-  LONGEST_NAME_MACHINE,
+  CATALOGUE,
+  LONGEST_NAME_MACHINES,
   SAMPLE_MACHINE,
   WHATSAPP_URL,
   box,
   closingCta,
   overlaps,
 } from './support'
+
+// The worst cases for a short phone: every category hero (not just the largest) and the
+// longest-name machine of each category (not just one global pick), bounded by
+// MACHINE_FAMILIES rather than by catalogue size.
+const shortPhoneCases = [
+  ['/', '[data-hero] a[href*="wa.me"]'],
+  ['/servicio-tecnico', '[data-page-hero] a[href*="wa.me"]'],
+  ['/toldos', '[data-page-hero] a[href*="wa.me"]'],
+  ['/maquinas', '[data-page-hero] a[href*="wa.me"]'],
+  ...CATALOGUE.map(({ path }): [string, string] => [path, '[data-page-hero] a[href*="wa.me"]']),
+  [SAMPLE_MACHINE, 'article a[href*="wa.me"]'],
+  ...LONGEST_NAME_MACHINES.map((path): [string, string] => [path, 'article a[href*="wa.me"]']),
+] satisfies [string, string][]
 
 test.beforeEach(async ({ page }) => {
   await page.goto('/')
@@ -64,16 +77,7 @@ test.describe('contact', () => {
     page,
   }) => {
     await page.setViewportSize({ width: 375, height: 548 })
-    for (const [path, selector] of [
-      ['/', '[data-hero] a[href*="wa.me"]'],
-      ['/servicio-tecnico', '[data-page-hero] a[href*="wa.me"]'],
-      ['/toldos', '[data-page-hero] a[href*="wa.me"]'],
-      ['/maquinas', '[data-page-hero] a[href*="wa.me"]'],
-      [LARGEST_CATEGORY, '[data-page-hero] a[href*="wa.me"]'],
-      [SAMPLE_MACHINE, 'article a[href*="wa.me"]'],
-      // The longest machine name: the worst case for its <h1>.
-      [LONGEST_NAME_MACHINE, 'article a[href*="wa.me"]'],
-    ] satisfies [string, string][]) {
+    for (const [path, selector] of shortPhoneCases) {
       await page.goto(path)
       const floating = await box(page.getByRole('link', { name: WHATSAPP_CTA.floatingLabel }))
       const hero = await box(page.locator(selector))
@@ -87,15 +91,7 @@ test.describe('contact', () => {
   }) => {
     // 320x568: the narrowest supported phone.
     await page.setViewportSize({ width: 320, height: 568 })
-    for (const [path, selector] of [
-      ['/', '[data-hero] a[href*="wa.me"]'],
-      ['/servicio-tecnico', '[data-page-hero] a[href*="wa.me"]'],
-      ['/toldos', '[data-page-hero] a[href*="wa.me"]'],
-      ['/maquinas', '[data-page-hero] a[href*="wa.me"]'],
-      [LARGEST_CATEGORY, '[data-page-hero] a[href*="wa.me"]'],
-      [SAMPLE_MACHINE, 'article a[href*="wa.me"]'],
-      [LONGEST_NAME_MACHINE, 'article a[href*="wa.me"]'],
-    ] satisfies [string, string][]) {
+    for (const [path, selector] of shortPhoneCases) {
       await page.goto(path)
       const floating = await box(page.getByRole('link', { name: WHATSAPP_CTA.floatingLabel }))
       const cta = await box(page.locator(selector))

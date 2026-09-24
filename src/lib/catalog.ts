@@ -77,6 +77,14 @@ export function groupByType(family: MachineFamily, machines: readonly Machine[])
     .filter(({ machines: inGroup }) => inGroup.length > 0)
 }
 
+// The category's designated cover machine, among its own machines.
+export function coverOf(
+  family: Pick<MachineFamily, 'id' | 'cover'>,
+  machines: readonly Machine[],
+): Machine | undefined {
+  return machinesOf(family, machines).find((machine) => modelSlug(machine) === family.cover)
+}
+
 // The hub's cards: one per category, with its model count and its cover photo.
 export function familyCards(
   machines: readonly Machine[],
@@ -84,7 +92,7 @@ export function familyCards(
 ): FamilyCard[] {
   return families.map((family) => {
     const own = machinesOf(family, machines)
-    const photo = own.find((machine) => modelSlug(machine) === family.cover)?.fotos[0]
+    const photo = coverOf(family, machines)?.fotos[0]
     if (!photo) throw new Error(`Category "${family.id}" has no cover photo`)
     return { family, count: own.length, photo }
   })
@@ -114,7 +122,7 @@ export function assertCatalog(
   for (const family of families) {
     const own = machinesOf(family, machines)
     if (own.length === 0) throw new Error(`Category "${family.id}" has no machines`)
-    const cover = own.find((machine) => modelSlug(machine) === family.cover)
+    const cover = coverOf(family, machines)
     if (!cover || cover.fotos.length === 0) {
       throw new Error(
         `Category "${family.id}": its cover "${family.cover}" must be one of its machines, with photos`,

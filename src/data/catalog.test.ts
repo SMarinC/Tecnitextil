@@ -13,8 +13,10 @@ describe('MACHINE_FAMILIES', () => {
     expect(new Set(ids).size).toBe(ids.length)
   })
 
-  it('lists each type id once for the content schema', () => {
-    expect(new Set(MACHINE_TYPE_IDS).size).toBe(MACHINE_TYPE_IDS.length)
+  it('lists every category type id in MACHINE_TYPE_IDS', () => {
+    for (const { types } of MACHINE_FAMILIES) {
+      for (const { id } of types) expect(MACHINE_TYPE_IDS).toContain(id)
+    }
   })
 
   it('finds a category by id and fails loudly on an unknown one', () => {

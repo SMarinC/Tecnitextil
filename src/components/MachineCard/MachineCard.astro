@@ -21,7 +21,7 @@ const { machine } = Astro.props
       src={machine.fotos[0]}
       alt={photoAlt(machine, 0)}
       widths={[320, 640]}
-      sizes="(min-width: 1280px) 280px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, 50vw"
+      sizes="(max-width: 343px) 100vw, (min-width: 1280px) 280px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, 50vw"
       loading="lazy"
       decoding="async"
     />

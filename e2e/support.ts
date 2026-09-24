@@ -17,28 +17,41 @@ const MACHINES_DIR = 'src/content/maquinas'
 export const CATALOGUE = MACHINE_FAMILIES.map((family) => ({
   family,
   path: `/maquinas/${family.id}`,
+  // Sorted so local (NTFS) and CI (ext4) file systems pick the same machine on a tie.
   models: readdirSync(`${MACHINES_DIR}/${family.id}`, { withFileTypes: true })
     .filter((entry) => entry.isDirectory())
-    .map((entry) => entry.name),
+    .map((entry) => entry.name)
+    .sort(),
 }))
 export const MACHINE_PATHS = CATALOGUE.flatMap(({ path, models }) =>
   models.map((model) => `${path}/${model}`),
 )
 const frontMatter = (machinePath: string) =>
   readFileSync(`src/content${machinePath}/index.md`, 'utf8')
-const nameOf = (machinePath: string) =>
-  frontMatter(machinePath).match(/^nombre: ['"]?(.*?)['"]?$/m)?.[1] ?? ''
+// Prettier folds long YAML values onto indented continuation lines, so a field is read
+// by unfolding them first, then collapsing whitespace and stripping surrounding quotes.
+const unfoldedField = (text: string, field: string) =>
+  text
+    .match(new RegExp(`^${field}:(.*(?:\\r?\\n[ \\t]+.*)*)`, 'm'))?.[1]
+    .replace(/\r?\n[ \t]+/g, ' ')
+    .trim()
+    .replace(/^['"]|['"]$/g, '')
+const nameOf = (machinePath: string) => unfoldedField(frontMatter(machinePath), 'nombre') ?? ''
 
 // A machine page with photos, used wherever any machine will do.
 export const SAMPLE_MACHINE = '/maquinas/ojales-botones-presillas/jk-t1900gsk-dii'
-// The machine with the longest name: its <h1> is the worst case for the call to action
-// staying in view.
-export const LONGEST_NAME_MACHINE = MACHINE_PATHS.reduce((longest, path) =>
-  nameOf(path).length > nameOf(longest).length ? path : longest,
+// The longest-name machine of each category: its <h1> is the worst case for the call to
+// action staying in view. Bounded by MACHINE_FAMILIES, not by catalogue size.
+export const LONGEST_NAME_MACHINES = CATALOGUE.map(({ path, models }) =>
+  models
+    .map((model) => `${path}/${model}`)
+    .reduce((longest, candidate) =>
+      nameOf(candidate).length > nameOf(longest).length ? candidate : longest,
+    ),
 )
 // A machine whose supplier published no photo, if any: its pages show a placeholder.
-export const MACHINE_WITHOUT_PHOTOS = MACHINE_PATHS.find((path) =>
-  /^fotos: \[\]$/m.test(frontMatter(path)),
+export const MACHINE_WITHOUT_PHOTOS = MACHINE_PATHS.find(
+  (path) => unfoldedField(frontMatter(path), 'fotos') === '[]',
 )
 // The category with the most machines: the longest listing page.
 export const LARGEST_CATEGORY = CATALOGUE.reduce((largest, category) =>
