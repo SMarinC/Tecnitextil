@@ -12,7 +12,7 @@ const productionHeaders = Object.fromEntries(
 )
 
 export default defineConfig({
-  site: process.env.SITE_URL ?? 'https://tecnitextil.vercel.app',
+  site: process.env.SITE_URL ?? 'https://www.tecnitextil.com',
   output: 'static',
   build: {
     // aviso-legal.html instead of aviso-legal/index.html, and hashed files in /assets,
