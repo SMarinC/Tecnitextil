@@ -1,40 +1,69 @@
 import { expect, test } from '@playwright/test'
+import { CATALOG_COPY, modelCountLabel } from '../src/data/catalog'
 import { CATALOG_PAGE } from '../src/data/pages'
 import { WHATSAPP_CTA } from '../src/data/site'
-import { TITLES, navLabel, openMenu } from './support'
-
-test.beforeEach(async ({ page }) => {
-  await page.goto('/')
-})
+import {
+  CATALOGUE,
+  MACHINE_WITHOUT_PHOTOS,
+  SAMPLE_MACHINE,
+  TITLES,
+  navLabel,
+  openMenu,
+} from './support'
 
 test.describe('catalogue', () => {
-  const MACHINE = '/maquinas/jk-t1900gsk-dii'
-  const TYPES = ['ojales', 'botones', 'presillas-y-botones']
-
-  test('the menu leads to the catalogue, grouped by type, with 13 machines and no WhatsApp on the cards', async ({
+  test('the menu leads to the hub, which lists every category with its model count', async ({
     page,
     isMobile,
   }) => {
+    await page.goto('/')
     const menu = await openMenu(page, isMobile)
     await menu.getByRole('link', { name: navLabel(CATALOG_PAGE.path) }).click()
 
     await expect(page).toHaveURL(/\/maquinas$/)
     await expect(page.getByRole('heading', { level: 1, name: TITLES.catalogue })).toBeVisible()
-    for (const type of TYPES) {
-      await expect(page.locator(`main section#${type} h2`)).toBeVisible()
+    await expect(page.locator('main h3 a[href^="/maquinas/"]')).toHaveCount(CATALOGUE.length)
+    for (const { family, path, models } of CATALOGUE) {
+      // Unprefixed: Playwright's `:has()` filter nests the inner selector inside the
+      // outer one, and "main" is an ancestor of "li" here, not a descendant of it.
+      const link = page.locator(`h3 a[href="${path}"]`)
+      await expect(link).toHaveText(family.label)
+      await expect(page.locator('main li').filter({ has: link })).toContainText(
+        modelCountLabel(models.length),
+      )
     }
-    await expect(page.locator('main h3 a[href^="/maquinas/"]')).toHaveCount(13)
-    await expect(
-      page.locator(TYPES.map((type) => `#${type} a[href*="wa.me"]`).join(', ')),
-    ).toHaveCount(0)
   })
+
+  for (const { family, path, models } of CATALOGUE) {
+    test(`${family.label}: its page groups every machine by type, in JACK's order`, async ({
+      page,
+    }) => {
+      await page.goto(path)
+      await expect(page.getByRole('heading', { level: 1, name: family.title })).toBeVisible()
+      await expect(
+        page.getByRole('navigation', { name: CATALOG_COPY.breadcrumbLabel }).getByRole('link'),
+      ).toHaveAttribute('href', CATALOG_PAGE.path)
+      await expect(page.locator(`main h3 a[href^="${path}/"]`)).toHaveCount(models.length)
+
+      const sections = await page
+        .locator('main section[id]')
+        .evaluateAll((elements) => elements.map((element) => element.id))
+      const typeIds = family.types.map(({ id }) => id)
+      const shown = sections.filter((id) => typeIds.includes(id))
+      expect(shown).toEqual(typeIds.filter((id) => shown.includes(id)))
+      expect(shown.length).toBeGreaterThan(0)
+      await expect(
+        page.locator(shown.map((id) => `#${id} a[href*="wa.me"]`).join(', ')),
+      ).toHaveCount(0)
+    })
+  }
 
   test('a machine page offers one WhatsApp enquiry naming the model, also on the floating button', async ({
     page,
   }) => {
-    await page.goto('/maquinas')
-    await page.locator(`main a[href="${MACHINE}"]`).click()
-    await expect(page).toHaveURL(new RegExp(`${MACHINE}$`))
+    await page.goto('/maquinas/ojales-botones-presillas')
+    await page.locator(`main a[href="${SAMPLE_MACHINE}"]`).click()
+    await expect(page).toHaveURL(new RegExp(`${SAMPLE_MACHINE}$`))
 
     const enquiry = page.locator('article a[href*="wa.me"]')
     await expect(enquiry).toHaveCount(1)
@@ -45,24 +74,42 @@ test.describe('catalogue', () => {
       href ?? '',
     )
     await expect(
-      page.locator(`nav[aria-label="Navegación principal"] a[href="/maquinas"]`),
+      page.locator(`nav[aria-label="Navegación principal"] a[href="${CATALOG_PAGE.path}"]`),
     ).toHaveAttribute('aria-current', 'page')
   })
 
+  test("the breadcrumb leads from a machine back to its type on its category's page", async ({
+    page,
+  }) => {
+    await page.goto(SAMPLE_MACHINE)
+    await page
+      .getByRole('navigation', { name: CATALOG_COPY.breadcrumbLabel })
+      .getByRole('link', { name: 'Presillas y botones' })
+      .click()
+    await expect(page).toHaveURL(/\/maquinas\/ojales-botones-presillas#presillas-y-botones$/)
+    await expect(page.locator('#presillas-y-botones h2')).toBeInViewport()
+  })
+
   test('the machine page shows its WhatsApp enquiry without scrolling', async ({ page }) => {
-    await page.goto(MACHINE)
+    await page.goto(SAMPLE_MACHINE)
     await expect(page.locator('article a[href*="wa.me"]')).toBeInViewport({ ratio: 1 })
   })
 
   test('catalogue pages never show a price', async ({ page }) => {
-    for (const path of ['/maquinas', MACHINE]) {
+    const paths = [
+      CATALOG_PAGE.path,
+      ...CATALOGUE.map(({ path }) => path),
+      SAMPLE_MACHINE,
+      ...(MACHINE_WITHOUT_PHOTOS ? [MACHINE_WITHOUT_PHOTOS] : []),
+    ]
+    for (const path of paths) {
       await page.goto(path)
       expect(await page.locator('main').innerText(), path).not.toMatch(/€|\bEUR\b|\bIVA\b/)
     }
   })
 
   test('the machine gallery loads its main photo', async ({ page }) => {
-    await page.goto(MACHINE)
+    await page.goto(SAMPLE_MACHINE)
     const photo = page.locator('#foto-1 img')
     await expect
       .poll(() =>
@@ -72,5 +119,17 @@ test.describe('catalogue', () => {
         }),
       )
       .toBe(true)
+  })
+
+  test('a machine without photos says so on its page and on its card', async ({ page }) => {
+    test.skip(!MACHINE_WITHOUT_PHOTOS, 'Every machine in the catalogue has photos')
+    const machinePath = MACHINE_WITHOUT_PHOTOS ?? ''
+    await page.goto(machinePath)
+    await expect(page.locator('article').getByText(CATALOG_COPY.noPhoto)).toBeVisible()
+    await expect(page.locator('article img')).toHaveCount(0)
+
+    await page.goto(machinePath.slice(0, machinePath.lastIndexOf('/')))
+    const card = page.locator('main li').filter({ has: page.locator(`a[href="${machinePath}"]`) })
+    await expect(card.getByText(CATALOG_COPY.noPhoto)).toBeVisible()
   })
 })

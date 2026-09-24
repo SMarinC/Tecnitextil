@@ -127,4 +127,15 @@ test.describe('architecture', () => {
       expect(inlineScripts, path).toEqual([])
     }
   })
+
+  test('every page Lighthouse audits is a real page', async ({ request }) => {
+    const { ci } = JSON.parse(readFileSync('lighthouserc.json', 'utf8')) as {
+      ci: { collect: { url: string[] } }
+    }
+    for (const url of ci.collect.url) {
+      const path = new URL(url).pathname.replace(/\.html$/, '').replace(/^\/index$/, '/')
+      if (path === '/404') continue
+      expect((await request.get(path)).ok(), path).toBe(true)
+    }
+  })
 })

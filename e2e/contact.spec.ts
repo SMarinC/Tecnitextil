@@ -1,6 +1,14 @@
 import { expect, test } from '@playwright/test'
 import { WHATSAPP_CTA } from '../src/data/site'
-import { WHATSAPP_URL, box, closingCta, overlaps } from './support'
+import {
+  LARGEST_CATEGORY,
+  LONGEST_NAME_MACHINE,
+  SAMPLE_MACHINE,
+  WHATSAPP_URL,
+  box,
+  closingCta,
+  overlaps,
+} from './support'
 
 test.beforeEach(async ({ page }) => {
   await page.goto('/')
@@ -61,11 +69,11 @@ test.describe('contact', () => {
       ['/servicio-tecnico', '[data-page-hero] a[href*="wa.me"]'],
       ['/toldos', '[data-page-hero] a[href*="wa.me"]'],
       ['/maquinas', '[data-page-hero] a[href*="wa.me"]'],
-      ['/maquinas/jk-t1900gsk-dii', 'article a[href*="wa.me"]'],
-      // Longest `nombre` of the 13 machines (src/content/maquinas/*/index.md),
-      // so its 3+ line <h1> is the worst case for this overlap.
-      ['/maquinas/jk-n9-t-d', 'article a[href*="wa.me"]'],
-    ] as const) {
+      [LARGEST_CATEGORY, '[data-page-hero] a[href*="wa.me"]'],
+      [SAMPLE_MACHINE, 'article a[href*="wa.me"]'],
+      // The longest machine name: the worst case for its <h1>.
+      [LONGEST_NAME_MACHINE, 'article a[href*="wa.me"]'],
+    ] satisfies [string, string][]) {
       await page.goto(path)
       const floating = await box(page.getByRole('link', { name: WHATSAPP_CTA.floatingLabel }))
       const hero = await box(page.locator(selector))
@@ -84,9 +92,10 @@ test.describe('contact', () => {
       ['/servicio-tecnico', '[data-page-hero] a[href*="wa.me"]'],
       ['/toldos', '[data-page-hero] a[href*="wa.me"]'],
       ['/maquinas', '[data-page-hero] a[href*="wa.me"]'],
-      ['/maquinas/jk-t1900gsk-dii', 'article a[href*="wa.me"]'],
-      ['/maquinas/jk-n9-t-d', 'article a[href*="wa.me"]'],
-    ] as const) {
+      [LARGEST_CATEGORY, '[data-page-hero] a[href*="wa.me"]'],
+      [SAMPLE_MACHINE, 'article a[href*="wa.me"]'],
+      [LONGEST_NAME_MACHINE, 'article a[href*="wa.me"]'],
+    ] satisfies [string, string][]) {
       await page.goto(path)
       const floating = await box(page.getByRole('link', { name: WHATSAPP_CTA.floatingLabel }))
       const cta = await box(page.locator(selector))
@@ -107,12 +116,8 @@ test.describe('contact', () => {
 
     for (const [path, selector, expected] of [
       ['/', '[data-hero] a[data-whatsapp]', '/contactar/portada'],
-      [
-        '/maquinas/jk-t1900gsk-dii',
-        'article a[data-whatsapp]',
-        '/contactar/maquinas/jk-t1900gsk-dii',
-      ],
-    ] as const) {
+      [SAMPLE_MACHINE, 'article a[data-whatsapp]', `/contactar${SAMPLE_MACHINE}`],
+    ] satisfies [string, string, string][]) {
       await page.goto(path)
       const [popup] = await Promise.all([
         page.context().waitForEvent('page'),

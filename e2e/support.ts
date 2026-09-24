@@ -1,6 +1,7 @@
+import { readFileSync, readdirSync } from 'node:fs'
 import type { Browser, Locator, Page } from '@playwright/test'
 import { AWNING_MACHINES } from '../src/data/awnings'
-import { CATALOG_COPY } from '../src/data/catalog'
+import { CATALOG_COPY, MACHINE_FAMILIES } from '../src/data/catalog'
 import { HERO } from '../src/data/home'
 import { MENU_TOGGLE_LABELS, NAV_ITEMS } from '../src/data/navigation'
 import { FINAL_CTA } from '../src/data/site'
@@ -9,12 +10,49 @@ import { TECHNICAL_SERVICE_HERO } from '../src/data/technicalService'
 // Shared constants and helpers for the browser tests, grouped by what they protect:
 // contact, navigation, catalogue, SEO and sharing, accessibility and architecture.
 export const WHATSAPP_URL = /^https:\/\/wa\.me\/34685018086\?text=.+/
+
+// The catalogue as it is on disk, since Playwright cannot load Astro's content
+// collection: each category's machine folders, which are also their URLs.
+const MACHINES_DIR = 'src/content/maquinas'
+export const CATALOGUE = MACHINE_FAMILIES.map((family) => ({
+  family,
+  path: `/maquinas/${family.id}`,
+  models: readdirSync(`${MACHINES_DIR}/${family.id}`, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => entry.name),
+}))
+export const MACHINE_PATHS = CATALOGUE.flatMap(({ path, models }) =>
+  models.map((model) => `${path}/${model}`),
+)
+const frontMatter = (machinePath: string) =>
+  readFileSync(`src/content${machinePath}/index.md`, 'utf8')
+const nameOf = (machinePath: string) =>
+  frontMatter(machinePath).match(/^nombre: ['"]?(.*?)['"]?$/m)?.[1] ?? ''
+
+// A machine page with photos, used wherever any machine will do.
+export const SAMPLE_MACHINE = '/maquinas/ojales-botones-presillas/jk-t1900gsk-dii'
+// The machine with the longest name: its <h1> is the worst case for the call to action
+// staying in view.
+export const LONGEST_NAME_MACHINE = MACHINE_PATHS.reduce((longest, path) =>
+  nameOf(path).length > nameOf(longest).length ? path : longest,
+)
+// A machine whose supplier published no photo, if any: its pages show a placeholder.
+export const MACHINE_WITHOUT_PHOTOS = MACHINE_PATHS.find((path) =>
+  /^fotos: \[\]$/m.test(frontMatter(path)),
+)
+// The category with the most machines: the longest listing page.
+export const LARGEST_CATEGORY = CATALOGUE.reduce((largest, category) =>
+  category.models.length > largest.models.length ? category : largest,
+).path
+
 export const PAGES = [
   '/',
   '/servicio-tecnico',
   '/toldos',
   '/maquinas',
-  '/maquinas/jk-t1900gsk-dii',
+  LARGEST_CATEGORY,
+  SAMPLE_MACHINE,
+  ...(MACHINE_WITHOUT_PHOTOS ? [MACHINE_WITHOUT_PHOTOS] : []),
   '/condiciones-de-venta',
   '/aviso-legal',
   '/privacidad',
