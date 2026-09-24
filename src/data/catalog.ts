@@ -71,7 +71,7 @@ export const MACHINE_FAMILIES: readonly MachineFamily[] = [
   },
   {
     id: 'remalladora-overlock',
-    label: 'Remalladora/Overlock',
+    label: 'Remalladora / Overlock',
     title: 'Remalladoras (overlock)',
     summary:
       'Remalladoras JACK de 2 a 6 hilos: modelos base, con IA, con arrastre superior y cilíndricas.',
