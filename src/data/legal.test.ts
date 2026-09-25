@@ -84,6 +84,12 @@ describe('privacy policy', () => {
     expect(text).toContain('Darnos tus datos es voluntario')
     expect(text).toContain('No tomamos decisiones automatizadas')
   })
+
+  it('mentions email as a contact channel and names Gmail as its provider', () => {
+    const text = JSON.stringify(PRIVACY_POLICY)
+    expect(text).toContain('correo electrónico')
+    expect(text).toContain('Gmail')
+  })
 })
 
 describe('LEGAL_LINKS', () => {

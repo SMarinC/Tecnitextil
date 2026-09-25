@@ -12,6 +12,7 @@ export const FINAL_CTA = {
   heading: 'Todo para tu maquinaria textil',
   subheading: 'Reparación, mantenimiento y venta. Escríbenos y con gusto te ayudamos.',
   ctaLabel: 'Contáctanos',
+  emailLabel: 'Escríbenos un correo',
 }
 
 export const FOOTER = {
