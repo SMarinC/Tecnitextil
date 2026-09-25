@@ -167,6 +167,30 @@ test.describe('catalogue', () => {
     expect((await box(firstCard)).y).not.toBe((await box(secondCard)).y)
   })
 
+  test('the back button and breadcrumb line up with the machine cards on the left, on desktop and phone widths', async ({
+    page,
+  }, testInfo) => {
+    // Both widths are forced viewports, and the alignment comes from CSS (a max-width
+    // wrapper matching the container's content box), which is engine-independent, so
+    // running this in every project would only repeat the same assertion.
+    test.skip(testInfo.project.name !== 'mobile', 'Viewport-driven: other projects repeat it')
+
+    await page.goto(CATALOGUE[0].path)
+    const back = page.getByRole('link', { name: CATALOG_COPY.backToCatalogue })
+    const breadcrumbNav = page.getByRole('navigation', { name: CATALOG_COPY.breadcrumbLabel })
+    const firstCard = page.locator('main section[id] li').first()
+
+    for (const viewport of [
+      { width: 1280, height: 800 },
+      { width: 390, height: 844 },
+    ]) {
+      await page.setViewportSize(viewport)
+      const backX = (await box(back)).x
+      expect(Math.abs(backX - (await box(breadcrumbNav)).x)).toBeLessThanOrEqual(1)
+      expect(Math.abs(backX - (await box(firstCard)).x)).toBeLessThanOrEqual(1)
+    }
+  })
+
   test('the jump menu stays a single scrolling row on phones instead of stacking', async ({
     page,
   }, testInfo) => {

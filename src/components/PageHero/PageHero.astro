@@ -13,12 +13,20 @@ interface Props {
 }
 
 const { eyebrow, title, intro, ctaLabel, message } = Astro.props
+const hasBreadcrumb = Astro.slots.has('breadcrumb')
 ---
 
 <section class={styles.hero} data-page-hero>
+  {/* Category pages put their breadcrumb here, before .inner and outside its centered
+       720px column, in its own left-aligned row lined up with the container's content
+       edge (the machine cards further down). Only rendered when a page fills the slot,
+       so other inner pages keep their plain centered hero. */}
+  {hasBreadcrumb && (
+    <div class={styles.breadcrumbRow}>
+      <slot name="breadcrumb" />
+    </div>
+  )}
   <div class={styles.inner}>
-    {/* Category pages put their breadcrumb here, above the eyebrow. */}
-    <slot name="breadcrumb" />
     <p class={styles.eyebrow}>{eyebrow}</p>
     <h1 class={styles.title}>{title}</h1>
     <p class={styles.intro}>{intro}</p>

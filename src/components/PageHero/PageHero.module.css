@@ -7,6 +7,18 @@
   composes: inner from '../../styles/hero.module.css';
 }
 
+/* Lines up with the container's content box (var(--max-width) minus its own left/right
+   padding), so the back link and breadcrumb sit on the same left edge as the machine
+   cards further down the page, instead of centering with .inner above. */
+.breadcrumbRow {
+  max-width: calc(var(--max-width) - 2 * var(--space-md));
+  margin: 0 auto var(--space-md);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
 .eyebrow {
   composes: eyebrow from '../../styles/hero.module.css';
 }
@@ -35,6 +47,10 @@
 
   .inner {
     gap: var(--space-xs);
+  }
+
+  .breadcrumbRow {
+    margin-bottom: var(--space-xs);
   }
 }
 
