@@ -77,6 +77,13 @@ describe('privacy policy', () => {
   it('adds the invoicing legal basis for buyers', () => {
     expect(JSON.stringify(PRIVACY_POLICY)).toContain('art. 6.1.c RGPD')
   })
+
+  it('the privacy policy covers the hosting logs, voluntary data and automated decisions (GDPR art. 13.2 e, f)', () => {
+    const text = JSON.stringify(PRIVACY_POLICY)
+    expect(text).toContain('dirección IP')
+    expect(text).toContain('Darnos tus datos es voluntario')
+    expect(text).toContain('No tomamos decisiones automatizadas')
+  })
 })
 
 describe('LEGAL_LINKS', () => {

@@ -36,7 +36,7 @@ export const LEGAL_OWNER: Record<OwnerField, string> = {
 }
 
 // Date of the last review of the legal texts.
-export const LAST_UPDATED: string = '22 de septiembre de 2026'
+export const LAST_UPDATED: string = '25 de septiembre de 2026'
 
 export function isMissing(value: unknown): boolean {
   return value === null || value === undefined || (typeof value === 'string' && value.trim() === '')
@@ -131,6 +131,7 @@ export const PRIVACY_POLICY: LegalPageContent = {
       paragraphs: [
         'Si nos escribes por WhatsApp o nos llamas: tu nombre, número de teléfono y la información que decidas compartir sobre tu máquina o avería.',
         'Al visitar la web: estadísticas de uso agregadas (páginas vistas, país, tipo de dispositivo y página de procedencia) mediante Vercel Web Analytics, que según su proveedor funciona sin cookies y sin identificar a la persona visitante.',
+        'Al servir la web, el proveedor de alojamiento (Vercel) registra de forma técnica la dirección IP y el tipo de navegador de cada visita, algo necesario para mostrar la web y protegerla frente a abusos.',
       ],
     },
     {
@@ -138,6 +139,7 @@ export const PRIVACY_POLICY: LegalPageContent = {
       paragraphs: [
         'Para responder a tu consulta y, en su caso, prestarte el servicio solicitado: base legal de aplicación de medidas precontractuales o ejecución de un contrato a petición tuya (art. 6.1.b RGPD).',
         'Para conocer de forma agregada cómo se usa la web y mejorarla: interés legítimo del titular (art. 6.1.f RGPD).',
+        'Para mostrar la web y mantenerla segura (el registro técnico de la IP y del navegador): interés legítimo del titular (art. 6.1.f RGPD).',
         'Si compras una máquina, también para emitir la factura y cumplir las obligaciones contables y fiscales: base legal de cumplimiento de una obligación legal (art. 6.1.c RGPD).',
       ],
     },
@@ -158,6 +160,14 @@ export const PRIVACY_POLICY: LegalPageContent = {
       heading: 'Tus derechos',
       paragraphs: [
         `Puedes pedir acceso, rectificación, supresión, oposición, limitación del tratamiento y portabilidad de tus datos escribiendo a ${owner('email')}. Si consideras que no se han respetado tus derechos, puedes reclamar ante la Agencia Española de Protección de Datos (www.aepd.es).`,
+      ],
+    },
+    // GDPR art. 13.2 e and f: whether providing data is required, and automated decisions.
+    {
+      heading: 'Datos voluntarios y decisiones automatizadas',
+      paragraphs: [
+        'Darnos tus datos es voluntario y no es un requisito legal ni contractual. Sí es necesario para responder a tu consulta o preparar un presupuesto: sin ellos no podremos atenderte.',
+        'No tomamos decisiones automatizadas ni elaboramos perfiles con tus datos.',
       ],
     },
     {
