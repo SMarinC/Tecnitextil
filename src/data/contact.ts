@@ -10,3 +10,9 @@ export const WHATSAPP_MESSAGE =
 export function buildWhatsAppUrl(message: string = WHATSAPP_MESSAGE): string {
   return `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(message)}`
 }
+
+export const EMAIL_SUBJECT = `Consulta desde la web de ${COMPANY.name}`
+
+export function buildMailtoUrl(subject: string = EMAIL_SUBJECT): string {
+  return `mailto:${COMPANY.email}?subject=${encodeURIComponent(subject)}`
+}

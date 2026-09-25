@@ -8,6 +8,7 @@ export const COMPANY = {
     international: '34685018086',
     display: '+34 685 01 80 86',
   },
+  email: 'tecnitextil2@gmail.com',
   // Only the city is public in structured data, never the street: see seo.ts.
   locality: 'Santa Coloma de Gramenet',
   region: 'Barcelona',

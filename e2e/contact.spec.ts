@@ -1,12 +1,15 @@
 import { expect, test } from '@playwright/test'
-import { WHATSAPP_CTA } from '../src/data/site'
+import { COMPANY } from '../src/data/company'
+import { FINAL_CTA, WHATSAPP_CTA } from '../src/data/site'
 import {
   CATALOGUE,
   LONGEST_NAME_MACHINES,
+  PAGES,
   SAMPLE_MACHINE,
   WHATSAPP_URL,
   box,
   closingCta,
+  closingEmailCta,
   overlaps,
 } from './support'
 
@@ -44,6 +47,22 @@ test.describe('contact', () => {
     await expect(closingCta(page)).toBeVisible()
   })
 
+  test('every page shows the email call to action and the address in its closing block', async ({
+    page,
+  }) => {
+    for (const path of PAGES) {
+      await page.goto(path)
+      const closing = page.locator('#contacto')
+
+      const emailCta = closing.getByRole('link', { name: FINAL_CTA.emailLabel })
+      await expect(emailCta, path).toBeVisible()
+      await expect(emailCta, path).toHaveAttribute('href', new RegExp(`^mailto:${COMPANY.email}`))
+
+      const address = closing.getByRole('link', { name: COMPANY.email })
+      await expect(address, path).toBeVisible()
+    }
+  })
+
   test('the phone number is a tappable tel: link', async ({ page }) => {
     const phone = page.getByRole('link', { name: '+34 685 01 80 86' })
     await expect(phone).toHaveAttribute('href', 'tel:+34685018086')
@@ -69,8 +88,10 @@ test.describe('contact', () => {
 
     const floating = await box(page.getByRole('link', { name: WHATSAPP_CTA.floatingLabel }))
     const cta = await box(closing)
+    const emailCta = await box(closingEmailCta(page))
 
     expect(overlaps(floating, cta)).toBe(false)
+    expect(overlaps(floating, emailCta)).toBe(false)
   })
 
   test('the floating WhatsApp button does not cover the hero call to action on a short phone', async ({
@@ -127,5 +148,24 @@ test.describe('contact', () => {
         .poll(() => page.evaluate(() => (window as unknown as { vaq?: unknown[][] }).vaq ?? []))
         .toContainEqual(['pageview', { route: expected, path: expected }])
     }
+  })
+
+  test('an email click is counted as a visit to /contactar-correo/portada', async ({ page }) => {
+    // A mailto: link has no network request to route like wa.me above, and on WebKit
+    // the browser's own attempt to hand it to an external app unloads the page first,
+    // wiping window.vaq before the pageview call lands. Preventing that default action
+    // for this click only (never touching the site's own code) keeps the test on the
+    // page without changing what is being measured.
+    await closingEmailCta(page).evaluate((link) =>
+      link.addEventListener('click', (event) => event.preventDefault()),
+    )
+    await closingEmailCta(page).click()
+
+    await expect
+      .poll(() => page.evaluate(() => (window as unknown as { vaq?: unknown[][] }).vaq ?? []))
+      .toContainEqual([
+        'pageview',
+        { route: '/contactar-correo/portada', path: '/contactar-correo/portada' },
+      ])
   })
 })

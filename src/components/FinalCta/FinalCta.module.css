@@ -18,3 +18,27 @@
 .subheading {
   color: var(--color-text-on-dark-secondary);
 }
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-sm);
+}
+
+.address {
+  color: var(--color-text-on-dark-secondary);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 639px) {
+  .actions {
+    flex-direction: column;
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .actions > a {
+    width: 100%;
+  }
+}

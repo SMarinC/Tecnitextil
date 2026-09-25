@@ -1,0 +1,25 @@
+---
+import { buildMailtoUrl } from '../../data/contact'
+import Icon from '../Icon/Icon.astro'
+import styles from './EmailCta.module.css'
+
+// Companion to WhatsAppCta: the single component for every "write us an email" link, so
+// the mailto URL and icon never drift apart between placements. No target="_blank": a
+// mailto: link opens the visitor's own mail app, not a browser tab.
+//
+// `data-contact="email"` marks the link for src/lib/analytics.ts, which counts a click
+// on it as a visit to /contactar-correo/<page>. It never changes the href or delays the
+// click: the mail app opens straight from the tap, same as the WhatsApp link.
+interface Props {
+  label: string
+  // Defaults to the general enquiry (EMAIL_SUBJECT).
+  subject?: string
+}
+
+const { label, subject } = Astro.props
+---
+
+<a href={buildMailtoUrl(subject)} class={styles.email} data-contact="email">
+  <Icon name="mail" class={styles.icon} />
+  {label}
+</a>
