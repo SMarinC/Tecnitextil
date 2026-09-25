@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { CATALOG_COPY, familyById } from '../../data/catalog'
 import { buildWhatsAppUrl } from '../../data/contact'
-import { machineWhatsAppMessage } from '../../lib/catalog'
+import { familyPath, machineWhatsAppMessage } from '../../lib/catalog'
 import { SAMPLE_FAMILY, sampleMachine, sampleSewingMachine } from '../../test/machines'
 import { renderToHtml, textContent } from '../../test/render'
 import MachineDetail from './MachineDetail.astro'
@@ -52,6 +52,23 @@ describe('MachineDetail', () => {
     expect(nav).toContain('href="/maquinas"')
     expect(nav).toContain('href="/maquinas/ojales-botones-presillas"')
     expect(nav).toContain('href="/maquinas/ojales-botones-presillas#presillas-y-botones"')
+  })
+
+  it('offers two back links to the family, one above the breadcrumb and one at the end', () => {
+    const path = familyPath(family)
+    // The breadcrumb's own family step links to the same path, so it is excluded first.
+    const nav = html.match(/<nav[^>]*>[\s\S]*?<\/nav>/)?.[0] ?? ''
+    const outsideNav = html.replace(nav, '')
+    const backLinks =
+      outsideNav.match(new RegExp(`<a href="${path}"[^>]*>[\\s\\S]*?</a>`, 'g')) ?? []
+    expect(backLinks).toHaveLength(2)
+    expect(textContent(backLinks[0] ?? '')).toContain(CATALOG_COPY.backToFamily(family.label))
+    expect(textContent(backLinks[1] ?? '')).toContain(CATALOG_COPY.moreFromFamily(family.label))
+
+    const topLinkIndex = html.indexOf(`<a href="${path}"`)
+    const navIndex = html.indexOf('<nav')
+    expect(topLinkIndex).toBeGreaterThanOrEqual(0)
+    expect(topLinkIndex).toBeLessThan(navIndex)
   })
 
   it('makes the photo strip keyboard-scrollable and describes every photo', () => {

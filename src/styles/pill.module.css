@@ -1,0 +1,30 @@
+/* Shared pill-shaped link: outlined, uppercase heading font, gold fill on hover and
+   keyboard focus. Used by the category jump menu (MachineGroups) and the catalogue's
+   back links (BackLink), which only add their own layout on top. */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--space-md);
+  border: 1px solid var(--line-control);
+  border-radius: var(--radius-full);
+  color: var(--color-text-on-dark);
+  text-decoration: none;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.85rem;
+}
+
+.pill:hover,
+.pill:focus-visible {
+  border-color: var(--color-gold);
+  background: var(--color-gold);
+  color: var(--color-black);
+}
+
+.pill:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}

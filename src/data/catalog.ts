@@ -156,4 +156,7 @@ export const CATALOG_COPY = {
   photoLabel: 'Ver foto',
   breadcrumbLabel: 'Ruta de navegación',
   breadcrumbRoot: 'Máquinas',
+  backToCatalogue: 'Todas las máquinas',
+  backToFamily: (label: string) => `Volver a ${label}`,
+  moreFromFamily: (label: string) => `Ver más máquinas de ${label}`,
 }

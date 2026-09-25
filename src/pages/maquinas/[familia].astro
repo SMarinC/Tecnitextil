@@ -1,9 +1,11 @@
 ---
 import { getCollection } from 'astro:content'
+import BackLink from '../../components/BackLink/BackLink.astro'
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb.astro'
 import MachineGroups from '../../components/MachineGroups/MachineGroups.astro'
 import PageHero from '../../components/PageHero/PageHero.astro'
 import { CATALOG_COPY, MACHINE_FAMILIES, type MachineFamily } from '../../data/catalog'
+import { CATALOG_PAGE } from '../../data/pages'
 import SiteLayout from '../../layouts/SiteLayout.astro'
 import {
   assertCatalog,
@@ -48,7 +50,10 @@ const breadcrumb = familyBreadcrumb(family)
     ctaLabel={CATALOG_COPY.hero.ctaLabel}
     message={message}
   >
-    <Breadcrumb slot="breadcrumb" items={breadcrumb} />
+    <div slot="breadcrumb">
+      <BackLink href={CATALOG_PAGE.path} label={CATALOG_COPY.backToCatalogue} />
+      <Breadcrumb items={breadcrumb} />
+    </div>
   </PageHero>
   <MachineGroups groups={groupByType(family, machines)} />
 </SiteLayout>

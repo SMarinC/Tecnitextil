@@ -1,6 +1,12 @@
 ---
 import { AVAILABILITY_LABELS, CATALOG_COPY, type MachineFamily } from '../../data/catalog'
-import { machineBreadcrumb, machineWhatsAppMessage, type Machine } from '../../lib/catalog'
+import {
+  familyPath,
+  machineBreadcrumb,
+  machineWhatsAppMessage,
+  type Machine,
+} from '../../lib/catalog'
+import BackLink from '../BackLink/BackLink.astro'
 import Breadcrumb from '../Breadcrumb/Breadcrumb.astro'
 import MachineGallery from '../MachineGallery/MachineGallery.astro'
 import WhatsAppCta from '../WhatsAppCta/WhatsAppCta.astro'
@@ -18,6 +24,7 @@ const { machine, family } = Astro.props
 
 <article class={styles.detail}>
   <div class={styles.inner}>
+    <BackLink href={familyPath(family)} label={CATALOG_COPY.backToFamily(family.label)} />
     <Breadcrumb items={machineBreadcrumb(family, machine)} />
     <div class={styles.layout}>
       <div class={styles.summary}>
@@ -79,6 +86,9 @@ const { machine, family } = Astro.props
           <a href={CATALOG_COPY.conditions.href}>{CATALOG_COPY.conditions.label}</a>
         </p>
       </section>
+    </div>
+    <div class={styles.backBottom}>
+      <BackLink href={familyPath(family)} label={CATALOG_COPY.moreFromFamily(family.label)} />
     </div>
   </div>
 </article>

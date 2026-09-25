@@ -10,6 +10,15 @@
   padding-top: var(--space-sm);
 }
 
+/* Short screens (e.g. iPhone SE): the back link above the breadcrumb adds height that
+   a short viewport cannot spare, so this drops to nothing, same breakpoint as PageHero
+   and Breadcrumb. */
+@media (max-height: 619px) {
+  .inner {
+    padding-top: 0;
+  }
+}
+
 .layout {
   display: grid;
   grid-template-columns: 1fr;
@@ -150,8 +159,21 @@
   outline-offset: 2px;
 }
 
+.backBottom {
+  margin-top: var(--space-lg);
+}
+
 @media (min-width: 768px) {
   .notes {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Short and narrow screens (e.g. 320x568): the back link above the breadcrumb leaves
+   less room than before for a long machine title to wrap in, before the WhatsApp CTA
+   below it. Same fix as PageHero's title for the same breakpoint. */
+@media (max-height: 619px) and (max-width: 340px) {
+  .title {
+    font-size: 1.4rem;
   }
 }

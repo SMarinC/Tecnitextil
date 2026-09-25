@@ -1,0 +1,6 @@
+.link {
+  composes: pill from '../../styles/pill.module.css';
+  /* Space between the arrow and the label; the pill itself sets no gap since the
+     jump menu's pills (which also compose it) hold plain text only. */
+  gap: var(--space-xs);
+}

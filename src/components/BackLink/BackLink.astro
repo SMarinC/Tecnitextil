@@ -1,0 +1,17 @@
+---
+import styles from './BackLink.module.css'
+
+// A plain <a>, never history.back(): many visitors land here from Google or WhatsApp
+// with no page to go back to in their browser history.
+interface Props {
+  href: string
+  label: string
+}
+
+const { href, label } = Astro.props
+---
+
+<a href={href} class={styles.link}>
+  <span aria-hidden="true">←</span>
+  {label}
+</a>
