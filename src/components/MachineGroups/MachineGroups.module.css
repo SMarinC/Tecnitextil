@@ -32,19 +32,7 @@
 }
 
 .jumpLink {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  padding: 0 var(--space-md);
-  border: 1px solid var(--line-control);
-  border-radius: var(--radius-full);
-  color: var(--color-text-on-dark);
-  text-decoration: none;
-  font-family: var(--font-heading);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-size: 0.85rem;
+  composes: pill from '../../styles/pill.module.css';
   flex: 0 0 auto;
   white-space: nowrap;
   scroll-snap-align: start;
@@ -54,18 +42,6 @@
   .jumpLink {
     scroll-snap-align: none;
   }
-}
-
-.jumpLink:hover,
-.jumpLink:focus-visible {
-  border-color: var(--color-gold);
-  background: var(--color-gold);
-  color: var(--color-black);
-}
-
-.jumpLink:focus-visible {
-  outline: var(--focus-ring);
-  outline-offset: var(--focus-ring-offset);
 }
 
 .group {

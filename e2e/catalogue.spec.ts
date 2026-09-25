@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { CATALOG_COPY, modelCountLabel } from '../src/data/catalog'
+import { CATALOG_COPY, familyById, modelCountLabel } from '../src/data/catalog'
 import { CATALOG_PAGE } from '../src/data/pages'
 import { WHATSAPP_CTA } from '../src/data/site'
 import {
@@ -94,6 +94,29 @@ test.describe('catalogue', () => {
   test('the machine page shows its WhatsApp enquiry without scrolling', async ({ page }) => {
     await page.goto(SAMPLE_MACHINE)
     await expect(page.locator('article a[href*="wa.me"]')).toBeInViewport({ ratio: 1 })
+  })
+
+  test('a clear back button leads from a category page to the catalogue, and from a machine page back to its family', async ({
+    page,
+  }) => {
+    for (const { path } of CATALOGUE) {
+      await page.goto(path)
+      const back = page.getByRole('link', { name: CATALOG_COPY.backToCatalogue })
+      await expect(back).toBeVisible()
+      await expect(back).toHaveAttribute('href', CATALOG_PAGE.path)
+      await back.click()
+      await expect(page).toHaveURL(new RegExp(`${CATALOG_PAGE.path}$`))
+    }
+
+    const family = familyById('ojales-botones-presillas')
+    const familyUrl = `${CATALOG_PAGE.path}/${family.id}`
+    await page.goto(SAMPLE_MACHINE)
+    const top = page.getByRole('link', { name: CATALOG_COPY.backToFamily(family.label) })
+    await expect(top).toBeInViewport()
+    await expect(top).toHaveAttribute('href', familyUrl)
+
+    const bottom = page.getByRole('link', { name: CATALOG_COPY.moreFromFamily(family.label) })
+    await expect(bottom).toHaveAttribute('href', familyUrl)
   })
 
   test('catalogue pages never show a price', async ({ page }) => {

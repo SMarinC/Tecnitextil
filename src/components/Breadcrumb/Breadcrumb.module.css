@@ -1,4 +1,6 @@
 .breadcrumb {
+  /* The BackLink that now precedes every breadcrumb sits this far above it. */
+  margin-top: var(--space-xs);
   margin-bottom: var(--space-sm);
 }
 
@@ -36,6 +38,7 @@
    instead of sitting under it. Same pattern as Hero and PageHero. */
 @media (max-height: 619px) {
   .breadcrumb {
+    margin-top: 0;
     margin-bottom: var(--space-xs);
   }
 }
