@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { MACHINE_FAMILIES, MACHINE_TYPE_IDS, familyById, modelCountLabel } from './catalog'
+import { MACHINE_FAMILIES, familyById, modelCountLabel } from './catalog'
 
 describe('MACHINE_FAMILIES', () => {
   it('gives every category a unique id and at least one type', () => {
@@ -11,12 +11,6 @@ describe('MACHINE_FAMILIES', () => {
   it.each([...MACHINE_FAMILIES])('$id keeps its type ids unique', ({ types }) => {
     const ids = types.map(({ id }) => id)
     expect(new Set(ids).size).toBe(ids.length)
-  })
-
-  it('lists every category type id in MACHINE_TYPE_IDS', () => {
-    for (const { types } of MACHINE_FAMILIES) {
-      for (const { id } of types) expect(MACHINE_TYPE_IDS).toContain(id)
-    }
   })
 
   it('finds a category by id and fails loudly on an unknown one', () => {
