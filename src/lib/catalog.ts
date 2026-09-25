@@ -78,7 +78,7 @@ export function groupByType(family: MachineFamily, machines: readonly Machine[])
 }
 
 // The category's designated cover machine, among its own machines.
-export function coverOf(
+function coverOf(
   family: Pick<MachineFamily, 'id' | 'cover'>,
   machines: readonly Machine[],
 ): Machine | undefined {
