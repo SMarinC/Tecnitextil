@@ -16,7 +16,7 @@ import { serializeJsonLd } from '../lib/jsonLd'
 // header use Inter 400 and Oswald 600 on first paint, so both are preloaded.
 interface Props {
   page: PageMeta
-  jsonLd?: Record<string, unknown>
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[]
   // Share image; defaults to the site-wide og-image.png.
   image?: { url: string; width: number; height: number }
 }
@@ -34,7 +34,9 @@ const url = absoluteUrl(page.path)
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="/logo.png" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="theme-color" content={THEME_COLOR} />
     <link rel="preload" href={interLatin400} as="font" type="font/woff2" crossorigin="anonymous" />
