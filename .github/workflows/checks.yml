@@ -36,6 +36,9 @@ jobs:
           path: dist/
           retention-days: 3
           overwrite: true
+          # dist/.well-known/security.txt is a hidden path, which upload-artifact skips
+          # by default; without it the browser and Lighthouse jobs test a different site.
+          include-hidden-files: true
 
   e2e:
     name: Browser tests (Playwright + axe)
