@@ -7,7 +7,6 @@ playwright-report
 *.local
 .claude
 .superpowers
-.impeccable
 docs
 .env
 .env.*
