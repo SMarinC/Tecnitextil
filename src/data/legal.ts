@@ -32,7 +32,7 @@ export const LEGAL_OWNER: Record<OwnerField, string> = {
   legalName: 'Jhon Mario Hernández Melo',
   taxId: '60415860N',
   address: 'Carrer del Perú, 7, 08921 Santa Coloma de Gramenet (Barcelona)',
-  email: 'tecnitextil2@gmail.com',
+  email: COMPANY.email,
 }
 
 // Date of the last review of the legal texts.
@@ -81,7 +81,7 @@ export const LEGAL_NOTICE: LegalPageContent = {
     {
       heading: 'Objeto',
       paragraphs: [
-        `Este sitio web informa sobre los servicios de ${COMPANY.name}: reparación, mantenimiento, venta y asesoría técnica de maquinaria textil e industrial. El contacto se realiza por WhatsApp o por teléfono; la web no dispone de formularios ni tienda online.`,
+        `Este sitio web informa sobre los servicios de ${COMPANY.name}: reparación, mantenimiento, venta y asesoría técnica de maquinaria textil e industrial. El contacto se realiza por WhatsApp, por teléfono o por correo electrónico; la web no dispone de formularios ni tienda online.`,
       ],
     },
     {
@@ -129,7 +129,7 @@ export const PRIVACY_POLICY: LegalPageContent = {
     {
       heading: 'Qué datos tratamos',
       paragraphs: [
-        'Si nos escribes por WhatsApp o nos llamas: tu nombre, número de teléfono y la información que decidas compartir sobre tu máquina o avería.',
+        'Si nos escribes por WhatsApp, por correo electrónico o nos llamas: tu nombre, número de teléfono y la información que decidas compartir sobre tu máquina o avería.',
         'Al visitar la web: estadísticas de uso agregadas (páginas vistas, país, tipo de dispositivo y página de procedencia) mediante Vercel Web Analytics, que según su proveedor funciona sin cookies y sin identificar a la persona visitante.',
         'Al servir la web, el proveedor de alojamiento (Vercel) registra de forma técnica la dirección IP y el tipo de navegador de cada visita, algo necesario para mostrar la web y protegerla frente a abusos.',
       ],
@@ -152,7 +152,7 @@ export const PRIVACY_POLICY: LegalPageContent = {
     {
       heading: 'Con quién los compartimos',
       paragraphs: [
-        'Vercel Inc. aloja la web y proporciona las estadísticas de uso. WhatsApp (Meta) trata los mensajes cuando eliges ese canal, como responsable independiente. Estos proveedores pueden tratar datos fuera del Espacio Económico Europeo con las garantías previstas en el RGPD, según su propia documentación.',
+        'Vercel Inc. aloja la web y proporciona las estadísticas de uso. WhatsApp (Meta) trata los mensajes cuando eliges ese canal, como responsable independiente. Google (Gmail) presta el servicio de correo electrónico cuando nos escribes por ese medio. Estos proveedores pueden tratar datos fuera del Espacio Económico Europeo con las garantías previstas en el RGPD, según su propia documentación.',
         'No vendemos ni cedemos tus datos a terceros con fines comerciales.',
       ],
     },

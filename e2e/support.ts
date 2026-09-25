@@ -96,6 +96,10 @@ export function navLabel(href: string): string {
 export const closingCta = (page: Page) =>
   page.locator('#contacto').getByRole('link', { name: FINAL_CTA.ctaLabel })
 
+// Scoped to the closing block: the email button sits next to the WhatsApp one.
+export const closingEmailCta = (page: Page) =>
+  page.locator('#contacto').getByRole('link', { name: FINAL_CTA.emailLabel })
+
 // On mobile the menu links live in a panel that opens from the header button.
 export async function openMenu(page: Page, isMobile: boolean): Promise<Locator> {
   if (isMobile) {
