@@ -3,11 +3,11 @@ import Hero from '../components/Hero/Hero.astro'
 import SectionCards from '../components/SectionCards/SectionCards.astro'
 import ValueProps from '../components/ValueProps/ValueProps.astro'
 import { HOME_PAGE } from '../data/pages'
-import { localBusinessJsonLd } from '../data/seo'
+import { localBusinessJsonLd, websiteJsonLd } from '../data/seo'
 import SiteLayout from '../layouts/SiteLayout.astro'
 ---
 
-<SiteLayout page={HOME_PAGE} jsonLd={localBusinessJsonLd()}>
+<SiteLayout page={HOME_PAGE} jsonLd={[localBusinessJsonLd(), websiteJsonLd()]}>
   <Hero />
   <SectionCards />
   <ValueProps />

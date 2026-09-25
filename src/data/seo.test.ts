@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import { COMPANY } from './company'
 import { HOME_PAGE } from './pages'
-import { SITE_URL, THEME_COLOR, absoluteUrl, localBusinessJsonLd } from './seo'
+import { SITE_URL, THEME_COLOR, absoluteUrl, localBusinessJsonLd, websiteJsonLd } from './seo'
 
 describe('seo content', () => {
   it('SITE_URL is an https origin without trailing slash', () => {
@@ -38,6 +38,13 @@ describe('seo content', () => {
     })
     expect(address).not.toHaveProperty('streetAddress')
     expect(address).not.toHaveProperty('postalCode')
+  })
+
+  it('WebSite structured data names the site so Google shows it instead of the domain', () => {
+    const data = websiteJsonLd()
+    expect(data['@type']).toBe('WebSite')
+    expect(data.name).toBe(COMPANY.name)
+    expect(data.url).toBe(`${SITE_URL}/`)
   })
 
   it('THEME_COLOR matches --color-black in tokens.css, the only other place it is written', () => {

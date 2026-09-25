@@ -40,3 +40,14 @@ export function localBusinessJsonLd() {
     areaServed: { '@type': 'Country', name: 'España' },
   }
 }
+
+// schema.org WebSite. Google reads the site name shown in search results from this,
+// not from the domain, so the home page publishes it alongside LocalBusiness.
+export function websiteJsonLd() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: COMPANY.name,
+    url: absoluteUrl('/'),
+  }
+}

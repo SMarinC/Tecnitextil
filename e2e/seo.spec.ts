@@ -36,11 +36,17 @@ test.describe('SEO and sharing', () => {
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', /^https:\/\/.+\/$/)
   })
 
-  test('the home page publishes LocalBusiness structured data', async ({ page }) => {
+  test('the home page publishes LocalBusiness and WebSite structured data', async ({ page }) => {
     const json = await page.locator('script[type="application/ld+json"]').textContent()
-    const data = JSON.parse(json ?? '{}') as { '@type'?: string; telephone?: string }
-    expect(data['@type']).toBe('LocalBusiness')
-    expect(data.telephone).toBe('+34685018086')
+    const data = JSON.parse(json ?? '[]') as {
+      '@type'?: string
+      telephone?: string
+      name?: string
+    }[]
+    const localBusiness = data.find((entry) => entry['@type'] === 'LocalBusiness')
+    const website = data.find((entry) => entry['@type'] === 'WebSite')
+    expect(localBusiness?.telephone).toBe('+34685018086')
+    expect(website?.name).toBe('TECNITEXTIL')
   })
 
   test('the sitemap lists every indexable page, category and machine', async ({ request }) => {

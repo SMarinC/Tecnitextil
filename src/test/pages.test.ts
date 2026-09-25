@@ -97,6 +97,17 @@ describe('every page', () => {
     },
   )
 
+  it.each(PAGES)('$path links a favicon Google can use (48x48 ICO and PNG sizes)', ({ path }) => {
+    const pageHead = head(html[path])
+    expect(pageHead).toContain('<link rel="icon" href="/favicon.ico" sizes="48x48">')
+    expect(pageHead).toContain(
+      '<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">',
+    )
+    expect(pageHead).toContain(
+      '<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">',
+    )
+  })
+
   it.each(PAGES)('$path links to the legal notice and the privacy policy', ({ path }) => {
     expect(html[path]).toContain(`href="${LEGAL_NOTICE.path}"`)
     expect(html[path]).toContain(`href="${PRIVACY_POLICY.path}"`)
