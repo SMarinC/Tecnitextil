@@ -129,7 +129,7 @@ export const PRIVACY_POLICY: LegalPageContent = {
     {
       heading: 'Qué datos tratamos',
       paragraphs: [
-        'Si nos escribes por WhatsApp, por correo electrónico o nos llamas: tu nombre, número de teléfono y la información que decidas compartir sobre tu máquina o avería.',
+        'Si nos escribes por WhatsApp, por correo electrónico o nos llamas: tu nombre, tu número de teléfono o tu dirección de correo, y la información que decidas compartir sobre tu máquina o avería.',
         'Al visitar la web: estadísticas de uso agregadas (páginas vistas, país, tipo de dispositivo y página de procedencia) mediante Vercel Web Analytics, que según su proveedor funciona sin cookies y sin identificar a la persona visitante.',
         'Al servir la web, el proveedor de alojamiento (Vercel) registra de forma técnica la dirección IP y el tipo de navegador de cada visita, algo necesario para mostrar la web y protegerla frente a abusos.',
       ],
