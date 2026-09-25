@@ -1,4 +1,10 @@
 {
   "extends": "astro/tsconfigs/strict",
-  "exclude": ["dist", "docs", "node_modules"]
+  "exclude": ["dist", "docs", "node_modules"],
+  // "**/*" is the default from astro/tsconfigs/base.json, and .astro/types.d.ts holds
+  // the generated content-collection types: both must be repeated here because setting
+  // "include" replaces the inherited one instead of extending it. "**/*" alone silently
+  // skips dot-folders, which would otherwise drop src/pages/.well-known (the
+  // security.txt route) from the project.
+  "include": [".astro/types.d.ts", "**/*", "src/pages/.well-known/**/*"]
 }

@@ -65,6 +65,16 @@ test.describe('SEO and sharing', () => {
     }
   })
 
+  test('security.txt lists a way to report a vulnerability', async ({ request }) => {
+    const response = await request.get('/.well-known/security.txt')
+    expect(response.ok()).toBe(true)
+    // Static hosting serves the prerendered file by its .txt extension rather than the
+    // charset the GET handler sets (see the unit tests in siteFiles.test.ts for that);
+    // only the MIME type is guaranteed to survive here.
+    expect(response.headers()['content-type']).toContain('text/plain')
+    expect(await response.text()).toMatch(/^Contact: /m)
+  })
+
   test('every page is served as static HTML, readable without JavaScript', async ({ request }) => {
     const expectedText: Record<string, string> = {
       '/': TITLES.home,
