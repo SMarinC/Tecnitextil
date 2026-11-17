@@ -11,7 +11,7 @@ import {
   hasPendingLegalData,
 } from '../data/legal'
 import { AWNING_MACHINES } from '../data/awnings'
-import { ABOUT, HERO, SECTION_CARDS, VALUE_PROPS } from '../data/home'
+import { ABOUT, HERO, REVIEWS, SECTION_CARDS, VALUE_PROPS } from '../data/home'
 import { CONTACT_SECTION_ID, NAV_ITEMS } from '../data/navigation'
 import {
   AWNINGS_PAGE,
@@ -216,13 +216,14 @@ describe('home page', () => {
     expect(hero).not.toMatch(/<h2[\s>]/)
   })
 
-  it('orders its sections: why us, what you need, who we are, then contact', () => {
+  it('orders its sections: why us, what you need, reviews, who we are, then contact', () => {
     const headings = [...html[HOME_PAGE.path].matchAll(/<h2[^>]*>[\s\S]*?<\/h2>/g)].map(
       ([heading]) => textContent(heading),
     )
     expect(headings).toEqual([
       VALUE_PROPS.heading,
       SECTION_CARDS.heading,
+      REVIEWS.heading,
       ABOUT.heading,
       FINAL_CTA.heading,
     ])

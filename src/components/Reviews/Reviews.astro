@@ -1,0 +1,88 @@
+---
+import { REVIEWS } from '../../data/home'
+import Icon from '../Icon/Icon.astro'
+import styles from './Reviews.module.css'
+
+// Real Google reviews in a strip that scrolls sideways: swipe on phones, arrows on wider
+// screens. Each card is laid out like a Google review (initial, name, stars, source). The
+// stars are decorative: the summary line says the rating in words.
+---
+
+<section class={styles.section} aria-labelledby="opiniones" data-carousel>
+  <div class={styles.inner}>
+    <h2 id="opiniones" class={styles.heading}>
+      {REVIEWS.heading}
+    </h2>
+    <p class={styles.summary}>
+      <span class={styles.stars} aria-hidden="true">
+        {Array.from({ length: 5 }, () => (
+          <Icon name="star" class={styles.summaryStar} />
+        ))}
+      </span>
+      {REVIEWS.summary}
+    </p>
+    <ul
+      id="opiniones-lista"
+      class={styles.track}
+      role="list"
+      tabindex="0"
+      aria-label={REVIEWS.carouselLabel}
+      data-carousel-track
+    >
+      {REVIEWS.items.map(({ author, text }) => (
+        <li class={styles.card}>
+          <figure class={styles.figure}>
+            <figcaption class={styles.header}>
+              <span class={styles.avatar} aria-hidden="true">
+                {author.charAt(0)}
+              </span>
+              <span class={styles.who}>
+                <span class={styles.author}>{author}</span>
+                <span class={styles.source}>{REVIEWS.source}</span>
+              </span>
+            </figcaption>
+            <span class={styles.stars} aria-hidden="true">
+              {Array.from({ length: 5 }, () => (
+                <Icon name="star" class={styles.cardStar} />
+              ))}
+            </span>
+            <blockquote class={styles.quote}>
+              <p>{text}</p>
+            </blockquote>
+          </figure>
+        </li>
+      ))}
+    </ul>
+    <div class={styles.controls} data-carousel-controls hidden>
+      <button
+        type="button"
+        class={styles.arrow}
+        aria-label={REVIEWS.previousLabel}
+        aria-controls="opiniones-lista"
+        data-carousel-previous
+      >
+        <Icon name="chevronLeft" class={styles.arrowIcon} />
+      </button>
+      <button
+        type="button"
+        class={styles.arrow}
+        aria-label={REVIEWS.nextLabel}
+        aria-controls="opiniones-lista"
+        data-carousel-next
+      >
+        <Icon name="chevronRight" class={styles.arrowIcon} />
+      </button>
+    </div>
+    <a href={REVIEWS.href} class={styles.link} target="_blank" rel="noopener noreferrer">
+      {REVIEWS.linkLabel}
+      <Icon name="externalLink" class={styles.linkIcon} />
+    </a>
+  </div>
+</section>
+
+<script>
+  import { initCarousel } from '../../lib/carousel'
+
+  const carousel = document.querySelector<HTMLElement>('[data-carousel]')
+  if (carousel) initCarousel(carousel)
+</script>

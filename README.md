@@ -10,7 +10,7 @@ Production site of a Spanish business that repairs, maintains and sells industri
 
 ## Highlights
 
-- **Static HTML, JavaScript only where it's needed.** Astro renders every page at build time; the only client scripts are the header menu and Web Analytics, about 3 kB per page. A browser test fails if any page ships more than 15 kB of its own JavaScript.
+- **Static HTML, JavaScript only where it's needed.** Astro renders every page at build time; the only client scripts are the header menu, the home page's review carousel and Web Analytics, 3–4 kB per page. A browser test fails if any page ships more than 15 kB of its own JavaScript.
 - **Pages, not an endless scroll.** Home, technical service, awnings and the catalogue are separate pages linked from a menu that marks the current page in the HTML (`aria-current="page"`), checked in the browser tests. The catalogue is a hub of four JACK categories, each on its own page grouped by JACK's own types, with two machine cards per row on phones.
 - **A typed machine catalogue.** 68 machines live in a content collection, one folder per category and model, validated by a Zod schema and a build check: a machine in the wrong folder, a type outside its category, an empty category or a missing cover photo fails the build. Machines without a supplier photo show a "Foto no disponible" frame. Each machine page has exactly one WhatsApp enquiry naming the model, and no page shows a price — a business decision, checked by a test that scans for `€`, `EUR` and `IVA`.
 - **Conversion measured on the free plan.** WhatsApp clicks are counted as virtual `/contactar/...` pageviews in Vercel Web Analytics, which has no custom events on the free tier. The links stay plain `wa.me` anchors so the tap alone still opens the WhatsApp app on iOS.
@@ -39,7 +39,7 @@ Every pull request and every push to `main` runs three CI jobs:
 
 | Job                        | What it checks                                                                                                                                                      |
 | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Lint, unit tests and build | Prettier formatting, ESLint, 266 unit/component/page tests (Vitest), and the build with type checking                                                               |
+| Lint, unit tests and build | Prettier formatting, ESLint, 277 unit/component/page tests (Vitest), and the build with type checking                                                               |
 | Browser tests              | Playwright + axe on Pixel 7 (Chromium), iPhone 15 (WebKit) and desktop Chrome: accessibility, navigation, JavaScript budget and CSP                                 |
 | Lighthouse budgets         | Errors if accessibility is below 0.95, or performance, best practices or SEO are below 0.9, or CLS is above 0.1, on a fixed list of 14 page templates; warns on LCP |
 
@@ -49,10 +49,10 @@ The main branch is protected: every change lands through a pull request, merged 
 
 Counts as of 2026-11-17; Lighthouse, LCP and page weight as measured in CI on 2026-09-25:
 
-- 80 pages built; 266 unit/component/page tests (Vitest) and 159 browser tests across 3 projects (148 run, 11 skipped with reasons)
+- 80 pages built; 277 unit/component/page tests (Vitest) and 162 browser tests across 3 projects (151 run, 11 skipped with reasons)
 - Lighthouse on 14 page templates: performance 0.98–1.00, accessibility 1.00, SEO 1.00 on every indexable template, best practices 0.96 everywhere (Vercel Analytics' own script 404s outside Vercel and logs a console error)
 - LCP 1.6–2.2 s on CI, page weight 163–406 KB including fonts and images
-- About 3 kB of the site's own JavaScript per page, well under the 15 kB budget the CI enforces
+- 3–4 kB of the site's own JavaScript per page, well under the 15 kB budget the CI enforces
 - 76 URLs in the sitemap (home, technical service, awnings, the catalogue hub, 4 categories and 68 machines); the legal pages and the 404 are noindex
 - WhatsApp clicks tracked as `/contactar/...` virtual pageviews, verified in production
 
