@@ -1,4 +1,5 @@
-// Copy of the home page: hero, value props, section cards and about, in reading order.
+// Copy of the home page: hero, value props, section cards, reviews and about, in reading
+// order.
 import type { IconName } from '../components/Icon/icons'
 import { COMPANY } from './company'
 import { AWNINGS_PAGE, CATALOG_PAGE, TECHNICAL_SERVICE_PAGE } from './pages'
@@ -8,6 +9,41 @@ export const HERO: { title: string; tagline: string; ctaLabel: string } = {
   title: 'Reparación y mantenimiento de maquinaria textil',
   tagline: `Máquinas de coser industriales y de toldos automatizadas, corte y confección. En ${COMPANY.region} y ${COMPANY.coverage}, con más de ${COMPANY.yearsOfExperience} años de experiencia.`,
   ctaLabel: WHATSAPP_CTA.primaryLabel,
+}
+
+// Real Google reviews of the business, copied word for word (the reviewer's first name and
+// initial only). All 36 were 5 stars on 2026-11-17; the summary says "más de 35" so it
+// stays true as reviews are added. No AggregateRating structured data: Google ignores
+// ratings a business publishes about itself.
+export const REVIEWS: {
+  heading: string
+  summary: string
+  linkLabel: string
+  href: string
+  items: { author: string; text: string }[]
+} = {
+  heading: 'Lo que dicen nuestros clientes',
+  summary: '5,0 en Google, con más de 35 opiniones',
+  linkLabel: 'Ver todas las opiniones en Google',
+  href: 'https://share.google/k48nFyeW6XvD0SVcJ',
+  items: [
+    {
+      author: 'Carmen R.',
+      text: 'Ha sido una experiencia estupenda. El trato ha sido excelente, muy amable y profesional. Me ha arreglado la maquina de coser en tan sólo dos días, con mucha rapidez y puntualidad. Además, me lo ha explicado todo perfectamente y se ha preocupado de que todo quedara bien. Estoy encantada con el servicio y sin duda lo recomiendo al 100%',
+    },
+    {
+      author: 'Josep P.',
+      text: 'Hace unos dias, que Mario me reparó una maquina de coser Triple arrastre JUKI, la verdad es que he quedado super satisfecho de la reparación y del trato recibido,super atento y muy servicial !!',
+    },
+    {
+      author: 'Iluminada G.',
+      text: 'Muy formal, llama para confirmar la cita y es puntual. Gran profesional, reparación y puesta a punto de dos máquinas que ha dejado perfectas, como nuevas. Muchas gracias, ya le he recomendado',
+    },
+    {
+      author: 'Tere C.',
+      text: 'Servicio excelente y muy rápido. Me informó de lo que le pasaba a la máquina y del presupuesto de reparación con antelación y reparada antes de lo previsto.',
+    },
+  ],
 }
 
 export const ABOUT: { heading: string; paragraphs: string[] } = {

@@ -1,0 +1,40 @@
+---
+import { REVIEWS } from '../../data/home'
+import Icon from '../Icon/Icon.astro'
+import styles from './Reviews.module.css'
+
+// Real Google reviews, quoted word for word, with a link to all of them. The stars are
+// decorative: the summary line says the rating in words.
+---
+
+<section class={styles.section} aria-labelledby="opiniones">
+  <div class={styles.inner}>
+    <h2 id="opiniones" class={styles.heading}>
+      {REVIEWS.heading}
+    </h2>
+    <p class={styles.summary}>
+      <span class={styles.stars} aria-hidden="true">
+        {Array.from({ length: 5 }, () => (
+          <Icon name="star" class={styles.star} />
+        ))}
+      </span>
+      {REVIEWS.summary}
+    </p>
+    <ul class={styles.list} role="list">
+      {REVIEWS.items.map(({ author, text }) => (
+        <li class={styles.card}>
+          <figure class={styles.figure}>
+            <blockquote class={styles.quote}>
+              <p>{text}</p>
+            </blockquote>
+            <figcaption class={styles.author}>{author}</figcaption>
+          </figure>
+        </li>
+      ))}
+    </ul>
+    <a href={REVIEWS.href} class={styles.link} target="_blank" rel="noopener noreferrer">
+      {REVIEWS.linkLabel}
+      <Icon name="externalLink" class={styles.linkIcon} />
+    </a>
+  </div>
+</section>

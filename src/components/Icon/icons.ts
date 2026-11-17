@@ -19,6 +19,9 @@ export const ICON_MARKUP = {
   mapPin:
     '<path d="M12 21s7-6.4 7-11.5A7 7 0 0 0 5 9.5C5 14.6 12 21 12 21z" /><circle cx="12" cy="9.5" r="2.3" />',
   clock: '<circle cx="12" cy="12" r="9" /><path d="M12 7v5l3.5 2" />',
+  star: '<path fill="currentColor" d="m12 3 2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.8l-5.4 2.9 1.1-6.1-4.5-4.2 6.1-.8z" />',
+  externalLink:
+    '<path d="M14 4h6v6" /><path d="M20 4 11 13" /><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" />',
   whatsApp: `<path d="M12 3a9 9 0 0 0-7.75 13.5L3 21l4.5-1.25A9 9 0 1 0 12 3z" /><path fill="currentColor" stroke="none" transform="translate(8,6) scale(0.42)" d="${HANDSET_PATH}" />`,
   phone: `<path d="${HANDSET_PATH}" />`,
   mail: '<rect x="3" y="5" width="18" height="14" rx="2" /><path d="m4 7 8 6 8-6" />',
