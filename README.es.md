@@ -39,7 +39,7 @@ Cada pull request y cada push a `main` ejecuta tres trabajos de CI:
 
 | Trabajo                         | Qué comprueba                                                                                                                                                                               |
 | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Lint, pruebas unitarias y build | Formato con Prettier, ESLint, 270 pruebas unitarias/de componentes/de páginas (Vitest), y el build con comprobación de tipos                                                                |
+| Lint, pruebas unitarias y build | Formato con Prettier, ESLint, 266 pruebas unitarias/de componentes/de páginas (Vitest), y el build con comprobación de tipos                                                                |
 | Pruebas en navegador            | Playwright + axe en Pixel 7 (Chromium), iPhone 15 (WebKit) y escritorio Chrome: accesibilidad, navegación, presupuesto de JavaScript y CSP                                                  |
 | Presupuestos de Lighthouse      | Falla si la accesibilidad baja de 0,95, o el rendimiento, las buenas prácticas o el SEO bajan de 0,9, o el CLS supera 0,1, en una lista fija de 14 plantillas de página; avisa sobre el LCP |
 
@@ -49,7 +49,7 @@ La rama `main` está protegida: todo cambio entra mediante un pull request, y so
 
 Recuentos a fecha de 2026-11-17; Lighthouse, LCP y peso de página medidos en CI el 2026-09-25:
 
-- 80 páginas generadas; 270 pruebas unitarias/de componentes/de páginas (Vitest) y 159 pruebas en navegador en 3 proyectos (148 se ejecutan, 11 se omiten con motivo)
+- 80 páginas generadas; 266 pruebas unitarias/de componentes/de páginas (Vitest) y 159 pruebas en navegador en 3 proyectos (148 se ejecutan, 11 se omiten con motivo)
 - Lighthouse en 14 plantillas de página: rendimiento 0,98–1,00, accesibilidad 1,00, SEO 1,00 en toda plantilla indexable, buenas prácticas 0,96 en todas partes (el propio script de Vercel Analytics devuelve 404 fuera de Vercel y registra un error en consola)
 - LCP de 1,6–2,2 s en CI, peso de página de 163–406 KB incluyendo fuentes e imágenes
 - Unos 3 kB de JavaScript propio del sitio por página, muy por debajo del presupuesto de 15 kB que exige el CI

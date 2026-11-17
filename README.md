@@ -39,7 +39,7 @@ Every pull request and every push to `main` runs three CI jobs:
 
 | Job                        | What it checks                                                                                                                                                      |
 | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Lint, unit tests and build | Prettier formatting, ESLint, 270 unit/component/page tests (Vitest), and the build with type checking                                                               |
+| Lint, unit tests and build | Prettier formatting, ESLint, 266 unit/component/page tests (Vitest), and the build with type checking                                                               |
 | Browser tests              | Playwright + axe on Pixel 7 (Chromium), iPhone 15 (WebKit) and desktop Chrome: accessibility, navigation, JavaScript budget and CSP                                 |
 | Lighthouse budgets         | Errors if accessibility is below 0.95, or performance, best practices or SEO are below 0.9, or CLS is above 0.1, on a fixed list of 14 page templates; warns on LCP |
 
@@ -49,7 +49,7 @@ The main branch is protected: every change lands through a pull request, merged 
 
 Counts as of 2026-11-17; Lighthouse, LCP and page weight as measured in CI on 2026-09-25:
 
-- 80 pages built; 270 unit/component/page tests (Vitest) and 159 browser tests across 3 projects (148 run, 11 skipped with reasons)
+- 80 pages built; 266 unit/component/page tests (Vitest) and 159 browser tests across 3 projects (148 run, 11 skipped with reasons)
 - Lighthouse on 14 page templates: performance 0.98–1.00, accessibility 1.00, SEO 1.00 on every indexable template, best practices 0.96 everywhere (Vercel Analytics' own script 404s outside Vercel and logs a console error)
 - LCP 1.6–2.2 s on CI, page weight 163–406 KB including fonts and images
 - About 3 kB of the site's own JavaScript per page, well under the 15 kB budget the CI enforces
