@@ -13,12 +13,12 @@ especificaciones:
     valor: '1'
   - etiqueta: Hilos
     valor: '2'
-  - etiqueta: Tamaño de ojal
-    valor: 35 x 5 mm
-  - etiqueta: Altura del prensatelas
-    valor: 17 mm
-  - etiqueta: Velocidad máxima
-    valor: 4.200 puntadas/min
+  - etiqueta: Tamaño de ojal (mm)
+    valor: 35 x 5
+  - etiqueta: Altura del prensatelas (mm)
+    valor: '17'
+  - etiqueta: Velocidad máxima (puntadas/min)
+    valor: '4200'
   - etiqueta: Tensión del hilo
     valor: electrónica, con 2 preajustes
 ---
