@@ -10,21 +10,21 @@ fotos:
   - ./1.jpg
 especificaciones:
   - etiqueta: Agujas
-    valor: '1'
+    valor: 287 WH 75-110
   - etiqueta: Hilos
     valor: '2'
   - etiqueta: Longitud de puntada (mm)
     valor: '5'
-  - etiqueta: Altura prensatelas (mm)
-    valor: 5 - 13
-  - etiqueta: Velocidad (ppm)
+  - etiqueta: Altura del prensatelas (mm)
+    valor: 1 - 13
+  - etiqueta: Velocidad máxima (puntadas/min)
     valor: '5000'
   - etiqueta: Cortahílos
-    valor: X
+    valor: Sí
   - etiqueta: Tejido fino
-    valor: X
+    valor: Sí
   - etiqueta: Tejido medio
-    valor: X
+    valor: Sí
 ---
 
 Equipada con sistema de sujeción de hilo, cárter cerrado de aceite, cabezal semi-seco, panel de programación, instrucciones habladas, alzaprensatelas automático, regulador de longitud de puntada electrónico, sistema de edición de puntadas, luz LED integrada y motor DIRECT DRIVE. Incorpora un sistema de cortahílos doble, dejando la hebra del hilo inferior a 3 mm. Longitud de puntada 5 mm. Máquina de brazo largo.

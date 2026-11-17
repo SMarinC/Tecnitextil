@@ -25,19 +25,6 @@
   max-width: 50ch;
 }
 
-.aboutHeading {
-  composes: eyebrow from '../../styles/hero.module.css';
-  margin-top: var(--space-md);
-}
-
-.subtitle {
-  font-size: 1.05rem;
-  line-height: 1.6;
-  color: var(--color-text-on-dark-secondary);
-  max-width: 65ch;
-  text-align: left;
-}
-
 /* Short screens (e.g. iPhone SE): drop the decorative icon so the WhatsApp button
    clears the floating one at first load. */
 @media (max-height: 619px) {

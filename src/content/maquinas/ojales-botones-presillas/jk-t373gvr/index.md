@@ -15,16 +15,16 @@ especificaciones:
     valor: de anilla
   - etiqueta: Alimentación de botones
     valor: tolva automática
-  - etiqueta: Diámetro de botón
-    valor: 10–22 mm
-  - etiqueta: Velocidad máxima
-    valor: 1.500 puntadas/min
+  - etiqueta: Diámetro de botón (mm)
+    valor: 10 - 22
+  - etiqueta: Velocidad máxima (puntadas/min)
+    valor: '1500'
   - etiqueta: Puntadas por botón
     valor: 8, 16 o 32
   - etiqueta: Aguja
     valor: TQ×7 n.º 16
-  - etiqueta: Altura del prensatelas
-    valor: 13 mm
+  - etiqueta: Altura del prensatelas (mm)
+    valor: '13'
   - etiqueta: Corte de hilo y elevación del prensatelas
     valor: automáticos
 ---

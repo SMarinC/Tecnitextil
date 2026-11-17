@@ -1,0 +1,26 @@
+.section {
+  background: var(--color-black);
+  color: var(--color-text-on-dark);
+}
+
+.inner {
+  composes: container from '../../styles/container.module.css';
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.heading {
+  font-size: var(--font-size-section-title);
+  color: var(--color-white);
+  text-align: center;
+  margin-bottom: var(--space-xs);
+}
+
+.paragraph {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--color-text-on-dark-secondary);
+  max-width: 65ch;
+}

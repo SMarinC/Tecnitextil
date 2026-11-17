@@ -11,9 +11,5 @@ import styles from './Hero.module.css'
     <h1 class={styles.title}>{HERO.title}</h1>
     <p class={styles.tagline}>{HERO.tagline}</p>
     <WhatsAppCta variant="primary" label={HERO.ctaLabel} />
-    <h2 class={styles.aboutHeading}>{HERO.aboutHeading}</h2>
-    {HERO.paragraphs.map((paragraph) => (
-      <p class={styles.subtitle}>{paragraph}</p>
-    ))}
   </div>
 </section>

@@ -24,9 +24,9 @@ especificaciones:
     valor: '4'
   - etiqueta: Diferencial
     valor: 0,72 - 2
-  - etiqueta: Altura prensatelas (mm)
+  - etiqueta: Altura del prensatelas (mm)
     valor: '5'
-  - etiqueta: Máx. velocidad (ppm)
+  - etiqueta: Velocidad máxima (puntadas/min)
     valor: '5500'
 ---
 

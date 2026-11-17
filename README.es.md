@@ -10,9 +10,9 @@ Web en producción de una empresa española de reparación, mantenimiento y vent
 
 ## Puntos destacados
 
-- **HTML estático, JavaScript solo donde hace falta.** Astro genera cada página en el build; los únicos scripts del navegador son el del menú del header y el de Web Analytics, unos 3 kB por página. Una prueba en navegador falla si una página descarga más de 15 kB de JavaScript propio.
+- **HTML estático, JavaScript solo donde hace falta.** Astro genera cada página en el build; los únicos scripts del navegador son el del menú del header, el del carrusel de reseñas de la portada y el de Web Analytics, de 3 a 4 kB por página. Una prueba en navegador falla si una página descarga más de 15 kB de JavaScript propio.
 - **Páginas, no un scroll interminable.** Inicio, servicio técnico, toldos y el catálogo son páginas independientes enlazadas desde un menú que marca la página actual en el HTML (`aria-current="page"`), comprobado en las pruebas en navegador. El catálogo es un índice de cuatro categorías JACK, cada una en su página y agrupada por los tipos del propio JACK, con dos tarjetas de máquina por fila en el móvil.
-- **Un catálogo de máquinas tipado.** 66 máquinas viven en una colección de contenido, con una carpeta por categoría y modelo, validada por un esquema Zod y una comprobación del build: una máquina en la carpeta equivocada, un tipo fuera de su categoría, una categoría vacía o una foto de portada que falta rompen el build. Las máquinas sin foto del proveedor muestran un recuadro "Foto no disponible". Cada página de máquina tiene exactamente una consulta de WhatsApp que nombra el modelo, y ninguna página muestra un precio, una decisión de negocio comprobada por una prueba que busca `€`, `EUR` e `IVA`.
+- **Un catálogo de máquinas tipado.** 68 máquinas viven en una colección de contenido, con una carpeta por categoría y modelo, validada por un esquema Zod y una comprobación del build: una máquina en la carpeta equivocada, un tipo fuera de su categoría, una categoría vacía o una foto de portada que falta rompen el build. Las máquinas sin foto del proveedor muestran un recuadro "Foto no disponible". Cada página de máquina tiene exactamente una consulta de WhatsApp que nombra el modelo, y ninguna página muestra un precio, una decisión de negocio comprobada por una prueba que busca `€`, `EUR` e `IVA`.
 - **Conversión medida en el plan gratuito.** Los clics en WhatsApp se cuentan como visitas virtuales a `/contactar/...` en Vercel Web Analytics, que no tiene eventos personalizados en el plan gratuito. Los enlaces siguen siendo anclas directas a `wa.me` para que el propio toque abra la app de WhatsApp en iOS.
 - **Accesibilidad probada en tres navegadores.** Playwright ejecuta axe en todas las páginas en Pixel 7 (Chromium), iPhone 15 (WebKit) y escritorio Chrome, y falla si encuentra problemas graves o críticos.
 - **Tokens de diseño.** Colores compartidos y una escala dorada de "líneas" (`--line-subtle` a `--line-control`) cuyo paso más fuerte mantiene un contraste medido de al menos 3:1 para los bordes interactivos, además de estilos de hero y tarjetas compartidos entre páginas.
@@ -39,7 +39,7 @@ Cada pull request y cada push a `main` ejecuta tres trabajos de CI:
 
 | Trabajo                         | Qué comprueba                                                                                                                                                                               |
 | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Lint, pruebas unitarias y build | Formato con Prettier, ESLint, 227 pruebas unitarias/de componentes/de páginas (Vitest), y el build con comprobación de tipos                                                                |
+| Lint, pruebas unitarias y build | Formato con Prettier, ESLint, 277 pruebas unitarias/de componentes/de páginas (Vitest), y el build con comprobación de tipos                                                                |
 | Pruebas en navegador            | Playwright + axe en Pixel 7 (Chromium), iPhone 15 (WebKit) y escritorio Chrome: accesibilidad, navegación, presupuesto de JavaScript y CSP                                                  |
 | Presupuestos de Lighthouse      | Falla si la accesibilidad baja de 0,95, o el rendimiento, las buenas prácticas o el SEO bajan de 0,9, o el CLS supera 0,1, en una lista fija de 14 plantillas de página; avisa sobre el LCP |
 
@@ -47,13 +47,13 @@ La rama `main` está protegida: todo cambio entra mediante un pull request, y so
 
 ## En cifras
 
-A fecha de 2026-09-25, medido en CI:
+Recuentos a fecha de 2026-11-17; Lighthouse, LCP y peso de página medidos en CI el 2026-09-25:
 
-- 78 páginas generadas; 227 pruebas unitarias/de componentes/de páginas (Vitest) y 147 pruebas en navegador en 3 proyectos (136 se ejecutan, 11 se omiten con motivo)
+- 80 páginas generadas; 277 pruebas unitarias/de componentes/de páginas (Vitest) y 162 pruebas en navegador en 3 proyectos (151 se ejecutan, 11 se omiten con motivo)
 - Lighthouse en 14 plantillas de página: rendimiento 0,98–1,00, accesibilidad 1,00, SEO 1,00 en toda plantilla indexable, buenas prácticas 0,96 en todas partes (el propio script de Vercel Analytics devuelve 404 fuera de Vercel y registra un error en consola)
 - LCP de 1,6–2,2 s en CI, peso de página de 163–406 KB incluyendo fuentes e imágenes
-- Unos 3 kB de JavaScript propio del sitio por página, muy por debajo del presupuesto de 15 kB que exige el CI
-- 74 URLs en el sitemap (inicio, servicio técnico, toldos, el índice del catálogo, 4 categorías y 66 máquinas); las páginas legales y la 404 son noindex
+- De 3 a 4 kB de JavaScript propio del sitio por página, muy por debajo del presupuesto de 15 kB que exige el CI
+- 76 URLs en el sitemap (inicio, servicio técnico, toldos, el índice del catálogo, 4 categorías y 68 máquinas); las páginas legales y la 404 son noindex
 - Los clics en WhatsApp se registran como visitas virtuales a `/contactar/...`, verificado en producción
 
 ## Decisiones de arquitectura

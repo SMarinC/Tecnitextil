@@ -13,12 +13,12 @@ especificaciones:
     valor: '1'
   - etiqueta: Hilos
     valor: '2'
-  - etiqueta: Tamaño de ojal
-    valor: 33 x 5 mm
-  - etiqueta: Altura del prensatelas
-    valor: 12 mm
-  - etiqueta: Velocidad máxima
-    valor: 3.600 puntadas/min
+  - etiqueta: Tamaño de ojal (mm)
+    valor: 33 x 5
+  - etiqueta: Altura del prensatelas (mm)
+    valor: '12'
+  - etiqueta: Velocidad máxima (puntadas/min)
+    valor: '3600'
   - etiqueta: Motor
     valor: directo, incorporado en el eje
 ---

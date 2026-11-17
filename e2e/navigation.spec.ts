@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test'
 import { DESKTOP_BREAKPOINT_PX } from '../src/lib/breakpoints'
+import { REVIEWS } from '../src/data/home'
 import { CONTACT_SECTION_ID, MENU_TOGGLE_LABELS } from '../src/data/navigation'
 import { AWNINGS_PAGE, TECHNICAL_SERVICE_PAGE } from '../src/data/pages'
 import { TITLES, box, navLabel, openMenu } from './support'
@@ -66,13 +67,20 @@ test.describe('navigation', () => {
       await expect(page.getByRole('navigation', { name: 'Navegación principal' })).toBeVisible()
       const cta = await box(page.locator('header a[href*="wa.me"]'))
       expect(cta.x + cta.width, `width ${width}`).toBeLessThanOrEqual(width - 24)
-      return cta
+      // The phone number sits between the menu and the CTA: it must not be squeezed either.
+      const phone = await box(page.locator('header a[href^="tel:"]'))
+      return { cta, phone }
     }
 
     const reference = await measureCta(1280)
     const atBreakpoint = await measureCta(DESKTOP_BREAKPOINT_PX)
-    expect(Math.round(atBreakpoint.width)).toBe(Math.round(reference.width))
-    expect(Math.round(atBreakpoint.height)).toBe(Math.round(reference.height))
+    for (const link of ['cta', 'phone'] as const) {
+      expect(Math.round(atBreakpoint[link].width), link).toBe(Math.round(reference[link].width))
+      expect(Math.round(atBreakpoint[link].height), link).toBe(Math.round(reference[link].height))
+    }
+    // And the menu ends before the phone number starts.
+    const nav = await box(page.getByRole('navigation', { name: 'Navegación principal' }))
+    expect(nav.x + nav.width).toBeLessThan(atBreakpoint.phone.x)
 
     await page.setViewportSize({ width: DESKTOP_BREAKPOINT_PX - 1, height: 800 })
     await expect(page.getByRole('button', { name: MENU_TOGGLE_LABELS.open })).toBeVisible()
@@ -182,5 +190,27 @@ test.describe('navigation', () => {
         )
         .toBe(true)
     }
+  })
+
+  test('the review arrows page through the strip and stop at either end', async ({ page }) => {
+    // Motion off, so each click lands at once and the positions can be read right away.
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await page.reload()
+    const strip = page.getByRole('list', { name: REVIEWS.carouselLabel })
+    const previous = page.getByRole('button', { name: REVIEWS.previousLabel })
+    const next = page.getByRole('button', { name: REVIEWS.nextLabel })
+    await strip.scrollIntoViewIfNeeded()
+
+    await expect(previous).toBeDisabled()
+    await expect(next).toBeEnabled()
+    await next.click()
+    await expect.poll(() => strip.evaluate((list) => list.scrollLeft)).toBeGreaterThan(0)
+    await expect(previous).toBeEnabled()
+
+    // At the far end the next arrow turns off. Scrolled there directly: clicking until it
+    // turns off races the snap that settles the last page (seen in CI, 2026-11-17).
+    await strip.evaluate((list) => list.scrollTo({ left: list.scrollWidth }))
+    await expect(next).toBeDisabled()
+    await expect(previous).toBeEnabled()
   })
 })
