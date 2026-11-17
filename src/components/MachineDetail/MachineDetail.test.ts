@@ -36,7 +36,9 @@ describe('MachineDetail', () => {
 
   it('renders the description, the specs as a list of pairs, service and warranty', () => {
     expect(html).toContain('<p>Descripción de prueba.</p>')
-    expect(html).toMatch(/<dt[^>]*>\s*Velocidad máxima\s*<\/dt>\s*<dd[^>]*>\s*3\.200 puntadas\/min/)
+    expect(html).toMatch(
+      /<dt[^>]*>\s*Velocidad máxima \(puntadas\/min\)\s*<\/dt>\s*<dd[^>]*>\s*3200\s*</,
+    )
     expect(text).toContain(CATALOG_COPY.service.heading)
     expect(text).toContain(CATALOG_COPY.warranty.text)
   })
