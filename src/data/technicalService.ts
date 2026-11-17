@@ -7,7 +7,7 @@ import type { IconItem, Step } from './types'
 export const TECHNICAL_SERVICE_HERO = {
   eyebrow: 'Reparación y mantenimiento',
   title: 'Servicio técnico de maquinaria textil',
-  intro: `Reparamos y mantenemos máquinas de coser industriales y domésticas, equipos de corte y auxiliares, de cualquier marca y generación. En ${COMPANY.coverage}, con recogida a domicilio.`,
+  intro: `Reparamos y mantenemos máquinas de coser industriales y domésticas, equipos de corte y auxiliares, de cualquier marca y generación. En ${COMPANY.region} y ${COMPANY.coverage}, con recogida a domicilio.`,
   ctaLabel: WHATSAPP_CTA.primaryLabel,
 }
 

@@ -1,20 +1,17 @@
-// Copy of the home page: hero, section cards and value props, in reading order.
+// Copy of the home page: hero, value props, section cards and about, in reading order.
 import type { IconName } from '../components/Icon/icons'
 import { COMPANY } from './company'
 import { AWNINGS_PAGE, CATALOG_PAGE, TECHNICAL_SERVICE_PAGE } from './pages'
 import { WHATSAPP_CTA } from './site'
 
-export const HERO: {
-  title: string
-  tagline: string
-  ctaLabel: string
-  aboutHeading: string
-  paragraphs: string[]
-} = {
+export const HERO: { title: string; tagline: string; ctaLabel: string } = {
   title: 'Reparación y mantenimiento de maquinaria textil',
-  tagline: `Máquinas de coser industriales y de toldos automatizadas, corte y confección. En ${COMPANY.coverage}, con más de ${COMPANY.yearsOfExperience} años de experiencia.`,
+  tagline: `Máquinas de coser industriales y de toldos automatizadas, corte y confección. En ${COMPANY.region} y ${COMPANY.coverage}, con más de ${COMPANY.yearsOfExperience} años de experiencia.`,
   ctaLabel: WHATSAPP_CTA.primaryLabel,
-  aboutHeading: 'Quiénes somos',
+}
+
+export const ABOUT: { heading: string; paragraphs: string[] } = {
+  heading: 'Quiénes somos',
   paragraphs: [
     `${COMPANY.name} es una empresa que lleva más de ${COMPANY.yearsOfExperience} años trabajando con maquinaria textil e industrial: máquinas de coser, equipos de corte, confección y equipos auxiliares. Lo que empezó como un taller dedicado a resolver averías se convirtió, con el tiempo, en un equipo técnico altamente capacitado y con experiencia real en cada tipo de máquina, marca y avería.`,
     'Sabemos que detrás de cada máquina hay alguien que depende de ella para trabajar. Por eso combinamos eficiencia con un trato cercano: no solo reparamos, entendemos lo que significa para ti que tu máquina esté parada, y trabajamos con ese compromiso en cada intervención.',

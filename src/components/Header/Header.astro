@@ -2,7 +2,8 @@
 import { Image } from 'astro:assets'
 import logo from '../../assets/logo.png'
 import { COMPANY } from '../../data/company'
-import { WHATSAPP_CTA } from '../../data/site'
+import { PHONE_DISPLAY, PHONE_TEL } from '../../data/contact'
+import { PHONE_CTA, WHATSAPP_CTA } from '../../data/site'
 import { MENU_TOGGLE_LABELS, NAV_ITEMS } from '../../data/navigation'
 import Icon from '../Icon/Icon.astro'
 import WhatsAppCta from '../WhatsAppCta/WhatsAppCta.astro'
@@ -49,6 +50,16 @@ const isCurrent = (href: string) =>
       ))}
     </nav>
     <div class={styles.actions}>
+      {/* The one way to call from the top of the page. Below the desktop breakpoint it is
+          an icon button, so its name always says what it does and to which number. */}
+      <a
+        href={PHONE_TEL}
+        class={styles.phone}
+        aria-label={`${PHONE_CTA.callLabel} ${PHONE_DISPLAY}`}
+      >
+        <Icon name="phone" class={styles.phoneIcon} />
+        <span class={styles.phoneNumber}>{PHONE_DISPLAY}</span>
+      </a>
       <WhatsAppCta variant="header" label={WHATSAPP_CTA.headerLabel} />
       <button
         type="button"
