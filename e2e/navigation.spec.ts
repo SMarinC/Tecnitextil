@@ -66,13 +66,20 @@ test.describe('navigation', () => {
       await expect(page.getByRole('navigation', { name: 'Navegación principal' })).toBeVisible()
       const cta = await box(page.locator('header a[href*="wa.me"]'))
       expect(cta.x + cta.width, `width ${width}`).toBeLessThanOrEqual(width - 24)
-      return cta
+      // The phone number sits between the menu and the CTA: it must not be squeezed either.
+      const phone = await box(page.locator('header a[href^="tel:"]'))
+      return { cta, phone }
     }
 
     const reference = await measureCta(1280)
     const atBreakpoint = await measureCta(DESKTOP_BREAKPOINT_PX)
-    expect(Math.round(atBreakpoint.width)).toBe(Math.round(reference.width))
-    expect(Math.round(atBreakpoint.height)).toBe(Math.round(reference.height))
+    for (const link of ['cta', 'phone'] as const) {
+      expect(Math.round(atBreakpoint[link].width), link).toBe(Math.round(reference[link].width))
+      expect(Math.round(atBreakpoint[link].height), link).toBe(Math.round(reference[link].height))
+    }
+    // And the menu ends before the phone number starts.
+    const nav = await box(page.getByRole('navigation', { name: 'Navegación principal' }))
+    expect(nav.x + nav.width).toBeLessThan(atBreakpoint.phone.x)
 
     await page.setViewportSize({ width: DESKTOP_BREAKPOINT_PX - 1, height: 800 })
     await expect(page.getByRole('button', { name: MENU_TOGGLE_LABELS.open })).toBeVisible()

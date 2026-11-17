@@ -19,20 +19,20 @@ especificaciones:
     valor: '2'
   - etiqueta: Longitud de puntada (mm)
     valor: '5'
-  - etiqueta: Altura prensatelas (mm)
+  - etiqueta: Altura del prensatelas (mm)
     valor: 1 - 13
-  - etiqueta: Velocidad (ppm)
+  - etiqueta: Velocidad máxima (puntadas/min)
     valor: '5000'
   - etiqueta: Tejido fino
-    valor: X
+    valor: Sí
   - etiqueta: Tejido medio
-    valor: X
+    valor: Sí
 ---
 
-Equipada con posicionador de aguja, longitud de puntada de 7 mm, garfio de gran capacidad y motor Direc Drive. Con luz LED integrada.
+Equipada con posicionador de aguja, longitud de puntada de 7 mm, garfio de gran capacidad y motor Direct Drive. Con luz LED integrada.
 
 Integración Direct Drive.
 
-**Ahorro de energia y alta eficiencia.** Aumentar la capacitancia para hacer la máquina más estable y fiable ante los frecuentes cambios de alta y baja tensión.
+**Ahorro de energía y alta eficiencia.** Aumentar la capacitancia para hacer la máquina más estable y fiable ante los frecuentes cambios de alta y baja tensión.
 
 **Panel sencillo e inteligente.** Con fácil acceso al ajuste de la velocidad, la posición de la aguja y el Reset.

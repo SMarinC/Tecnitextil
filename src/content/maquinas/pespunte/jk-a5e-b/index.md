@@ -14,18 +14,18 @@ fotos:
   - ./3.jpg
 especificaciones:
   - etiqueta: Agujas
-    valor: '1'
-  - etiqueta: Motor
-    valor: Direct Drive
-  - etiqueta: Cortahílos
+    valor: 287 WH 75-110
+  - etiqueta: Hilos
+    valor: '2'
+  - etiqueta: Longitud de puntada (mm)
+    valor: '5'
+  - etiqueta: Altura del prensatelas (mm)
+    valor: 1 - 13
+  - etiqueta: Velocidad máxima (puntadas/min)
+    valor: '5000'
+  - etiqueta: Tejido fino
     valor: Sí
-  - etiqueta: Inteligencia artificial (IA)
-    valor: Sí
-  - etiqueta: Fino
-    valor: Sí
-  - etiqueta: Medio
-    valor: Sí
-  - etiqueta: Grueso
+  - etiqueta: Tejido medio
     valor: Sí
 ---
 

@@ -13,14 +13,14 @@ especificaciones:
     valor: '1'
   - etiqueta: Hilos
     valor: '2'
-  - etiqueta: Costura dirección X
-    valor: 40 mm
-  - etiqueta: Costura dirección Y
-    valor: 30 mm
-  - etiqueta: Altura del prensatelas
-    valor: 13 mm
-  - etiqueta: Velocidad máxima
-    valor: 3.200 puntadas/min
+  - etiqueta: Costura dirección X (mm)
+    valor: '40'
+  - etiqueta: Costura dirección Y (mm)
+    valor: '30'
+  - etiqueta: Altura del prensatelas (mm)
+    valor: '13'
+  - etiqueta: Velocidad máxima (puntadas/min)
+    valor: '3200'
   - etiqueta: Motor
     valor: Direct Drive
 ---

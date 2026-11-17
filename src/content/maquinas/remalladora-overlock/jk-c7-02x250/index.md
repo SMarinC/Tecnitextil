@@ -22,16 +22,16 @@ especificaciones:
   - etiqueta: Longitud de puntada (mm)
     valor: '4'
   - etiqueta: Diferencial
-    valor: 0.7 - 2
-  - etiqueta: Altura prensatelas (mm)
-    valor: '3.5'
-  - etiqueta: Velocidad (ppm)
+    valor: 0,7 - 2
+  - etiqueta: Altura del prensatelas (mm)
+    valor: 3,5
+  - etiqueta: Velocidad máxima (puntadas/min)
     valor: '7000'
 ---
 
 Equipada con sistema diferencial con regulación para género fino y medio, posicionador de aguja, regulador de velocidad, luz LED integrada y motor Direct Drive.
 
-**AI Sistema de alimentación a toda velocidad.** Detección en tiempo real de los cambios de posición de la unión del tejido y cálculo de la relación de coordinación óptima entre la fuerza de prensado y la fuerza de alimentación mediante cálculo de AI. Realización de cambio de presión ultrarápido y tejido de alimentación LINGXI. Respuesta sincronizada para pasar por varias juntas de grueso, fino, elástico, duto a toda velocidad sin reducirla.
+**AI Sistema de alimentación a toda velocidad.** Detección en tiempo real de los cambios de posición de la unión del tejido y cálculo de la relación de coordinación óptima entre la fuerza de prensado y la fuerza de alimentación mediante cálculo de AI. Realización de cambio de presión ultrarápido y tejido de alimentación LINGXI. Respuesta sincronizada para pasar por varias juntas de grueso, fino, elástico, duto… a toda velocidad sin reducirla.
 
 **Cambio de presión ultrarápido.** Tecnología de cambio de presión untrarápido: percepción inteligente, cambio de presión en tiempo real. Detección inteligente multimodal de 32.000 veces/segundo + 1 millón de modelo de datos, con una respuesta de presión de 0,00006 microsegundos.
 

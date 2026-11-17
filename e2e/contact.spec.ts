@@ -63,10 +63,20 @@ test.describe('contact', () => {
     }
   })
 
-  test('the phone number is a tappable tel: link', async ({ page }) => {
-    const phone = page.getByRole('link', { name: '+34 685 01 80 86' })
+  test('the phone number is a tappable tel: link in the footer', async ({ page }) => {
+    const phone = page.getByRole('contentinfo').getByRole('link', { name: '+34 685 01 80 86' })
     await expect(phone).toHaveAttribute('href', 'tel:+34685018086')
     await expect(phone).toBeVisible()
+  })
+
+  test('the header offers a call button without scrolling, on every screen', async ({ page }) => {
+    const call = page.getByRole('banner').getByRole('link', { name: 'Llamar al +34 685 01 80 86' })
+    await expect(call).toHaveAttribute('href', 'tel:+34685018086')
+    await expect(call).toBeInViewport({ ratio: 1 })
+    // Icon-only on phones: still a full-size touch target.
+    const size = await call.boundingBox()
+    expect(size?.width).toBeGreaterThanOrEqual(44)
+    expect(size?.height).toBeGreaterThanOrEqual(44)
   })
 
   test('the hero shows its WhatsApp call to action without scrolling', async ({ page }) => {

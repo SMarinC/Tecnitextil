@@ -26,11 +26,35 @@
   margin-bottom: var(--space-xl);
 }
 
+/* Wider screens: the description fills the column under the summary instead of leaving
+   it empty beside the gallery. The source order (summary, gallery, description) is the
+   phone order. */
 @media (min-width: 768px) {
   .layout {
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-xl);
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      'summary media'
+      'description media';
+    column-gap: var(--space-xl);
   }
+
+  .summary {
+    grid-area: summary;
+  }
+
+  .media {
+    grid-area: media;
+  }
+
+  .description {
+    grid-area: description;
+  }
+}
+
+/* A grid item: without this the photo strip could not shrink below its content. */
+.media {
+  min-width: 0;
 }
 
 .summary {
@@ -91,7 +115,6 @@
   max-width: 65ch;
   font-size: 1rem;
   line-height: 1.6;
-  margin-bottom: var(--space-xl);
 }
 
 .description :global(p) + :global(p) {

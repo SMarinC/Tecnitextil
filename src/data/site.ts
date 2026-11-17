@@ -8,6 +8,11 @@ export const WHATSAPP_CTA = {
   floatingLabel: 'Escribir por WhatsApp',
 }
 
+// The header's call button shows only an icon: this, followed by the number, is its name.
+export const PHONE_CTA = {
+  callLabel: 'Llamar al',
+}
+
 export const FINAL_CTA = {
   heading: 'Todo para tu maquinaria textil',
   subheading: 'Reparación, mantenimiento y venta. Escríbenos y con gusto te ayudamos.',
@@ -16,7 +21,7 @@ export const FINAL_CTA = {
 }
 
 export const FOOTER = {
-  coverage: `Servicio en ${COMPANY.coverage}`,
+  coverage: `Taller en ${COMPANY.locality} (${COMPANY.region}) · Servicio en ${COMPANY.coverage}`,
 }
 
 // Copy of the branded 404 page (src/pages/404.astro).

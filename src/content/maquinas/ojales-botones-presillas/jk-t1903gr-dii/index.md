@@ -14,10 +14,10 @@ especificaciones:
     valor: '1'
   - etiqueta: Hilos
     valor: '2'
-  - etiqueta: Diámetro de botón
-    valor: 9 - 22 mm
-  - etiqueta: Velocidad máxima
-    valor: 2.700 puntadas/min
+  - etiqueta: Diámetro de botón (mm)
+    valor: 9 - 22
+  - etiqueta: Velocidad máxima (puntadas/min)
+    valor: '2700'
   - etiqueta: Alimentación de botones
     valor: automática, con tolva
   - etiqueta: Motor

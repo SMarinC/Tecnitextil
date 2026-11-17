@@ -11,7 +11,9 @@ describe('seo content', () => {
   })
 
   it('home title fits in a search result (≤ 60 characters) and is the local title', () => {
-    expect(HOME_PAGE.title).toBe(`${COMPANY.name} | Reparación y venta de maquinaria textil`)
+    expect(HOME_PAGE.title).toBe(
+      `${COMPANY.name} | Reparación de máquinas de coser en ${COMPANY.region}`,
+    )
     expect(HOME_PAGE.title.length).toBeLessThanOrEqual(60)
   })
 

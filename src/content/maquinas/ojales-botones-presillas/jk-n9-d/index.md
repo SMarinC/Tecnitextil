@@ -9,8 +9,8 @@ disponibilidad: bajo-pedido
 fotos:
   - ./1.jpg
 especificaciones:
-  - etiqueta: Tamaño de ojal
-    valor: 25 mm
+  - etiqueta: Tamaño de ojal (mm)
+    valor: '25'
   - etiqueta: Placa de aguja
     valor: curva, de segunda generación
   - etiqueta: Adaptación de tejido
