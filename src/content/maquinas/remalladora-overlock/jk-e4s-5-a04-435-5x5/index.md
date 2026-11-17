@@ -22,10 +22,10 @@ especificaciones:
   - etiqueta: Longitud de puntada (mm)
     valor: '5'
   - etiqueta: Diferencial
-    valor: 0,8- 1,5
-  - etiqueta: Altura prensatelas (mm)
+    valor: 0,8 - 1,5
+  - etiqueta: Altura del prensatelas (mm)
     valor: '7'
-  - etiqueta: Velocidad (ppm)
+  - etiqueta: Velocidad máxima (puntadas/min)
     valor: '5500'
 ---
 

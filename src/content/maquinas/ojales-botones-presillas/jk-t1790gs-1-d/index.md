@@ -13,14 +13,14 @@ especificaciones:
     valor: '1'
   - etiqueta: Hilos
     valor: '2'
-  - etiqueta: Tamaño de ojal
-    valor: 25 x 4 mm
-  - etiqueta: Altura del prensatelas
-    valor: 17 mm
-  - etiqueta: Velocidad máxima
-    valor: 4.200 puntadas/min
-  - etiqueta: Longitud máxima de costura continua
-    valor: 120 mm
+  - etiqueta: Tamaño de ojal (mm)
+    valor: 25 x 4
+  - etiqueta: Altura del prensatelas (mm)
+    valor: '17'
+  - etiqueta: Velocidad máxima (puntadas/min)
+    valor: '4200'
+  - etiqueta: Longitud máxima de costura continua (mm)
+    valor: '120'
 ---
 
 La JK-T1790GS-1-D es una máquina de ojales electrónica con multicorte, pensada para un ojal de 25 mm en tejidos normales. Su motor paso a paso controla el arrastre de la tela, la barra de agujas y el alzaprensatelas con precisión.
