@@ -9,10 +9,10 @@ disponibilidad: bajo-pedido
 fotos:
   - ./1.jpg
 especificaciones:
-  - etiqueta: Ojal redondo
-    valor: 8 - 42 mm
-  - etiqueta: Ojal recto
-    valor: 5 - 42 mm
+  - etiqueta: Ojal redondo (mm)
+    valor: 8 - 42
+  - etiqueta: Ojal recto (mm)
+    valor: 5 - 42
   - etiqueta: Martillo
     valor: 22 mm, opcional hasta 30 mm
   - etiqueta: Motor
@@ -21,8 +21,8 @@ especificaciones:
     valor: LED integrada
   - etiqueta: Corte de hilo
     valor: en aguja y cortahílos inferior
-  - etiqueta: Mesa de alimentación
-    valor: 180 x 310 mm
+  - etiqueta: Mesa de alimentación (mm)
+    valor: 180 x 310
 ---
 
 La FJK-T9820G-01-D-T es una máquina de ojales electrónica para sastrería, capaz de hacer tanto el ojal redondo como el recto en un rango amplio de medidas, de 5 a 42 mm según el tipo. El martillo estándar es de 22 mm, con la opción de montar uno de hasta 30 mm.
