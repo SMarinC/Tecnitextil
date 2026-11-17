@@ -11,7 +11,7 @@ import {
   hasPendingLegalData,
 } from '../data/legal'
 import { AWNING_MACHINES } from '../data/awnings'
-import { HERO, SECTION_CARDS } from '../data/home'
+import { ABOUT, HERO, SECTION_CARDS, VALUE_PROPS } from '../data/home'
 import { CONTACT_SECTION_ID, NAV_ITEMS } from '../data/navigation'
 import {
   AWNINGS_PAGE,
@@ -24,7 +24,7 @@ import {
   SALES_CONDITIONS_PAGE,
   TECHNICAL_SERVICE_PAGE,
 } from '../data/pages'
-import { NOT_FOUND } from '../data/site'
+import { FINAL_CTA, NOT_FOUND } from '../data/site'
 import { TECHNICAL_SERVICE_HERO } from '../data/technicalService'
 import { OG_IMAGE_PATH, SITE_URL, absoluteUrl } from '../data/seo'
 import AwningsPage from '../pages/toldos.astro'
@@ -212,9 +212,20 @@ describe('home page', () => {
     const hero = heroSection()
     const h1Text = textContent(hero.match(/<h1[^>]*>[\s\S]*?<\/h1>/)?.[0] ?? '')
     expect(h1Text).toBe(HERO.title)
-    expect(HERO.title).not.toBe(HERO.aboutHeading)
-    const h2Text = textContent(hero.match(/<h2[^>]*>[\s\S]*?<\/h2>/)?.[0] ?? '')
-    expect(h2Text).toBe(HERO.aboutHeading)
+    // The hero is the title, the tagline and WhatsApp: "Quiénes somos" is its own section.
+    expect(hero).not.toMatch(/<h2[\s>]/)
+  })
+
+  it('orders its sections: why us, what you need, who we are, then contact', () => {
+    const headings = [...html[HOME_PAGE.path].matchAll(/<h2[^>]*>[\s\S]*?<\/h2>/g)].map(
+      ([heading]) => textContent(heading),
+    )
+    expect(headings).toEqual([
+      VALUE_PROPS.heading,
+      SECTION_CARDS.heading,
+      ABOUT.heading,
+      FINAL_CTA.heading,
+    ])
   })
 
   it('offers WhatsApp in the hero section', () => {

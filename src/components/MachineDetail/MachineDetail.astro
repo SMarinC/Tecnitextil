@@ -13,7 +13,8 @@ import WhatsAppCta from '../WhatsAppCta/WhatsAppCta.astro'
 import styles from './MachineDetail.module.css'
 
 // A machine's page body. The summary with its WhatsApp enquiry comes before the gallery,
-// so the call to action is in view on phones. The Markdown description is the default slot.
+// so the call to action is in view on phones. The Markdown description is the default slot:
+// after the gallery on phones, under the summary and beside the gallery on wider screens.
 interface Props {
   machine: Machine
   family: MachineFamily
@@ -52,10 +53,12 @@ const { machine, family } = Astro.props
         </dl>
         {family.includes && <p class={styles.includes}>{family.includes}</p>}
       </div>
-      <MachineGallery machine={machine} />
-    </div>
-    <div class={styles.description}>
-      <slot />
+      <div class={styles.media}>
+        <MachineGallery machine={machine} />
+      </div>
+      <div class={styles.description}>
+        <slot />
+      </div>
     </div>
     <section class={styles.block} aria-labelledby="especificaciones">
       <h2 id="especificaciones" class={styles.heading}>

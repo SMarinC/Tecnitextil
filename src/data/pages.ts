@@ -11,17 +11,15 @@ export interface PageMeta {
 
 export const HOME_PAGE: PageMeta = {
   path: '/',
-  title: `${COMPANY.name} | Reparación y venta de maquinaria textil`,
-  description:
-    'TECNITEXTIL: reparación de máquinas de coser industriales y de toldos automatizadas, corte y confección en toda España. +20 años. Recogida a domicilio.',
+  title: `${COMPANY.name} | Reparación de máquinas de coser en ${COMPANY.region}`,
+  description: `Reparación de máquinas de coser industriales y de toldos automatizadas en ${COMPANY.region} y ${COMPANY.coverage}. Venta de máquinas JACK. Más de ${COMPANY.yearsOfExperience} años. Recogida a domicilio.`,
   noindex: false,
 }
 
 export const TECHNICAL_SERVICE_PAGE: PageMeta = {
   path: '/servicio-tecnico',
-  title: `Servicio técnico de maquinaria textil | ${COMPANY.name}`,
-  description:
-    'Reparación y mantenimiento de máquinas de coser industriales y domésticas, equipos de corte y auxiliares de cualquier marca. Recogida a domicilio en toda España.',
+  title: `Servicio técnico de máquinas de coser en ${COMPANY.region} | ${COMPANY.name}`,
+  description: `Reparación y mantenimiento de máquinas de coser industriales y domésticas y de equipos de corte, de cualquier marca. Recogida en ${COMPANY.region} y ${COMPANY.coverage}.`,
   noindex: false,
 }
 

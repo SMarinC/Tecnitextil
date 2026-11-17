@@ -1,4 +1,6 @@
 import { describe, expect, it } from 'vitest'
+import { PHONE_DISPLAY, PHONE_TEL } from '../../data/contact'
+import { PHONE_CTA } from '../../data/site'
 import { renderToHtml } from '../../test/render'
 import Header from './Header.astro'
 
@@ -22,5 +24,13 @@ describe('Header', () => {
 
   it('does not mark a page whose path only starts with the same letters', async () => {
     expect(await current('/maquinaria')).toEqual([])
+  })
+
+  it('offers one call link, named with what it does and the number it calls', async () => {
+    const html = await renderToHtml(Header, { currentPath: '/' })
+    const links = html.match(/<a[^>]*href="tel:[^"]*"[^>]*>/g) ?? []
+    expect(links).toHaveLength(1)
+    expect(links[0]).toContain(`href="${PHONE_TEL}"`)
+    expect(links[0]).toContain(`aria-label="${PHONE_CTA.callLabel} ${PHONE_DISPLAY}"`)
   })
 })

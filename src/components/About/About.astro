@@ -1,0 +1,15 @@
+---
+import { ABOUT } from '../../data/home'
+import styles from './About.module.css'
+---
+
+<section class={styles.section} aria-labelledby="quienes-somos">
+  <div class={styles.inner}>
+    <h2 id="quienes-somos" class={styles.heading}>
+      {ABOUT.heading}
+    </h2>
+    {ABOUT.paragraphs.map((paragraph) => (
+      <p class={styles.paragraph}>{paragraph}</p>
+    ))}
+  </div>
+</section>
