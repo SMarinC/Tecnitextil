@@ -10,12 +10,14 @@ test.beforeEach(async ({ page }) => {
 })
 
 test.describe('navigation', () => {
-  test('menu jumps are smooth unless reduced motion is preferred', async ({ page }) => {
+  test('menu jumps are smooth once the page has loaded, unless reduced motion is preferred', async ({
+    page,
+  }) => {
     const scrollBehavior = () =>
       page.evaluate(() => getComputedStyle(document.documentElement).scrollBehavior)
 
     await page.emulateMedia({ reducedMotion: 'no-preference' })
-    expect(await scrollBehavior()).toBe('smooth')
+    await expect.poll(scrollBehavior).toBe('smooth')
     await page.emulateMedia({ reducedMotion: 'reduce' })
     expect(await scrollBehavior()).toBe('auto')
   })
