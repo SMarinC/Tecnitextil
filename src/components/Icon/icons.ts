@@ -25,6 +25,8 @@ export const ICON_MARKUP = {
   whatsApp: `<path d="M12 3a9 9 0 0 0-7.75 13.5L3 21l4.5-1.25A9 9 0 1 0 12 3z" /><path fill="currentColor" stroke="none" transform="translate(8,6) scale(0.42)" d="${HANDSET_PATH}" />`,
   phone: `<path d="${HANDSET_PATH}" />`,
   mail: '<rect x="3" y="5" width="18" height="14" rx="2" /><path d="m4 7 8 6 8-6" />',
+  chevronLeft: '<path d="m15 5-7 7 7 7" />',
+  chevronRight: '<path d="m9 5 7 7-7 7" />',
   menu: '<path d="M3 6h18M3 12h18M3 18h18" />',
   close: '<path d="M6 6l12 12M18 6L6 18" />',
 }

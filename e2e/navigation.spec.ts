@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test'
 import { DESKTOP_BREAKPOINT_PX } from '../src/lib/breakpoints'
+import { REVIEWS } from '../src/data/home'
 import { CONTACT_SECTION_ID, MENU_TOGGLE_LABELS } from '../src/data/navigation'
 import { AWNINGS_PAGE, TECHNICAL_SERVICE_PAGE } from '../src/data/pages'
 import { TITLES, box, navLabel, openMenu } from './support'
@@ -189,5 +190,31 @@ test.describe('navigation', () => {
         )
         .toBe(true)
     }
+  })
+
+  test('the review arrows page through the strip and stop at either end', async ({ page }) => {
+    // Motion off, so each click lands at once and the positions can be read right away.
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await page.reload()
+    const strip = page.getByRole('list', { name: REVIEWS.carouselLabel })
+    const previous = page.getByRole('button', { name: REVIEWS.previousLabel })
+    const next = page.getByRole('button', { name: REVIEWS.nextLabel })
+    await strip.scrollIntoViewIfNeeded()
+
+    await expect(previous).toBeDisabled()
+    await expect(next).toBeEnabled()
+    await next.click()
+    await expect.poll(() => strip.evaluate((list) => list.scrollLeft)).toBeGreaterThan(0)
+    await expect(previous).toBeEnabled()
+
+    // To the end: the next arrow turns off there.
+    for (let step = 0; step < REVIEWS.items.length && (await next.isEnabled()); step++) {
+      await next.click()
+    }
+    await expect(next).toBeDisabled()
+    const atEnd = await strip.evaluate(
+      (list) => list.scrollLeft + list.clientWidth >= list.scrollWidth - 1,
+    )
+    expect(atEnd).toBe(true)
   })
 })
