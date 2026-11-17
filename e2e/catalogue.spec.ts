@@ -82,10 +82,10 @@ test.describe('catalogue', () => {
   test("the breadcrumb leads from a machine back to its type on its category's page", async ({
     page,
   }) => {
-    // This checks where the link leads, not the animation. With smooth scrolling on, WebKit
-    // under parallel load sometimes stops a cross-page jump to an anchor halfway (scrollY
-    // 1245–1902 of 3091, measured 2026-11-17; it happened on main too).
-    await page.emulateMedia({ reducedMotion: 'reduce' })
+    // With motion allowed: smooth scrolling only turns on after load (src/lib/smoothScroll.ts),
+    // so this cross-page jump to an anchor lands in one go. With smooth scrolling from the
+    // start, WebKit under load sometimes stopped it halfway (2026-11-17).
+    await page.emulateMedia({ reducedMotion: 'no-preference' })
     await page.goto(SAMPLE_MACHINE)
     await page
       .getByRole('navigation', { name: CATALOG_COPY.breadcrumbLabel })

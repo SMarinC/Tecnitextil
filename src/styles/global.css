@@ -53,9 +53,11 @@ a {
   color: inherit;
 }
 
-/* Menu anchors scroll smoothly, except for people who asked their system to reduce motion. */
+/* Jumps within a page scroll smoothly, except for people who asked their system to reduce
+   motion. The attribute is set once the page has loaded (src/lib/smoothScroll.ts), so
+   arriving from another page at an anchor is an instant jump. */
 @media (prefers-reduced-motion: no-preference) {
-  html {
+  html[data-smooth-scroll] {
     scroll-behavior: smooth;
   }
 }

@@ -65,8 +65,10 @@ const url = absoluteUrl(page.path)
     <slot />
     <script>
       import { initAnalytics } from '../lib/analytics'
+      import { enableSmoothScrollAfterLoad } from '../lib/smoothScroll'
 
       initAnalytics()
+      enableSmoothScrollAfterLoad()
     </script>
   </body>
 </html>
