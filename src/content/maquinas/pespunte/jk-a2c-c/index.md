@@ -20,19 +20,19 @@ especificaciones:
   - etiqueta: Longitud de puntada (mm)
     valor: '5'
   - etiqueta: Altura del prensatelas (mm)
-    valor: 1-13
-  - etiqueta: Velocidad costura (s.p.m)
+    valor: 1 - 13
+  - etiqueta: Velocidad máxima (puntadas/min)
     valor: '5000'
-  - etiqueta: Fino
+  - etiqueta: Tejido fino
     valor: Sí
-  - etiqueta: Medio
+  - etiqueta: Tejido medio
     valor: Sí
-  - etiqueta: Grueso
+  - etiqueta: Tejido grueso
     valor: No
   - etiqueta: Volumen (mm)
     valor: 645x248x550
-  - etiqueta: Peso Kg
-    valor: 30/36.5
+  - etiqueta: Peso (kg)
+    valor: 30/36,5
 ---
 
 La Jack A2C es una máquina de coser industrial de alto rendimiento diseñada para profesionales que buscan velocidad, precisión y durabilidad. Diseñada con corte automático de hilo y motor de mayor potencia.

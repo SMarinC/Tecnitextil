@@ -14,12 +14,12 @@ especificaciones:
     valor: '1'
   - etiqueta: Hilos
     valor: '1'
-  - etiqueta: Longitud de puntada
-    valor: 10 - 28 mm
-  - etiqueta: Altura del prensatelas
-    valor: 10 mm
-  - etiqueta: Velocidad máxima
-    valor: 1.500 puntadas/min
+  - etiqueta: Longitud de puntada (mm)
+    valor: 10 - 28
+  - etiqueta: Altura del prensatelas (mm)
+    valor: '10'
+  - etiqueta: Velocidad máxima (puntadas/min)
+    valor: '1500'
   - etiqueta: Alimentación de botones
     valor: tolva automática
 ---

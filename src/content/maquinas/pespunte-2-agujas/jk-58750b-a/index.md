@@ -16,14 +16,14 @@ especificaciones:
     valor: '2'
   - etiqueta: Longitud de puntada (mm)
     valor: '5'
-  - etiqueta: Altura prensatelas (mm)
+  - etiqueta: Altura del prensatelas (mm)
     valor: 5 - 13
-  - etiqueta: Velocidad (ppm)
+  - etiqueta: Velocidad máxima (puntadas/min)
     valor: '5000'
   - etiqueta: Tejido fino
-    valor: X
+    valor: Sí
   - etiqueta: Tejido medio
-    valor: X
+    valor: Sí
 ---
 
 Equipada con doble arrastre, garfios de gran capacidad, luz LED integrada y motor Direct Drive.
